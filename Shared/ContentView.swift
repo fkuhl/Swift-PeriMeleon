@@ -11,7 +11,10 @@ struct ContentView: View {
     @Binding var document: PeriMeleonDocument
 
     var body: some View {
-        TextEditor(text: $document.text)
+        VStack {
+            Text("hi there")
+            HouseholdsView(households: document.households)
+        }
     }
 }
 

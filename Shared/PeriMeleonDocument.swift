@@ -7,33 +7,54 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
+import PMDataTypes
 
 extension UTType {
-    static var exampleText: UTType {
-        UTType(importedAs: "com.example.plain-text")
-    }
+    static let periMeleonRollsDocument = UTType(exportedAs: "com.tyndalesoft.PeriMeleon.rolls")
 }
 
 struct PeriMeleonDocument: FileDocument {
-    var text: String
+    var households = [Household]()
 
-    init(text: String = "Hello, world!") {
-        self.text = text
+    static var readableContentTypes: [UTType] { [.periMeleonRollsDocument] }
+    
+    init() {
+        self.households = [Household]()
+    }
+    
+    init(fileWrapper: FileWrapper, contentType: UTType) throws {
+        if let data = fileWrapper.regularFileContents {
+            self.households = try jsonDecoder.decode([Household].self, from: data)
+            NSLog("read \(self.households.count) households")
+        }
     }
 
-    static var readableContentTypes: [UTType] { [.exampleText] }
 
     init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents,
-              let string = String(data: data, encoding: .utf8)
+        guard let data = configuration.file.regularFileContents
         else {
-            throw CocoaError(.fileReadCorruptFile)
+            NSLog("corrupt file")
+            return
         }
-        text = string
+        do {
+            self.households = try jsonDecoder.decode([Household].self, from: data)
+            NSLog("read \(self.households.count) households")
+        } catch {
+            let err = error as! DecodingError
+            NSLog("decode error \(err)")
+        }
+    }
+    
+    //which of these?
+    func write(to fileWrapper: inout FileWrapper, contentType: UTType) throws {
+        let data = try jsonEncoder.encode(self.households)
+        NSLog("writing \(data.count) bytes")
+        fileWrapper = FileWrapper(regularFileWithContents: data)
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let data = text.data(using: .utf8)!
+        let data = try jsonEncoder.encode(self.households)
+        NSLog("writing \(data.count) bytes")
         return .init(regularFileWithContents: data)
     }
 }

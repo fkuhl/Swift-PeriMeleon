@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2703A95525001B2C00BB0061 /* PMDataTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 2703A95425001B2C00BB0061 /* PMDataTypes */; };
+		2703A95825001D3000BB0061 /* HouseholdsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703A95725001D3000BB0061 /* HouseholdsView.swift */; };
+		2703A95A25001DD400BB0061 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703A95925001DD400BB0061 /* HouseholdRowView.swift */; };
 		276B9746250008DB003E19BA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9745250008DB003E19BA /* Tests_iOS.swift */; };
 		276B9751250008DB003E19BA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9750250008DB003E19BA /* Tests_macOS.swift */; };
 		276B9753250008DB003E19BA /* PeriMeleonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9729250008DA003E19BA /* PeriMeleonApp.swift */; };
@@ -17,6 +20,8 @@
 		276B9758250008DB003E19BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B972B250008DA003E19BA /* ContentView.swift */; };
 		276B9759250008DB003E19BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276B972C250008DB003E19BA /* Assets.xcassets */; };
 		276B975A250008DB003E19BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276B972C250008DB003E19BA /* Assets.xcassets */; };
+		27C6B4A42506ADD20086181F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4A32506ADD20086181F /* README.md */; };
+		27C6B4A52506ADD20086181F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4A32506ADD20086181F /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2703A95725001D3000BB0061 /* HouseholdsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseholdsView.swift; sourceTree = "<group>"; };
+		2703A95925001DD400BB0061 /* HouseholdRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseholdRowView.swift; sourceTree = "<group>"; };
 		276B9729250008DA003E19BA /* PeriMeleonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonApp.swift; sourceTree = "<group>"; };
 		276B972A250008DA003E19BA /* PeriMeleonDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonDocument.swift; sourceTree = "<group>"; };
 		276B972B250008DA003E19BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +59,7 @@
 		276B974C250008DB003E19BA /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		276B9750250008DB003E19BA /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		276B9752250008DB003E19BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27C6B4A32506ADD20086181F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2703A95525001B2C00BB0061 /* PMDataTypes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +95,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2703A95625001C8100BB0061 /* Households */ = {
+			isa = PBXGroup;
+			children = (
+				2703A95725001D3000BB0061 /* HouseholdsView.swift */,
+				2703A95925001DD400BB0061 /* HouseholdRowView.swift */,
+			);
+			name = Households;
+			sourceTree = "<group>";
+		};
 		276B9723250008DA003E19BA = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +119,8 @@
 		276B9728250008DA003E19BA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				27C6B4A32506ADD20086181F /* README.md */,
+				2703A95625001C8100BB0061 /* Households */,
 				276B9729250008DA003E19BA /* PeriMeleonApp.swift */,
 				276B972A250008DA003E19BA /* PeriMeleonDocument.swift */,
 				276B972B250008DA003E19BA /* ContentView.swift */,
@@ -171,6 +191,9 @@
 			dependencies = (
 			);
 			name = "PeriMeleon (iOS)";
+			packageProductDependencies = (
+				2703A95425001B2C00BB0061 /* PMDataTypes */,
+			);
 			productName = "PeriMeleon (iOS)";
 			productReference = 276B9731250008DB003E19BA /* PeriMeleon.app */;
 			productType = "com.apple.product-type.application";
@@ -262,6 +285,9 @@
 				Base,
 			);
 			mainGroup = 276B9723250008DA003E19BA;
+			packageReferences = (
+				2703A95325001B2C00BB0061 /* XCRemoteSwiftPackageReference "PMDataTypes" */,
+			);
 			productRefGroup = 276B9732250008DB003E19BA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -279,6 +305,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27C6B4A42506ADD20086181F /* README.md in Resources */,
 				276B9759250008DB003E19BA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,6 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27C6B4A52506ADD20086181F /* README.md in Resources */,
 				276B975A250008DB003E19BA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +340,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2703A95825001D3000BB0061 /* HouseholdsView.swift in Sources */,
+				2703A95A25001DD400BB0061 /* HouseholdRowView.swift in Sources */,
 				276B9755250008DB003E19BA /* PeriMeleonDocument.swift in Sources */,
 				276B9753250008DB003E19BA /* PeriMeleonApp.swift in Sources */,
 				276B9757250008DB003E19BA /* ContentView.swift in Sources */,
@@ -489,7 +519,7 @@
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -511,7 +541,7 @@
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -702,6 +732,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2703A95325001B2C00BB0061 /* XCRemoteSwiftPackageReference "PMDataTypes" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:fkuhl/PMDataTypes.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2703A95425001B2C00BB0061 /* PMDataTypes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2703A95325001B2C00BB0061 /* XCRemoteSwiftPackageReference "PMDataTypes" */;
+			productName = PMDataTypes;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 276B9724250008DA003E19BA /* Project object */;
 }
