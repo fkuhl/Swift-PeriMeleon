@@ -12,7 +12,6 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            Text("hi there")
             HouseholdsView(households: document.households)
         }
     }
