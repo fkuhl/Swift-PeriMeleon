@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct HouseholdsView: View {
-    var households: [Household]
+    @Binding var households: [Household]
     @State private var allOrActive = 0
 
     var body: some View {
@@ -22,8 +22,9 @@ struct HouseholdsView: View {
                         Text("Active Households").tag(1)
                 }).pickerStyle(SegmentedPickerStyle())
                 List {
-                    ForEach(allOrActive == 0 ? households : households, id: \.id) {
-                        HouseholdRowView(item: $0)
+                    ForEach(households.indices) {
+                        index in
+                        HouseholdRowView(item: $households[index])
                     }
                 }
             }

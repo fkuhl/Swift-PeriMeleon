@@ -12,7 +12,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            HouseholdsView(households: document.households)
+            HouseholdsView(households: $document.households)
         }
     }
 }

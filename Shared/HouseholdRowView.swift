@@ -9,10 +9,10 @@ import SwiftUI
 import PMDataTypes
 
 struct HouseholdRowView: View {
-    var item: Household
+    @Binding var item: Household
     
     var body: some View {
-        Text(item.head.fullName()).font(.body)
+        TextField("name:", text: $item.head.familyName).font(.body)
     }
 }
 
