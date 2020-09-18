@@ -8,6 +8,8 @@
 import SwiftUI
 import UniformTypeIdentifiers
 import PMDataTypes
+import CryptoKit
+import CommonCrypto
 
 extension UTType {
     static let periMeleonRollsDocument = UTType(exportedAs: "com.tyndalesoft.PeriMeleon.rolls")
@@ -16,8 +18,9 @@ extension UTType {
 struct PeriMeleonDocument: FileDocument {
     enum State {
         case noKey
-        case cannotRead(errorDescription: String)
-        case cannnotDecrypt
+        case cannotRead
+        case cannotDecrypt(errorDescription: String)
+        case cannotDecode(errorDescription: String)
         case normal
     }
     static var readableContentTypes: [UTType] { [.periMeleonRollsDocument] }
@@ -36,33 +39,62 @@ struct PeriMeleonDocument: FileDocument {
     var activeMembers: [Member] { members.filter{ $0.status.isActive()} }
     private var internalState: State = .normal
     var state: State { get { internalState }}
+    private var key = makeKey()
 
     init() {
         self.households = [Household]()
     }
 
     init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents
+        guard let decryptionKey = key else {
+            NSLog("no key")
+            internalState = .noKey
+            households = [Household]()
+            return
+        }
+        guard let encryptedContent = configuration.file.regularFileContents
         else {
+            internalState = .cannotRead
+            households = [Household]()
             NSLog("corrupt file")
             return
         }
+        let decryptedContent: Data
         do {
-            let unsortedHouseholds = try jsonDecoder.decode([Household].self, from: data)
+            let sealedBox = try ChaChaPoly.SealedBox(combined: encryptedContent)
+            decryptedContent = try ChaChaPoly.open(sealedBox, using: decryptionKey)
+        } catch {
+            NSLog("cannot decrypt: \(error.localizedDescription)")
+            internalState = .cannotDecrypt(errorDescription: error.localizedDescription)
+            households = [Household]()
+            return
+        }
+        do {
+            let unsortedHouseholds = try jsonDecoder.decode([Household].self, from: decryptedContent)
             households = unsortedHouseholds.sorted {
                 $0.head.fullName() < $1.head.fullName()
             }
             NSLog("read \(self.households.count) households from init config")
         } catch {
             let err = error as! DecodingError
-            NSLog("decode error \(err)")
+            NSLog("cannot decode \(err)")
+            internalState = .cannotDecode(errorDescription: "decode error \(err)")
+            return
         }
     }
     
+    enum WriteError: Error {
+        case noKey
+    }
+    
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let data = try jsonEncoder.encode(self.households)
-        NSLog("writing \(data.count) bytes")
-        return .init(regularFileWithContents: data)
+        guard let encryptionKey = key else {
+            throw WriteError.noKey
+        }
+        let unencryptedData = try jsonEncoder.encode(self.households)
+        let encryptedData = try ChaChaPoly.seal(unencryptedData, using: encryptionKey).combined
+        NSLog("writing \(encryptedData.count) bytes")
+        return .init(regularFileWithContents: encryptedData)
     }
     
     private func pullMembers(from households: [Household]) -> [Member] {
@@ -76,4 +108,16 @@ struct PeriMeleonDocument: FileDocument {
         }
         return members
     }
+}
+
+fileprivate func makeKey() -> SymmetricKey? {
+    let nullSalt = Data()
+    #warning("hide the password!")
+    if let keyData = pbkdf2(hash: CCPBKDFAlgorithm(kCCPBKDF2),
+                          password: "1234",
+                          salt: nullSalt,
+                          keyByteCount: 32, //256 bits
+                          rounds: 8) {
+        return SymmetricKey(data: keyData)
+    } else { return nil }
 }
