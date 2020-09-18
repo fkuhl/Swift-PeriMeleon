@@ -23,7 +23,6 @@ struct PeriMeleonDocument: FileDocument {
     static var readableContentTypes: [UTType] { [.periMeleonRollsDocument] }
     static var writableContentTypes: [UTType] { [.periMeleonRollsDocument] }
 
-    var state: State = .normal
     var households = [Household]()
     var activeHouseholds: [Household] {
         get {  households.filter { $0.head.status.isActive() }  }
@@ -35,6 +34,8 @@ struct PeriMeleonDocument: FileDocument {
         }
     }
     var activeMembers: [Member] { members.filter{ $0.status.isActive()} }
+    private var internalState: State = .normal
+    var state: State { get { internalState }}
 
     init() {
         self.households = [Household]()
