@@ -12,6 +12,8 @@
 		2703A95A25001DD400BB0061 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2703A95925001DD400BB0061 /* HouseholdRowView.swift */; };
 		272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
 		272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
+		272F7235251672F8009E4CF3 /* Encryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F7234251672F8009E4CF3 /* Encryptor.swift */; };
+		272F7236251672F8009E4CF3 /* Encryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F7234251672F8009E4CF3 /* Encryptor.swift */; };
 		276B9746250008DB003E19BA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9745250008DB003E19BA /* Tests_iOS.swift */; };
 		276B9751250008DB003E19BA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9750250008DB003E19BA /* Tests_macOS.swift */; };
 		276B9753250008DB003E19BA /* PeriMeleonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9729250008DA003E19BA /* PeriMeleonApp.swift */; };
@@ -47,6 +49,7 @@
 		2703A95725001D3000BB0061 /* HouseholdsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseholdsView.swift; sourceTree = "<group>"; };
 		2703A95925001DD400BB0061 /* HouseholdRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseholdRowView.swift; sourceTree = "<group>"; };
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
+		272F7234251672F8009E4CF3 /* Encryptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encryptor.swift; sourceTree = "<group>"; };
 		276B9729250008DA003E19BA /* PeriMeleonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonApp.swift; sourceTree = "<group>"; };
 		276B972A250008DA003E19BA /* PeriMeleonDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonDocument.swift; sourceTree = "<group>"; };
 		276B972B250008DA003E19BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 				276B972B250008DA003E19BA /* ContentView.swift */,
 				276B972C250008DB003E19BA /* Assets.xcassets */,
 				272F722D251533BD009E4CF3 /* CryptoKey.swift */,
+				272F7234251672F8009E4CF3 /* Encryptor.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -344,6 +348,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				272F7235251672F8009E4CF3 /* Encryptor.swift in Sources */,
 				272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */,
 				2703A95825001D3000BB0061 /* HouseholdsView.swift in Sources */,
 				2703A95A25001DD400BB0061 /* HouseholdRowView.swift in Sources */,
@@ -359,6 +364,7 @@
 			files = (
 				272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */,
 				276B9756250008DB003E19BA /* PeriMeleonDocument.swift in Sources */,
+				272F7236251672F8009E4CF3 /* Encryptor.swift in Sources */,
 				276B9754250008DB003E19BA /* PeriMeleonApp.swift in Sources */,
 				276B9758250008DB003E19BA /* ContentView.swift in Sources */,
 			);
