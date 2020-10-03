@@ -33,16 +33,20 @@ struct Encryptor {
     var activeMembers: [Member] { members.filter{ $0.status.isActive()} }
     private var internalState: State = .normal
     var state: State { get { internalState }}
-    private var key = makeKey()
-    private var encryptedData = Data()
+    #warning("hide the password!")
+    private var key = makeKey(password: "123")
+    private var encryptedData: Data
+    private var dataCouldHaveChanged = false
 
     init() {
+        NSLog("Encryptor init no data")
         self.households = [Household]()
         self.encryptedData = Data()
         self.internalState = .normal
     }
     
     init(data: Data?) {
+        NSLog("Encryptor init \(data?.count ?? 0) bytes")
         guard let readData = data else {
             self.households = [Household]()
             self.encryptedData = Data()
@@ -58,10 +62,15 @@ struct Encryptor {
             households = [Household]()
             return
         }
+        decryptAndDecode(key: decryptionKey)
+    }
+    
+    mutating private func decryptAndDecode(key: SymmetricKey) {
         let decryptedContent: Data
         do {
             let sealedBox = try ChaChaPoly.SealedBox(combined: encryptedData)
-            decryptedContent = try ChaChaPoly.open(sealedBox, using: decryptionKey)
+            decryptedContent = try ChaChaPoly.open(sealedBox, using: key)
+            dataCouldHaveChanged = true
         } catch {
             NSLog("cannot decrypt: \(error.localizedDescription)")
             internalState = .cannotDecrypt
@@ -74,6 +83,7 @@ struct Encryptor {
                 $0.head.fullName() < $1.head.fullName()
             }
             NSLog("read \(self.households.count) households from init config")
+            internalState = .normal
         } catch {
             let err = error as! DecodingError
             NSLog("cannot decode \(err)")
@@ -99,6 +109,12 @@ struct Encryptor {
             self.internalState = .passwordEntriesDoNotMatch
             return
         }
+        key = makeKey(password: firstAttempt)
+        if let decryptionKey = key {
+            decryptAndDecode(key: decryptionKey)
+        } else {
+            internalState = .noKey
+        }
     }
     
     enum WriteError: Error {
@@ -106,6 +122,10 @@ struct Encryptor {
     }
 
     func encrypt() throws -> Data {
+        if !dataCouldHaveChanged {
+            NSLog("data could not have changed")
+            return encryptedData
+        }
         guard let encryptionKey = key else {
             throw WriteError.noKey
         }
@@ -116,11 +136,10 @@ struct Encryptor {
     }
 }
 
-fileprivate func makeKey() -> SymmetricKey? {
+fileprivate func makeKey(password: String) -> SymmetricKey? {
     let nullSalt = Data()
-    #warning("hide the password!")
     if let keyData = pbkdf2(hash: CCPBKDFAlgorithm(kCCPBKDF2),
-                            password: "1234",
+                            password: password,
                             salt: nullSalt,
                             keyByteCount: 32, //256 bits
                             rounds: 8) {

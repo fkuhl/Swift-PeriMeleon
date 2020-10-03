@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     @Binding var document: PeriMeleonDocument
-    @State var firstAttempt = ""
-    @State var secondAttempt = ""
 
     var body: some View {
         switch (document.encryptor.state) {
@@ -19,29 +17,42 @@ struct ContentView: View {
                 HouseholdsView(households: $document.encryptor.households)
             }
         case .noKey:
-            Text("no key!")
+            PasswordView(label: "No key!", document: $document)
         case .cannotRead:
             Text("cant read")
         case .cannotDecrypt:
-            VStack {
-            Text("Unable to decrypt file; please provide another password.")
-                TextField("", text: $firstAttempt)
-                TextField("", text: $secondAttempt)
-                Button(action: {
-                    document.encryptor.tryPassword(firstAttempt: firstAttempt,
-                                                   secondAttempt: secondAttempt)
-                }) {
-                    Text("Do It")
-                }
-            }.padding()
+            PasswordView(label: "Unable to decrypt file; please provide another password.", document: $document)
         case .cannotDecode(let description):
             VStack{
                 Text("cannot read!")
                 Text(description)
             }
         case .passwordEntriesDoNotMatch:
-            Text("dont match")
+            PasswordView(label: "Passwords didn't match.", document: $document)
         }
+    }
+}
+
+struct PasswordView: View {
+    var label: String
+    @Binding var document: PeriMeleonDocument
+    @State var firstAttempt = ""
+    @State var secondAttempt = ""
+
+    var body: some View {
+        VStack {
+            Text(label)
+            TextField("type password", text: $firstAttempt)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            TextField("re-type password", text: $secondAttempt)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            Button(action: {
+                document.encryptor.tryPassword(firstAttempt: firstAttempt,
+                                               secondAttempt: secondAttempt)
+            }) {
+                Text("Decrypt")
+            }
+        }.padding()
     }
 }
 

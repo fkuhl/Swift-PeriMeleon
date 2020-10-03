@@ -8,8 +8,6 @@
 import SwiftUI
 import UniformTypeIdentifiers
 import PMDataTypes
-import CryptoKit
-import CommonCrypto
 
 extension UTType {
     static let periMeleonRollsDocument = UTType(exportedAs: "com.tyndalesoft.PeriMeleon.rolls")
