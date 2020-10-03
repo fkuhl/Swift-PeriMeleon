@@ -1,5 +1,5 @@
 //
-//  Encryptor.swift
+//  PeriMeleonContent.swift
 //  PeriMeleon
 //
 //  Created by Frederick Kuhl on 9/19/20.
@@ -10,7 +10,7 @@ import PMDataTypes
 import CryptoKit
 import CommonCrypto
 
-struct Encryptor {
+struct PeriMeleonContent {
     enum State: Equatable {
         case noKey
         case cannotRead
@@ -39,14 +39,14 @@ struct Encryptor {
     private var dataCouldHaveChanged = false
 
     init() {
-        NSLog("Encryptor init no data")
+        NSLog("PeriMeleonContent init no data")
         self.households = [Household]()
         self.encryptedData = Data()
         self.internalState = .normal
     }
     
     init(data: Data?) {
-        NSLog("Encryptor init \(data?.count ?? 0) bytes")
+        NSLog("PeriMeleonContent init \(data?.count ?? 0) bytes")
         guard let readData = data else {
             self.households = [Household]()
             self.encryptedData = Data()
@@ -71,6 +71,7 @@ struct Encryptor {
             let sealedBox = try ChaChaPoly.SealedBox(combined: encryptedData)
             decryptedContent = try ChaChaPoly.open(sealedBox, using: key)
             dataCouldHaveChanged = true
+            //No point in hanging on to what worked, as this whole struct gets replaced.
         } catch {
             NSLog("cannot decrypt: \(error.localizedDescription)")
             internalState = .cannotDecrypt

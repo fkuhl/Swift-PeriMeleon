@@ -17,18 +17,18 @@ struct PeriMeleonDocument: FileDocument {
     static var readableContentTypes: [UTType] { [.periMeleonRollsDocument] }
     static var writableContentTypes: [UTType] { [.periMeleonRollsDocument] }
     
-    var encryptor: Encryptor
+    var content: PeriMeleonContent
     
     init() {
-        encryptor = Encryptor()
+        content = PeriMeleonContent()
     }
 
     init(configuration: ReadConfiguration) throws {
         let encryptedContent = configuration.file.regularFileContents
-        encryptor = Encryptor(data: encryptedContent)
+        content = PeriMeleonContent(data: encryptedContent)
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        return .init(regularFileWithContents: try encryptor.encrypt())
+        return .init(regularFileWithContents: try content.encrypt())
     }
 }

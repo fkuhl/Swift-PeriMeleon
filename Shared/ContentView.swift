@@ -11,10 +11,10 @@ struct ContentView: View {
     @Binding var document: PeriMeleonDocument
 
     var body: some View {
-        switch (document.encryptor.state) {
+        switch (document.content.state) {
         case .normal:
             VStack {
-                HouseholdsView(households: $document.encryptor.households)
+                HouseholdsView(households: $document.content.households)
             }
         case .noKey:
             PasswordView(label: "No key!", document: $document)
@@ -42,12 +42,12 @@ struct PasswordView: View {
     var body: some View {
         VStack {
             Text(label)
-            TextField("type password", text: $firstAttempt)
+            SecureField("type password", text: $firstAttempt)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            TextField("re-type password", text: $secondAttempt)
+            SecureField("re-type password", text: $secondAttempt)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
             Button(action: {
-                document.encryptor.tryPassword(firstAttempt: firstAttempt,
+                document.content.tryPassword(firstAttempt: firstAttempt,
                                                secondAttempt: secondAttempt)
             }) {
                 Text("Decrypt")
