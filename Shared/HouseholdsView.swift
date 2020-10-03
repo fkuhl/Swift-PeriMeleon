@@ -1,17 +1,17 @@
 //
-//  HouseholdsView.swift
-//  PeriMeleon (iOS)
+//  HouseholdView.swift
+//  PMClient
 //
-//  Created by Frederick Kuhl on 9/2/20.
+//  Created by Frederick Kuhl on 12/23/19.
+//  Copyright © 2019 TyndaleSoft LLC. All rights reserved.
 //
 
 import SwiftUI
-import PMDataTypes
 
 struct HouseholdsView: View {
-    @Binding var households: [Household]
+    @ObservedObject var dataFetcher = DataFetcher.sharedInstance
     @State private var allOrActive = 0
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -22,9 +22,8 @@ struct HouseholdsView: View {
                         Text("Active Households").tag(1)
                 }).pickerStyle(SegmentedPickerStyle())
                 List {
-                    ForEach(households.indices) {
-                        index in
-                        HouseholdRowView(item: $households[index])
+                    ForEach(allOrActive == 0 ? dataFetcher.sortedHouseholds : dataFetcher.activeHouseholds, id: \.id) {
+                        HouseholdRowView(item: $0)
                     }
                 }
             }
@@ -33,8 +32,8 @@ struct HouseholdsView: View {
     }
 }
 
-//struct HouseholdsView_Previews: PreviewProvider {
+//struct HouseholdView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        HouseholdsView()
+//        HouseholdsView().environmentObject(HouseholdFetcher.mockedInstance)
 //    }
 //}

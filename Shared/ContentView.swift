@@ -13,9 +13,7 @@ struct ContentView: View {
     var body: some View {
         switch (document.content.state) {
         case .normal:
-            VStack {
-                HouseholdsView(households: $document.content.households)
-            }
+            MainView(document: $document)
         case .noKey:
             PasswordView(label: "No key!", document: $document)
         case .cannotRead:
@@ -29,6 +27,44 @@ struct ContentView: View {
             }
         case .passwordEntriesDoNotMatch:
             PasswordView(label: "Passwords didn't match.", document: $document)
+        }
+    }
+}
+
+struct MainView: View {
+    @Binding var document: PeriMeleonDocument
+    @State private var selection = 0
+
+    var body: some View {
+        TabView(selection: $selection) {
+            MembersView()
+                .font(.title)
+                .tabItem {
+                    Image(systemName: "person.2.fill")
+                    Text("Members")
+                }
+                .tag(0)
+            HouseholdsView()
+                .font(.title)
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Households")
+                }
+                .tag(1)
+//            DataTransactionsView()
+//                .font(.title)
+//                .tabItem {
+//                    Image(systemName: "pencil.circle")
+//                    Text("DB Transactions")
+//                }
+//                .tag(2)
+//            QueriesView()
+//                .font(.title)
+//                .tabItem {
+//                    Image(systemName: "magnifyingglass")
+//                    Text("Queries")
+//                }
+//                .tag(3)
         }
     }
 }
@@ -61,3 +97,6 @@ struct ContentView_Previews: PreviewProvider {
         ContentView(document: .constant(PeriMeleonDocument()))
     }
 }
+
+
+let defaultCaptionWidth: CGFloat = 150

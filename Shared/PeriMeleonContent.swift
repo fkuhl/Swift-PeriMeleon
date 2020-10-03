@@ -34,7 +34,7 @@ struct PeriMeleonContent {
     private var internalState: State = .normal
     var state: State { get { internalState }}
     #warning("hide the password!")
-    private var key = makeKey(password: "123")
+    private var key = makeKey(password: "1234")
     private var encryptedData: Data
     private var dataCouldHaveChanged = false
 
@@ -146,4 +146,31 @@ fileprivate func makeKey(password: String) -> SymmetricKey? {
                             rounds: 8) {
         return SymmetricKey(data: keyData)
     } else { return nil }
+}
+
+
+enum HouseholdRelation {
+    case head
+    case spouse
+    case other
+}
+
+struct MemberIndexRecord {
+    var member: Member
+    var relation: HouseholdRelation
+}
+
+func nameOfHousehold(_ id: Id) -> String {
+    if let household = DataFetcher.sharedInstance.householdIndex[id] {
+        return household.head.fullName()
+    }
+    return "[none]"
+}
+
+func nameOfMember(_ id: Id?) -> String {
+    if id == nil { return "[none]" }
+    if let memberRecord = DataFetcher.sharedInstance.memberIndex[id!] {
+        return memberRecord.member.fullName()
+    }
+    return "[none]"
 }
