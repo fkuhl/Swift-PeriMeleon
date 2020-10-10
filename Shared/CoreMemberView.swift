@@ -10,6 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct CoreMemberView: View {
+    @Binding var document: PeriMeleonDocument
     var member: Member
     var memberEditDelegate: MemberEditDelegate
     var memberCancelDelegate: MemberCancelDelegate
@@ -23,6 +24,7 @@ struct CoreMemberView: View {
                     Spacer()
                     NavigationLink(
                         destination: MemberEditView(
+                            document: $document,
                             member: member,
                             memberEditDelegate: memberEditDelegate,
                             memberCancelDelegate: memberCancelDelegate,
@@ -66,7 +68,7 @@ struct CoreMemberView: View {
                     if member.baptism != nil {
                         TextAttributeView(caption: "baptism:", text: member.baptism)
                     }
-                    TextAttributeView(caption: "household:", text: householdName(for: member))
+                    TextAttributeView(caption: "household:", text: document.content.nameOfHousehold(member.household))
                     TextAttributeView(caption: "martial status:", text: member.maritalStatus.rawValue)
                     if member.spouse != nil {
                         TextAttributeView(caption: "spouse:", text: member.spouse)
@@ -80,10 +82,10 @@ struct CoreMemberView: View {
                 }
                 Section {
                     if member.father != nil {
-                        TextAttributeView(caption: "father:", text: memberName(id: member.father!))
+                        TextAttributeView(caption: "father:", text: document.content.nameOfMember(member.father!))
                     }
                     if member.mother != nil {
-                        TextAttributeView(caption: "mother:", text: memberName(id: member.mother!))
+                        TextAttributeView(caption: "mother:", text: document.content.nameOfMember(member.mother!))
                     }
                     if member.eMail != nil {
                         TextAttributeView(caption: "email:", text: member.eMail)
@@ -114,18 +116,18 @@ struct CoreMemberView: View {
     }
 }
 
-fileprivate func householdName(for member: Member) -> String {
-    let household = DataFetcher.sharedInstance.householdIndex[member.household]
-    return household == nil ? "[none]" : household!.head.fullName()
-}
-
-fileprivate func memberName(id: Id) -> String {
-    let memberRecord = DataFetcher.sharedInstance.memberIndex[id]
-    return memberRecord == nil ? "[none]" : memberRecord!.member.fullName()
-}
-var body: some View {
-    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-}
+//fileprivate func householdName(for member: Member) -> String {
+//    let household = DataFetcher.sharedInstance.householdIndex[member.household]
+//    return household == nil ? "[none]" : household!.head.fullName()
+//}
+//
+//fileprivate func memberName(id: Id) -> String {
+//    let memberRecord = DataFetcher.sharedInstance.memberIndex[id]
+//    return memberRecord == nil ? "[none]" : memberRecord!.member.fullName()
+//}
+//var body: some View {
+//    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+//}
 
 
 //struct CoreMemberView_Previews: PreviewProvider {

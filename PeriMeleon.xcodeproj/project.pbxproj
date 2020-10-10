@@ -12,6 +12,8 @@
 		272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
 		272F7235251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */; };
 		272F7236251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */; };
+		275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D3CA22532029100D65992 /* EditDisplayView.swift */; };
+		275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D3CA22532029100D65992 /* EditDisplayView.swift */; };
 		276B9746250008DB003E19BA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9745250008DB003E19BA /* Tests_iOS.swift */; };
 		276B9751250008DB003E19BA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9750250008DB003E19BA /* Tests_macOS.swift */; };
 		276B9753250008DB003E19BA /* PeriMeleonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9729250008DA003E19BA /* PeriMeleonApp.swift */; };
@@ -94,6 +96,7 @@
 /* Begin PBXFileReference section */
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
 		272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonContent.swift; sourceTree = "<group>"; };
+		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
 		276B9729250008DA003E19BA /* PeriMeleonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonApp.swift; sourceTree = "<group>"; };
 		276B972A250008DA003E19BA /* PeriMeleonDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonDocument.swift; sourceTree = "<group>"; };
 		276B972B250008DA003E19BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -276,6 +279,7 @@
 		27B20DD52529123C00C80696 /* EditFields */ = {
 			isa = PBXGroup;
 			children = (
+				275D3CA22532029100D65992 /* EditDisplayView.swift */,
 				27B20DB92529123400C80696 /* ChooseHouseholdView.swift */,
 				27B20DC02529123400C80696 /* EditBoolView.swift */,
 				27B20DBC2529123400C80696 /* EditDateButton.swift */,
@@ -463,6 +467,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27B20DC12529123400C80696 /* ChooseHouseholdView.swift in Sources */,
+				275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */,
 				27B20DA82529113B00C80696 /* Services.swift in Sources */,
 				272F7235251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */,
 				27B20DA02529113B00C80696 /* Transactions.swift in Sources */,
@@ -499,6 +504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27B20DC22529123400C80696 /* ChooseHouseholdView.swift in Sources */,
+				275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */,
 				27B20DA92529113B00C80696 /* Services.swift in Sources */,
 				272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */,
 				27B20DA12529113B00C80696 /* Transactions.swift in Sources */,

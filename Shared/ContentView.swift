@@ -37,14 +37,14 @@ struct MainView: View {
 
     var body: some View {
         TabView(selection: $selection) {
-            MembersView()
+            MembersView(document: $document)
                 .font(.title)
                 .tabItem {
                     Image(systemName: "person.2.fill")
                     Text("Members")
                 }
                 .tag(0)
-            HouseholdsView()
+            HouseholdsView(document: $document)
                 .font(.title)
                 .tabItem {
                     Image(systemName: "house.fill")

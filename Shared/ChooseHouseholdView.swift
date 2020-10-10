@@ -10,6 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct ChooseHouseholdView: View {
+    @Binding var document: PeriMeleonDocument
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
     @Binding var householdId: Id
@@ -25,13 +26,14 @@ struct ChooseHouseholdView: View {
 //            }
 //        )
         
-        NavigationLink(destination: ChooseHouseholdListView(householdId: $householdId)) {
+        NavigationLink(destination: ChooseHouseholdListView(document: $document,
+                                                            householdId: $householdId)) {
             HStack(alignment: .lastTextBaseline) {
                 Text(caption)
                     .frame(width: captionWidth, alignment: .trailing)
                     .font(.caption)
                 Spacer()
-                Text(nameOfHousehold(householdId)).font(.body)
+                Text(document.content.nameOfHousehold(householdId)).font(.body)
             }
         }
     }
@@ -39,7 +41,7 @@ struct ChooseHouseholdView: View {
 
 
 struct ChooseHouseholdListView: View {
-    @ObservedObject var dataFetcher = DataFetcher.sharedInstance
+    @Binding var document: PeriMeleonDocument
     @State private var allOrActive = 0
     @Binding var householdId: Id
     
@@ -52,7 +54,7 @@ struct ChooseHouseholdListView: View {
                     Text("Active Households").tag(1)
             }).pickerStyle(SegmentedPickerStyle())
             List {
-                ForEach(allOrActive == 0 ? dataFetcher.sortedHouseholds : dataFetcher.activeHouseholds, id: \.id) {
+                ForEach(allOrActive == 0 ? document.content.households : document.content.activeHouseholds, id: \.id) {
                     ChooseHouseholdRowView(household: $0, chosenId: self.$householdId)
                 }
             }

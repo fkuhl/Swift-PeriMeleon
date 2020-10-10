@@ -14,15 +14,17 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberInHouseholdView: View {
+    @Binding var document: PeriMeleonDocument
     var member: Member
     @Binding var household: Household
     var relation: HouseholdRelation
     var editable = true
     
     var body: some View {
-        CoreMemberView(member: self.member,
+        CoreMemberView(document: $document,
+                       member: self.member,
                        memberEditDelegate: MemberInHouseholdViewEditDelegate(
-                        relation: self.relation),
+                        document: $document, relation: self.relation),
                        memberCancelDelegate: MemberInHouseholdViewCancelDelegate(),
                        editable: self.editable,
                        closingAction: { $1.store(member: $0, in: self.$household) })
@@ -30,9 +32,11 @@ struct MemberInHouseholdView: View {
 }
 
 fileprivate class MemberInHouseholdViewEditDelegate: MemberEditDelegate {
+    var document: Binding<PeriMeleonDocument>
     var relation: HouseholdRelation
     
-    init(relation: HouseholdRelation) {
+    init(document: Binding<PeriMeleonDocument>, relation: HouseholdRelation) {
+        self.document = document
         self.relation = relation
     }
     
@@ -59,7 +63,7 @@ fileprivate class MemberInHouseholdViewEditDelegate: MemberEditDelegate {
         }
         NSLog("MIHVED spouse '\(household.wrappedValue.spouse?.fullName() ?? "[none]")'")
         NSLog("MIHVED storing with \(household.wrappedValue.others.count) others")
-        DataFetcher.sharedInstance.update(household: household.wrappedValue)
+        document.wrappedValue.content.update(household: household.wrappedValue)
     }
 }
 

@@ -20,6 +20,8 @@ struct PeriMeleonContent {
         case normal
     }
 
+    // MARK: - Data
+    
     var households = [Household]()
     var activeHouseholds: [Household] {
         get {  households.filter { $0.head.status.isActive() }  }
@@ -37,6 +39,8 @@ struct PeriMeleonContent {
     private var key = makeKey(password: "1234")
     private var encryptedData: Data
     private var dataCouldHaveChanged = false
+    
+    // MARK: - initializers
 
     init() {
         NSLog("PeriMeleonContent init no data")
@@ -65,6 +69,8 @@ struct PeriMeleonContent {
         decryptAndDecode(key: decryptionKey)
     }
     
+    //MARK: - Crypto
+    
     mutating private func decryptAndDecode(key: SymmetricKey) {
         let decryptedContent: Data
         do {
@@ -91,18 +97,6 @@ struct PeriMeleonContent {
             internalState = .cannotDecode(errorDescription: "decode error \(err)")
             return
         }
-    }
-    
-    private func pullMembers(from households: [Household]) -> [Member] {
-        var members = [Member]()
-        households.forEach { household in
-            members.append(household.head)
-            if let spouse = household.spouse {
-                members.append(spouse)
-            }
-            members.append(contentsOf: household.others)
-        }
-        return members
     }
     
     mutating func tryPassword(firstAttempt: String, secondAttempt: String) {
@@ -135,6 +129,83 @@ struct PeriMeleonContent {
         NSLog("writing \(encryptedData.count) bytes")
         return encryptedData
     }
+    
+    //MARK: - Get data
+    
+    private func pullMembers(from households: [Household]) -> [Member] {
+        var members = [Member]()
+        households.forEach { household in
+            members.append(household.head)
+            if let spouse = household.spouse {
+                members.append(spouse)
+            }
+            members.append(contentsOf: household.others)
+        }
+        return members
+    }
+
+    func nameOfHousehold(_ id: Id) -> String {
+        if let household = households.first(where: { $0.id == id}) {
+            return household.head.fullName()
+        } else {
+            NSLog("PMContent.nameOfHousehold no entry for id \(id)")
+            return "[none]"
+        }
+    }
+
+    func nameOfMember(_ id: Id?) -> String {
+        guard id != nil else { return "[none]" }
+        if let member = members.first(where: { $0.id == id! }) {
+            return member.fullName()
+        } else {
+            NSLog("PMContent.nameOfMember no extry for id \(id!)")
+            return "[none]"
+        }
+    }
+    
+    func parentList(mustBeActive: Bool, sex: Sex) -> [Member] {
+        return members.filter {
+            $0.sex == sex && !(mustBeActive && !$0.status.isActive())
+        }
+    }
+
+    //MARK: - Update data
+    
+    mutating func update(household: Household) {
+        if let index = households.firstIndex(where: { $0.id == household.id }) {
+            households[index] = household
+        } else {
+            NSLog("OMContents.updateHousehold no entry for id \(household.id)")
+        }
+    }
+    
+    mutating func add(household: Household) {
+        households.append(household)
+    }
+    
+    mutating func update(member: Member) {
+        guard let householdIndexToEdit = households.firstIndex(where: { $0.id == member.household} ) else {
+            NSLog("PMContents.updateMember houshold not found, id: \(member.household)")
+            return
+        }
+        var householdToEdit = households[householdIndexToEdit]
+        NSLog("member id \(member.id) name>: \(member.fullName())")
+        NSLog("h to edit index \(householdIndexToEdit) name: \(nameOfHousehold(householdToEdit.id))")
+        if member.id == householdToEdit.head.id {
+            householdToEdit.head = member
+        } else if let spouse = householdToEdit.spouse, member.id == spouse.id {
+            householdToEdit.spouse = member
+        } else {
+            let otherIds = householdToEdit.others.map { $0.id }
+            NSLog("other ids: \(otherIds.joined(separator: ", "))")
+            if let otherIndex = householdToEdit.others.firstIndex(where: { $0.id == member.id }) {
+                NSLog("found other index \(otherIndex)")
+                householdToEdit.others[otherIndex] = member
+                NSLog("updated to \(householdToEdit.others[otherIndex].fullName())")
+            }
+        }
+        households[householdIndexToEdit] = householdToEdit
+    }
 }
 
 fileprivate func makeKey(password: String) -> SymmetricKey? {
@@ -158,19 +229,4 @@ enum HouseholdRelation {
 struct MemberIndexRecord {
     var member: Member
     var relation: HouseholdRelation
-}
-
-func nameOfHousehold(_ id: Id) -> String {
-    if let household = DataFetcher.sharedInstance.householdIndex[id] {
-        return household.head.fullName()
-    }
-    return "[none]"
-}
-
-func nameOfMember(_ id: Id?) -> String {
-    if id == nil { return "[none]" }
-    if let memberRecord = DataFetcher.sharedInstance.memberIndex[id!] {
-        return memberRecord.member.fullName()
-    }
-    return "[none]"
 }

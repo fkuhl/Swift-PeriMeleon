@@ -10,13 +10,15 @@ import SwiftUI
 import PMDataTypes
 
 struct HouseholdRowView: View {
-    var item: Household
+    @Binding var document: PeriMeleonDocument
+    var household: Household
     
     var body: some View {
-        NavigationLink(destination: HouseholdView(item: item,
-                                                  spouseFactory: SpouseFactory(household: item),
-                                                  otherFactory: OtherFactory(household: item))) {
-                                                    Text(item.head.fullName()).font(.body)
+        NavigationLink(destination: HouseholdView(document: $document,
+                                                  item: household,
+                                                  spouseFactory: SpouseFactory(household: household),
+                                                  otherFactory: OtherFactory(household: household))) {
+                                                    Text(household.head.fullName()).font(.body)
         }
     }
 }

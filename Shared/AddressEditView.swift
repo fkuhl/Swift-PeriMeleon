@@ -10,6 +10,8 @@ import SwiftUI
 import PMDataTypes
 
 protocol AddressEditDelegate {
+    var document: Binding<PeriMeleonDocument> { get }
+
     func store(address: Address, in household: Binding<Household>) -> Void
 }
 

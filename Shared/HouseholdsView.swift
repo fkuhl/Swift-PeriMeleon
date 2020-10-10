@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HouseholdsView: View {
-    @ObservedObject var dataFetcher = DataFetcher.sharedInstance
+    @Binding var document: PeriMeleonDocument
     @State private var allOrActive = 0
     
     var body: some View {
@@ -22,8 +22,8 @@ struct HouseholdsView: View {
                         Text("Active Households").tag(1)
                 }).pickerStyle(SegmentedPickerStyle())
                 List {
-                    ForEach(allOrActive == 0 ? dataFetcher.sortedHouseholds : dataFetcher.activeHouseholds, id: \.id) {
-                        HouseholdRowView(item: $0)
+                    ForEach(allOrActive == 0 ? document.content.households : document.content.activeHouseholds, id: \.id) {
+                        HouseholdRowView(document: $document, household: $0)
                     }
                 }
             }

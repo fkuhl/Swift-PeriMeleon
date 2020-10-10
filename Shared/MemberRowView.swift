@@ -10,11 +10,12 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberRowView: View {
-    var item: Member
-    
+    @Binding var document: PeriMeleonDocument
+    var member: Member
+
     var body: some View {
-        NavigationLink(destination: MemberView(member: item)) {
-            Text(item.fullName())
+        NavigationLink(destination: MemberView(document: $document, member: member)) {
+            Text(member.fullName())
                 .font(.body)
         }
     }

@@ -10,6 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 protocol MemberEditDelegate {
+    var document: Binding<PeriMeleonDocument> { get }
     func store(member: Member, in household: Binding<Household>?) -> Void
 }
 
@@ -18,8 +19,9 @@ protocol MemberCancelDelegate {
 }
 
 struct MemberEditView: View {
+    @Binding var document: PeriMeleonDocument
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var accumulator: FamilyAccumulator
+    //@EnvironmentObject var accumulator: FamilyAccumulator
     @State var member: Member
     var memberEditDelegate: MemberEditDelegate
     var memberCancelDelegate: MemberCancelDelegate
@@ -57,8 +59,8 @@ struct MemberEditView: View {
                     EditOptionalTextView(caption: "divorce:", text: $member.divorce)
                 }
                 Section {
-                    EditOptionalParentView(caption: "father", sex: .MALE, parentId: $member.father)
-                    EditOptionalParentView(caption: "mother", sex: .FEMALE, parentId: $member.mother)
+                    EditOptionalParentView(document: $document, caption: "father", sex: .MALE, parentId: $member.father)
+                    EditOptionalParentView(document: $document, caption: "mother", sex: .FEMALE, parentId: $member.mother)
                     EditOptionalTextView(caption: "email:", text: $member.eMail)
                     EditOptionalTextView(caption: "work email:", text: $member.workEmail)
                     EditOptionalTextView(caption: "mobile phone:", text: $member.mobilePhone)
@@ -87,7 +89,8 @@ struct MemberEditView: View {
                 }
                 , trailing:
                 Button(action: {
-                    NSLog("MEV save+finish household \(nameOfHousehold(self.member.household))")
+                    //NSLog("MEV save+finish household \(nameOfHousehold(self.member.household))")
+                    NSLog("MEV save+finish household \(self.member.household)")
                     self.presentationMode.wrappedValue.dismiss()
                     self.closingAction(self.member, self.memberEditDelegate)
                 }) {
