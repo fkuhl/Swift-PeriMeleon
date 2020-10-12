@@ -150,13 +150,13 @@ fileprivate struct OtherRowView: View {
     var body: some View {
         NavigationLink(destination: MemberInHouseholdView(
                         document: $document,
-            member: other,
-            household: $household,
-            relation: .other,
-            editable: true)) {
-                MemberLinkView(captionWidth: defaultCaptionWidth,
-                               caption: "",
-                               name: other.fullName())
+                        member: other,
+                        household: $household,
+                        relation: .other,
+                        editable: true)) {
+            MemberLinkView(captionWidth: defaultCaptionWidth,
+                           caption: "",
+                           name: other.fullName())
         }
     }
 }

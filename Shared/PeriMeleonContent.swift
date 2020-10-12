@@ -22,17 +22,19 @@ struct PeriMeleonContent {
 
     // MARK: - Data
     
-    var households = [Household]()
-    var activeHouseholds: [Household] {
-        get {  households.filter { $0.head.status.isActive() }  }
-    }
-    var members: [Member] {
-        get {
-            let unsortedMembers = pullMembers(from: households)
-            return unsortedMembers.sorted{ $0.fullName() < $1.fullName() }
+    var households = [Household]() {
+        didSet {
+            activeHouseholds = households.filter { $0.head.status.isActive() }
+            let unsortedMembers = pullMembers()
+            members = unsortedMembers.sorted{
+                memberWith(relation: $0).fullName() < memberWith(relation: $1).fullName()
+            }
+            activeMembers = members.filter{ memberWith(relation: $0).status.isActive() }
         }
     }
-    var activeMembers: [Member] { members.filter{ $0.status.isActive()} }
+    var activeHouseholds: [Household] = [Household]()
+    var members = [MemberRelation]()
+    var activeMembers = [MemberRelation]()
     private var internalState: State = .normal
     var state: State { get { internalState }}
     #warning("hide the password!")
@@ -132,14 +134,16 @@ struct PeriMeleonContent {
     
     //MARK: - Get data
     
-    private func pullMembers(from households: [Household]) -> [Member] {
-        var members = [Member]()
+    private func pullMembers() -> [MemberRelation] {
+        var members = [MemberRelation]()
         households.forEach { household in
-            members.append(household.head)
-            if let spouse = household.spouse {
-                members.append(spouse)
+            members.append(MemberRelation(householdId: household.id, relation: .head))
+            if household.spouse != nil {
+                members.append(MemberRelation(householdId: household.id, relation: .spouse))
             }
-            members.append(contentsOf: household.others)
+            for i in 0 ..< household.others.count {
+                members.append(MemberRelation(householdId: household.id, relation: .other(i)))
+            }
         }
         return members
     }
@@ -152,20 +156,34 @@ struct PeriMeleonContent {
             return "[none]"
         }
     }
-
-    func nameOfMember(_ id: Id?) -> String {
-        guard id != nil else { return "[none]" }
-        if let member = members.first(where: { $0.id == id! }) {
-            return member.fullName()
-        } else {
-            NSLog("PMContent.nameOfMember no extry for id \(id!)")
-            return "[none]"
+    
+    func memberWith(relation: MemberRelation) -> Member {
+        var value = Member()
+        if let household = households.first(where: { $0.id == relation.householdId }) {
+            switch relation.relation {
+            case .head:
+                value = household.head
+            case .spouse:
+                if let actualSpouse = household.spouse {
+                    value = actualSpouse
+                }
+            case .other(let otherIndex):
+                value = household.others[otherIndex]
+            }
         }
+        return value
     }
     
-    func parentList(mustBeActive: Bool, sex: Sex) -> [Member] {
+    func memberWith(id: Id) -> Member {
+        var value = Member()
+        
+        return value
+    }
+
+    func parentList(mustBeActive: Bool, sex: Sex) -> [MemberRelation] {
         return members.filter {
-            $0.sex == sex && !(mustBeActive && !$0.status.isActive())
+            let member = memberWith(relation: $0)
+            return member.sex == sex && !(mustBeActive && !member.status.isActive())
         }
     }
 
@@ -220,13 +238,30 @@ fileprivate func makeKey(password: String) -> SymmetricKey? {
 }
 
 
-enum HouseholdRelation {
+enum HouseholdRelation: Hashable {
+    static func == (lhs: HouseholdRelation, rhs: HouseholdRelation) -> Bool {
+        switch (lhs, rhs) {
+        case (.head, .head):
+            return true
+        case (.spouse, .spouse):
+            return true
+        case (let .other(lother), let .other(rother)):
+            return lother == rother
+        default:
+            return false
+        }
+    }
+
     case head
     case spouse
-    case other
+    case other(Int)
 }
 
-struct MemberIndexRecord {
-    var member: Member
+struct MemberRelation: Hashable {
+    static func == (lhs: MemberRelation, rhs: MemberRelation) -> Bool {
+        return lhs.householdId == rhs.householdId && lhs.relation == rhs.relation
+    }
+    
+    var householdId: Id
     var relation: HouseholdRelation
 }

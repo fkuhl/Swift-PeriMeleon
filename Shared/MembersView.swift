@@ -23,7 +23,7 @@ struct MembersView: View {
                         Text("Active Members").tag(1)
                 }).pickerStyle(SegmentedPickerStyle())
                 List {
-                    ForEach(allOrActive == 0 ? document.content.members : document.content.activeMembers, id: \.id) {
+                    ForEach(allOrActive == 0 ? document.content.members : document.content.activeMembers, id: \.self) {
                         MemberRowView(document: $document, member: $0)
                     }
                 }

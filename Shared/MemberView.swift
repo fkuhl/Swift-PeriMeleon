@@ -11,12 +11,12 @@ import PMDataTypes
 
 struct MemberView: View {
     @Binding var document: PeriMeleonDocument
-    var member: Member
+    var member: MemberRelation
     var editable = true
     
     var body: some View {
         CoreMemberView(document: $document,
-                       member: self.member,
+                       member: member,
                        memberEditDelegate: MemberViewEditDelegate(document: $document),
                        memberCancelDelegate: MemberViewCancelDelegate(),
                        editable: self.editable,
