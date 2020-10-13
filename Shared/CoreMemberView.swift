@@ -118,20 +118,6 @@ struct CoreMemberView: View {
     }
 }
 
-//fileprivate func householdName(for member: Member) -> String {
-//    let household = DataFetcher.sharedInstance.householdIndex[member.household]
-//    return household == nil ? "[none]" : household!.head.fullName()
-//}
-//
-//fileprivate func memberName(id: Id) -> String {
-//    let memberRecord = DataFetcher.sharedInstance.memberIndex[id]
-//    return memberRecord == nil ? "[none]" : memberRecord!.member.fullName()
-//}
-//var body: some View {
-//    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-//}
-
-
 //struct CoreMemberView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        CoreMemberView()

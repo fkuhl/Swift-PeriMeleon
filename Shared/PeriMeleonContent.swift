@@ -25,18 +25,14 @@ struct PeriMeleonContent {
     var householdsById = [Id : NormalizedHousehold]()
     var membersById = [Id : Member]()
     var households: [NormalizedHousehold] {
-        get {
-            var households = [NormalizedHousehold](householdsById.values)
-            households.sort {
-                membersById[$0.head]?.fullName() ?? "" < membersById[$1.head]?.fullName() ?? ""
-            }
-            return households
+        var households = [NormalizedHousehold](householdsById.values)
+        households.sort {
+            membersById[$0.head]?.fullName() ?? "" < membersById[$1.head]?.fullName() ?? ""
         }
+        return households
     }
     var activeHouseholds: [NormalizedHousehold] {
-        get {
-            households.filter { membersById[$0.head]?.status.isActive() ?? false }
-        }
+        households.filter { membersById[$0.head]?.status.isActive() ?? false }
     }
     var members: [Member] {
         var members = [Member](membersById.values)

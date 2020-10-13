@@ -21,6 +21,7 @@ struct MemberView: View {
                        memberCancelDelegate: MemberViewCancelDelegate(),
                        editable: self.editable,
                        closingAction: { $1.store(member: $0, in: nil) })
+            .debugPrint("MemberView \(member.fullName())")
     }
 }
 /**
@@ -35,9 +36,6 @@ fileprivate class MemberViewEditDelegate: MemberEditDelegate {
     
     func store(member: Member, in household: Binding<NormalizedHousehold>? = nil) {
         NSLog("MemberEditViewDel onDis: val is \(member.fullName())")
-        //Because this occurs only in context of editing an existing member in
-        //an existing household, DataFetcher can find the right household to update.
-        //(Member might not actually be the head.)
         document.wrappedValue.content.update(member: member)
     }
 }

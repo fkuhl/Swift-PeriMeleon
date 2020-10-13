@@ -18,6 +18,7 @@ struct MemberRowView: View {
             Text(document.content.nameOf(member: member.id))
                 .font(.body)
         }
+        .debugPrint("MRV \(member.fullName())")
     }
 }
 

@@ -21,18 +21,18 @@ struct MembersView: View {
                        content: {
                         Text("All Members").tag(0)
                         Text("Active Members").tag(1)
-                }).pickerStyle(SegmentedPickerStyle())
+                       }).pickerStyle(SegmentedPickerStyle())
                 List {
                     ForEach(allOrActive == 0 ? document.content.members : document.content.activeMembers, id: \.id) {
                         MemberRowView(document: $document, member: $0)
                     }
                 }
             }
-//            .alert(isPresented: $dataFetcher.showingAlert) {
-//                Alert(title: Text("Failed to fetch Members"),
-//                      message: Text("\(dataFetcher.fetchError?.reason ?? "")\n\(dataFetcher.fetchError?.errorString ?? "")"),
-//                      dismissButton: .default(Text("OK")))
-//            }
+            //            .alert(isPresented: $dataFetcher.showingAlert) {
+            //                Alert(title: Text("Failed to fetch Members"),
+            //                      message: Text("\(dataFetcher.fetchError?.reason ?? "")\n\(dataFetcher.fetchError?.errorString ?? "")"),
+            //                      dismissButton: .default(Text("OK")))
+            //            }
             .navigationBarTitle(allOrActive == 0 ? "All Members" : "Active Members")
         }
     }

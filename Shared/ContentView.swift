@@ -100,3 +100,12 @@ struct ContentView_Previews: PreviewProvider {
 
 
 let defaultCaptionWidth: CGFloat = 150
+
+extension View {
+    func debugPrint(_ value: Any) -> some View {
+        #if DEBUG
+        print(value)
+        #endif
+        return self
+    }
+}
