@@ -11,7 +11,8 @@ import PMDataTypes
 
 
 protocol HouseholdMemberFactoryDelegate {
-    var household: Household { get }
+    var document: Binding<PeriMeleonDocument> { get }
+    var household: NormalizedHousehold { get }
     func make() -> Member
 }
 
@@ -23,8 +24,8 @@ class HouseholdAddressEditDelegate: AddressEditDelegate {
         self.document = document
     }
 
-    func store(address: Address, in household: Binding<Household>) {
-        NSLog("HAED addr: \(address.address ?? "[none]") on \(household.wrappedValue.head.fullName())")
+    func store(address: Address, in household: Binding<NormalizedHousehold>) {
+        NSLog("HAED addr: \(address.address ?? "[none]") on \(document.wrappedValue.content.nameOf(household: household.wrappedValue))")
         household.wrappedValue.address = address
         document.wrappedValue.content.update(household: household.wrappedValue)
         //DataFetcher.sharedInstance.update(household: household.wrappedValue)
@@ -33,7 +34,7 @@ class HouseholdAddressEditDelegate: AddressEditDelegate {
 
 struct HouseholdView: View {
     @Binding var document: PeriMeleonDocument
-    @State var item: Household
+    @State var item: NormalizedHousehold
     var addressEditable = true
     var replaceButtons = false
     var spouseFactory: HouseholdMemberFactoryDelegate
@@ -63,7 +64,7 @@ struct HouseholdView: View {
 
 fileprivate struct UnadornedHouseholdView: View {
     @Binding var document: PeriMeleonDocument
-    @Binding var household: Household
+    @Binding var household: NormalizedHousehold
     var addressEditable = true
     var spouseFactory: HouseholdMemberFactoryDelegate
     var otherFactory: HouseholdMemberFactoryDelegate
@@ -73,16 +74,17 @@ fileprivate struct UnadornedHouseholdView: View {
             Section {
                 NavigationLink(destination: MemberInHouseholdView(
                                 document: $document,
-                    member: household.head,
-                    household: $household,
-                    relation: .head,
-                    editable: true)) {
-                        MemberLinkView(caption: "Head of household",
-                                       name: household.head.fullName())
+                                member: $document.wrappedValue.content.member(byId: household.head),
+                                household: $household,
+                                editable: true)) {
+                    MemberLinkView(caption: "Head of household",
+                                   name: $document.wrappedValue.content.nameOf(household: household))
                 }
                 if household.spouse == nil {
                     Button(action: {
-                        self.household.spouse = makeMember(from: self.spouseFactory)
+                        let newSpouse = makeMember(from: self.spouseFactory)
+                        document.content.add(member: newSpouse)
+                        self.household.spouse = newSpouse.id
                         document.content.update(household: self.household)
                     }) {
                         Text("Add spouse").font(.body)
@@ -90,20 +92,23 @@ fileprivate struct UnadornedHouseholdView: View {
                 } else {
                     NavigationLink(destination: MemberInHouseholdView(
                                     document: $document,
-                        member: household.spouse!,
-                        household: $household,
-                        relation: .spouse,
-                        editable: true)) {
-                            MemberLinkView(caption: "Spouse",
-                                           name: household.spouse!.fullName())
+                                    member: $document.wrappedValue.content.member(byId: household.spouse!),
+                                    household: $household,
+                                    editable: true)) {
+                        MemberLinkView(caption: "Spouse",
+                                       name: $document.wrappedValue.content.nameOf(member: household.spouse!))
                     }
                 }
             }
             Section(header: Text("Dependents").font(.callout).italic()) {
-                ForEach(household.others, id: \.id) {
-                    OtherRowView(document: $document, other: $0, household: self.$household)
+                ForEach(household.others, id: \.self) {
+                    OtherRowView(document: $document,
+                                 other: $document.wrappedValue.content.member(byId: $0),
+                                 household: $household)
                 }
-                OtherAddView(otherFactory: self.otherFactory, household: $household)
+                OtherAddView(document: $document,
+                             otherFactory: otherFactory,
+                             household: $household)
             }
             Section(header: Text("Address").font(.callout).italic()) {
                 if nugatory(household.address) {
@@ -123,12 +128,12 @@ fileprivate struct UnadornedHouseholdView: View {
                 }
             }
         }
-        .navigationBarTitle(household.head.fullName())
+        .navigationBarTitle($document.wrappedValue.content.nameOf(household: household))
     }
 }
 
 fileprivate struct AddressLinkView: View {
-    @Binding var household: Household
+    @Binding var household: NormalizedHousehold
     
     var body: some View {
         Text(self.household.address?.addressForDisplay() ?? "[none]").font(.body)
@@ -145,14 +150,13 @@ fileprivate func makeMember(from factory: HouseholdMemberFactoryDelegate?) -> Me
 fileprivate struct OtherRowView: View {
     @Binding var document: PeriMeleonDocument
     var other: Member
-    @Binding var household: Household
+    @Binding var household: NormalizedHousehold
     
     var body: some View {
         NavigationLink(destination: MemberInHouseholdView(
                         document: $document,
                         member: other,
                         household: $household,
-                        relation: .other,
                         editable: true)) {
             MemberLinkView(captionWidth: defaultCaptionWidth,
                            caption: "",
@@ -178,13 +182,16 @@ struct MemberLinkView: View {
 }
 
 struct OtherAddView: View {
+    @Binding var document: PeriMeleonDocument
     var otherFactory: HouseholdMemberFactoryDelegate?
-    @Binding var household: Household
+    @Binding var household: NormalizedHousehold
     
     var body: some View {
         Button(action: {
-            self.household.others.append(makeMember(from: self.otherFactory))
-            NSLog("OAV hh \(self.household.head.fullName()) has \(self.household.others.count) others")
+            let newOther = makeMember(from: self.otherFactory)
+            document.content.add(member: newOther)
+            household.others.append(newOther.id)
+            NSLog("OAV hh \(document.content.nameOf(household: household.id)) has \(household.others.count) others")
         }) {
             Image(systemName: "plus").font(.body)
         }

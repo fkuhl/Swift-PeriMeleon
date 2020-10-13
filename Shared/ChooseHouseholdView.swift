@@ -33,7 +33,7 @@ struct ChooseHouseholdView: View {
                     .frame(width: captionWidth, alignment: .trailing)
                     .font(.caption)
                 Spacer()
-                Text(document.content.nameOfHousehold(householdId)).font(.body)
+                Text(document.content.nameOf(household: householdId)).font(.body)
             }
         }
     }
@@ -55,7 +55,9 @@ struct ChooseHouseholdListView: View {
             }).pickerStyle(SegmentedPickerStyle())
             List {
                 ForEach(allOrActive == 0 ? document.content.households : document.content.activeHouseholds, id: \.id) {
-                    ChooseHouseholdRowView(household: $0, chosenId: self.$householdId)
+                    ChooseHouseholdRowView(document: $document,
+                                           household: $0,
+                                           chosenId: $householdId)
                 }
             }
         }
@@ -63,8 +65,9 @@ struct ChooseHouseholdListView: View {
 }
 
 struct ChooseHouseholdRowView: View {
+    @Binding var document: PeriMeleonDocument
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    var household: Household
+    var household: NormalizedHousehold
     @Binding var chosenId: Id
     
     var body: some View {
@@ -73,7 +76,7 @@ struct ChooseHouseholdRowView: View {
                 self.chosenId = self.household.id
                 self.presentationMode.wrappedValue.dismiss()
             } ) {
-                Text(household.head.fullName()).font(.body)
+                Text(document.content.nameOf(household: household)).font(.body)
             }
         }
     }

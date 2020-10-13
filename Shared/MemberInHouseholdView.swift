@@ -16,15 +16,14 @@ import PMDataTypes
 struct MemberInHouseholdView: View {
     @Binding var document: PeriMeleonDocument
     var member: Member
-    @Binding var household: Household
-    var relation: HouseholdRelation
+    @Binding var household: NormalizedHousehold
     var editable = true
     
     var body: some View {
         CoreMemberView(document: $document,
                        member: self.member,
                        memberEditDelegate: MemberInHouseholdViewEditDelegate(
-                        document: $document, relation: self.relation),
+                        document: $document, household: household),
                        memberCancelDelegate: MemberInHouseholdViewCancelDelegate(),
                        editable: self.editable,
                        closingAction: { $1.store(member: $0, in: self.$household) })
@@ -33,37 +32,55 @@ struct MemberInHouseholdView: View {
 
 fileprivate class MemberInHouseholdViewEditDelegate: MemberEditDelegate {
     var document: Binding<PeriMeleonDocument>
-    var relation: HouseholdRelation
+    var household: NormalizedHousehold
     
-    init(document: Binding<PeriMeleonDocument>, relation: HouseholdRelation) {
+    init(document: Binding<PeriMeleonDocument>, household: NormalizedHousehold) {
         self.document = document
-        self.relation = relation
+        self.household = household
     }
     
-    func store(member: Member, in household: Binding<Household>?) {
+    func store(member: Member, in household: Binding<NormalizedHousehold>?) {
         guard let household = household  else {
             NSLog("MIHVED with nil household")
             return
         }
-        NSLog("MIHVED store '\(member.fullName())' in household '\(household.wrappedValue.head.fullName())'")
-        switch self.relation {
-        case .head:
-            household.wrappedValue.head = member
-        case .spouse:
-            household.wrappedValue.spouse = member
-            household.wrappedValue.head.maritalStatus = .MARRIED
-            household.wrappedValue.head.spouse = member.fullName()
-            household.wrappedValue.head.dateOfMarriage = member.dateOfMarriage
-        case .other:
-            if let otherIndex = household.wrappedValue.others.firstIndex(where: {$0.id == member.id}) {
-                household.wrappedValue.others[otherIndex] = member
-            } else {
-                NSLog("MIHVED no entry for other \(member.id)")
-            }
-        }
-        NSLog("MIHVED spouse '\(household.wrappedValue.spouse?.fullName() ?? "[none]")'")
-        NSLog("MIHVED storing with \(household.wrappedValue.others.count) others")
-        document.wrappedValue.content.update(household: household.wrappedValue)
+        NSLog("MIHVED store '\(member.fullName())' in household '\(document.wrappedValue.content.nameOf(household: household.wrappedValue))'")
+        document.wrappedValue.content.update(member: member)
+//        if member.id == household.wrappedValue.head {
+//            household.wrappedValue.head = member.id
+//        } else if household.wrappedValue.spouse == member.id {
+//            var adjustedHead = document.wrappedValue.content.member(byId: household.wrappedValue.head)
+//            adjustedHead.maritalStatus = .MARRIED
+//            adjustedHead.spouse = member.fullName()
+//            adjustedHead.dateOfMarriage = member.dateOfMarriage
+//            document.wrappedValue.content.update(member: adjustedHead)
+//        } else {
+//            household.wrappedValue.others.forEach { other in
+//                if other == member.id {
+//
+//                }
+//            }
+//        }
+        
+        
+//        switch self.relation {
+//        case .head:
+//            household.wrappedValue.head = member
+//        case .spouse:
+//            household.wrappedValue.spouse = member
+//            household.wrappedValue.head.maritalStatus = .MARRIED
+//            household.wrappedValue.head.spouse = member.fullName()
+//            household.wrappedValue.head.dateOfMarriage = member.dateOfMarriage
+//        case .other:
+//            if let otherIndex = household.wrappedValue.others.firstIndex(where: {$0.id == member.id}) {
+//                household.wrappedValue.others[otherIndex] = member
+//            } else {
+//                NSLog("MIHVED no entry for other \(member.id)")
+//            }
+//        }
+//        NSLog("MIHVED spouse '\(household.wrappedValue.spouse?.fullName() ?? "[none]")'")
+//        NSLog("MIHVED storing with \(household.wrappedValue.others.count) others")
+//        document.wrappedValue.content.update(household: household.wrappedValue)
     }
 }
 

@@ -29,7 +29,7 @@ struct EditOptionalParentView: View {
                     .frame(width: captionWidth, alignment: .trailing)
                     .font(.caption)
                 Spacer()
-                Text(document.content.nameOfMember(parentId)).font(.body)
+                Text(document.content.nameOf(member: parentId ?? "[none]")).font(.body)
             }
         }
     }

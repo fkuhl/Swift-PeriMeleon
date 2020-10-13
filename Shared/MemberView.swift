@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct MemberView: View {
     @Binding var document: PeriMeleonDocument
-    var member: MemberRelation
+    var member: Member
     var editable = true
     
     var body: some View {
@@ -33,7 +33,7 @@ fileprivate class MemberViewEditDelegate: MemberEditDelegate {
         self.document = document
     }
     
-    func store(member: Member, in household: Binding<Household>? = nil) {
+    func store(member: Member, in household: Binding<NormalizedHousehold>? = nil) {
         NSLog("MemberEditViewDel onDis: val is \(member.fullName())")
         //Because this occurs only in context of editing an existing member in
         //an existing household, DataFetcher can find the right household to update.

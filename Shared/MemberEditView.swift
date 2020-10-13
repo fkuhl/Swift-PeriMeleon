@@ -11,7 +11,7 @@ import PMDataTypes
 
 protocol MemberEditDelegate {
     var document: Binding<PeriMeleonDocument> { get }
-    func store(member: Member, in household: Binding<Household>?) -> Void
+    func store(member: Member, in household: Binding<NormalizedHousehold>?) -> Void
 }
 
 protocol MemberCancelDelegate {

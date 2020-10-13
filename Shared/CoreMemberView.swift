@@ -68,7 +68,7 @@ struct CoreMemberView: View {
                     if member.baptism != nil {
                         TextAttributeView(caption: "baptism:", text: member.baptism)
                     }
-                    TextAttributeView(caption: "household:", text: document.content.nameOfHousehold(member.household))
+                    TextAttributeView(caption: "household:", text: document.content.nameOf(household: member.household))
                     TextAttributeView(caption: "martial status:", text: member.maritalStatus.rawValue)
                     if member.spouse != nil {
                         TextAttributeView(caption: "spouse:", text: member.spouse)
@@ -82,10 +82,12 @@ struct CoreMemberView: View {
                 }
                 Section {
                     if member.father != nil {
-                        TextAttributeView(caption: "father:", text: document.content.nameOfMember(member.father!))
+                        TextAttributeView(caption: "father:",
+                                          text: document.content.nameOf(member: member.father!))
                     }
                     if member.mother != nil {
-                        TextAttributeView(caption: "mother:", text: document.content.nameOfMember(member.mother!))
+                        TextAttributeView(caption: "mother:",
+                                          text: document.content.nameOf(member: member.mother!))
                     }
                     if member.eMail != nil {
                         TextAttributeView(caption: "email:", text: member.eMail)

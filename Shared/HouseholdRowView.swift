@@ -11,22 +11,24 @@ import PMDataTypes
 
 struct HouseholdRowView: View {
     @Binding var document: PeriMeleonDocument
-    var household: Household
+    var household: NormalizedHousehold
     
     var body: some View {
         NavigationLink(destination: HouseholdView(document: $document,
                                                   item: household,
-                                                  spouseFactory: SpouseFactory(household: household),
-                                                  otherFactory: OtherFactory(household: household))) {
-                                                    Text(household.head.fullName()).font(.body)
+                                                  spouseFactory: SpouseFactory(document: $document, household: household),
+                                                  otherFactory: OtherFactory(document: $document, household: household))) {
+            Text($document.wrappedValue.content.nameOf(household: household)).font(.body)
         }
     }
 }
 
 fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
-    let household: Household
+    var document: Binding<PeriMeleonDocument>
+    let household: NormalizedHousehold
     
-    init(household: Household) {
+    init(document: Binding<PeriMeleonDocument>, household: NormalizedHousehold) {
+        self.document = document
         self.household = household
     }
     
@@ -34,18 +36,20 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
         var newval = Member()
         newval.household = self.household.id
         newval.givenName = "Spouse"
-        newval.familyName = self.household.head.familyName
+        newval.familyName = document.wrappedValue.content.member(byId: self.household.head).familyName
         newval.sex = .FEMALE
         newval.maritalStatus = .MARRIED
-        newval.spouse = self.household.head.fullName()
+        newval.spouse = document.wrappedValue.content.member(byId:self.household.head).fullName()
         return newval
     }
 }
 
 fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
-    let household: Household
+    var document: Binding<PeriMeleonDocument>
+    let household: NormalizedHousehold
     
-    init(household: Household) {
+    init(document: Binding<PeriMeleonDocument>, household: NormalizedHousehold) {
+        self.document = document
         self.household = household
     }
     
@@ -53,11 +57,11 @@ fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
         var newval = Member()
         newval.household = self.household.id
         newval.givenName = "No. \(self.household.others.count + 1)"
-        newval.familyName = self.household.head.familyName
+        newval.familyName = document.wrappedValue.content.member(byId: self.household.head).familyName
         newval.status = .NONCOMMUNING
-        newval.father = self.household.head.id
+        newval.father = document.wrappedValue.content.member(byId: self.household.head).id
         if let mom = self.household.spouse {
-            newval.mother = mom.id
+            newval.mother = document.wrappedValue.content.member(byId: mom).id
         }
         return newval
     }

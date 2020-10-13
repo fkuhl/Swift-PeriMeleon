@@ -22,19 +22,30 @@ struct PeriMeleonContent {
 
     // MARK: - Data
     
-    var households = [Household]() {
-        didSet {
-            activeHouseholds = households.filter { $0.head.status.isActive() }
-            let unsortedMembers = pullMembers()
-            members = unsortedMembers.sorted{
-                memberWith(relation: $0).fullName() < memberWith(relation: $1).fullName()
+    var householdsById = [Id : NormalizedHousehold]()
+    var membersById = [Id : Member]()
+    var households: [NormalizedHousehold] {
+        get {
+            var households = [NormalizedHousehold](householdsById.values)
+            households.sort {
+                membersById[$0.head]?.fullName() ?? "" < membersById[$1.head]?.fullName() ?? ""
             }
-            activeMembers = members.filter{ memberWith(relation: $0).status.isActive() }
+            return households
         }
     }
-    var activeHouseholds: [Household] = [Household]()
-    var members = [MemberRelation]()
-    var activeMembers = [MemberRelation]()
+    var activeHouseholds: [NormalizedHousehold] {
+        get {
+            households.filter { membersById[$0.head]?.status.isActive() ?? false }
+        }
+    }
+    var members: [Member] {
+        var members = [Member](membersById.values)
+        members.sort{ $0.fullName() < $1.fullName() }
+        return members
+    }
+    var activeMembers: [Member] {
+        members.filter{ $0.status.isActive() }
+    }
     private var internalState: State = .normal
     var state: State { get { internalState }}
     #warning("hide the password!")
@@ -46,7 +57,6 @@ struct PeriMeleonContent {
 
     init() {
         NSLog("PeriMeleonContent init no data")
-        self.households = [Household]()
         self.encryptedData = Data()
         self.internalState = .normal
     }
@@ -54,10 +64,8 @@ struct PeriMeleonContent {
     init(data: Data?) {
         NSLog("PeriMeleonContent init \(data?.count ?? 0) bytes")
         guard let readData = data else {
-            self.households = [Household]()
             self.encryptedData = Data()
             internalState = .cannotRead
-            households = [Household]()
             NSLog("corrupt file")
             return
         }
@@ -65,7 +73,6 @@ struct PeriMeleonContent {
         guard let decryptionKey = key else {
             NSLog("no key")
             internalState = .noKey
-            households = [Household]()
             return
         }
         decryptAndDecode(key: decryptionKey)
@@ -83,15 +90,17 @@ struct PeriMeleonContent {
         } catch {
             NSLog("cannot decrypt: \(error.localizedDescription)")
             internalState = .cannotDecrypt
-            households = [Household]()
+            householdsById = [Id : NormalizedHousehold]()
+            membersById = [Id : Member]()
             return
         }
         do {
-            let unsortedHouseholds = try jsonDecoder.decode([Household].self, from: decryptedContent)
-            households = unsortedHouseholds.sorted {
-                $0.head.fullName() < $1.head.fullName()
-            }
-            NSLog("read \(self.households.count) households from init config")
+            let decodedHouseholds = try jsonDecoder.decode([Household].self, from: decryptedContent)
+//            households = unsortedHouseholds.sorted {
+//                $0.head.fullName() < $1.head.fullName()
+//            }
+            NSLog("read \(decodedHouseholds.count) households from init config")
+            normalize(decodedHouseholds: decodedHouseholds)
             internalState = .normal
         } catch {
             let err = error as! DecodingError
@@ -114,6 +123,58 @@ struct PeriMeleonContent {
         }
     }
     
+    /**
+     Create normalized indexes of households and members.
+     - precondition: households has been decoded and set.
+     */
+    private mutating func normalize(decodedHouseholds: [Household]) {
+        householdsById = [Id : NormalizedHousehold]()
+        membersById = [Id : Member]()
+        decodedHouseholds.forEach { household in
+            var normalizedHousehold = NormalizedHousehold()
+            normalizedHousehold.id = household.id
+            membersById[household.head.id] = household.head
+            normalizedHousehold.head = household.head.id
+            if let spouse = household.spouse {
+                membersById[spouse.id] = spouse
+                normalizedHousehold.spouse = spouse.id
+            } else {
+                normalizedHousehold.spouse = nil
+            }
+            var normalizedOthers = [Id]()
+            household.others.forEach { other in
+                membersById[other.id] = other
+                normalizedOthers.append(other.id)
+            }
+            normalizedHousehold.others = normalizedOthers
+            normalizedHousehold.address = household.address
+            householdsById[household.id] = normalizedHousehold
+        }
+    }
+    
+    /**
+     Recreate normalized array of Households for encoding from denormalized indexes.
+     */
+    private func denormalize() -> [Household] {
+        var denormalizedArray = [Household]()
+        householdsById.values.forEach { household in
+            var denormalized = Household()
+            denormalized.id = household.id
+            if let head = membersById[household.head] {
+                denormalized.head = head
+            }
+            if let spouseId = household.spouse {
+                if let spouse = membersById[spouseId] {
+                    denormalized.spouse = spouse
+                }
+            } else { denormalized.spouse = nil }
+            denormalized.others = household.others.compactMap { membersById[$0] }
+            denormalized.address = household.address
+            denormalizedArray.append(denormalized)
+        }
+        return denormalizedArray
+    }
+
     enum WriteError: Error {
         case noKey
     }
@@ -126,7 +187,7 @@ struct PeriMeleonContent {
         guard let encryptionKey = key else {
             throw WriteError.noKey
         }
-        let unencryptedData = try jsonEncoder.encode(self.households)
+        let unencryptedData = try jsonEncoder.encode(denormalize())
         let encryptedData = try ChaChaPoly.seal(unencryptedData, using: encryptionKey).combined
         NSLog("writing \(encryptedData.count) bytes")
         return encryptedData
@@ -134,95 +195,52 @@ struct PeriMeleonContent {
     
     //MARK: - Get data
     
-    private func pullMembers() -> [MemberRelation] {
-        var members = [MemberRelation]()
-        households.forEach { household in
-            members.append(MemberRelation(householdId: household.id, relation: .head))
-            if household.spouse != nil {
-                members.append(MemberRelation(householdId: household.id, relation: .spouse))
-            }
-            for i in 0 ..< household.others.count {
-                members.append(MemberRelation(householdId: household.id, relation: .other(i)))
-            }
-        }
-        return members
-    }
-
-    func nameOfHousehold(_ id: Id) -> String {
-        if let household = households.first(where: { $0.id == id}) {
-            return household.head.fullName()
-        } else {
-            NSLog("PMContent.nameOfHousehold no entry for id \(id)")
-            return "[none]"
-        }
+    func household(byId: Id) -> NormalizedHousehold {
+        householdsById[byId] ?? NormalizedHousehold()
     }
     
-    func memberWith(relation: MemberRelation) -> Member {
-        var value = Member()
-        if let household = households.first(where: { $0.id == relation.householdId }) {
-            switch relation.relation {
-            case .head:
-                value = household.head
-            case .spouse:
-                if let actualSpouse = household.spouse {
-                    value = actualSpouse
-                }
-            case .other(let otherIndex):
-                value = household.others[otherIndex]
-            }
-        }
-        return value
+    func member(byId: Id) -> Member {
+        membersById[byId] ?? Member()
     }
     
-    func memberWith(id: Id) -> Member {
-        var value = Member()
-        
-        return value
+    func nameOf(household: NormalizedHousehold) -> String {
+        member(byId: household.head).fullName()
+    }
+    
+    func nameOf(household: Id) -> String {
+        if let hh = householdsById[household] {
+            return nameOf(household: hh)
+        } else { return "[none]" }
+    }
+    
+    func nameOf(member: Id) -> String {
+        if let mm = membersById[member] {
+            return mm.fullName()
+        } else { return "[none]" }
     }
 
-    func parentList(mustBeActive: Bool, sex: Sex) -> [MemberRelation] {
-        return members.filter {
-            let member = memberWith(relation: $0)
+    func parentList(mustBeActive: Bool, sex: Sex) -> [Member] {
+        membersById.values.filter { member in
             return member.sex == sex && !(mustBeActive && !member.status.isActive())
         }
     }
 
     //MARK: - Update data
     
-    mutating func update(household: Household) {
-        if let index = households.firstIndex(where: { $0.id == household.id }) {
-            households[index] = household
-        } else {
-            NSLog("OMContents.updateHousehold no entry for id \(household.id)")
-        }
+    mutating func update(household: NormalizedHousehold) {
+        householdsById[household.id] = household
     }
-    
-    mutating func add(household: Household) {
-        households.append(household)
+
+    mutating func add(household: NormalizedHousehold) {
+        householdsById[household.id] = household
     }
     
     mutating func update(member: Member) {
-        guard let householdIndexToEdit = households.firstIndex(where: { $0.id == member.household} ) else {
-            NSLog("PMContents.updateMember houshold not found, id: \(member.household)")
-            return
-        }
-        var householdToEdit = households[householdIndexToEdit]
-        NSLog("member id \(member.id) name>: \(member.fullName())")
-        NSLog("h to edit index \(householdIndexToEdit) name: \(nameOfHousehold(householdToEdit.id))")
-        if member.id == householdToEdit.head.id {
-            householdToEdit.head = member
-        } else if let spouse = householdToEdit.spouse, member.id == spouse.id {
-            householdToEdit.spouse = member
-        } else {
-            let otherIds = householdToEdit.others.map { $0.id }
-            NSLog("other ids: \(otherIds.joined(separator: ", "))")
-            if let otherIndex = householdToEdit.others.firstIndex(where: { $0.id == member.id }) {
-                NSLog("found other index \(otherIndex)")
-                householdToEdit.others[otherIndex] = member
-                NSLog("updated to \(householdToEdit.others[otherIndex].fullName())")
-            }
-        }
-        households[householdIndexToEdit] = householdToEdit
+        membersById[member.id] = member
+    }
+    
+    mutating func add(member: Member) {
+        membersById[member.id] = member
     }
 }
 
@@ -237,31 +255,10 @@ fileprivate func makeKey(password: String) -> SymmetricKey? {
     } else { return nil }
 }
 
-
-enum HouseholdRelation: Hashable {
-    static func == (lhs: HouseholdRelation, rhs: HouseholdRelation) -> Bool {
-        switch (lhs, rhs) {
-        case (.head, .head):
-            return true
-        case (.spouse, .spouse):
-            return true
-        case (let .other(lother), let .other(rother)):
-            return lother == rother
-        default:
-            return false
-        }
-    }
-
-    case head
-    case spouse
-    case other(Int)
-}
-
-struct MemberRelation: Hashable {
-    static func == (lhs: MemberRelation, rhs: MemberRelation) -> Bool {
-        return lhs.householdId == rhs.householdId && lhs.relation == rhs.relation
-    }
-    
-    var householdId: Id
-    var relation: HouseholdRelation
+struct NormalizedHousehold {
+    var id: Id = ""
+    var head: Id = ""
+    var spouse: Id? = nil
+    var others = [Id]()
+    var address: Address? = nil
 }

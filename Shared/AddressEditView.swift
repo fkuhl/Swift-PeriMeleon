@@ -12,13 +12,13 @@ import PMDataTypes
 protocol AddressEditDelegate {
     var document: Binding<PeriMeleonDocument> { get }
 
-    func store(address: Address, in household: Binding<Household>) -> Void
+    func store(address: Address, in household: Binding<NormalizedHousehold>) -> Void
 }
 
 struct AddressEditView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var addressEditDelegate: AddressEditDelegate
-    @Binding var household: Household
+    @Binding var household: NormalizedHousehold
     @State var address: Address
 
     var body: some View {
