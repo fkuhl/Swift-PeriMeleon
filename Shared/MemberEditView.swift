@@ -26,10 +26,28 @@ struct MemberEditView: View {
     var memberEditDelegate: MemberEditDelegate
     var memberCancelDelegate: MemberCancelDelegate
     var closingAction: (_ member: Member, _ delegate: MemberEditDelegate) -> Void
-    var navigationBarTitle: String
+    @Binding var isEditing: Bool
 
     var body: some View {
         VStack {
+            HStack {
+                Button(action: {
+                    NSLog("MEV cancel")
+                    isEditing = false
+                    self.memberCancelDelegate.cancel()
+                }) {
+                    Text("Cancel").font(.body)
+                }
+                Spacer()
+                Button(action: {
+                    //NSLog("MEV save+finish household \(nameOfHousehold(self.member.household))")
+                    NSLog("MEV save+finish household \(self.member.household)")
+                    isEditing = false
+                    self.closingAction(self.member, self.memberEditDelegate)
+                }) {
+                    Text("Save + Finish").font(.body)
+                }
+            }.padding()
             Form {
                 Section { //Section to group in sets of <= 10
                     EditTextView(caption: "family name:", text: $member.familyName)
@@ -77,26 +95,6 @@ struct MemberEditView: View {
                 EditOptionalDateView(caption: "date last changed:", date: $member.dateLastChanged)
                 EditDateButton(caption: "date last changed:", date: $member.dateLastChanged)
             }
-            .navigationBarTitle(navigationBarTitle)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading:
-                Button(action: {
-                    NSLog("MEV cancel")
-                    self.presentationMode.wrappedValue.dismiss()
-                    self.memberCancelDelegate.cancel()
-                }) {
-                    Text("Cancel").font(.body)
-                }
-                , trailing:
-                Button(action: {
-                    //NSLog("MEV save+finish household \(nameOfHousehold(self.member.household))")
-                    NSLog("MEV save+finish household \(self.member.household)")
-                    self.presentationMode.wrappedValue.dismiss()
-                    self.closingAction(self.member, self.memberEditDelegate)
-                }) {
-                    Text("Save + Finish").font(.body)
-                }
-            )
         }
     }
 }

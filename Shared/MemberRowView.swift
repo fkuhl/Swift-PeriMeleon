@@ -11,14 +11,14 @@ import PMDataTypes
 
 struct MemberRowView: View {
     @Binding var document: PeriMeleonDocument
-    var member: Member
+    var memberId: Id
 
     var body: some View {
-        NavigationLink(destination: MemberView(document: $document, member: member)) {
-            Text(document.content.nameOf(member: member.id))
+        NavigationLink(destination: MemberView(document: $document, memberId: memberId)) {
+            Text(document.content.nameOf(member: memberId))
                 .font(.body)
         }
-        .debugPrint("MRV \(member.fullName())")
+        //.debugPrint("MRV \(member.fullName())")
     }
 }
 

@@ -11,17 +11,29 @@ import PMDataTypes
 
 struct MemberView: View {
     @Binding var document: PeriMeleonDocument
-    var member: Member
+    var memberId: Id
     var editable = true
-    
+    @State private var isEditing = false
+
     var body: some View {
-        CoreMemberView(document: $document,
-                       member: member,
-                       memberEditDelegate: MemberViewEditDelegate(document: $document),
-                       memberCancelDelegate: MemberViewCancelDelegate(),
-                       editable: self.editable,
-                       closingAction: { $1.store(member: $0, in: nil) })
-            .debugPrint("MemberView \(member.fullName())")
+        if isEditing {
+            MemberEditView(
+                document: $document,
+                member: document.content.member(byId: memberId),
+                memberEditDelegate: MemberViewEditDelegate(document: $document),
+                memberCancelDelegate: MemberViewCancelDelegate(),
+                closingAction: { $1.store(member: $0, in: nil) },
+                isEditing: $isEditing)
+        } else {
+            CoreMemberView(document: $document,
+                           member: document.content.member(byId: memberId),
+                           memberEditDelegate: MemberViewEditDelegate(document: $document),
+                           memberCancelDelegate: MemberViewCancelDelegate(),
+                           editable: self.editable,
+                           closingAction: { $1.store(member: $0, in: nil) },
+                           isEditing: $isEditing)
+        }
+            //.debugPrint("MemberView \(member.fullName())")
     }
 }
 /**

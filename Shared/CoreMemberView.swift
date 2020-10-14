@@ -16,22 +16,18 @@ struct CoreMemberView: View {
     var memberCancelDelegate: MemberCancelDelegate
     var editable = true
     let closingAction: (_ member: Member, _ delegate: MemberEditDelegate) -> Void
+    @Binding var isEditing: Bool
     
     var body: some View {
         VStack {
             if editable {
                 HStack {
                     Spacer()
-                    NavigationLink(
-                        destination: MemberEditView(
-                            document: $document,
-                            member: member,
-                            memberEditDelegate: memberEditDelegate,
-                            memberCancelDelegate: memberCancelDelegate,
-                            closingAction: self.closingAction,
-                            navigationBarTitle: member.fullName()))  {
-                                Text("Edit").font(.body)
-                    }
+                    Button(action: {
+                        isEditing = true
+                    }, label: {
+                        Text("Edit").font(.body)
+                    })
                 }.padding()
             }
             List {
