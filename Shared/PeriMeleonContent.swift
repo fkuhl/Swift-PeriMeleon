@@ -216,9 +216,11 @@ struct PeriMeleonContent {
     }
 
     func parentList(mustBeActive: Bool, sex: Sex) -> [Member] {
-        membersById.values.filter { member in
+        var matches = [Member](membersById.values.filter { member in
             return member.sex == sex && !(mustBeActive && !member.status.isActive())
-        }
+        })
+        matches.sort { $0.fullName() < $1.fullName() }
+        return matches
     }
 
     //MARK: - Update data

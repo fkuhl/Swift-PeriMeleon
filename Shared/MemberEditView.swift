@@ -11,7 +11,7 @@ import PMDataTypes
 
 protocol MemberEditDelegate {
     var document: Binding<PeriMeleonDocument> { get }
-    func store(member: Member, in household: Binding<NormalizedHousehold>?) -> Void
+    func store(member: Member) -> Void
 }
 
 protocol MemberCancelDelegate {
@@ -25,7 +25,6 @@ struct MemberEditView: View {
     @State var member: Member
     var memberEditDelegate: MemberEditDelegate
     var memberCancelDelegate: MemberCancelDelegate
-    var closingAction: (_ member: Member, _ delegate: MemberEditDelegate) -> Void
     @Binding var isEditing: Bool
 
     var body: some View {
@@ -33,7 +32,8 @@ struct MemberEditView: View {
             HStack {
                 Button(action: {
                     NSLog("MEV cancel")
-                    isEditing = false
+                    withAnimation(.easeInOut(duration: MemberView.editAnimationDuration)) { isEditing = false
+                    }
                     self.memberCancelDelegate.cancel()
                 }) {
                     Text("Cancel").font(.body)
@@ -42,8 +42,10 @@ struct MemberEditView: View {
                 Button(action: {
                     //NSLog("MEV save+finish household \(nameOfHousehold(self.member.household))")
                     NSLog("MEV save+finish household \(self.member.household)")
-                    isEditing = false
-                    self.closingAction(self.member, self.memberEditDelegate)
+                    withAnimation(.easeInOut(duration: MemberView.editAnimationDuration)) {
+                        isEditing = false
+                    }
+                    memberEditDelegate.store(member: member)
                 }) {
                     Text("Save + Finish").font(.body)
                 }
@@ -77,8 +79,16 @@ struct MemberEditView: View {
                     EditOptionalTextView(caption: "divorce:", text: $member.divorce)
                 }
                 Section {
-                    EditOptionalParentView(document: $document, caption: "father", sex: .MALE, parentId: $member.father)
-                    EditOptionalParentView(document: $document, caption: "mother", sex: .FEMALE, parentId: $member.mother)
+                    EditOptionalParentView(document: $document,
+                                           caption: "father",
+                                           sex: .MALE,
+                                           parentId: $member.father,
+                                           title: "Father of \(member.fullName())")
+                    EditOptionalParentView(document: $document,
+                                           caption: "mother",
+                                           sex: .FEMALE,
+                                           parentId: $member.mother,
+                                           title: "Mother of \(member.fullName())")
                     EditOptionalTextView(caption: "email:", text: $member.eMail)
                     EditOptionalTextView(caption: "work email:", text: $member.workEmail)
                     EditOptionalTextView(caption: "mobile phone:", text: $member.mobilePhone)
@@ -96,6 +106,7 @@ struct MemberEditView: View {
                 EditDateButton(caption: "date last changed:", date: $member.dateLastChanged)
             }
         }
+        .navigationBarTitle(member.fullName())
     }
 }
 

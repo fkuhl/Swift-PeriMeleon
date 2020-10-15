@@ -10,11 +10,14 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberView: View {
+    static let editAnimationDuration = 0.7
+    
     @Binding var document: PeriMeleonDocument
     var memberId: Id
     var editable = true
     @State private var isEditing = false
 
+    //Note that the transitions work because changes to isEditing are withAnimation.
     var body: some View {
         if isEditing {
             MemberEditView(
@@ -22,16 +25,18 @@ struct MemberView: View {
                 member: document.content.member(byId: memberId),
                 memberEditDelegate: MemberViewEditDelegate(document: $document),
                 memberCancelDelegate: MemberViewCancelDelegate(),
-                closingAction: { $1.store(member: $0, in: nil) },
                 isEditing: $isEditing)
+                //.transition(AnyTransition.scale.animation(.easeInOut(duration: 1)))
+                .transition(.move(edge: .trailing))
         } else {
             CoreMemberView(document: $document,
                            member: document.content.member(byId: memberId),
                            memberEditDelegate: MemberViewEditDelegate(document: $document),
                            memberCancelDelegate: MemberViewCancelDelegate(),
                            editable: self.editable,
-                           closingAction: { $1.store(member: $0, in: nil) },
                            isEditing: $isEditing)
+                //.transition(AnyTransition.scale.animation(.easeInOut(duration: 1)))
+                .transition(.move(edge: .leading))
         }
             //.debugPrint("MemberView \(member.fullName())")
     }
@@ -46,7 +51,7 @@ fileprivate class MemberViewEditDelegate: MemberEditDelegate {
         self.document = document
     }
     
-    func store(member: Member, in household: Binding<NormalizedHousehold>? = nil) {
+    func store(member: Member) {
         NSLog("MemberEditViewDel onDis: val is \(member.fullName())")
         document.wrappedValue.content.update(member: member)
     }

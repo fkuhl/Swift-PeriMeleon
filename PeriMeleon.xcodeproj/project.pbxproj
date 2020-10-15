@@ -42,8 +42,6 @@
 		27B20DA32529113B00C80696 /* MemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D912529113B00C80696 /* MemberView.swift */; };
 		27B20DA42529113B00C80696 /* MembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D922529113B00C80696 /* MembersView.swift */; };
 		27B20DA52529113B00C80696 /* MembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D922529113B00C80696 /* MembersView.swift */; };
-		27B20DA62529113B00C80696 /* MemberInHouseholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D932529113B00C80696 /* MemberInHouseholdView.swift */; };
-		27B20DA72529113B00C80696 /* MemberInHouseholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D932529113B00C80696 /* MemberInHouseholdView.swift */; };
 		27B20DA82529113B00C80696 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D942529113B00C80696 /* Services.swift */; };
 		27B20DA92529113B00C80696 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D942529113B00C80696 /* Services.swift */; };
 		27B20DAA2529113B00C80696 /* ServiceEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D952529113B00C80696 /* ServiceEditView.swift */; };
@@ -121,7 +119,6 @@
 		27B20D902529113B00C80696 /* Transactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transactions.swift; sourceTree = "<group>"; };
 		27B20D912529113B00C80696 /* MemberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberView.swift; sourceTree = "<group>"; };
 		27B20D922529113B00C80696 /* MembersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersView.swift; sourceTree = "<group>"; };
-		27B20D932529113B00C80696 /* MemberInHouseholdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberInHouseholdView.swift; sourceTree = "<group>"; };
 		27B20D942529113B00C80696 /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		27B20D952529113B00C80696 /* ServiceEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceEditView.swift; sourceTree = "<group>"; };
 		27B20D962529113B00C80696 /* MemberEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberEditView.swift; sourceTree = "<group>"; };
@@ -263,7 +260,6 @@
 			children = (
 				27B20D8E2529113A00C80696 /* CoreMemberView.swift */,
 				27B20D962529113B00C80696 /* MemberEditView.swift */,
-				27B20D932529113B00C80696 /* MemberInHouseholdView.swift */,
 				27B20D972529113B00C80696 /* MemberRowView.swift */,
 				27B20D922529113B00C80696 /* MembersView.swift */,
 				27B20D912529113B00C80696 /* MemberView.swift */,
@@ -490,7 +486,6 @@
 				27B20DAA2529113B00C80696 /* ServiceEditView.swift in Sources */,
 				27B20DC32529123400C80696 /* EditOptionalDateView.swift in Sources */,
 				27B20DCB2529123400C80696 /* EditOptionalParentView.swift in Sources */,
-				27B20DA62529113B00C80696 /* MemberInHouseholdView.swift in Sources */,
 				27B20DE02529142900C80696 /* AddressEditView.swift in Sources */,
 				276B9753250008DB003E19BA /* PeriMeleonApp.swift in Sources */,
 				276B9757250008DB003E19BA /* ContentView.swift in Sources */,
@@ -527,7 +522,6 @@
 				27B20DAB2529113B00C80696 /* ServiceEditView.swift in Sources */,
 				27B20DC42529123400C80696 /* EditOptionalDateView.swift in Sources */,
 				27B20DCC2529123400C80696 /* EditOptionalParentView.swift in Sources */,
-				27B20DA72529113B00C80696 /* MemberInHouseholdView.swift in Sources */,
 				27B20DE12529142900C80696 /* AddressEditView.swift in Sources */,
 				276B9754250008DB003E19BA /* PeriMeleonApp.swift in Sources */,
 				276B9758250008DB003E19BA /* ContentView.swift in Sources */,

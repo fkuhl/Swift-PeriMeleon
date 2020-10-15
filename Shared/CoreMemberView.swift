@@ -15,7 +15,6 @@ struct CoreMemberView: View {
     var memberEditDelegate: MemberEditDelegate
     var memberCancelDelegate: MemberCancelDelegate
     var editable = true
-    let closingAction: (_ member: Member, _ delegate: MemberEditDelegate) -> Void
     @Binding var isEditing: Bool
     
     var body: some View {
@@ -24,7 +23,7 @@ struct CoreMemberView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        isEditing = true
+                        withAnimation(.easeInOut(duration: MemberView.editAnimationDuration)) { isEditing = true }
                     }, label: {
                         Text("Edit").font(.body)
                     })

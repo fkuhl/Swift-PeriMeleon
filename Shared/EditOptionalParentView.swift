@@ -15,6 +15,7 @@ struct EditOptionalParentView: View {
     var caption: String
     var sex: Sex
     @Binding var parentId: Id?
+    let title: String
     
     var body: some View {
         let proxyBinding = Binding<Id> (
@@ -23,7 +24,8 @@ struct EditOptionalParentView: View {
         
         return NavigationLink(destination: ChooseParentListView(document: $document,
                                                                 parentId: proxyBinding,
-                                                                sex: sex)) {
+                                                                sex: sex,
+                                                                title: title)) {
             HStack(alignment: .lastTextBaseline) {
                 Text(caption)
                     .frame(width: captionWidth, alignment: .trailing)
@@ -40,6 +42,7 @@ struct ChooseParentListView: View {
     //@ObservedObject var dataFetcher = DataFetcher.sharedInstance
     @Binding var parentId: Id
     var sex: Sex
+    let title: String
     
     var body: some View {
         List {
@@ -47,6 +50,7 @@ struct ChooseParentListView: View {
                 ChooseParentRowView(member: $0, chosenId: self.$parentId)
             }
         }
+        .navigationBarTitle(title)
     }
 }
 
