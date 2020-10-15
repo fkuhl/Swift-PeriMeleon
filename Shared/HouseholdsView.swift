@@ -23,7 +23,7 @@ struct HouseholdsView: View {
                 }).pickerStyle(SegmentedPickerStyle())
                 List {
                     ForEach(allOrActive == 0 ? document.content.households : document.content.activeHouseholds, id: \.id) {
-                        HouseholdRowView(document: $document, household: $0)
+                        HouseholdRowView(document: $document, householdId: $0.id)
                     }
                 }
             }

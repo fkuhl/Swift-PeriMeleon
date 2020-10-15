@@ -11,14 +11,14 @@ import PMDataTypes
 
 struct HouseholdRowView: View {
     @Binding var document: PeriMeleonDocument
-    var household: NormalizedHousehold
+    var householdId: Id
     
     var body: some View {
         NavigationLink(destination: HouseholdView(document: $document,
-                                                  item: household,
-                                                  spouseFactory: SpouseFactory(document: $document, household: household),
-                                                  otherFactory: OtherFactory(document: $document, household: household))) {
-            Text($document.wrappedValue.content.nameOf(household: household)).font(.body)
+                                                  household: document.content.household(byId: householdId),
+                                                  spouseFactory: SpouseFactory(document: $document, household: document.content.household(byId: householdId)),
+                                                  otherFactory: OtherFactory(document: $document, household: document.content.household(byId: householdId)))) {
+            Text(document.content.nameOf(household: householdId)).font(.body)
         }
     }
 }

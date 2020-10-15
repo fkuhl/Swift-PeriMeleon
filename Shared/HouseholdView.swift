@@ -10,30 +10,9 @@ import SwiftUI
 import PMDataTypes
 
 
-protocol HouseholdMemberFactoryDelegate {
-    var document: Binding<PeriMeleonDocument> { get }
-    var household: NormalizedHousehold { get }
-    func make() -> Member
-}
-
-
-class HouseholdAddressEditDelegate: AddressEditDelegate {
-    var document: Binding<PeriMeleonDocument>
-    
-    init(document: Binding<PeriMeleonDocument>) {
-        self.document = document
-    }
-
-    func store(address: Address, in household: Binding<NormalizedHousehold>) {
-        NSLog("HAED addr: \(address.address ?? "[none]") on \(document.wrappedValue.content.nameOf(household: household.wrappedValue))")
-        household.wrappedValue.address = address
-        document.wrappedValue.content.update(household: household.wrappedValue)
-    }
-}
-
 struct HouseholdView: View {
     @Binding var document: PeriMeleonDocument
-    @State var item: NormalizedHousehold
+    @State var household: NormalizedHousehold
     var addressEditable = true
     var replaceButtons = false
     var spouseFactory: HouseholdMemberFactoryDelegate
@@ -43,7 +22,7 @@ struct HouseholdView: View {
         VStack {
             if replaceButtons {
                 UnadornedHouseholdView(document: $document,
-                                       household: $item,
+                                       household: $household,
                                        addressEditable: addressEditable,
                                        spouseFactory: self.spouseFactory,
                                        otherFactory: self.otherFactory)
@@ -52,7 +31,7 @@ struct HouseholdView: View {
                                     trailing: EmptyView())
             } else {
                 UnadornedHouseholdView(document: $document,
-                                       household: $item,
+                                       household: $household,
                                        addressEditable: addressEditable,
                                        spouseFactory: self.spouseFactory,
                                        otherFactory: self.otherFactory)
@@ -76,7 +55,7 @@ fileprivate struct UnadornedHouseholdView: View {
                                 memberId: household.head,
                                 editable: true)) {
                     MemberLinkView(caption: "Head of household",
-                                   name: $document.wrappedValue.content.nameOf(household: household))
+                                   name: document.content.nameOf(household: household))
                 }
                 if household.spouse == nil {
                     Button(action: {
@@ -88,12 +67,11 @@ fileprivate struct UnadornedHouseholdView: View {
                         Text("Add spouse").font(.body)
                     }
                 } else {
-                    NavigationLink(destination: MemberView(
-                                    document: $document,
-                                    memberId: household.spouse!,
-                                    editable: true)) {
+                    NavigationLink(destination: MemberView(document: $document,
+                                                           memberId: household.spouse!,
+                                                           editable: true)) {
                         MemberLinkView(caption: "Spouse",
-                                       name: $document.wrappedValue.content.nameOf(member: household.spouse!))
+                                       name: document.content.nameOf(member: household.spouse!))
                     }
                 }
             }
@@ -129,12 +107,36 @@ fileprivate struct UnadornedHouseholdView: View {
     }
 }
 
+//MARK: - Address
+
+class HouseholdAddressEditDelegate: AddressEditDelegate {
+    var document: Binding<PeriMeleonDocument>
+    
+    init(document: Binding<PeriMeleonDocument>) {
+        self.document = document
+    }
+
+    func store(address: Address, in household: Binding<NormalizedHousehold>) {
+        NSLog("HAED addr: \(address.address ?? "[none]") on \(document.wrappedValue.content.nameOf(household: household.wrappedValue))")
+        household.wrappedValue.address = address
+        document.wrappedValue.content.update(household: household.wrappedValue)
+    }
+}
+
 fileprivate struct AddressLinkView: View {
     @Binding var household: NormalizedHousehold
     
     var body: some View {
-        Text(self.household.address?.addressForDisplay() ?? "[none]").font(.body)
+        Text(household.address?.addressForDisplay() ?? "[none]").font(.body)
     }
+}
+
+//MARK: - Members
+
+protocol HouseholdMemberFactoryDelegate {
+    var document: Binding<PeriMeleonDocument> { get }
+    var household: NormalizedHousehold { get }
+    func make() -> Member
 }
 
 fileprivate func makeMember(from factory: HouseholdMemberFactoryDelegate?) -> Member {
@@ -187,6 +189,7 @@ struct OtherAddView: View {
             let newOther = makeMember(from: self.otherFactory)
             document.content.add(member: newOther)
             household.others.append(newOther.id)
+            document.content.update(household: household)
             NSLog("OAV hh \(document.content.nameOf(household: household.id)) has \(household.others.count) others")
         }) {
             Image(systemName: "plus").font(.body)
