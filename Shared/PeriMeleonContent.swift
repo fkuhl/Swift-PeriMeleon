@@ -222,6 +222,14 @@ struct PeriMeleonContent {
         matches.sort { $0.fullName() < $1.fullName() }
         return matches
     }
+    
+    func filterMembers(_ isIncluded: (Member) throws -> Bool) -> [Member] {
+        do {
+            return try membersById.values.filter(isIncluded)
+        } catch {
+            return [Member]()
+        }
+    }
 
     //MARK: - Update data
     

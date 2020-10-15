@@ -58,13 +58,13 @@ struct MainView: View {
 //                    Text("DB Transactions")
 //                }
 //                .tag(2)
-//            QueriesView()
-//                .font(.title)
-//                .tabItem {
-//                    Image(systemName: "magnifyingglass")
-//                    Text("Queries")
-//                }
-//                .tag(3)
+            QueriesView(document: $document)
+                .font(.title)
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                    Text("Queries")
+                }
+                .tag(3)
         }
     }
 }
