@@ -20,12 +20,15 @@ struct FamilyJoinView: View {
             switch accumulator.phase {
             case .transaction:
                 FamilyJoinTransactionPhaseView(accumulator: $accumulator, linkSelection: $linkSelection)
+                    .transition(.move(edge: .trailing))
             case .head:
                 FamilyJoinHeadPhaseView(document: $document, accumulator: $accumulator)
+                    .transition(.move(edge: .trailing))
             case .household:
                 FamilyJoinHouseholdPhaseView(document: $document,
                                              accumulator: $accumulator,
                                              linkSelection: $linkSelection)
+                    .transition(.move(edge: .trailing))
             case .reset:
                 Text("") //EmptyView won't take a nav bar title!
                     .navigationBarTitle("")
@@ -34,6 +37,7 @@ struct FamilyJoinView: View {
         .debugPrint("FJV phase \(accumulator.phase)")
         //We're not using navigation in subsequent views, so no nav buttons
         .navigationBarItems(leading: EmptyView(), trailing:EmptyView())
+        .navigationBarBackButtonHidden(true)
     }
 }
 

@@ -24,29 +24,19 @@ struct FamilyJoinHouseholdPhaseView: View {
                     accumulator.phase = .reset
                     linkSelection = nil //ensure DataTransactionsView can go again
                     presentationMode.wrappedValue.dismiss() //dismiss FamilyJoinView?
-
+                    
                 }) {
                     Text("Finish").font(.body)
                 }
             }.padding()
-        HouseholdView(document: $document,
-                      household: accumulator.addedHousehold,
-                      replaceButtons: false,
-                      spouseFactory: SpouseFactory(document: $document,
-                                                   household: accumulator.addedHousehold),
-                      otherFactory: OtherFactory(document: $document,
-                                                 household: accumulator.addedHousehold))
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: EmptyView(),
-                                trailing:
-                                    Button(action: {
-                                        NSLog("FJHPV close")
-                                        accumulator.phase = .reset
-                                    }) {
-                                        Text("Close").font(.body)
-                                    }
-            )
-    }
+            HouseholdView(document: $document,
+                          household: accumulator.addedHousehold,
+                          replaceButtons: false,
+                          spouseFactory: SpouseFactory(document: $document,
+                                                       household: accumulator.addedHousehold),
+                          otherFactory: OtherFactory(document: $document,
+                                                     household: accumulator.addedHousehold))
+        }
     }
 }
 
