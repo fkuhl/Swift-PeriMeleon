@@ -16,7 +16,6 @@ fileprivate enum Link: String {
 
 struct DataTransactionsView: View {
     @Binding var document: PeriMeleonDocument
-    @ObservedObject var familyAccumulator = FamilyAccumulator()
     @ObservedObject var moveToHouseholdAccumulator = MoveToHouseholdAccumulator()
     @State var linkSelection: String? = nil
     
@@ -29,7 +28,6 @@ struct DataTransactionsView: View {
                                    tag: Link.familyJoins.rawValue,
                                    selection: $linkSelection) {
                         Button(action: {
-                            self.familyAccumulator.reset() //initialize!
                             self.linkSelection = Link.familyJoins.rawValue
                         }) {
                             Text("Family joins").font(.body)
@@ -66,7 +64,6 @@ struct DataTransactionsView: View {
         }
             //A little odd having this here, but make sense:
             //this object will be referred to throughout the navigation.
-        .environmentObject(familyAccumulator)
         .environmentObject(moveToHouseholdAccumulator)
     }
 }

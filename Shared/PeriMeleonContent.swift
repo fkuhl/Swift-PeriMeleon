@@ -260,11 +260,3 @@ fileprivate func makeKey(password: String) -> SymmetricKey? {
         return SymmetricKey(data: keyData)
     } else { return nil }
 }
-
-struct NormalizedHousehold {
-    var id: Id = ""
-    var head: Id = ""
-    var spouse: Id? = nil
-    var others = [Id]()
-    var address: Address? = nil
-}

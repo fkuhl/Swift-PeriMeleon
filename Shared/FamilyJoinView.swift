@@ -11,28 +11,24 @@ import PMDataTypes
 
 struct FamilyJoinView: View {
     @Binding var document: PeriMeleonDocument
-    @EnvironmentObject var accumulator: FamilyAccumulator
     @Environment(\.presentationMode) var presentationMode
     @Binding var linkSelection: String?
+    @State private var accumulator = FamilyAccumulator()
 
     var body: some View {
         VStack {
-            //If SwiftUI supported a switch here, that would be the right thing to use.
-            if accumulator.phase == .transaction {
-                FamilyJoinTransactionPhaseView()
-            } else if accumulator.phase == .head {
-                FamilyJoinHeadPhaseView(document: $document)
-            } else if accumulator.phase == .household {
-                FamilyJoinHouseholdPhaseView(document: $document)
-            } else if accumulator.phase == .reset {
-                Text("reset phase").onAppear() {
-                    NSLog("FJV in phase reset")
-                    accumulator.reset()
-                    linkSelection = nil
-                    presentationMode.wrappedValue.dismiss()
-                }
-            } else {
-                Text("Oops!")
+            switch accumulator.phase {
+            case .transaction:
+                FamilyJoinTransactionPhaseView(accumulator: $accumulator, linkSelection: $linkSelection)
+            case .head:
+                FamilyJoinHeadPhaseView(document: $document, accumulator: $accumulator)
+            case .household:
+                FamilyJoinHouseholdPhaseView(document: $document,
+                                             accumulator: $accumulator,
+                                             linkSelection: $linkSelection)
+            case .reset:
+                Text("") //EmptyView won't take a nav bar title!
+                    .navigationBarTitle("")
             }
         }
         .debugPrint("FJV phase \(accumulator.phase)")

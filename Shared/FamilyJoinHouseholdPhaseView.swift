@@ -11,9 +11,24 @@ import PMDataTypes
 
 struct FamilyJoinHouseholdPhaseView: View {
     @Binding var document: PeriMeleonDocument
-    @EnvironmentObject var accumulator: FamilyAccumulator
+    @Binding var accumulator: FamilyAccumulator
+    @Binding var linkSelection: String?
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
+        VStack {
+            HStack {
+                Spacer()
+                Button(action: {
+                    NSLog("FJTPV cancel")
+                    accumulator.phase = .reset
+                    linkSelection = nil //ensure DataTransactionsView can go again
+                    presentationMode.wrappedValue.dismiss() //dismiss FamilyJoinView?
+
+                }) {
+                    Text("Finish").font(.body)
+                }
+            }.padding()
         HouseholdView(document: $document,
                       household: accumulator.addedHousehold,
                       replaceButtons: false,
@@ -26,11 +41,12 @@ struct FamilyJoinHouseholdPhaseView: View {
                                 trailing:
                                     Button(action: {
                                         NSLog("FJHPV close")
-                                        self.accumulator.phase = .reset
+                                        accumulator.phase = .reset
                                     }) {
                                         Text("Close").font(.body)
                                     }
             )
+    }
     }
 }
 

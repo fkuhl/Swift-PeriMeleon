@@ -12,29 +12,28 @@ import PMDataTypes
  Accumulate the data needed to add a family to the DB as user steps through the various screens.
  */
 
-class FamilyAccumulator: ObservableObject {
+struct FamilyAccumulator {
     
-    @Published var phase: FamilyJoinPhase = .transaction
-    @Published var dateReceived = Date()
-    @Published var receptionType: ReceptionType = .TRANSFER
-    @Published var churchFrom = ""
-    @Published var authority = ""
-    @Published var comment = ""
-    @Published var head: Member = Member()
-    @Published var receptionTransaction = PMDataTypes.Transaction()
-    @Published var addedHousehold = NormalizedHousehold()
+    var phase: FamilyJoinPhase = .transaction
+    var dateReceived = Date()
+    var receptionType: ReceptionType = .TRANSFER
+    var churchFrom = ""
+    var authority = ""
+    var comment = ""
+    var head: Member = Member()
+    var receptionTransaction = PMDataTypes.Transaction()
+    var addedHousehold = NormalizedHousehold()
     
-    func reset() {
-        NSLog("Fam Accum reset")
-        phase = .transaction
-        dateReceived = Date()
-        receptionType = .TRANSFER
-        churchFrom = ""
-        authority = ""
-        comment = ""
-        head = Member()
-        receptionTransaction = PMDataTypes.Transaction()
-    }
+//    func reset() {
+//        NSLog("Fam Accum reset")
+//        dateReceived = Date()
+//        receptionType = .TRANSFER
+//        churchFrom = ""
+//        authority = ""
+//        comment = ""
+//        head = Member()
+//        receptionTransaction = PMDataTypes.Transaction()
+//    }
     
 }
 

@@ -10,49 +10,49 @@ import SwiftUI
 import PMDataTypes
 
 struct FamilyJoinTransactionPhaseView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var accumulator: FamilyAccumulator
-    
+    @Binding var accumulator: FamilyAccumulator
+    @Binding var linkSelection: String?
+    @Environment(\.presentationMode) var presentationMode
+
     var body: some View {
         VStack {
             HStack {
                 Button(action: {
-//                    NSLog("MEV cancel")
-//                    withAnimation(.easeInOut(duration: MemberView.editAnimationDuration)) { isEditing = false
-//                    }
-//                    self.memberCancelDelegate.cancel()
+                    NSLog("FJTPV cancel")
+                    accumulator.phase = .reset
+                    linkSelection = nil //ensure DataTransactionsView can go again
+                    presentationMode.wrappedValue.dismiss() //dismiss FamilyJoinView?
                 }) {
                     Text("Cancel").font(.body)
                 }
                 Spacer()
                 Button(action: {
-                    self.accumulator.receptionTransaction.date = self.accumulator.dateReceived
-                    switch self.accumulator.receptionType {
+                    accumulator.receptionTransaction.date = self.accumulator.dateReceived
+                    switch accumulator.receptionType {
                     case .PROFESSION:
-                        self.accumulator.receptionTransaction.type = .PROFESSION
-                        self.accumulator.receptionTransaction.comment = self.accumulator.comment
+                        accumulator.receptionTransaction.type = .PROFESSION
+                        accumulator.receptionTransaction.comment = accumulator.comment
                     case .AFFIRMATION:
-                        self.accumulator.receptionTransaction.type = .RECEIVED
-                        self.accumulator.receptionTransaction.comment = self.accumulator.comment + " by affirmation"
+                        accumulator.receptionTransaction.type = .RECEIVED
+                        accumulator.receptionTransaction.comment = accumulator.comment + " by affirmation"
                     case .TRANSFER:
-                        self.accumulator.receptionTransaction.type = .RECEIVED
-                        self.accumulator.receptionTransaction.comment = self.accumulator.comment
+                        accumulator.receptionTransaction.type = .RECEIVED
+                        accumulator.receptionTransaction.comment = accumulator.comment
                     }
-                    self.accumulator.receptionTransaction.church = self.accumulator.churchFrom
-                    self.accumulator.receptionTransaction.authority = self.accumulator.authority
-                    self.accumulator.head.transactions = [self.accumulator.receptionTransaction]
-                    self.accumulator.head.familyName = "Head"
-                    self.accumulator.head.givenName = "of this household"
-                    self.accumulator.phase = .head
-                    self.presentationMode.wrappedValue.dismiss()
+                    accumulator.receptionTransaction.church = accumulator.churchFrom
+                    accumulator.receptionTransaction.authority = accumulator.authority
+                    accumulator.head.transactions = [accumulator.receptionTransaction]
+                    accumulator.head.familyName = "Head"
+                    accumulator.head.givenName = "of this household"
+                    accumulator.phase = .head
                 }) {
                     Text("Save + Continue").font(.body)
                 }
             }.padding()
             Form {
                 Section {
-                    DateSelectionView(caption: "Date received")
-                    ReceptionTypeView(caption: "Reception type")
+                    DateSelectionView(caption: "Date received", accumulator: $accumulator)
+                    ReceptionTypeView(caption: "Reception type", accumulator: $accumulator)
                     EditTextView(caption: "authority", text: $accumulator.authority)
                     EditTextView(caption: "church from", text: $accumulator.churchFrom)
                     EditTextView(caption: "comment", text: $accumulator.comment)
@@ -66,7 +66,8 @@ struct FamilyJoinTransactionPhaseView: View {
 
 struct FamilyJoinTransactionPhaseView_Previews: PreviewProvider {
     static var previews: some View {
-        FamilyJoinTransactionPhaseView()
+        FamilyJoinTransactionPhaseView(accumulator: Binding.constant(FamilyAccumulator()),
+                                       linkSelection: Binding.constant(nil))
     }
 }
 
@@ -74,7 +75,7 @@ struct FamilyJoinTransactionPhaseView_Previews: PreviewProvider {
 struct DateSelectionView: View {
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
-    @EnvironmentObject var accumulator: FamilyAccumulator
+    @Binding var accumulator: FamilyAccumulator
 
     var body: some View {
         HStack(alignment: .lastTextBaseline) {
@@ -86,19 +87,13 @@ struct DateSelectionView: View {
                        in: ...Date(),
                        displayedComponents: .date).font(.body)
         }
-//        .onAppear() {
-//            NSLog("DSV onApp")
-//        }
-//        .onDisappear() {
-//            NSLog("DSV onDis")
-//        }
     }
 }
 
 struct ReceptionTypeView: View {
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
-    @EnvironmentObject var accumulator: FamilyAccumulator
+    @Binding var accumulator: FamilyAccumulator
 
     var body: some View {
         HStack(alignment: .lastTextBaseline) {

@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct FamilyJoinHeadPhaseView: View {
     @Binding var document: PeriMeleonDocument
-    @EnvironmentObject var accumulator: FamilyAccumulator
+    @Binding var accumulator: FamilyAccumulator
     @State private var isEditing = false //not used in FamilyJoin
 
     var body: some View {
@@ -19,8 +19,8 @@ struct FamilyJoinHeadPhaseView: View {
             document: $document,
             member: accumulator.head,
             memberEditDelegate: FamilyJoinEditDelegate(document: $document,
-                                                       accumulator: accumulator),
-            memberCancelDelegate: FamilyJoinCancelDelegate(accumulator: accumulator),
+                                                       accumulator: $accumulator),
+            memberCancelDelegate: FamilyJoinCancelDelegate(accumulator: $accumulator),
             isEditing: $isEditing)
     }
 }
@@ -30,9 +30,10 @@ struct FamilyJoinHeadPhaseView: View {
  */
 class FamilyJoinEditDelegate: MemberEditDelegate {
     var document: Binding<PeriMeleonDocument>
-    var accumulator: FamilyAccumulator
+    var accumulator: Binding<FamilyAccumulator>
     
-    init(document: Binding<PeriMeleonDocument>, accumulator: FamilyAccumulator) {
+    init(document: Binding<PeriMeleonDocument>,
+         accumulator: Binding<FamilyAccumulator>) {
         self.document = document
         self.accumulator = accumulator
     }
@@ -41,23 +42,24 @@ class FamilyJoinEditDelegate: MemberEditDelegate {
         NSLog("FJED onDis: val is \(member.fullName())")
         var newHousehold = NormalizedHousehold()
         newHousehold.head = member.id
-        var memberCopy = member
-        memberCopy.household = newHousehold.id
-        document.wrappedValue.content.add(member: memberCopy)
+        var memberInHousehold = member
+        memberInHousehold.household = newHousehold.id
+        document.wrappedValue.content.add(member: memberInHousehold)
         document.wrappedValue.content.add(household: newHousehold)
-        accumulator.addedHousehold = newHousehold
-        accumulator.phase = .household
+        accumulator.wrappedValue.head = memberInHousehold
+        accumulator.wrappedValue.addedHousehold = newHousehold
+        accumulator.wrappedValue.phase = .household
     }
 }
 
 class FamilyJoinCancelDelegate: MemberCancelDelegate {
-    var accumulator: FamilyAccumulator
+    var accumulator: Binding<FamilyAccumulator>
     
-    init(accumulator: FamilyAccumulator) {
+    init(accumulator: Binding<FamilyAccumulator>) {
         self.accumulator = accumulator
     }
     func cancel() {
-        accumulator.phase = .transaction
+        accumulator.wrappedValue.phase = .transaction
     }
 
 }
