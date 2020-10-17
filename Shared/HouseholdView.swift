@@ -103,7 +103,7 @@ fileprivate struct UnadornedHouseholdView: View {
                 }
             }
         }
-        .navigationBarTitle($document.wrappedValue.content.nameOf(household: household))
+        .navigationBarTitle(document.content.nameOf(household: household))
     }
 }
 

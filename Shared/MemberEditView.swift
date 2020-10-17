@@ -20,8 +20,6 @@ protocol MemberCancelDelegate {
 
 struct MemberEditView: View {
     @Binding var document: PeriMeleonDocument
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    //@EnvironmentObject var accumulator: FamilyAccumulator
     @State var member: Member
     var memberEditDelegate: MemberEditDelegate
     var memberCancelDelegate: MemberCancelDelegate
@@ -40,14 +38,13 @@ struct MemberEditView: View {
                 }
                 Spacer()
                 Button(action: {
-                    //NSLog("MEV save+finish household \(nameOfHousehold(self.member.household))")
-                    NSLog("MEV save+finish household \(self.member.household)")
+                    NSLog("MEV Save Member \(member.fullName())")
                     withAnimation(.easeInOut(duration: MemberView.editAnimationDuration)) {
                         isEditing = false
                     }
                     memberEditDelegate.store(member: member)
                 }) {
-                    Text("Save + Finish").font(.body)
+                    Text("Save Member").font(.body)
                 }
             }.padding()
             Form {

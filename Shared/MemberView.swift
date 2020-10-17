@@ -36,7 +36,7 @@ struct MemberView: View {
                            editable: self.editable,
                            isEditing: $isEditing)
                 //.transition(AnyTransition.scale.animation(.easeInOut(duration: 1)))
-                .transition(.move(edge: .leading))
+                .transition(.move(edge: .trailing))
         }
             //.debugPrint("MemberView \(member.fullName())")
     }

@@ -51,13 +51,13 @@ struct MainView: View {
                     Text("Households")
                 }
                 .tag(1)
-//            DataTransactionsView()
-//                .font(.title)
-//                .tabItem {
-//                    Image(systemName: "pencil.circle")
-//                    Text("DB Transactions")
-//                }
-//                .tag(2)
+            DataTransactionsView(document: $document)
+                .font(.title)
+                .tabItem {
+                    Image(systemName: "pencil.circle")
+                    Text("DB Transactions")
+                }
+                .tag(2)
             QueriesView(document: $document)
                 .font(.title)
                 .tabItem {
