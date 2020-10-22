@@ -47,8 +47,6 @@ let mockAddress = Address(
     postalCode: "54321"
 )
 
-let mockHousehold = Household(id: "xxx",
-                              head: mockMember1,
-                              spouse: mockMember2,
-                              address: mockAddress)
+var mockHousehold = NormalizedHousehold()
+
 

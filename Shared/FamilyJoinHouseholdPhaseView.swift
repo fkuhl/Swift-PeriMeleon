@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct FamilyJoinHouseholdPhaseView: View {
     @Binding var document: PeriMeleonDocument
-    @Binding var accumulator: FamilyAccumulator
+    @Binding var accumulator: FamilyJoinAccumulator
     @Binding var linkSelection: String?
     @Environment(\.presentationMode) var presentationMode
 

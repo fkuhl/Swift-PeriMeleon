@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct FamilyJoinTransactionPhaseView: View {
-    @Binding var accumulator: FamilyAccumulator
+    @Binding var accumulator: FamilyJoinAccumulator
     @Binding var linkSelection: String?
     @Environment(\.presentationMode) var presentationMode
 
@@ -68,7 +68,7 @@ struct FamilyJoinTransactionPhaseView: View {
 
 struct FamilyJoinTransactionPhaseView_Previews: PreviewProvider {
     static var previews: some View {
-        FamilyJoinTransactionPhaseView(accumulator: Binding.constant(FamilyAccumulator()),
+        FamilyJoinTransactionPhaseView(accumulator: Binding.constant(FamilyJoinAccumulator()),
                                        linkSelection: Binding.constant(nil))
     }
 }
@@ -77,7 +77,7 @@ struct FamilyJoinTransactionPhaseView_Previews: PreviewProvider {
 struct DateSelectionView: View {
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
-    @Binding var accumulator: FamilyAccumulator
+    @Binding var accumulator: FamilyJoinAccumulator
 
     var body: some View {
         HStack(alignment: .lastTextBaseline) {
@@ -95,7 +95,7 @@ struct DateSelectionView: View {
 struct ReceptionTypeView: View {
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
-    @Binding var accumulator: FamilyAccumulator
+    @Binding var accumulator: FamilyJoinAccumulator
 
     var body: some View {
         HStack(alignment: .lastTextBaseline) {

@@ -107,6 +107,42 @@ fileprivate struct UnadornedHouseholdView: View {
     }
 }
 
+class PreviewHouseholdMemberFactoryDelegate: HouseholdMemberFactoryDelegate {
+    var document: Binding<PeriMeleonDocument>
+    var household: NormalizedHousehold
+    
+    init(document: Binding<PeriMeleonDocument>, household: NormalizedHousehold) {
+        self.document = document
+        self.household = household
+    }
+    
+    func make() -> Member {
+        Member()
+    }
+    
+    
+}
+
+/**
+ For PreviewProviderModifier, see:
+https://www.avanderlee.com/swiftui/previews-different-states/?utm_source=SwiftLee+-+Subscribers&utm_campaign=62bdcb91d7-EMAIL_CAMPAIGN_2020_03_02_08_48_COPY_01&utm_medium=email&utm_term=0_e154f6bfee-62bdcb91d7-367632929
+*/
+struct UnadornedHouseholdView_Previews: PreviewProvider {
+    static var previews: some View {
+        UnadornedHouseholdView(document: Binding.constant(PeriMeleonDocument()),
+                               household: Binding.constant(mockHousehold),
+                               spouseFactory: PreviewHouseholdMemberFactoryDelegate(document: Binding.constant(PeriMeleonDocument()),
+                                                                                    household: mockHousehold),
+                               otherFactory: PreviewHouseholdMemberFactoryDelegate(document: Binding.constant(PeriMeleonDocument()),
+                                                                                   household: mockHousehold))
+            .previewLayout(PreviewLayout.sizeThatFits)
+                            .padding()
+                            .background(Color(.systemBackground))
+                            .environment(\.colorScheme, .dark)
+                            .previewDisplayName("Dark Mode")
+    }
+}
+
 //MARK: - Address
 
 class HouseholdAddressEditDelegate: AddressEditDelegate {

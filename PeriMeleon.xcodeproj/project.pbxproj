@@ -24,6 +24,12 @@
 		276B9758250008DB003E19BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B972B250008DA003E19BA /* ContentView.swift */; };
 		276B9759250008DB003E19BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276B972C250008DB003E19BA /* Assets.xcassets */; };
 		276B975A250008DB003E19BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276B972C250008DB003E19BA /* Assets.xcassets */; };
+		277C95112540DC230032638A /* PreviewProviderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95102540DC230032638A /* PreviewProviderModifier.swift */; };
+		277C95122540DC230032638A /* PreviewProviderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95102540DC230032638A /* PreviewProviderModifier.swift */; };
+		277C95182540DD6A0032638A /* PreviewShowoffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95172540DD6A0032638A /* PreviewShowoffView.swift */; };
+		277C95192540DD6A0032638A /* PreviewShowoffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95172540DD6A0032638A /* PreviewShowoffView.swift */; };
+		277C9528254223C20032638A /* Member+Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C9527254223C20032638A /* Member+Age.swift */; };
+		277C9529254223C20032638A /* Member+Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C9527254223C20032638A /* Member+Age.swift */; };
 		27B20D812529106500C80696 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7E2529106500C80696 /* HouseholdRowView.swift */; };
 		27B20D822529106500C80696 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7E2529106500C80696 /* HouseholdRowView.swift */; };
 		27B20D832529106500C80696 /* HouseholdsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7F2529106500C80696 /* HouseholdsView.swift */; };
@@ -92,8 +98,8 @@
 		27C55E332538E67700923EE8 /* MoveToHouseholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */; };
 		27C55E3E2538E74300923EE8 /* FamilyJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E392538E74300923EE8 /* FamilyJoinView.swift */; };
 		27C55E3F2538E74300923EE8 /* FamilyJoinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E392538E74300923EE8 /* FamilyJoinView.swift */; };
-		27C55E402538E74300923EE8 /* FamilyAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3A2538E74300923EE8 /* FamilyAccumulator.swift */; };
-		27C55E412538E74300923EE8 /* FamilyAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3A2538E74300923EE8 /* FamilyAccumulator.swift */; };
+		27C55E402538E74300923EE8 /* FamilyJoinAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3A2538E74300923EE8 /* FamilyJoinAccumulator.swift */; };
+		27C55E412538E74300923EE8 /* FamilyJoinAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3A2538E74300923EE8 /* FamilyJoinAccumulator.swift */; };
 		27C55E422538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3B2538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift */; };
 		27C55E432538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3B2538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift */; };
 		27C55E442538E74300923EE8 /* FamilyJoinHeadPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3C2538E74300923EE8 /* FamilyJoinHeadPhaseView.swift */; };
@@ -148,6 +154,9 @@
 		276B974C250008DB003E19BA /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		276B9750250008DB003E19BA /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		276B9752250008DB003E19BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		277C95102540DC230032638A /* PreviewProviderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProviderModifier.swift; sourceTree = "<group>"; };
+		277C95172540DD6A0032638A /* PreviewShowoffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewShowoffView.swift; sourceTree = "<group>"; };
+		277C9527254223C20032638A /* Member+Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Member+Age.swift"; sourceTree = "<group>"; };
 		27B20D7E2529106500C80696 /* HouseholdRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdRowView.swift; sourceTree = "<group>"; };
 		27B20D7F2529106500C80696 /* HouseholdsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdsView.swift; sourceTree = "<group>"; };
 		27B20D802529106500C80696 /* HouseholdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdView.swift; sourceTree = "<group>"; };
@@ -182,7 +191,7 @@
 		27C55E2C2538E67700923EE8 /* DataTransactionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTransactionsView.swift; sourceTree = "<group>"; };
 		27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToHouseholdView.swift; sourceTree = "<group>"; };
 		27C55E392538E74300923EE8 /* FamilyJoinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyJoinView.swift; sourceTree = "<group>"; };
-		27C55E3A2538E74300923EE8 /* FamilyAccumulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyAccumulator.swift; sourceTree = "<group>"; };
+		27C55E3A2538E74300923EE8 /* FamilyJoinAccumulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyJoinAccumulator.swift; sourceTree = "<group>"; };
 		27C55E3B2538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyJoinHouseholdPhaseView.swift; sourceTree = "<group>"; };
 		27C55E3C2538E74300923EE8 /* FamilyJoinHeadPhaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyJoinHeadPhaseView.swift; sourceTree = "<group>"; };
 		27C55E3D2538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyJoinTransactionPhaseView.swift; sourceTree = "<group>"; };
@@ -241,22 +250,22 @@
 		276B9728250008DA003E19BA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				277C9526254223110032638A /* Document */,
 				27C55E5D2538E7A400923EE8 /* DataChecker */,
-				27C55E4C2538E74900923EE8 /* Family */,
+				27C55E4C2538E74900923EE8 /* Family Join */,
 				27C55E382538E67D00923EE8 /* Transactions */,
-				27C55E242538CE9400923EE8 /* MockedData.swift */,
 				27C55E1F2538CE0700923EE8 /* Queries */,
 				27B20DE82529143000C80696 /* Address */,
 				276B972C250008DB003E19BA /* Assets.xcassets */,
 				276B972B250008DA003E19BA /* ContentView.swift */,
-				272F722D251533BD009E4CF3 /* CryptoKey.swift */,
 				27B20DD52529123C00C80696 /* EditFields */,
 				27B20D8B2529107200C80696 /* Households */,
 				27B20DB42529116B00C80696 /* Members */,
 				276B9729250008DA003E19BA /* PeriMeleonApp.swift */,
-				272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */,
-				276B972A250008DA003E19BA /* PeriMeleonDocument.swift */,
 				27C6B4A32506ADD20086181F /* README.md */,
+				277C95102540DC230032638A /* PreviewProviderModifier.swift */,
+				277C95172540DD6A0032638A /* PreviewShowoffView.swift */,
+				27C55E242538CE9400923EE8 /* MockedData.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -307,6 +316,16 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
+		277C9526254223110032638A /* Document */ = {
+			isa = PBXGroup;
+			children = (
+				276B972A250008DA003E19BA /* PeriMeleonDocument.swift */,
+				272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */,
+				272F722D251533BD009E4CF3 /* CryptoKey.swift */,
+			);
+			name = Document;
+			sourceTree = "<group>";
+		};
 		27B20D8B2529107200C80696 /* Households */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +350,7 @@
 				27B20D8C2529113A00C80696 /* TextAttributeView.swift */,
 				27B20D8F2529113B00C80696 /* TransactionEditView.swift */,
 				27B20D902529113B00C80696 /* Transactions.swift */,
+				277C9527254223C20032638A /* Member+Age.swift */,
 			);
 			name = Members;
 			sourceTree = "<group>";
@@ -382,16 +402,16 @@
 			name = Transactions;
 			sourceTree = "<group>";
 		};
-		27C55E4C2538E74900923EE8 /* Family */ = {
+		27C55E4C2538E74900923EE8 /* Family Join */ = {
 			isa = PBXGroup;
 			children = (
-				27C55E3A2538E74300923EE8 /* FamilyAccumulator.swift */,
+				27C55E3A2538E74300923EE8 /* FamilyJoinAccumulator.swift */,
 				27C55E3C2538E74300923EE8 /* FamilyJoinHeadPhaseView.swift */,
 				27C55E3B2538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift */,
 				27C55E3D2538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift */,
 				27C55E392538E74300923EE8 /* FamilyJoinView.swift */,
 			);
-			name = Family;
+			name = "Family Join";
 			sourceTree = "<group>";
 		};
 		27C55E5D2538E7A400923EE8 /* DataChecker */ = {
@@ -571,6 +591,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27C55E462538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
+				277C9528254223C20032638A /* Member+Age.swift in Sources */,
 				27B20DC12529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */,
 				27B20DA82529113B00C80696 /* Services.swift in Sources */,
@@ -586,6 +607,7 @@
 				27C55E132538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */,
 				27B20DA22529113B00C80696 /* MemberView.swift in Sources */,
 				272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */,
+				277C95182540DD6A0032638A /* PreviewShowoffView.swift in Sources */,
 				27B20DCD2529123400C80696 /* EditSexView.swift in Sources */,
 				27C55E3E2538E74300923EE8 /* FamilyJoinView.swift in Sources */,
 				27B20D982529113B00C80696 /* TextAttributeView.swift in Sources */,
@@ -597,6 +619,7 @@
 				27B20DAE2529113B00C80696 /* MemberRowView.swift in Sources */,
 				27C55E302538E67700923EE8 /* DataTransactionsView.swift in Sources */,
 				276B9755250008DB003E19BA /* PeriMeleonDocument.swift in Sources */,
+				277C95112540DC230032638A /* PreviewProviderModifier.swift in Sources */,
 				27C55E112538CE0100923EE8 /* CompactToggleView.swift in Sources */,
 				27C55E322538E67700923EE8 /* MoveToHouseholdView.swift in Sources */,
 				27B20DE22529142900C80696 /* AddressView.swift in Sources */,
@@ -604,7 +627,7 @@
 				27B20D9C2529113B00C80696 /* CoreMemberView.swift in Sources */,
 				27B20DC72529123400C80696 /* EditDateButton.swift in Sources */,
 				27B20DCF2529123400C80696 /* EditBoolView.swift in Sources */,
-				27C55E402538E74300923EE8 /* FamilyAccumulator.swift in Sources */,
+				27C55E402538E74300923EE8 /* FamilyJoinAccumulator.swift in Sources */,
 				27C55E442538E74300923EE8 /* FamilyJoinHeadPhaseView.swift in Sources */,
 				27B20D852529106500C80696 /* HouseholdView.swift in Sources */,
 				27C55E572538E7A000923EE8 /* DataCheckReportView.swift in Sources */,
@@ -626,6 +649,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27C55E472538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
+				277C9529254223C20032638A /* Member+Age.swift in Sources */,
 				27B20DC22529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */,
 				27B20DA92529113B00C80696 /* Services.swift in Sources */,
@@ -641,6 +665,7 @@
 				27C55E142538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */,
 				27B20DA32529113B00C80696 /* MemberView.swift in Sources */,
 				276B9756250008DB003E19BA /* PeriMeleonDocument.swift in Sources */,
+				277C95192540DD6A0032638A /* PreviewShowoffView.swift in Sources */,
 				27B20DCE2529123400C80696 /* EditSexView.swift in Sources */,
 				27C55E3F2538E74300923EE8 /* FamilyJoinView.swift in Sources */,
 				27B20D992529113B00C80696 /* TextAttributeView.swift in Sources */,
@@ -652,6 +677,7 @@
 				27B20DAF2529113B00C80696 /* MemberRowView.swift in Sources */,
 				27C55E312538E67700923EE8 /* DataTransactionsView.swift in Sources */,
 				272F7236251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */,
+				277C95122540DC230032638A /* PreviewProviderModifier.swift in Sources */,
 				27C55E122538CE0100923EE8 /* CompactToggleView.swift in Sources */,
 				27C55E332538E67700923EE8 /* MoveToHouseholdView.swift in Sources */,
 				27B20DE32529142900C80696 /* AddressView.swift in Sources */,
@@ -659,7 +685,7 @@
 				27B20D9D2529113B00C80696 /* CoreMemberView.swift in Sources */,
 				27B20DC82529123400C80696 /* EditDateButton.swift in Sources */,
 				27B20DD02529123400C80696 /* EditBoolView.swift in Sources */,
-				27C55E412538E74300923EE8 /* FamilyAccumulator.swift in Sources */,
+				27C55E412538E74300923EE8 /* FamilyJoinAccumulator.swift in Sources */,
 				27C55E452538E74300923EE8 /* FamilyJoinHeadPhaseView.swift in Sources */,
 				27B20D862529106500C80696 /* HouseholdView.swift in Sources */,
 				27C55E582538E7A000923EE8 /* DataCheckReportView.swift in Sources */,

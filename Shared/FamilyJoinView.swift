@@ -13,7 +13,7 @@ struct FamilyJoinView: View {
     @Binding var document: PeriMeleonDocument
     @Environment(\.presentationMode) var presentationMode
     @Binding var linkSelection: String?
-    @State private var accumulator = FamilyAccumulator()
+    @State private var accumulator = FamilyJoinAccumulator()
 
     var body: some View {
         VStack {

@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct FamilyJoinHeadPhaseView: View {
     @Binding var document: PeriMeleonDocument
-    @Binding var accumulator: FamilyAccumulator
+    @Binding var accumulator: FamilyJoinAccumulator
     @State private var isEditing = false //not used in FamilyJoin
 
     var body: some View {
@@ -30,10 +30,10 @@ struct FamilyJoinHeadPhaseView: View {
  */
 class FamilyJoinEditDelegate: MemberEditDelegate {
     var document: Binding<PeriMeleonDocument>
-    var accumulator: Binding<FamilyAccumulator>
+    var accumulator: Binding<FamilyJoinAccumulator>
     
     init(document: Binding<PeriMeleonDocument>,
-         accumulator: Binding<FamilyAccumulator>) {
+         accumulator: Binding<FamilyJoinAccumulator>) {
         self.document = document
         self.accumulator = accumulator
     }
@@ -55,9 +55,9 @@ class FamilyJoinEditDelegate: MemberEditDelegate {
 }
 
 class FamilyJoinCancelDelegate: MemberCancelDelegate {
-    var accumulator: Binding<FamilyAccumulator>
+    var accumulator: Binding<FamilyJoinAccumulator>
     
-    init(accumulator: Binding<FamilyAccumulator>) {
+    init(accumulator: Binding<FamilyJoinAccumulator>) {
         self.accumulator = accumulator
     }
     func cancel() {
