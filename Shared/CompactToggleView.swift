@@ -16,8 +16,9 @@ struct CompactToggleView: View {
         HStack {
             Text(label).font(.body)
             //include label for accessibility
-            Toggle(label, isOn: $isOn).labelsHidden()
-            }.padding()
+            Toggle(label, isOn: $isOn)
+                .toggleStyle(CheckboxToggleStyle())
+        }.labelsHidden()
     }
 }
 

@@ -30,6 +30,8 @@
 		277C95192540DD6A0032638A /* PreviewShowoffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95172540DD6A0032638A /* PreviewShowoffView.swift */; };
 		277C9528254223C20032638A /* Member+Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C9527254223C20032638A /* Member+Age.swift */; };
 		277C9529254223C20032638A /* Member+Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C9527254223C20032638A /* Member+Age.swift */; };
+		277C9530254333A50032638A /* CheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C952F254333A50032638A /* CheckboxToggleStyle.swift */; };
+		277C9531254333A50032638A /* CheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C952F254333A50032638A /* CheckboxToggleStyle.swift */; };
 		27B20D812529106500C80696 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7E2529106500C80696 /* HouseholdRowView.swift */; };
 		27B20D822529106500C80696 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7E2529106500C80696 /* HouseholdRowView.swift */; };
 		27B20D832529106500C80696 /* HouseholdsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7F2529106500C80696 /* HouseholdsView.swift */; };
@@ -157,6 +159,7 @@
 		277C95102540DC230032638A /* PreviewProviderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProviderModifier.swift; sourceTree = "<group>"; };
 		277C95172540DD6A0032638A /* PreviewShowoffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewShowoffView.swift; sourceTree = "<group>"; };
 		277C9527254223C20032638A /* Member+Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Member+Age.swift"; sourceTree = "<group>"; };
+		277C952F254333A50032638A /* CheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		27B20D7E2529106500C80696 /* HouseholdRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdRowView.swift; sourceTree = "<group>"; };
 		27B20D7F2529106500C80696 /* HouseholdsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdsView.swift; sourceTree = "<group>"; };
 		27B20D802529106500C80696 /* HouseholdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdView.swift; sourceTree = "<group>"; };
@@ -261,10 +264,9 @@
 				27B20DD52529123C00C80696 /* EditFields */,
 				27B20D8B2529107200C80696 /* Households */,
 				27B20DB42529116B00C80696 /* Members */,
+				277C952E254333760032638A /* Styling */,
 				276B9729250008DA003E19BA /* PeriMeleonApp.swift */,
 				27C6B4A32506ADD20086181F /* README.md */,
-				277C95102540DC230032638A /* PreviewProviderModifier.swift */,
-				277C95172540DD6A0032638A /* PreviewShowoffView.swift */,
 				27C55E242538CE9400923EE8 /* MockedData.swift */,
 			);
 			path = Shared;
@@ -326,6 +328,17 @@
 			name = Document;
 			sourceTree = "<group>";
 		};
+		277C952E254333760032638A /* Styling */ = {
+			isa = PBXGroup;
+			children = (
+				27C55E0C2538CE0100923EE8 /* CompactToggleView.swift */,
+				277C95172540DD6A0032638A /* PreviewShowoffView.swift */,
+				277C95102540DC230032638A /* PreviewProviderModifier.swift */,
+				277C952F254333A50032638A /* CheckboxToggleStyle.swift */,
+			);
+			name = Styling;
+			sourceTree = "<group>";
+		};
 		27B20D8B2529107200C80696 /* Households */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,7 +396,6 @@
 		27C55E1F2538CE0700923EE8 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
-				27C55E0C2538CE0100923EE8 /* CompactToggleView.swift */,
 				27C55E0F2538CE0100923EE8 /* MembersByStatusEntryView.swift */,
 				27C55E0D2538CE0100923EE8 /* MembersByStatusResultsView.swift */,
 				27C55E102538CE0100923EE8 /* MembersByStatusView.swift */,
@@ -616,6 +628,7 @@
 				27B20DA42529113B00C80696 /* MembersView.swift in Sources */,
 				27B20DAC2529113B00C80696 /* MemberEditView.swift in Sources */,
 				27B20D832529106500C80696 /* HouseholdsView.swift in Sources */,
+				277C9530254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAE2529113B00C80696 /* MemberRowView.swift in Sources */,
 				27C55E302538E67700923EE8 /* DataTransactionsView.swift in Sources */,
 				276B9755250008DB003E19BA /* PeriMeleonDocument.swift in Sources */,
@@ -674,6 +687,7 @@
 				27B20DA52529113B00C80696 /* MembersView.swift in Sources */,
 				27B20DAD2529113B00C80696 /* MemberEditView.swift in Sources */,
 				27B20D842529106500C80696 /* HouseholdsView.swift in Sources */,
+				277C9531254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAF2529113B00C80696 /* MemberRowView.swift in Sources */,
 				27C55E312538E67700923EE8 /* DataTransactionsView.swift in Sources */,
 				272F7236251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */,

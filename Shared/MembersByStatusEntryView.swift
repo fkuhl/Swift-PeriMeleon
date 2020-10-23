@@ -18,7 +18,7 @@ struct MembersByStatusEntryView: View {
     @Binding var showingResults: Bool
     
     var body: some View {
-        VStack(alignment: .center, spacing: 20.0) {
+        VStack(alignment: .center, spacing: 10) {
             Text("Query Members by Status").font(.title).padding(30)
             HStack(alignment: .center, spacing: 20) {
                 Spacer()
@@ -38,20 +38,17 @@ struct MembersByStatusEntryView: View {
                 }.frame(maxWidth: 300)/*.background(Color.yellow)*/
                 Spacer()
             }
-            HStack {
-                Button(action: {
-                    NSLog("run query")
-                    members = document.content.filterMembers {
-                        $0.status == self.desiredStatus &&
-                            ((self.includeResident && $0.resident)
-                                || (self.includeNonResident && !$0.resident))
-                    }
-                    self.showingResults = true
-                }) {
-                    Text("Query").font(.title)
-                }.padding(20)
-            }
-            Spacer()
+            Button(action: {
+                NSLog("run query")
+                members = document.content.filterMembers {
+                    $0.status == self.desiredStatus &&
+                        ((self.includeResident && $0.resident)
+                            || (self.includeNonResident && !$0.resident))
+                }
+                self.showingResults = true
+            }) {
+                Text("Query").font(.title)
+            }.padding(20)
         }.padding(20)
     }
 }

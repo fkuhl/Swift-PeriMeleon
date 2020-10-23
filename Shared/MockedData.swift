@@ -11,6 +11,14 @@ import PMDataTypes
 
 let mockDocument = Binding.constant(PeriMeleonDocument())
 
+fileprivate func makeTrans() -> PMDataTypes.Transaction {
+    var trans = PMDataTypes.Transaction()
+    trans.date = Date()
+    trans.type = .RECEIVED
+    trans.church = "Some Church"
+    return trans
+}
+
 fileprivate func makeMv1() -> Member {
     var mv1 = Member()
     mv1.id = "123"
@@ -24,6 +32,7 @@ fileprivate func makeMv1() -> Member {
     mv1.eMail = "horatio@nonsense.com"
     mv1.mobilePhone = "888-555-1212"
     mv1.baptism = "Utopia: 1970-01-01"
+    mv1.transactions = [ makeTrans() ]
     return mv1
 }
 let mockMember1 = makeMv1()
