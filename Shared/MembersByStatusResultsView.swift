@@ -13,6 +13,8 @@ struct MembersByStatusResultsView: View {
     var title: String
     @Binding var members: [Member]
     @Binding var showingResults: Bool
+    @State private var showingShareSheet = false
+    @ObservedObject private var queryResults = QueryResults.sharedInstance
     
     let columns = [
         GridItem(.flexible()),
@@ -33,10 +35,13 @@ struct MembersByStatusResultsView: View {
                 }.padding(20)
                 Spacer()
                 Button(action: {
-                    let pasteboard = UIPasteboard.general
-                    pasteboard.string = makeClipboardEntry(members: self.members)
+//                    let pasteboard = UIPasteboard.general
+//                    pasteboard.string = makeClipboardEntry(members: self.members)
+                    queryResults.toBeShared = [makeClipboardEntry(members: members)]
+                    NSLog("results: \(queryResults.toBeShared[0])")
+                    showingShareSheet = true
                 }) {
-                    Text("Copy to clipboard").font(.body)
+                    Image(systemName: "square.and.arrow.up").font(.body)
                 }.padding(20)
             }
             ScrollView {
@@ -53,6 +58,10 @@ struct MembersByStatusResultsView: View {
                     }
                 }
             }.padding()
+        }
+        .sheet(isPresented: $showingShareSheet) {
+            ShareSheet(activityItems: queryResults.toBeShared)
+                .debugPrint("queryResults element has \((queryResults.toBeShared[0] as! NSString).length)")
         }
     }
 }
