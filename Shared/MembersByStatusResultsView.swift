@@ -37,7 +37,7 @@ struct MembersByStatusResultsView: View {
                 Button(action: {
 //                    let pasteboard = UIPasteboard.general
 //                    pasteboard.string = makeClipboardEntry(members: self.members)
-                    queryResults.toBeShared = [makeClipboardEntry(members: members)]
+                    queryResults.toBeShared = [makeMembersByStatusResult(members: members)]
                     NSLog("results: \(queryResults.toBeShared[0])")
                     showingShareSheet = true
                 }) {
@@ -102,7 +102,7 @@ struct MembersByStatusResultsView_Previews: PreviewProvider {
     }
 }
 
-fileprivate func makeClipboardEntry(members: [Member]) -> String {
+fileprivate func makeMembersByStatusResult(members: [Member]) -> String {
     var clip = "name,date-joined,recep-type,from-church"
     for member in members {
         clip += "\n\"\(memberName(member: member))\",\(dateJoined(member: member)),\(receptionType(member: member)),\"\(churchFrom(member: member))\""

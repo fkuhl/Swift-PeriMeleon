@@ -38,6 +38,10 @@ struct MembersByStatusView: View {
 struct MembersByStatus_Previews: PreviewProvider {
     static var previews: some View {
         MembersByStatusView(document: mockDocument)
-        .previewLayout(.fixed(width: 1068, height: 834))
+            .previewLayout(.sizeThatFits)
+            .padding()
+            .background(Color(.systemBackground))
+            .environment(\.colorScheme, .dark)
+            .previewDisplayName("Preview")
     }
 }

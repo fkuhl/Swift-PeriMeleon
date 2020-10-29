@@ -18,6 +18,9 @@ struct QueriesView: View {
                     NavigationLink(destination: MembersByStatusView(document: $document)) {
                         Text("Members by status").font(.body)
                     }
+                    NavigationLink(destination: PhoneListView(document: $document)) {
+                        Text("Phone list").font(.body)
+                    }
                 }
             }
             .navigationBarTitle("Queries")

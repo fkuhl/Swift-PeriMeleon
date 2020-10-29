@@ -34,21 +34,4 @@ struct ShareSheet: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
         // nothing to do here
     }
-    
-//    private class ShareViewController: UIActivityViewController, UIActivityItemSource {
-//
-//        func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
-//            "placeholder string"
-//        }
-//        
-//        func activityViewController(_ activityViewController: UIActivityViewController,
-//                                    itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
-//            "placeholder string"
-//        }
-//        
-//        func activityViewController(_ activityViewController: UIActivityViewController,
-//                                    subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
-//            return "PM Subject"
-//        }
-//    }
 }

@@ -28,6 +28,7 @@ fileprivate func makeMv1() -> Member {
     mv1.previousFamilyName = nil
     mv1.nickname = "Horry"
     mv1.sex = Sex.MALE
+    mv1.dateOfBirth = dateFormatter.date(from: "1990-01-01")
     mv1.household = "0"
     mv1.eMail = "horatio@nonsense.com"
     mv1.mobilePhone = "888-555-1212"
@@ -37,17 +38,23 @@ fileprivate func makeMv1() -> Member {
 }
 let mockMember1 = makeMv1()
 
-let mockMember2 = Member(
-    familyName: "Hornswoggle",
-    givenName: "Hortense",
-    middleName: "",
-    previousFamilyName: "Havisham",
-    nickname: "",
-    sex: Sex.FEMALE,
-    household: "0",
-    eMail: "hortense@nonsense.com",
-    mobilePhone: "888-555-1213",
-    baptism: "Somewhere: 1970-01-01")
+fileprivate func makeMv2() -> Member {
+    var mockMember2 = Member(
+        familyName: "Hornswoggle",
+        givenName: "Hortense",
+        middleName: "",
+        previousFamilyName: "Havisham",
+        nickname: "",
+        sex: Sex.FEMALE,
+        household: "0",
+        eMail: "hortense@nonsense.com",
+        mobilePhone: "888-555-1213",
+        baptism: "Somewhere: 1970-01-01")
+    mockMember2.dateOfBirth = dateFormatter.date(from: "2000-01-01")
+    return mockMember2
+}
+
+let mockMember2 = makeMv2()
 
 let mockAddress = Address(
     address: "123 Plesant Avenue",
