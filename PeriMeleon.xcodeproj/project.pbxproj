@@ -124,7 +124,7 @@
 		27C6B4A52506ADD20086181F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 27C6B4A32506ADD20086181F /* README.md */; };
 		27EB130A254A0769008E8A8B /* PhonelistEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1309254A0769008E8A8B /* PhonelistEntryView.swift */; };
 		27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1319254A3B9C008E8A8B /* PhonelistResultsView.swift */; };
-		27EB1332254A4109008E8A8B /* PhoneListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1331254A4109008E8A8B /* PhoneListView.swift */; };
+		27EB1332254A4109008E8A8B /* PhonelistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1331254A4109008E8A8B /* PhonelistView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,7 +214,7 @@
 		27C6B4A32506ADD20086181F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		27EB1309254A0769008E8A8B /* PhonelistEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonelistEntryView.swift; sourceTree = "<group>"; };
 		27EB1319254A3B9C008E8A8B /* PhonelistResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonelistResultsView.swift; sourceTree = "<group>"; };
-		27EB1331254A4109008E8A8B /* PhoneListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListView.swift; sourceTree = "<group>"; };
+		27EB1331254A4109008E8A8B /* PhonelistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonelistView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -465,7 +465,7 @@
 			children = (
 				27EB1309254A0769008E8A8B /* PhonelistEntryView.swift */,
 				27EB1319254A3B9C008E8A8B /* PhonelistResultsView.swift */,
-				27EB1331254A4109008E8A8B /* PhoneListView.swift */,
+				27EB1331254A4109008E8A8B /* PhonelistView.swift */,
 			);
 			name = Phonelist;
 			sourceTree = "<group>";
@@ -661,7 +661,7 @@
 				27BC8CBF253B6B7700520F54 /* NormalizedHousehold.swift in Sources */,
 				27B20DA42529113B00C80696 /* MembersView.swift in Sources */,
 				27B20DAC2529113B00C80696 /* MemberEditView.swift in Sources */,
-				27EB1332254A4109008E8A8B /* PhoneListView.swift in Sources */,
+				27EB1332254A4109008E8A8B /* PhonelistView.swift in Sources */,
 				27B20D832529106500C80696 /* HouseholdsView.swift in Sources */,
 				277C9530254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAE2529113B00C80696 /* MemberRowView.swift in Sources */,

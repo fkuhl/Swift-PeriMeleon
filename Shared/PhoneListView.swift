@@ -8,7 +8,7 @@
 import SwiftUI
 import PMDataTypes
 
-struct PhoneListView: View {
+struct PhonelistView: View {
     @Binding var document: PeriMeleonDocument
     @State var includeResident = true
     @State var includeNonResident = false
