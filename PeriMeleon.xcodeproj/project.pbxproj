@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2703A95525001B2C00BB0061 /* PMDataTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 2703A95425001B2C00BB0061 /* PMDataTypes */; };
+		27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
+		27235931254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
 		272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
 		272F7235251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */; };
@@ -145,6 +147,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2723592F254B51AE00137925 /* RoundedOutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedOutlineButton.swift; sourceTree = "<group>"; };
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
 		272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonContent.swift; sourceTree = "<group>"; };
 		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
@@ -349,6 +352,7 @@
 				277C952F254333A50032638A /* CheckboxToggleStyle.swift */,
 				277C953E2544B4860032638A /* ShareSheet.swift */,
 				277C95492544BED40032638A /* QueryResults.swift */,
+				2723592F254B51AE00137925 /* RoundedOutlineButton.swift */,
 			);
 			name = Styling;
 			sourceTree = "<group>";
@@ -635,6 +639,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */,
 				27C55E462538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9528254223C20032638A /* Member+Age.swift in Sources */,
 				27B20DC12529123400C80696 /* ChooseHouseholdView.swift in Sources */,
@@ -705,6 +710,7 @@
 				275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */,
 				27B20DA92529113B00C80696 /* Services.swift in Sources */,
 				272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */,
+				27235931254B51AE00137925 /* RoundedOutlineButton.swift in Sources */,
 				27C55E432538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */,
 				27C55E522538E7A000923EE8 /* DataCheckerView.swift in Sources */,
 				27B20DA12529113B00C80696 /* Transactions.swift in Sources */,

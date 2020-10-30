@@ -10,11 +10,6 @@ import PMDataTypes
 
 struct PhonelistView: View {
     @Binding var document: PeriMeleonDocument
-    @State var includeResident = true
-    @State var includeNonResident = false
-    @State var includeMen = true
-    @State var includeWomen = false
-    @State var minimumAge = 14
     @State var members = [Member]()
     @State var showingResults = false
 
@@ -22,17 +17,12 @@ struct PhonelistView: View {
         VStack {
             if !showingResults {
                 PhonelistEntryView(document: $document,
-                                   includeResident: $includeResident,
-                                   includeNonResident: $includeNonResident,
-                                   includeMen: $includeMen,
-                                   includeWomen: $includeWomen,
-                                   minimumAge: $minimumAge,
-                                         members: $members,
-                                         showingResults: $showingResults)
+                                   members: $members,
+                                   showingResults: $showingResults)
             } else {
                 PhonelistResultsView(title: "\(members.count) entries",
-                                           members: $members,
-                                           showingResults: $showingResults)
+                                     members: $members,
+                                     showingResults: $showingResults)
             }
         }
     }

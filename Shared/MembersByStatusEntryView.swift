@@ -18,38 +18,44 @@ struct MembersByStatusEntryView: View {
     @Binding var showingResults: Bool
     
     var body: some View {
-        VStack(alignment: .center, spacing: 10) {
-            Text("Query Members by Status").font(.title).padding(30)
-            HStack(alignment: .center, spacing: 20) {
-                Spacer()
-                CompactToggleView(isOn: $includeResident, label: "Include residents")
-                Spacer()
-                CompactToggleView(isOn: $includeNonResident, label: "Include non-residents")
-                Spacer()
-            }
-            HStack(spacing: 20) {
-                Spacer()
-                Text("With status:").font(.body)
-                Picker(selection: $desiredStatus, label: Text("")) {
-                    ForEach (MemberStatus.allCases, id: \.self) {
-                        //Don't forget the tag!
-                        Text($0.rawValue).font(.body).tag($0)
-                    }
-                }.frame(maxWidth: 300)/*.background(Color.yellow)*/
-                Spacer()
-            }
-            Button(action: {
-                NSLog("run query")
-                members = document.content.filterMembers {
-                    $0.status == self.desiredStatus &&
-                        ((self.includeResident && $0.resident)
-                            || (self.includeNonResident && !$0.resident))
+        Form {
+            Section {
+                Text("Query Members by Status").font(.title).padding(30)
+                HStack(alignment: .center, spacing: 20) {
+                    Spacer()
+                    CompactToggleView(isOn: $includeResident, label: "Include residents")
+                    Spacer()
+                    CompactToggleView(isOn: $includeNonResident, label: "Include non-residents")
+                    Spacer()
                 }
-                self.showingResults = true
-            }) {
-                Text("Query").font(.title)
-            }.padding(20)
-        }.padding(20)
+                HStack(spacing: 20) {
+                    Spacer()
+                    Text("With status:").font(.body)
+                    Picker(selection: $desiredStatus, label: Text("")) {
+                        ForEach (MemberStatus.allCases, id: \.self) {
+                            //Don't forget the tag!
+                            Text($0.rawValue).font(.body).tag($0)
+                        }
+                    }.frame(maxWidth: 300)/*.background(Color.yellow)*/
+                    Spacer()
+                }
+            }
+            Section {
+                HStack {
+                    Spacer()
+                    RoundedOutlineButton(text: "Run Query", action: {
+                        NSLog("run query")
+                        members = document.content.filterMembers {
+                            $0.status == self.desiredStatus &&
+                                ((self.includeResident && $0.resident)
+                                    || (self.includeNonResident && !$0.resident))
+                        }
+                        self.showingResults = true
+                    })
+                    Spacer()
+                }.padding()
+            }
+        }
     }
 }
 

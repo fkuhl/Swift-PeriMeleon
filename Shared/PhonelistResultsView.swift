@@ -46,12 +46,11 @@ struct PhonelistResultsView: View {
                     Text("Member").font(.caption)
                     Text("Phone").font(.caption)
                     Text("Email").font(.caption)
-//                    ForEach(members, id: \.id) {
-//                        Text(memberName(member: $0)).font(.body)
-//                        Text(dateJoined(member: $0)).font(.body)
-//                        Text(receptionType(member: $0)).font(.body)
-//                        Text(churchFrom(member: $0)).font(.body)
-//                    }
+                    ForEach(members, id: \.id) {
+                        Text(memberName(member: $0)).font(.body)
+                        Text(phone(member: $0)).font(.body)
+                        Text(email(member: $0)).font(.body)
+                    }
                 }
             }.padding()
         }
@@ -60,6 +59,19 @@ struct PhonelistResultsView: View {
                 .debugPrint("queryResults element has \((queryResults.toBeShared[0] as! NSString).length)")
         }
     }
+}
+
+
+private func memberName(member: Member) -> String {
+    return member.displayName()
+}
+
+private func phone(member: Member) -> String {
+    return member.mobilePhone ?? "[none]"
+}
+
+private func email(member: Member) -> String {
+    return member.eMail ?? "[none]"
 }
 
 struct PhonelistResultsView_Previews: PreviewProvider {
