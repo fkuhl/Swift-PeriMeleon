@@ -20,7 +20,8 @@ struct PhonelistView: View {
                                    members: $members,
                                    showingResults: $showingResults)
             } else {
-                PhonelistResultsView(title: "\(members.count) entries",
+                PhonelistResultsView(document: $document,
+                                     title: "\(members.count) entries",
                                      members: $members,
                                      showingResults: $showingResults)
             }

@@ -127,6 +127,10 @@
 		27EB130A254A0769008E8A8B /* PhonelistEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1309254A0769008E8A8B /* PhonelistEntryView.swift */; };
 		27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1319254A3B9C008E8A8B /* PhonelistResultsView.swift */; };
 		27EB1332254A4109008E8A8B /* PhonelistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1331254A4109008E8A8B /* PhonelistView.swift */; };
+		27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD5AE0254DDC4F0086F120 /* IntegerTextField.swift */; };
+		27FD5AE2254DDC4F0086F120 /* IntegerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD5AE0254DDC4F0086F120 /* IntegerTextField.swift */; };
+		27FD5AE8254DE2CD0086F120 /* PhonelistMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD5AE7254DE2CD0086F120 /* PhonelistMaker.swift */; };
+		27FD5AE9254DE2CD0086F120 /* PhonelistMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD5AE7254DE2CD0086F120 /* PhonelistMaker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +222,8 @@
 		27EB1309254A0769008E8A8B /* PhonelistEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonelistEntryView.swift; sourceTree = "<group>"; };
 		27EB1319254A3B9C008E8A8B /* PhonelistResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonelistResultsView.swift; sourceTree = "<group>"; };
 		27EB1331254A4109008E8A8B /* PhonelistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonelistView.swift; sourceTree = "<group>"; };
+		27FD5AE0254DDC4F0086F120 /* IntegerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerTextField.swift; sourceTree = "<group>"; };
+		27FD5AE7254DE2CD0086F120 /* PhonelistMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonelistMaker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,8 +357,8 @@
 				277C95102540DC230032638A /* PreviewProviderModifier.swift */,
 				277C952F254333A50032638A /* CheckboxToggleStyle.swift */,
 				277C953E2544B4860032638A /* ShareSheet.swift */,
-				277C95492544BED40032638A /* QueryResults.swift */,
 				2723592F254B51AE00137925 /* RoundedOutlineButton.swift */,
+				27FD5AE0254DDC4F0086F120 /* IntegerTextField.swift */,
 			);
 			name = Styling;
 			sourceTree = "<group>";
@@ -417,6 +423,7 @@
 				27EB1308254A071A008E8A8B /* Phonelist */,
 				27EB1307254A06F7008E8A8B /* MembersByStatus */,
 				27C55E0E2538CE0100923EE8 /* QueriesView.swift */,
+				277C95492544BED40032638A /* QueryResults.swift */,
 			);
 			name = Queries;
 			sourceTree = "<group>";
@@ -470,6 +477,7 @@
 				27EB1309254A0769008E8A8B /* PhonelistEntryView.swift */,
 				27EB1319254A3B9C008E8A8B /* PhonelistResultsView.swift */,
 				27EB1331254A4109008E8A8B /* PhonelistView.swift */,
+				27FD5AE7254DE2CD0086F120 /* PhonelistMaker.swift */,
 			);
 			name = Phonelist;
 			sourceTree = "<group>";
@@ -654,6 +662,7 @@
 				27B20DC92529123400C80696 /* EditTextView.swift in Sources */,
 				27B20DC52529123400C80696 /* EditOptionalTextView.swift in Sources */,
 				27C55E532538E7A000923EE8 /* DataCheckReport.swift in Sources */,
+				27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
 				27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */,
 				27C55E132538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */,
 				27B20DA22529113B00C80696 /* MemberView.swift in Sources */,
@@ -671,6 +680,7 @@
 				277C9530254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAE2529113B00C80696 /* MemberRowView.swift in Sources */,
 				27C55E302538E67700923EE8 /* DataTransactionsView.swift in Sources */,
+				27FD5AE8254DE2CD0086F120 /* PhonelistMaker.swift in Sources */,
 				276B9755250008DB003E19BA /* PeriMeleonDocument.swift in Sources */,
 				277C95112540DC230032638A /* PreviewProviderModifier.swift in Sources */,
 				27C55E112538CE0100923EE8 /* CompactToggleView.swift in Sources */,
@@ -704,6 +714,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27FD5AE2254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
 				27C55E472538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9529254223C20032638A /* Member+Age.swift in Sources */,
 				27B20DC22529123400C80696 /* ChooseHouseholdView.swift in Sources */,
@@ -712,6 +723,7 @@
 				272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */,
 				27235931254B51AE00137925 /* RoundedOutlineButton.swift in Sources */,
 				27C55E432538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */,
+				27FD5AE9254DE2CD0086F120 /* PhonelistMaker.swift in Sources */,
 				27C55E522538E7A000923EE8 /* DataCheckerView.swift in Sources */,
 				27B20DA12529113B00C80696 /* Transactions.swift in Sources */,
 				27C55E262538CE9400923EE8 /* MockedData.swift in Sources */,

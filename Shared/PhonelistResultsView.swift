@@ -9,13 +9,13 @@ import SwiftUI
 import PMDataTypes
 
 struct PhonelistResultsView: View {
+    @Binding var document: PeriMeleonDocument
     var title: String
     @Binding var members: [Member]
     @Binding var showingResults: Bool
     @State private var showingShareSheet = false
     @ObservedObject private var queryResults = QueryResults.sharedInstance
 
-    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -34,8 +34,10 @@ struct PhonelistResultsView: View {
                 }.padding(20)
                 Spacer()
                 Button(action: {
-//                    queryResults.toBeShared = [makeMembersByStatusResult(members: members)]
-//                    NSLog("results: \(queryResults.toBeShared[0])")
+                    let maker = PhonelistMaker(document: document)
+                    let csv = maker.make(from: members)
+                    queryResults.toBeShared = [csv]
+                    NSLog("results: \(csv.count) char")
                     showingShareSheet = true
                 }) {
                     Image(systemName: "square.and.arrow.up").font(.body)
@@ -59,24 +61,37 @@ struct PhonelistResultsView: View {
                 .debugPrint("queryResults element has \((queryResults.toBeShared[0] as! NSString).length)")
         }
     }
+
+    private func memberName(member: Member) -> String {
+        return member.displayName()
+    }
+
+    private func phone(member: Member) -> String {
+        if !nugatory(member.mobilePhone) { return member.mobilePhone! }
+        let household = document.content.household(byId: member.household)
+        if let address = household.address, !nugatory(address.homePhone) {
+            return address.homePhone!
+        } else {
+            return ""
+        }
+    }
+
+    private func email(member: Member) -> String {
+        if !nugatory(member.eMail) { return member.eMail! }
+        let household = document.content.household(byId: member.household)
+        if let address = household.address, !nugatory(address.email) {
+            return address.email!
+        } else {
+            return ""
+        }
+    }
 }
 
-
-private func memberName(member: Member) -> String {
-    return member.displayName()
-}
-
-private func phone(member: Member) -> String {
-    return member.mobilePhone ?? "[none]"
-}
-
-private func email(member: Member) -> String {
-    return member.eMail ?? "[none]"
-}
 
 struct PhonelistResultsView_Previews: PreviewProvider {
     static var previews: some View {
-        PhonelistResultsView(title: "Phone list",
+        PhonelistResultsView(document: mockDocument,
+                             title: "Phone list",
                              members: .constant([mockMember1, mockMember2]),
                              showingResults: .constant(true))
             .previewLayout(.sizeThatFits)

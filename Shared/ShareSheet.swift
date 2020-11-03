@@ -35,3 +35,23 @@ struct ShareSheet: UIViewControllerRepresentable {
         // nothing to do here
     }
 }
+
+class PMActivityViewController: UIActivityViewController, UIActivityItemSource {
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        "unused placeholder"
+    }
+    
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
+        "placeholder"
+    }
+    
+    func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
+        return "Secret message"
+    }
+    
+    func activityViewController(_ activityViewController: UIActivityViewController,
+                                dataTypeIdentifierForActivityType activityType: UIActivity.ActivityType?) -> String {
+        NSLog("activity type was \(activityType?.rawValue ?? "[nil]")")
+        return "public.comma-separated-values-text"
+    }
+}

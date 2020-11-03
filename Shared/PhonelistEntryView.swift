@@ -14,11 +14,10 @@ struct PhonelistEntryView: View {
     @State var includeNonResident = false
     @State var includeMen = true
     @State var includeWomen = true
-    @State var minimumAgeText = "14"
     @Binding var members: [Member]
     @Binding var showingResults: Bool
     @State var minimumAge = 14
-    @State var ageBorderColor = Color.black
+    @State var ageBorderColor = Color.accentColor
 
     var body: some View {
         Form {
@@ -38,26 +37,11 @@ struct PhonelistEntryView: View {
                 }
                 HStack(alignment: .center, spacing: 20) {
                     Text("Minimum age to include:").font(.body)
-                    TextField("Min age:", text: $minimumAgeText)
-                        .font(.body)
-                        .keyboardType(.decimalPad)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .border(ageBorderColor, width: 2)
-                        .onChange(of: minimumAgeText) { newValue in
-                            NSLog("onChange \(newValue)")
-                            if let age = Int(minimumAgeText) {
-                                minimumAge = age
-                                ageBorderColor = Color.black
-                            } else {
-                                ageBorderColor = Color.orange
-                            }
-                        }
+                    IntegerTextField(placeholder: "Min age",
+                                     value: $minimumAge,
+                                     min: 0,
+                                     max: 100)
                     Spacer()
-                }
-                HStack(alignment: .center, spacing: 20) {
-                    Text("Text: \(minimumAgeText)").font(.body)
-                    Spacer()
-                    Text("Int val: \(minimumAge)").font(.body)
                 }
             }
             Section {
@@ -76,7 +60,7 @@ struct PhonelistEntryView: View {
                         }
                         self.showingResults = true
                     }).padding()
-                    .disabled(minimumAge < 0 || minimumAge > 90)
+                    .disabled(minimumAge < 0 || minimumAge > 100)
                     Spacer()
                 }
             }

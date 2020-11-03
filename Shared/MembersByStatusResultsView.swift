@@ -103,9 +103,12 @@ struct MembersByStatusResultsView_Previews: PreviewProvider {
 }
 
 fileprivate func makeMembersByStatusResult(members: [Member]) -> String {
-    var clip = "name,date-joined,recep-type,from-church"
-    for member in members {
-        clip += "\n\"\(memberName(member: member))\",\(dateJoined(member: member)),\(receptionType(member: member)),\"\(churchFrom(member: member))\""
+    var csvReturn = "name,date-joined,recep-type,from-church"
+    let strings = members.map { member in
+        "\"\(memberName(member: member))\",\(dateJoined(member: member)),\(receptionType(member: member)),\"\(churchFrom(member: member))\""
     }
-    return clip
+    csvReturn = strings.reduce(csvReturn) { thusFar, newString in
+        "\(thusFar)\n\(newString)"
+    }
+    return csvReturn
 }
