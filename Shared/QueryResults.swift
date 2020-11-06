@@ -8,11 +8,20 @@
 import SwiftUI
 
 class QueryResults: ObservableObject {
-    @Published var toBeShared: [Any]
+    @Published var toBeShared: [PMActivityItemSource]
     
     public static let sharedInstance = QueryResults()
     
     init() {
-        toBeShared = [""]
+        toBeShared = [PMActivityItemSource(value: .text(""))]
     }
+    
+    func set(results: ResultsType) {
+        toBeShared = [PMActivityItemSource(value: results)]
+    }
+}
+
+enum ResultsType {
+    case text(String)
+    case csv(Data)
 }

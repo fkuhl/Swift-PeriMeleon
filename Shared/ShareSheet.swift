@@ -6,6 +6,7 @@
 //
 
 //https://developer.apple.com/forums/thread/123951
+//https://www.hackingwithswift.com/articles/118/uiactivityviewcontroller-by-example
 
 import SwiftUI
 
@@ -36,13 +37,31 @@ struct ShareSheet: UIViewControllerRepresentable {
     }
 }
 
-class PMActivityViewController: UIActivityViewController, UIActivityItemSource {
+class PMActivityItemSource: NSObject, UIActivityItemSource {
+    private var value: ResultsType
+    
+    init(value: ResultsType) {
+        self.value = value
+    }
+    
     func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
-        "unused placeholder"
+        NSLog("got placeholder")
+        switch value {
+        case .text(let text):
+            return text
+        case .csv(let data):
+            return data
+        }
     }
     
     func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
-        "placeholder"
+        NSLog("get item")
+        switch value {
+        case .text(let text):
+            return text
+        case .csv(let data):
+            return data
+        }
     }
     
     func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivity.ActivityType?) -> String {
@@ -52,6 +71,11 @@ class PMActivityViewController: UIActivityViewController, UIActivityItemSource {
     func activityViewController(_ activityViewController: UIActivityViewController,
                                 dataTypeIdentifierForActivityType activityType: UIActivity.ActivityType?) -> String {
         NSLog("activity type was \(activityType?.rawValue ?? "[nil]")")
-        return "public.comma-separated-values-text"
+        switch value {
+        case .text:
+            return "public.text"
+        case .csv:
+            return "public.comma-separated-values-text"
+        }
     }
 }

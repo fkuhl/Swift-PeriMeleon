@@ -36,9 +36,8 @@ struct MembersByStatusResultsView: View {
                 Spacer()
                 Button(action: {
 //                    let pasteboard = UIPasteboard.general
-//                    pasteboard.string = makeClipboardEntry(members: self.members)
-                    queryResults.toBeShared = [makeMembersByStatusResult(members: members)]
-                    NSLog("results: \(queryResults.toBeShared[0])")
+//                    pasteboard.string = makeMembersByStatusResult(members: self.members)
+                    queryResults.set(results: .csv(makeMembersByStatusResult(members: self.members).data(using: .utf8)!))
                     showingShareSheet = true
                 }) {
                     Image(systemName: "square.and.arrow.up").font(.body)
@@ -61,7 +60,7 @@ struct MembersByStatusResultsView: View {
         }
         .sheet(isPresented: $showingShareSheet) {
             ShareSheet(activityItems: queryResults.toBeShared)
-                .debugPrint("queryResults element has \((queryResults.toBeShared[0] as! NSString).length)")
+//                .debugPrint("queryResults element has \((queryResults.toBeShared[0] as! NSString).length)")
         }
     }
 }

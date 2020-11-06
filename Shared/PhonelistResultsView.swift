@@ -35,8 +35,8 @@ struct PhonelistResultsView: View {
                 Spacer()
                 Button(action: {
                     let maker = PhonelistMaker(document: document)
-                    let csv = maker.make(from: members)
-                    queryResults.toBeShared = [csv]
+                    let csv = maker.make(from: members).data(using: .utf8)!
+                    queryResults.set(results: .csv(csv))
                     NSLog("results: \(csv.count) char")
                     showingShareSheet = true
                 }) {
@@ -58,7 +58,7 @@ struct PhonelistResultsView: View {
         }
         .sheet(isPresented: $showingShareSheet) {
             ShareSheet(activityItems: queryResults.toBeShared)
-                .debugPrint("queryResults element has \((queryResults.toBeShared[0] as! NSString).length)")
+//                .debugPrint("queryResults element has \((queryResults.toBeShared[0] as! NSString).length)")
         }
     }
 

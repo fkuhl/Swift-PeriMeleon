@@ -21,6 +21,7 @@ struct IntegerTextField: View {
             .keyboardType(.decimalPad)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .border(ageBorderColor, width: 1)
+            .onAppear() { fieldText = "\(value)" }
             .onChange(of: fieldText) { newValue in
                 if let age = Int(fieldText), age >= min, age <= max {
                     value = age
