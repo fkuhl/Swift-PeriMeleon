@@ -52,13 +52,15 @@ struct PhonelistEntryView: View {
                         members = document.content.filterMembers {
                             let isActive = $0.status.isActive()
                             let residency = (includeResident && $0.resident)
-                                                || (includeNonResident && !$0.resident)
+                                || (includeNonResident && !$0.resident)
                             let gender = (includeMen && $0.sex == .MALE) ||
                                 (includeWomen && $0.sex == .FEMALE)
                             let isOfAge = $0.age(asOf: Date()) >= minimumAge
                             return isActive && residency && gender && isOfAge
                         }
-                        self.showingResults = true
+                        withAnimation(.easeInOut(duration: editAnimationDuration)) {
+                            self.showingResults = true
+                        }
                     }).padding()
                     .disabled(minimumAge < 0 || minimumAge > 100)
                     Spacer()

@@ -30,7 +30,7 @@ struct MemberEditView: View {
             HStack {
                 Button(action: {
                     NSLog("MEV cancel")
-                    withAnimation(.easeInOut(duration: MemberView.editAnimationDuration)) { isEditing = false
+                    withAnimation(.easeInOut(duration: editAnimationDuration)) { isEditing = false
                     }
                     self.memberCancelDelegate.cancel()
                 }) {
@@ -39,7 +39,7 @@ struct MemberEditView: View {
                 Spacer()
                 Button(action: {
                     NSLog("MEV Save Member \(member.fullName())")
-                    withAnimation(.easeInOut(duration: MemberView.editAnimationDuration)) {
+                    withAnimation(.easeInOut(duration: editAnimationDuration)) {
                         isEditing = false
                     }
                     memberEditDelegate.store(member: member)

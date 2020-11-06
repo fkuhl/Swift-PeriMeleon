@@ -48,7 +48,7 @@ class FamilyJoinEditDelegate: MemberEditDelegate {
         document.wrappedValue.content.add(household: newHousehold)
         accumulator.wrappedValue.head = memberInHousehold
         accumulator.wrappedValue.addedHousehold = newHousehold
-        withAnimation(.easeInOut(duration: MemberView.editAnimationDuration)) {
+        withAnimation(.easeInOut(duration: editAnimationDuration)) {
             accumulator.wrappedValue.phase = .household
         }
     }
@@ -61,7 +61,7 @@ class FamilyJoinCancelDelegate: MemberCancelDelegate {
         self.accumulator = accumulator
     }
     func cancel() {
-        withAnimation(.easeInOut(duration: MemberView.editAnimationDuration)) {
+        withAnimation(.easeInOut(duration: editAnimationDuration)) {
             accumulator.wrappedValue.phase = .transaction
         }
     }

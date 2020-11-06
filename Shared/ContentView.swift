@@ -100,6 +100,7 @@ struct ContentView_Previews: PreviewProvider {
 
 
 let defaultCaptionWidth: CGFloat = 150
+let editAnimationDuration = 0.7
 
 extension View {
     func debugPrint(_ value: Any) -> some View {

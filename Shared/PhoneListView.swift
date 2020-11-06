@@ -9,6 +9,8 @@ import SwiftUI
 import PMDataTypes
 
 struct PhonelistView: View {
+    static let editAnimationDuration = 0.7
+    
     @Binding var document: PeriMeleonDocument
     @State var members = [Member]()
     @State var showingResults = false
@@ -19,11 +21,13 @@ struct PhonelistView: View {
                 PhonelistEntryView(document: $document,
                                    members: $members,
                                    showingResults: $showingResults)
+                    .transition(.move(edge: .trailing))
             } else {
                 PhonelistResultsView(document: $document,
                                      title: "\(members.count) entries",
                                      members: $members,
                                      showingResults: $showingResults)
+                    .transition(.move(edge: .trailing))
             }
         }
     }

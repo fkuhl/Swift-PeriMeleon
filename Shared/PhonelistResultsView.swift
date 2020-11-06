@@ -28,7 +28,9 @@ struct PhonelistResultsView: View {
             HStack {
                 Button(action: {
                     self.members = []
-                    self.showingResults = false
+                    withAnimation(.easeInOut(duration: editAnimationDuration)) {
+                        self.showingResults = false
+                    }
                 }) {
                     Text("Clear").font(.body)
                 }.padding(20)

@@ -10,7 +10,6 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberView: View {
-    static let editAnimationDuration = 0.7
     
     @Binding var document: PeriMeleonDocument
     var memberId: Id

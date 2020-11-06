@@ -23,7 +23,7 @@ struct CoreMemberView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        withAnimation(.easeInOut(duration: MemberView.editAnimationDuration)) { isEditing = true }
+                        withAnimation(.easeInOut(duration: editAnimationDuration)) { isEditing = true }
                     }, label: {
                         Text("Edit").font(.body)
                     })

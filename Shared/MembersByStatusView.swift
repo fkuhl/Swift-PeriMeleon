@@ -26,10 +26,12 @@ struct MembersByStatusView: View {
                                          desiredStatus: $desiredStatus,
                                          members: $members,
                                          showingResults: $showingResults)
+                    .transition(.move(edge: .trailing))
             } else {
                 MembersByStatusResultsView(title: "\(members.count) Member\(members.count > 1 ? "s" : "") With Status \(desiredStatus.rawValue)",
                                            members: $members,
                                            showingResults: $showingResults)
+                    .transition(.move(edge: .trailing))
             }
         }
     }

@@ -50,7 +50,9 @@ struct MembersByStatusEntryView: View {
                                 ((self.includeResident && $0.resident)
                                     || (self.includeNonResident && !$0.resident))
                         }
-                        self.showingResults = true
+                        withAnimation(.easeInOut(duration: editAnimationDuration)) {
+                            self.showingResults = true
+                        }
                     })
                     Spacer()
                 }.padding()

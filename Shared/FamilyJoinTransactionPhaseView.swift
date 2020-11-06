@@ -44,7 +44,7 @@ struct FamilyJoinTransactionPhaseView: View {
                     accumulator.head.transactions = [accumulator.receptionTransaction]
                     accumulator.head.familyName = "Head"
                     accumulator.head.givenName = "of this household"
-                    withAnimation(.easeInOut(duration: MemberView.editAnimationDuration)) {
+                    withAnimation(.easeInOut(duration: editAnimationDuration)) {
                         accumulator.phase = .head
                     }
                 }) {

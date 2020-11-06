@@ -14,12 +14,14 @@ struct QueriesView: View {
     var body: some View {
         NavigationView {
             List {
+                Section(header: Text("Phone list")) {
+                    NavigationLink(destination: PhonelistView(document: $document)) {
+                        Text("Phone list").font(.body)
+                    }
+                }
                 Section(header: Text("Members")) {
                     NavigationLink(destination: MembersByStatusView(document: $document)) {
                         Text("Members by status").font(.body)
-                    }
-                    NavigationLink(destination: PhonelistView(document: $document)) {
-                        Text("Phone list").font(.body)
                     }
                 }
             }
