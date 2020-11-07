@@ -37,9 +37,7 @@ struct PhonelistResultsView: View {
                 Spacer()
                 Button(action: {
                     let maker = PhonelistMaker(document: document)
-                    let csv = maker.make(from: members).data(using: .utf8)!
-                    queryResults.set(results: .csv(csv))
-                    NSLog("results: \(csv.count) char")
+                    queryResults.setCSV(results: maker.make(from: members))
                     showingShareSheet = true
                 }) {
                     Image(systemName: "square.and.arrow.up").font(.body)

@@ -461,12 +461,20 @@
 			name = DataChecker;
 			sourceTree = "<group>";
 		};
+		27D7D8002557097600A983AA /* Birthdays */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Birthdays;
+			sourceTree = "<group>";
+		};
 		27EB1307254A06F7008E8A8B /* MembersByStatus */ = {
 			isa = PBXGroup;
 			children = (
 				27C55E0F2538CE0100923EE8 /* MembersByStatusEntryView.swift */,
 				27C55E0D2538CE0100923EE8 /* MembersByStatusResultsView.swift */,
 				27C55E102538CE0100923EE8 /* MembersByStatusView.swift */,
+				27D7D8002557097600A983AA /* Birthdays */,
 			);
 			name = MembersByStatus;
 			sourceTree = "<group>";

@@ -16,8 +16,13 @@ class QueryResults: ObservableObject {
         toBeShared = [PMActivityItemSource(value: .text(""))]
     }
     
-    func set(results: ResultsType) {
-        toBeShared = [PMActivityItemSource(value: results)]
+    func setText(results: String) {
+        toBeShared = [PMActivityItemSource(value: .text(results))]
+    }
+    
+    func setCSV(results: String) {
+        let data = results.data(using: .utf8)!
+        toBeShared = [PMActivityItemSource(value: .csv(data))]
     }
 }
 

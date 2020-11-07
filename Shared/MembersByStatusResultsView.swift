@@ -39,7 +39,7 @@ struct MembersByStatusResultsView: View {
                 Button(action: {
 //                    let pasteboard = UIPasteboard.general
 //                    pasteboard.string = makeMembersByStatusResult(members: self.members)
-                    queryResults.set(results: .csv(makeMembersByStatusResult(members: self.members).data(using: .utf8)!))
+                    queryResults.setCSV(results: makeMembersByStatusResult(members: self.members))
                     showingShareSheet = true
                 }) {
                     Image(systemName: "square.and.arrow.up").font(.body)
