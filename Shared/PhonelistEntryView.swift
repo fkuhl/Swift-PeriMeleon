@@ -43,11 +43,11 @@ struct PhonelistEntryView: View {
                                      max: 100)
                     Spacer()
                 }
-            }
-            Section {
+//            }
+//            Section {
                 HStack {
                     Spacer()
-                    RoundedOutlineButton(text: "Run Query", action: {
+                    SolidButton(text: "Run Query", action: {
                         NSLog("run query, age >= \(minimumAge)")
                         members = document.content.filterMembers {
                             let isActive = $0.status.isActive()

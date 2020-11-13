@@ -39,11 +39,11 @@ struct MembersByStatusEntryView: View {
                     }.frame(maxWidth: 300)/*.background(Color.yellow)*/
                     Spacer()
                 }
-            }
-            Section {
+//            }
+//            Section {
                 HStack {
                     Spacer()
-                    RoundedOutlineButton(text: "Run Query", action: {
+                    SolidButton(text: "Run Query", action: {
                         NSLog("run query")
                         members = document.content.filterMembers {
                             $0.status == self.desiredStatus &&

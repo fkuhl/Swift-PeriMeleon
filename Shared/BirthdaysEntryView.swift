@@ -30,11 +30,9 @@ struct BirthdaysEntryView: View {
                     }
                     Spacer()
                 }
-            }
-            Section {
                 HStack {
                     Spacer()
-                    RoundedOutlineButton(text: "Run Query", action: {
+                    SolidButton(text: "Run Query", action: {
                         NSLog("run query")
                         members = document.content.filterMembers {
                             if !$0.status.isActive() { return false }
