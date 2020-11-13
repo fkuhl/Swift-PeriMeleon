@@ -28,7 +28,7 @@ fileprivate func makeMv1() -> Member {
     mv1.previousFamilyName = nil
     mv1.nickname = "Horry"
     mv1.sex = Sex.MALE
-    mv1.dateOfBirth = dateFormatter.date(from: "1990-01-01")
+    mv1.dateOfBirth = dateFormatter.date(from: "1990-05-07")
     mv1.household = "0"
     mv1.eMail = "horatio@nonsense.com"
     mv1.mobilePhone = "888-555-1212"
@@ -50,7 +50,7 @@ fileprivate func makeMv2() -> Member {
         eMail: "hortense@nonsense.com",
         mobilePhone: "888-555-1213",
         baptism: "Somewhere: 1970-01-01")
-    mockMember2.dateOfBirth = dateFormatter.date(from: "2000-01-01")
+    mockMember2.dateOfBirth = dateFormatter.date(from: "2000-06-09")
     return mockMember2
 }
 
