@@ -28,7 +28,7 @@ struct MembersByStatusView: View {
                                          showingResults: $showingResults)
                     .transition(.move(edge: .trailing))
             } else {
-                MembersByStatusResultsView(title: "\(members.count) Member\(members.count > 1 ? "s" : "") With Status \(desiredStatus.rawValue)",
+                MembersByStatusResultsView(title: "\(members.count) Member\(members.count == 1 ? "" : "s") With Status \(desiredStatus.rawValue)",
                                            members: $members,
                                            showingResults: $showingResults)
                     .transition(.move(edge: .trailing))

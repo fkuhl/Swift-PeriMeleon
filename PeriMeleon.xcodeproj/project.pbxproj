@@ -40,6 +40,9 @@
 		277C95402544B4870032638A /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C953E2544B4860032638A /* ShareSheet.swift */; };
 		277C954A2544BED40032638A /* QueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95492544BED40032638A /* QueryResults.swift */; };
 		277C954B2544BED40032638A /* QueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95492544BED40032638A /* QueryResults.swift */; };
+		279B6FB2255F619B0009D2BF /* MembersByAgeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FAF255F619B0009D2BF /* MembersByAgeEntryView.swift */; };
+		279B6FB3255F619B0009D2BF /* MembersByAgeResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FB0255F619B0009D2BF /* MembersByAgeResultsView.swift */; };
+		279B6FB4255F619B0009D2BF /* MembersByAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FB1255F619B0009D2BF /* MembersByAgeView.swift */; };
 		27B20D812529106500C80696 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7E2529106500C80696 /* HouseholdRowView.swift */; };
 		27B20D822529106500C80696 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7E2529106500C80696 /* HouseholdRowView.swift */; };
 		27B20D832529106500C80696 /* HouseholdsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7F2529106500C80696 /* HouseholdsView.swift */; };
@@ -182,6 +185,9 @@
 		277C952F254333A50032638A /* CheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		277C953E2544B4860032638A /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		277C95492544BED40032638A /* QueryResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResults.swift; sourceTree = "<group>"; };
+		279B6FAF255F619B0009D2BF /* MembersByAgeEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByAgeEntryView.swift; sourceTree = "<group>"; };
+		279B6FB0255F619B0009D2BF /* MembersByAgeResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByAgeResultsView.swift; sourceTree = "<group>"; };
+		279B6FB1255F619B0009D2BF /* MembersByAgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByAgeView.swift; sourceTree = "<group>"; };
 		27B20D7E2529106500C80696 /* HouseholdRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdRowView.swift; sourceTree = "<group>"; };
 		27B20D7F2529106500C80696 /* HouseholdsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdsView.swift; sourceTree = "<group>"; };
 		27B20D802529106500C80696 /* HouseholdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdView.swift; sourceTree = "<group>"; };
@@ -268,6 +274,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		271D1585255F60EA00BC9F3B /* MembersByAge */ = {
+			isa = PBXGroup;
+			children = (
+				279B6FAF255F619B0009D2BF /* MembersByAgeEntryView.swift */,
+				279B6FB0255F619B0009D2BF /* MembersByAgeResultsView.swift */,
+				279B6FB1255F619B0009D2BF /* MembersByAgeView.swift */,
+			);
+			name = MembersByAge;
+			sourceTree = "<group>";
+		};
 		276B9723250008DA003E19BA = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +448,7 @@
 			children = (
 				27D7D8002557097600A983AA /* Birthdays */,
 				27EB1308254A071A008E8A8B /* Phonelist */,
+				271D1585255F60EA00BC9F3B /* MembersByAge */,
 				27EB1307254A06F7008E8A8B /* MembersByStatus */,
 				27C55E0E2538CE0100923EE8 /* QueriesView.swift */,
 				277C95492544BED40032638A /* QueryResults.swift */,
@@ -692,11 +709,14 @@
 				277C95182540DD6A0032638A /* PreviewShowoffView.swift in Sources */,
 				27B20DCD2529123400C80696 /* EditSexView.swift in Sources */,
 				27C55E3E2538E74300923EE8 /* FamilyJoinView.swift in Sources */,
+				279B6FB4255F619B0009D2BF /* MembersByAgeView.swift in Sources */,
+				279B6FB2255F619B0009D2BF /* MembersByAgeEntryView.swift in Sources */,
 				27B20D982529113B00C80696 /* TextAttributeView.swift in Sources */,
 				27C55E192538CE0100923EE8 /* MembersByStatusView.swift in Sources */,
 				27BC8CBF253B6B7700520F54 /* NormalizedHousehold.swift in Sources */,
 				27B20DA42529113B00C80696 /* MembersView.swift in Sources */,
 				27B20DAC2529113B00C80696 /* MemberEditView.swift in Sources */,
+				279B6FB3255F619B0009D2BF /* MembersByAgeResultsView.swift in Sources */,
 				27B20D832529106500C80696 /* HouseholdsView.swift in Sources */,
 				277C9530254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAE2529113B00C80696 /* MemberRowView.swift in Sources */,
