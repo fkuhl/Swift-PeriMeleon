@@ -78,4 +78,17 @@ enum ResultSort: String, CaseIterable {
     case sex = "Sex"
     case status = "Status"
     case dateOfBirth = "Date of birth"
+    
+    var comparator: (Member, Member) -> Bool {
+        switch self {
+        case .name:
+            return { $0.displayName() < $1.displayName() }
+        case .sex:
+            return { $0.sex.rawValue < $1.sex.rawValue }
+        case .status:
+            return { $0.status.rawValue < $1.status.rawValue }
+        case .dateOfBirth:
+            return { $0.dateOfBirth ?? Date.distantPast < $1.dateOfBirth ?? Date.distantPast }
+        }
+    }
 }

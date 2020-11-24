@@ -59,6 +59,7 @@ struct MembersByAgeEntryView: View {
                             $0.status.isActive() && $0.dateOfBirth != nil &&
                             comparison.comparator($0.age(asOf: asOfDate), age)
                         }
+                        members.sort(by: sort.comparator)
                         withAnimation(.easeInOut(duration: editAnimationDuration)) {
                             self.showingResults = true
                         }
