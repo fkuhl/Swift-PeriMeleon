@@ -84,7 +84,7 @@ struct PasswordView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
             Button(action: {
                 document.content.tryPassword(firstAttempt: firstAttempt,
-                                               secondAttempt: secondAttempt)
+                                             secondAttempt: secondAttempt)
             }) {
                 Text("Decrypt")
             }

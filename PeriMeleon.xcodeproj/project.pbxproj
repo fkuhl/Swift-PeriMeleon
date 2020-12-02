@@ -28,6 +28,8 @@
 		276B9758250008DB003E19BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B972B250008DA003E19BA /* ContentView.swift */; };
 		276B9759250008DB003E19BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276B972C250008DB003E19BA /* Assets.xcassets */; };
 		276B975A250008DB003E19BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276B972C250008DB003E19BA /* Assets.xcassets */; };
+		277B0A9D25783A3900AB2F86 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B0A9C25783A3900AB2F86 /* Keychain.swift */; };
+		277B0A9E25783A3900AB2F86 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B0A9C25783A3900AB2F86 /* Keychain.swift */; };
 		277C95112540DC230032638A /* PreviewProviderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95102540DC230032638A /* PreviewProviderModifier.swift */; };
 		277C95122540DC230032638A /* PreviewProviderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95102540DC230032638A /* PreviewProviderModifier.swift */; };
 		277C95182540DD6A0032638A /* PreviewShowoffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95172540DD6A0032638A /* PreviewShowoffView.swift */; };
@@ -179,6 +181,7 @@
 		276B974C250008DB003E19BA /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		276B9750250008DB003E19BA /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		276B9752250008DB003E19BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		277B0A9C25783A3900AB2F86 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		277C95102540DC230032638A /* PreviewProviderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProviderModifier.swift; sourceTree = "<group>"; };
 		277C95172540DD6A0032638A /* PreviewShowoffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewShowoffView.swift; sourceTree = "<group>"; };
 		277C9527254223C20032638A /* Member+Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Member+Age.swift"; sourceTree = "<group>"; };
@@ -367,6 +370,7 @@
 		277C9526254223110032638A /* Document */ = {
 			isa = PBXGroup;
 			children = (
+				277B0A9C25783A3900AB2F86 /* Keychain.swift */,
 				276B972A250008DA003E19BA /* PeriMeleonDocument.swift */,
 				272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */,
 				272F722D251533BD009E4CF3 /* CryptoKey.swift */,
@@ -702,6 +706,7 @@
 				27C55E532538E7A000923EE8 /* DataCheckReport.swift in Sources */,
 				27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
 				27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */,
+				277B0A9D25783A3900AB2F86 /* Keychain.swift in Sources */,
 				27C55E132538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */,
 				27B20DA22529113B00C80696 /* MemberView.swift in Sources */,
 				272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */,
@@ -810,6 +815,7 @@
 				27B20DC42529123400C80696 /* EditOptionalDateView.swift in Sources */,
 				27C55E2F2538E67700923EE8 /* MoveToHouseholdAccumulator.swift in Sources */,
 				27B20DCC2529123400C80696 /* EditOptionalParentView.swift in Sources */,
+				277B0A9E25783A3900AB2F86 /* Keychain.swift in Sources */,
 				277C954B2544BED40032638A /* QueryResults.swift in Sources */,
 				27B20DE12529142900C80696 /* AddressEditView.swift in Sources */,
 				276B9754250008DB003E19BA /* PeriMeleonApp.swift in Sources */,

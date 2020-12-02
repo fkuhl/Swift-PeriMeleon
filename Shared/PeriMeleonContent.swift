@@ -10,6 +10,8 @@ import PMDataTypes
 import CryptoKit
 import CommonCrypto
 
+let passwordAccount = "com.tyndalesoft.pm"
+
 struct PeriMeleonContent {
     enum State: Equatable {
         case noKey
@@ -44,8 +46,7 @@ struct PeriMeleonContent {
     }
     private var internalState: State = .normal
     var state: State { get { internalState }}
-    #warning("hide the password!")
-    private var key = makeKey(password: "1234")
+    private var key: SymmetricKey? = nil
     private var encryptedData: Data
     private var dataCouldHaveChanged = false
     
@@ -66,12 +67,17 @@ struct PeriMeleonContent {
             return
         }
         encryptedData = readData
-        guard let decryptionKey = key else {
-            NSLog("no key")
+        do {
+            if let decryptionKey: SymmetricKey = try GenericPasswordStore().readKey(account: passwordAccount) {
+                decryptAndDecode(key: decryptionKey)
+            } else {
+                NSLog("no key")
+                internalState = .noKey
+            }
+        } catch {
+            NSLog("err reading keychain, \(error.localizedDescription)")
             internalState = .noKey
-            return
         }
-        decryptAndDecode(key: decryptionKey)
     }
     
     //MARK: - Crypto
@@ -114,6 +120,12 @@ struct PeriMeleonContent {
         key = makeKey(password: firstAttempt)
         if let decryptionKey = key {
             decryptAndDecode(key: decryptionKey)
+            do {
+                try GenericPasswordStore().deleteKey(account: passwordAccount)
+                try GenericPasswordStore().storeKey(decryptionKey, account: passwordAccount)
+            } catch {
+                NSLog("err storing key \(error.localizedDescription)")
+            }
         } else {
             internalState = .noKey
         }
