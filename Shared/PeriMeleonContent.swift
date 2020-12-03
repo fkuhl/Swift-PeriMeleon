@@ -10,7 +10,7 @@ import PMDataTypes
 import CryptoKit
 import CommonCrypto
 
-let passwordAccount = "com.tyndalesoft.pm"
+let passwordAccount = "com.tyndalesoft.PeriMeleon"
 
 struct PeriMeleonContent {
     enum State: Equatable {
