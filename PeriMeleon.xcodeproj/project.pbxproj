@@ -14,6 +14,8 @@
 		272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
 		272F7235251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */; };
 		272F7236251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */; };
+		273FDC96257C462F0019F2DD /* Member+isActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FDC95257C462F0019F2DD /* Member+isActive.swift */; };
+		273FDC97257C462F0019F2DD /* Member+isActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FDC95257C462F0019F2DD /* Member+isActive.swift */; };
 		275A1180255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275A1181255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D3CA22532029100D65992 /* EditDisplayView.swift */; };
@@ -164,6 +166,7 @@
 		2723592F254B51AE00137925 /* RoundedOutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedOutlineButton.swift; sourceTree = "<group>"; };
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
 		272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonContent.swift; sourceTree = "<group>"; };
+		273FDC95257C462F0019F2DD /* Member+isActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Member+isActive.swift"; sourceTree = "<group>"; };
 		275A117F255F320C0055E77F /* SolidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidButton.swift; sourceTree = "<group>"; };
 		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
 		276B9729250008DA003E19BA /* PeriMeleonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonApp.swift; sourceTree = "<group>"; };
@@ -418,6 +421,7 @@
 				27B20D8F2529113B00C80696 /* TransactionEditView.swift */,
 				27B20D902529113B00C80696 /* Transactions.swift */,
 				277C9527254223C20032638A /* Member+Age.swift */,
+				273FDC95257C462F0019F2DD /* Member+isActive.swift */,
 			);
 			name = Members;
 			sourceTree = "<group>";
@@ -714,6 +718,7 @@
 				277C95182540DD6A0032638A /* PreviewShowoffView.swift in Sources */,
 				27B20DCD2529123400C80696 /* EditSexView.swift in Sources */,
 				27C55E3E2538E74300923EE8 /* FamilyJoinView.swift in Sources */,
+				273FDC96257C462F0019F2DD /* Member+isActive.swift in Sources */,
 				279B6FB4255F619B0009D2BF /* MembersByAgeView.swift in Sources */,
 				279B6FB2255F619B0009D2BF /* MembersByAgeEntryView.swift in Sources */,
 				27B20D982529113B00C80696 /* TextAttributeView.swift in Sources */,
@@ -819,6 +824,7 @@
 				277C954B2544BED40032638A /* QueryResults.swift in Sources */,
 				27B20DE12529142900C80696 /* AddressEditView.swift in Sources */,
 				276B9754250008DB003E19BA /* PeriMeleonApp.swift in Sources */,
+				273FDC97257C462F0019F2DD /* Member+isActive.swift in Sources */,
 				276B9758250008DB003E19BA /* ContentView.swift in Sources */,
 				27B20D822529106500C80696 /* HouseholdRowView.swift in Sources */,
 				27C55E182538CE0100923EE8 /* MembersByStatusEntryView.swift in Sources */,

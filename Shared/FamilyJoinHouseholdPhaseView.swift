@@ -20,7 +20,7 @@ struct FamilyJoinHouseholdPhaseView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    NSLog("FJTPV cancel")
+                    NSLog("FJTPV Finish")
                     accumulator.phase = .reset
                     linkSelection = nil //ensure DataTransactionsView can go again
                     presentationMode.wrappedValue.dismiss() //dismiss FamilyJoinView?

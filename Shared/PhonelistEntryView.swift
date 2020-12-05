@@ -50,7 +50,7 @@ struct PhonelistEntryView: View {
                     SolidButton(text: "Run Query", action: {
                         NSLog("run query, age >= \(minimumAge)")
                         members = document.content.filterMembers {
-                            let isActive = $0.status.isActive()
+                            let isActive = $0.isActive()
                             let residency = (includeResident && $0.resident)
                                 || (includeNonResident && !$0.resident)
                             let gender = (includeMen && $0.sex == .MALE) ||

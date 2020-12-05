@@ -15,17 +15,29 @@ let passwordAccount = "com.tyndalesoft.PeriMeleon"
 struct PeriMeleonContent {
     enum State: Equatable {
         case noKey
-        case cannotRead
+        case cannotRead(errorDescription: String)
         case cannotDecrypt
         case cannotDecode(errorDescription: String)
-        case passwordEntriesDoNotMatch
+        case passwordEntriesDoNotMatch(forNewFile: Bool)
+        case nowWhat(errorDescription: String)
+        case newFile
         case normal
     }
 
     // MARK: - Data
     
-    var householdsById = [Id : NormalizedHousehold]()
-    var membersById = [Id : Member]()
+    var householdsById = [Id : NormalizedHousehold]() {
+        didSet {
+            dataCouldHaveChanged = true
+            NSLog("households changed")
+        }
+    }
+    var membersById = [Id : Member]() {
+        didSet {
+            dataCouldHaveChanged = true
+            NSLog("members changed")
+        }
+    }
     var households: [NormalizedHousehold] {
         var households = [NormalizedHousehold](householdsById.values)
         households.sort {
@@ -34,7 +46,7 @@ struct PeriMeleonContent {
         return households
     }
     var activeHouseholds: [NormalizedHousehold] {
-        households.filter { membersById[$0.head]?.status.isActive() ?? false }
+        households.filter { membersById[$0.head]?.isActive() ?? false }
     }
     var members: [Member] {
         var members = [Member](membersById.values)
@@ -42,7 +54,7 @@ struct PeriMeleonContent {
         return members
     }
     var activeMembers: [Member] {
-        members.filter{ $0.status.isActive() }
+        members.filter{ $0.isActive() }
     }
     private var internalState: State = .normal
     var state: State { get { internalState }}
@@ -52,20 +64,31 @@ struct PeriMeleonContent {
     
     // MARK: - initializers
 
+    /**
+     This initializer is called when user makes new document.
+     Then the regular initializer is called, with no intervening Views being made.
+     */
     init() {
         NSLog("PeriMeleonContent init no data")
-        self.encryptedData = Data()
-        self.internalState = .normal
+        encryptedData = Data()
+        internalState = .newFile
     }
     
     init(data: Data?) {
-        NSLog("PeriMeleonContent init \(data?.count ?? 0) bytes")
         guard let readData = data else {
-            self.encryptedData = Data()
-            internalState = .cannotRead
+            encryptedData = Data()
+            internalState = .cannotRead(errorDescription: "corrupt file")
             NSLog("corrupt file")
             return
         }
+        if readData.count == 0 {
+            //We have a new document.
+            NSLog("PeriMeleonContent init data empty")
+            encryptedData = Data()
+            internalState = .newFile
+            return
+        }
+        NSLog("PeriMeleonContent init \(data?.count ?? 0) bytes")
         encryptedData = readData
         do {
             if let decryptionKey: SymmetricKey = try GenericPasswordStore().readKey(account: passwordAccount) {
@@ -114,7 +137,7 @@ struct PeriMeleonContent {
     
     mutating func tryPassword(firstAttempt: String, secondAttempt: String) {
         guard firstAttempt == secondAttempt else {
-            self.internalState = .passwordEntriesDoNotMatch
+            internalState = .passwordEntriesDoNotMatch(forNewFile: false)
             return
         }
         key = makeKey(password: firstAttempt)
@@ -125,11 +148,13 @@ struct PeriMeleonContent {
                 try GenericPasswordStore().storeKey(decryptionKey, account: passwordAccount)
             } catch {
                 NSLog("err storing key \(error.localizedDescription)")
+                internalState = .nowWhat(errorDescription: "err storing key \(error.localizedDescription)")
             }
         } else {
             internalState = .noKey
         }
     }
+    
     
     /**
      Create normalized indexes of households and members.
@@ -201,6 +226,52 @@ struct PeriMeleonContent {
         return encryptedData
     }
     
+    //MARK: - New database
+    
+    mutating func addPasswordToNewFile(firstAttempt: String, secondAttempt: String) {
+        guard firstAttempt == secondAttempt else {
+            self.internalState = .passwordEntriesDoNotMatch(forNewFile: true)
+            return
+        }
+        initializeNewDB()
+        key = makeKey(password: firstAttempt)
+        if let encryptionKey = key {
+            do {
+                let unencryptedData = try jsonEncoder.encode(denormalize())
+                encryptedData = try ChaChaPoly.seal(unencryptedData, using: encryptionKey).combined
+                NSLog("writing \(encryptedData.count) bytes")
+                try GenericPasswordStore().deleteKey(account: passwordAccount)
+                try GenericPasswordStore().storeKey(encryptionKey, account: passwordAccount)
+                dataCouldHaveChanged = false
+                internalState = .normal
+            } catch {
+                internalState = .nowWhat(errorDescription: "Error on encrypting new data: \( error.localizedDescription)")
+            }
+        } else {
+            internalState = .noKey
+        }
+    }
+
+    private mutating func initializeNewDB() {
+        let mansionInTheSkyTempId = UUID().uuidString
+        var goodShepherd = Member()
+        goodShepherd.familyName = "Shepherd"
+        goodShepherd.givenName = "Good"
+        goodShepherd.placeOfBirth = "Bethlehem"
+        goodShepherd.status = MemberStatus.PASTOR  // not counted against communicants
+        goodShepherd.resident = false  // not counted against residents
+        goodShepherd.exDirectory = true  // not included in directory
+        goodShepherd.household = mansionInTheSkyTempId
+        
+        var mansionInTheSky = NormalizedHousehold()
+        goodShepherd.household = mansionInTheSky.id
+        mansionInTheSky.head = goodShepherd.id
+        mansionInTheSky.id = mansionInTheSkyTempId
+        membersById[goodShepherd.id] = goodShepherd
+        householdsById[mansionInTheSky.id] = mansionInTheSky
+    }
+    
+    
     //MARK: - Get data
     
     func household(byId: Id) -> NormalizedHousehold {
@@ -229,7 +300,7 @@ struct PeriMeleonContent {
 
     func parentList(mustBeActive: Bool, sex: Sex) -> [Member] {
         var matches = [Member](membersById.values.filter { member in
-            return member.sex == sex && !(mustBeActive && !member.status.isActive())
+            return member.sex == sex && !(mustBeActive && !member.isActive())
         })
         matches.sort { $0.fullName() < $1.fullName() }
         return matches

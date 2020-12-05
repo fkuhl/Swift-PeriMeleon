@@ -14,19 +14,27 @@ struct ContentView: View {
         switch (document.content.state) {
         case .normal:
             MainView(document: $document)
+        case .newFile:
+            PasswordView(label: "Password for new document.", forNewFile: true, document: $document)
         case .noKey:
-            PasswordView(label: "No key!", document: $document)
+            PasswordView(label: "Please provide a password.", forNewFile: false, document: $document)
         case .cannotRead:
-            Text("cant read")
+            Text("cannot read: corrupt document?")
+        case .nowWhat(let message):
+            Text(message)
         case .cannotDecrypt:
-            PasswordView(label: "Unable to decrypt file; please provide another password.", document: $document)
+            PasswordView(label: "Unable to decrypt document; please provide another password.",
+                         forNewFile: false,
+                         document: $document)
         case .cannotDecode(let description):
             VStack{
-                Text("cannot read!")
+                Text("cannot decode JSON:")
                 Text(description)
             }
-        case .passwordEntriesDoNotMatch:
-            PasswordView(label: "Passwords didn't match.", document: $document)
+        case .passwordEntriesDoNotMatch(let forNewFile):
+            PasswordView(label: "Passwords didn't match.",
+                         forNewFile: forNewFile,
+                         document: $document)
         }
     }
 }
@@ -71,6 +79,7 @@ struct MainView: View {
 
 struct PasswordView: View {
     var label: String
+    var forNewFile: Bool
     @Binding var document: PeriMeleonDocument
     @State var firstAttempt = ""
     @State var secondAttempt = ""
@@ -82,13 +91,21 @@ struct PasswordView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
             SecureField("re-type password", text: $secondAttempt)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-            Button(action: {
-                document.content.tryPassword(firstAttempt: firstAttempt,
-                                             secondAttempt: secondAttempt)
+            Button(action: { buttonAction()
             }) {
                 Text("Decrypt")
             }
         }.padding()
+    }
+    
+    private func buttonAction() {
+        if forNewFile {
+            document.content.addPasswordToNewFile(firstAttempt: firstAttempt,
+                                                  secondAttempt: secondAttempt)
+        } else {
+            document.content.tryPassword(firstAttempt: firstAttempt,
+                                         secondAttempt: secondAttempt)
+        }
     }
 }
 

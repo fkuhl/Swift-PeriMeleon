@@ -35,7 +35,7 @@ struct BirthdaysEntryView: View {
                     SolidButton(text: "Run Query", action: {
                         NSLog("run query")
                         members = document.content.filterMembers {
-                            if !$0.status.isActive() { return false }
+                            if !$0.isActive() { return false }
                             if let dob = $0.dateOfBirth {
                                 let calendar = Calendar.current
                                 return calendar.component(.month, from: dob) == selectedMonth + 1

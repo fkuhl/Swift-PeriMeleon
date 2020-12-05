@@ -29,7 +29,7 @@ struct MembersByAgeEntryView: View {
                             Text($0.rawValue).font(.body).tag($0)
                         }
                     }
-                    IntegerTextField(placeholder: "age", value: $age, min: 1, max: 150)
+                    IntegerTextField(placeholder: "age", value: $age, min: 0, max: 150)
                     Text("years").font(.body)
                     Spacer()
                     Text("As of:").font(.body)
