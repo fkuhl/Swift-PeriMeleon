@@ -18,16 +18,16 @@ struct HouseholdsView: View {
                 Picker(selection: $allOrActive,
                        label: Text("What's in a name?"),
                        content: {
-                        Text("All Households").tag(0)
-                        Text("Active Households").tag(1)
+                        Text("Active Households").tag(0)
+                        Text("All Households").tag(1)
                 }).pickerStyle(SegmentedPickerStyle())
                 List {
-                    ForEach(allOrActive == 0 ? document.content.households : document.content.activeHouseholds, id: \.id) {
+                    ForEach(allOrActive == 0 ? document.content.activeHouseholds : document.content.households, id: \.id) {
                         HouseholdRowView(document: $document, householdId: $0.id)
                     }
                 }
             }
-            .navigationBarTitle(allOrActive == 0 ? "All Households" : "Active Households")
+            .navigationBarTitle(allOrActive == 0 ? "Active Households" : "All Households")
         }
     }
 }

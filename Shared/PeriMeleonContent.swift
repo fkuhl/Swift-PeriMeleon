@@ -209,10 +209,15 @@ struct PeriMeleonContent {
     }
 
     enum WriteError: Error {
+        case illegalState(state: State)
         case noKey
     }
 
     func encrypt() throws -> Data {
+        guard internalState == .normal || internalState == .newFile else {
+            NSLog("write attempted in state \(internalState)")
+            throw WriteError.illegalState(state: internalState)
+        }
         if !dataCouldHaveChanged {
             NSLog("data could not have changed")
             return encryptedData

@@ -19,24 +19,24 @@ struct MembersView: View {
                 Picker(selection: $allOrActive,
                        label: Text("What's in a name?"),
                        content: {
-                        Text("All Members").tag(0)
-                        Text("Active Members").tag(1)
+                        Text("Active Members").tag(0)
+                        Text("All Members").tag(1)
                        }).pickerStyle(SegmentedPickerStyle())
                 List {
-                    ForEach(allOrActive == 0 ? document.content.members : document.content.activeMembers, id: \.id) {
+                    ForEach(allOrActive == 0 ? document.content.activeMembers : document.content.members, id: \.id) {
                         MemberRowView(document: $document, memberId: $0.id)
                     }
                 }
             }
-           .navigationBarTitle(allOrActive == 0 ? "All Members" : "Active Members")
+           .navigationBarTitle(allOrActive == 0 ? "Active Members" : "All Members")
         }
     }
 }
 
 
 
-//struct MembersView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MembersView(memberFetcher: MemberFetcher.mockedInstance)
-//    }
-//}
+struct MembersView_Previews: PreviewProvider {
+    static var previews: some View {
+        MembersView(document: mockDocument)
+    }
+}
