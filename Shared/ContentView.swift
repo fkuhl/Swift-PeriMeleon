@@ -47,6 +47,8 @@ struct ContentView: View {
     }
 }
 
+// TODO Sidebar?
+
 struct MainView: View {
     @Binding var document: PeriMeleonDocument
     @State private var selection = 0
@@ -139,12 +141,3 @@ struct PasswordView_Previews: PreviewProvider {
 
 let defaultCaptionWidth: CGFloat = 150
 let editAnimationDuration = 0.7
-
-extension View {
-    func debugPrint(_ value: Any) -> some View {
-        #if DEBUG
-        print(value)
-        #endif
-        return self
-    }
-}

@@ -18,6 +18,8 @@
 		273FDC97257C462F0019F2DD /* Member+isActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FDC95257C462F0019F2DD /* Member+isActive.swift */; };
 		275A1180255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275A1181255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
+		275AF2A5258D09540007CF0C /* View+debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AF2A4258D09540007CF0C /* View+debug.swift */; };
+		275AF2A6258D09540007CF0C /* View+debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AF2A4258D09540007CF0C /* View+debug.swift */; };
 		275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D3CA22532029100D65992 /* EditDisplayView.swift */; };
 		275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D3CA22532029100D65992 /* EditDisplayView.swift */; };
 		276B9746250008DB003E19BA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9745250008DB003E19BA /* Tests_iOS.swift */; };
@@ -168,6 +170,7 @@
 		272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonContent.swift; sourceTree = "<group>"; };
 		273FDC95257C462F0019F2DD /* Member+isActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Member+isActive.swift"; sourceTree = "<group>"; };
 		275A117F255F320C0055E77F /* SolidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidButton.swift; sourceTree = "<group>"; };
+		275AF2A4258D09540007CF0C /* View+debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+debug.swift"; sourceTree = "<group>"; };
 		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
 		276B9729250008DA003E19BA /* PeriMeleonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonApp.swift; sourceTree = "<group>"; };
 		276B972A250008DA003E19BA /* PeriMeleonDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonDocument.swift; sourceTree = "<group>"; };
@@ -392,6 +395,7 @@
 				277C953E2544B4860032638A /* ShareSheet.swift */,
 				2723592F254B51AE00137925 /* RoundedOutlineButton.swift */,
 				27FD5AE0254DDC4F0086F120 /* IntegerTextField.swift */,
+				275AF2A4258D09540007CF0C /* View+debug.swift */,
 			);
 			name = Styling;
 			sourceTree = "<group>";
@@ -753,6 +757,7 @@
 				27B20DC32529123400C80696 /* EditOptionalDateView.swift in Sources */,
 				27EB130A254A0769008E8A8B /* PhonelistEntryView.swift in Sources */,
 				27D7D80C25570D1000A983AA /* BirthdaysResultsView.swift in Sources */,
+				275AF2A5258D09540007CF0C /* View+debug.swift in Sources */,
 				27C55E2E2538E67700923EE8 /* MoveToHouseholdAccumulator.swift in Sources */,
 				27B20DCB2529123400C80696 /* EditOptionalParentView.swift in Sources */,
 				277C954A2544BED40032638A /* QueryResults.swift in Sources */,
@@ -805,6 +810,7 @@
 				272F7236251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */,
 				277C95122540DC230032638A /* PreviewProviderModifier.swift in Sources */,
 				27C55E122538CE0100923EE8 /* CompactToggleView.swift in Sources */,
+				275AF2A6258D09540007CF0C /* View+debug.swift in Sources */,
 				27C55E332538E67700923EE8 /* MoveToHouseholdView.swift in Sources */,
 				27B20DE32529142900C80696 /* AddressView.swift in Sources */,
 				27C55E562538E7A000923EE8 /* DataChecker.swift in Sources */,
