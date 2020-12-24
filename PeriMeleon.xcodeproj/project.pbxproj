@@ -139,6 +139,7 @@
 		27D7D80C25570D1000A983AA /* BirthdaysResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80925570D1000A983AA /* BirthdaysResultsView.swift */; };
 		27D7D80D25570D1000A983AA /* BirthdaysEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */; };
 		27D7D80E25570D1000A983AA /* BirthdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80B25570D1000A983AA /* BirthdaysView.swift */; };
+		27D9767425940EAF00E12893 /* PMDataTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 27D9767325940EAF00E12893 /* PMDataTypes */; };
 		27EB130A254A0769008E8A8B /* PhonelistEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1309254A0769008E8A8B /* PhonelistEntryView.swift */; };
 		27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1319254A3B9C008E8A8B /* PhonelistResultsView.swift */; };
 		27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD5AE0254DDC4F0086F120 /* IntegerTextField.swift */; };
@@ -169,6 +170,7 @@
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
 		272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonContent.swift; sourceTree = "<group>"; };
 		273FDC95257C462F0019F2DD /* Member+isActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Member+isActive.swift"; sourceTree = "<group>"; };
+		274157BB2594E44800A7CD7F /* PeriMeleon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeriMeleon.entitlements; sourceTree = "<group>"; };
 		275A117F255F320C0055E77F /* SolidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidButton.swift; sourceTree = "<group>"; };
 		275AF2A4258D09540007CF0C /* View+debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+debug.swift"; sourceTree = "<group>"; };
 		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27D9767425940EAF00E12893 /* PMDataTypes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,12 +299,14 @@
 		276B9723250008DA003E19BA = {
 			isa = PBXGroup;
 			children = (
+				274157BB2594E44800A7CD7F /* PeriMeleon.entitlements */,
 				276B9728250008DA003E19BA /* Shared */,
 				276B9733250008DB003E19BA /* iOS */,
 				276B973A250008DB003E19BA /* macOS */,
 				276B9744250008DB003E19BA /* Tests iOS */,
 				276B974F250008DB003E19BA /* Tests macOS */,
 				276B9732250008DB003E19BA /* Products */,
+				27D9767225940EAF00E12893 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -511,6 +516,13 @@
 			name = Birthdays;
 			sourceTree = "<group>";
 		};
+		27D9767225940EAF00E12893 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		27EB1307254A06F7008E8A8B /* MembersByStatus */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,6 +580,9 @@
 			dependencies = (
 			);
 			name = "PeriMeleon (macOS)";
+			packageProductDependencies = (
+				27D9767325940EAF00E12893 /* PMDataTypes */,
+			);
 			productName = "PeriMeleon (macOS)";
 			productReference = 276B9739250008DB003E19BA /* PeriMeleon.app */;
 			productType = "com.apple.product-type.application";
@@ -986,6 +1001,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
@@ -998,6 +1015,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1008,6 +1026,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
@@ -1020,6 +1040,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1043,7 +1064,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = macosx;
@@ -1068,7 +1089,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = macosx;
@@ -1228,6 +1249,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		2703A95425001B2C00BB0061 /* PMDataTypes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2703A95325001B2C00BB0061 /* XCRemoteSwiftPackageReference "PMDataTypes" */;
+			productName = PMDataTypes;
+		};
+		27D9767325940EAF00E12893 /* PMDataTypes */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2703A95325001B2C00BB0061 /* XCRemoteSwiftPackageReference "PMDataTypes" */;
 			productName = PMDataTypes;

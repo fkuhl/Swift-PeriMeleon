@@ -19,3 +19,11 @@ and create a document that this program can open.
 (Note that a password has to be specified for the document when you run PMImporter.)
 
 Uses SwiftUI 2, so requires iOS 14 and macOS 11.
+
+To enable Mac Calayst framework, so the app can run on the Mac,
+I had to enable Mac support on the iOS target.
+
+Also: under "App Sandbox", enable read/write access on File Access,
+User Selected File.
+
+In PeriMeleon.entitlements, add keychain access.
