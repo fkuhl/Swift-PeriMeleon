@@ -1,5 +1,5 @@
 //
-//  FamilyJoinTransactionPhaseView.swift
+//  FamilyJoinWorkflowPhaseView.swift
 //  PMClient
 //
 //  Created by Frederick Kuhl on 6/5/20.
@@ -9,7 +9,7 @@
 import SwiftUI
 import PMDataTypes
 
-struct FamilyJoinTransactionPhaseView: View {
+struct FamilyJoinWorkflowPhaseView: View {
     @Binding var accumulator: FamilyJoinAccumulator
     @Binding var linkSelection: String?
     @Environment(\.presentationMode) var presentationMode
@@ -20,7 +20,7 @@ struct FamilyJoinTransactionPhaseView: View {
                 Button(action: {
                     NSLog("FJTPV cancel")
                     accumulator.phase = .reset
-                    linkSelection = nil //ensure DataTransactionsView can go again
+                    linkSelection = nil //ensure DataWorkflowsView can go again
                     presentationMode.wrappedValue.dismiss() //dismiss FamilyJoinView?
                 }) {
                     Text("Cancel").font(.body)
@@ -66,9 +66,9 @@ struct FamilyJoinTransactionPhaseView: View {
     }
 }
 
-struct FamilyJoinTransactionPhaseView_Previews: PreviewProvider {
+struct FamilyJoinWorkflowPhaseView_Previews: PreviewProvider {
     static var previews: some View {
-        FamilyJoinTransactionPhaseView(accumulator: Binding.constant(FamilyJoinAccumulator()),
+        FamilyJoinWorkflowPhaseView(accumulator: Binding.constant(FamilyJoinAccumulator()),
                                        linkSelection: Binding.constant(nil))
     }
 }

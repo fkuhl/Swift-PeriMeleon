@@ -16,22 +16,22 @@ struct MainView: View {
             MembersView(document: $document)
                 .font(.title)
                 .tabItem {
-                    Image(systemName: "person.2.fill")
+                    Image(systemName: "person.2")
                     Text("Members")
                 }
                 .tag(0)
             HouseholdsView(document: $document)
                 .font(.title)
                 .tabItem {
-                    Image(systemName: "house.fill")
+                    Image(systemName: "house")
                     Text("Households")
                 }
                 .tag(1)
-            DataTransactionsView(document: $document)
+            WorkflowsView(document: $document)
                 .font(.title)
                 .tabItem {
-                    Image(systemName: "pencil.circle")
-                    Text("DB Transactions")
+                    Image(systemName: "gearshape.2")
+                    Text("Workflows")
                 }
                 .tag(2)
             QueriesView(document: $document)

@@ -1,5 +1,5 @@
 //
-//  TransactionsView.swift
+//  WorkflowsView.swift
 //  PMClient
 //
 //  Created by Frederick Kuhl on 3/20/20.
@@ -14,7 +14,7 @@ fileprivate enum Link: String {
     case dataChecker
 }
 
-struct DataTransactionsView: View {
+struct WorkflowsView: View {
     @Binding var document: PeriMeleonDocument
     @ObservedObject var moveToHouseholdAccumulator = MoveToHouseholdAccumulator()
     @State var linkSelection: String? = nil
@@ -59,7 +59,7 @@ struct DataTransactionsView: View {
                     }
                 }
             }
-            .navigationBarTitle("Transaction Types")
+            .navigationBarTitle("Workflow Types")
             .listStyle(GroupedListStyle())
         }
             //A little odd having this here, but make sense:
@@ -68,8 +68,8 @@ struct DataTransactionsView: View {
     }
 }
 
-struct DataTransactionsView_Previews: PreviewProvider {
+struct WorkflowsView_Previews: PreviewProvider {
     static var previews: some View {
-        DataTransactionsView(document: mockDocument)
+        WorkflowsView(document: mockDocument)
     }
 }

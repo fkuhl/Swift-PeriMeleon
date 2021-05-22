@@ -22,7 +22,7 @@ struct FamilyJoinHouseholdPhaseView: View {
                 Button(action: {
                     NSLog("FJTPV Finish")
                     accumulator.phase = .reset
-                    linkSelection = nil //ensure DataTransactionsView can go again
+                    linkSelection = nil //ensure WorkflowsView can go again
                     presentationMode.wrappedValue.dismiss() //dismiss FamilyJoinView?
                     
                 }) {
