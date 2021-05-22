@@ -46,6 +46,10 @@
 		277C95402544B4870032638A /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C953E2544B4860032638A /* ShareSheet.swift */; };
 		277C954A2544BED40032638A /* QueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95492544BED40032638A /* QueryResults.swift */; };
 		277C954B2544BED40032638A /* QueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95492544BED40032638A /* QueryResults.swift */; };
+		278C1666265955DF003CEC13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C1665265955DF003CEC13 /* MainView.swift */; };
+		278C1667265955DF003CEC13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C1665265955DF003CEC13 /* MainView.swift */; };
+		278C16692659563E003CEC13 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C16682659563E003CEC13 /* PasswordView.swift */; };
+		278C166A2659563E003CEC13 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C16682659563E003CEC13 /* PasswordView.swift */; };
 		279B6FB2255F619B0009D2BF /* MembersByAgeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FAF255F619B0009D2BF /* MembersByAgeEntryView.swift */; };
 		279B6FB3255F619B0009D2BF /* MembersByAgeResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FB0255F619B0009D2BF /* MembersByAgeResultsView.swift */; };
 		279B6FB4255F619B0009D2BF /* MembersByAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FB1255F619B0009D2BF /* MembersByAgeView.swift */; };
@@ -196,6 +200,8 @@
 		277C952F254333A50032638A /* CheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		277C953E2544B4860032638A /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		277C95492544BED40032638A /* QueryResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResults.swift; sourceTree = "<group>"; };
+		278C1665265955DF003CEC13 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		278C16682659563E003CEC13 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		279B6FAF255F619B0009D2BF /* MembersByAgeEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByAgeEntryView.swift; sourceTree = "<group>"; };
 		279B6FB0255F619B0009D2BF /* MembersByAgeResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByAgeResultsView.swift; sourceTree = "<group>"; };
 		279B6FB1255F619B0009D2BF /* MembersByAgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByAgeView.swift; sourceTree = "<group>"; };
@@ -313,11 +319,11 @@
 		276B9728250008DA003E19BA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				276B972B250008DA003E19BA /* ContentView.swift */,
+				278C1664265955A2003CEC13 /* App */,
 				277C9526254223110032638A /* Document */,
 				27C55E5D2538E7A400923EE8 /* DataChecker */,
 				27C55E4C2538E74900923EE8 /* Family Join */,
-				27C55E382538E67D00923EE8 /* Transactions */,
+				27C55E382538E67D00923EE8 /* Workflows */,
 				27C55E1F2538CE0700923EE8 /* Queries */,
 				27B20DE82529143000C80696 /* Address */,
 				276B972C250008DB003E19BA /* Assets.xcassets */,
@@ -325,7 +331,6 @@
 				27B20D8B2529107200C80696 /* Households */,
 				27B20DB42529116B00C80696 /* Members */,
 				277C952E254333760032638A /* Styling */,
-				276B9729250008DA003E19BA /* PeriMeleonApp.swift */,
 				27C6B4A32506ADD20086181F /* README.md */,
 				27C55E242538CE9400923EE8 /* MockedData.swift */,
 			);
@@ -405,6 +410,17 @@
 			name = Styling;
 			sourceTree = "<group>";
 		};
+		278C1664265955A2003CEC13 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				276B972B250008DA003E19BA /* ContentView.swift */,
+				276B9729250008DA003E19BA /* PeriMeleonApp.swift */,
+				278C1665265955DF003CEC13 /* MainView.swift */,
+				278C16682659563E003CEC13 /* PasswordView.swift */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
 		27B20D8B2529107200C80696 /* Households */ = {
 			isa = PBXGroup;
 			children = (
@@ -473,14 +489,14 @@
 			name = Queries;
 			sourceTree = "<group>";
 		};
-		27C55E382538E67D00923EE8 /* Transactions */ = {
+		27C55E382538E67D00923EE8 /* Workflows */ = {
 			isa = PBXGroup;
 			children = (
 				27C55E2C2538E67700923EE8 /* DataTransactionsView.swift */,
 				27C55E2B2538E67700923EE8 /* MoveToHouseholdAccumulator.swift */,
 				27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */,
 			);
-			name = Transactions;
+			name = Workflows;
 			sourceTree = "<group>";
 		};
 		27C55E4C2538E74900923EE8 /* Family Join */ = {
@@ -717,6 +733,7 @@
 				277C9528254223C20032638A /* Member+Age.swift in Sources */,
 				27B20DC12529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */,
+				278C1666265955DF003CEC13 /* MainView.swift in Sources */,
 				27B20DA82529113B00C80696 /* Services.swift in Sources */,
 				272F7235251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */,
 				27C55E422538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */,
@@ -730,6 +747,7 @@
 				27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
 				27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */,
 				277B0A9D25783A3900AB2F86 /* Keychain.swift in Sources */,
+				278C16692659563E003CEC13 /* PasswordView.swift in Sources */,
 				27C55E132538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */,
 				27B20DA22529113B00C80696 /* MemberView.swift in Sources */,
 				272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */,
@@ -790,6 +808,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27FD5AE2254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
+				278C166A2659563E003CEC13 /* PasswordView.swift in Sources */,
 				27C55E472538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9529254223C20032638A /* Member+Age.swift in Sources */,
 				27B20DC22529123400C80696 /* ChooseHouseholdView.swift in Sources */,
@@ -848,6 +867,7 @@
 				273FDC97257C462F0019F2DD /* Member+isActive.swift in Sources */,
 				276B9758250008DB003E19BA /* ContentView.swift in Sources */,
 				27B20D822529106500C80696 /* HouseholdRowView.swift in Sources */,
+				278C1667265955DF003CEC13 /* MainView.swift in Sources */,
 				27C55E182538CE0100923EE8 /* MembersByStatusEntryView.swift in Sources */,
 				27B20D9F2529113B00C80696 /* TransactionEditView.swift in Sources */,
 			);
