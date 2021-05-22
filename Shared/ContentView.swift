@@ -109,7 +109,7 @@ struct PasswordView: View {
                     }
                     Spacer().frame(width: geometry.size.width / 5)
                 }.padding()
-                SolidButton(text: buttonText, action: { buttonAction() })
+                SolidButton(text: buttonText, action: buttonAction )
             }
         }
     }

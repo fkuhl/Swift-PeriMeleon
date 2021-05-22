@@ -32,22 +32,24 @@ struct BirthdaysEntryView: View {
                 }
                 HStack {
                     Spacer()
-                    SolidButton(text: "Run Query", action: {
-                        NSLog("run query")
-                        members = document.content.filterMembers {
-                            if !$0.isActive() { return false }
-                            if let dob = $0.dateOfBirth {
-                                let calendar = Calendar.current
-                                return calendar.component(.month, from: dob) == selectedMonth + 1
-                            } else { return false }
-                        }
-                        withAnimation(.easeInOut(duration: editAnimationDuration)) {
-                            self.showingResults = true
-                        }
-                    })
+                    SolidButton(text: "Run Query", action: runQuery)
                     Spacer()
                 }.padding()
             }
+        }
+    }
+    
+    func runQuery() {
+        NSLog("run query")
+        members = document.content.filterMembers {
+            if !$0.isActive() { return false }
+            if let dob = $0.dateOfBirth {
+                let calendar = Calendar.current
+                return calendar.component(.month, from: dob) == selectedMonth + 1
+            } else { return false }
+        }
+        withAnimation(.easeInOut(duration: editAnimationDuration)) {
+            self.showingResults = true
         }
     }
 }

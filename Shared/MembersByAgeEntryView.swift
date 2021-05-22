@@ -49,26 +49,26 @@ struct MembersByAgeEntryView: View {
                     }.frame(maxWidth: 100)/*.background(Color.yellow)*/
                     Spacer()
                 }
-//            }
-//            Section {
                 HStack {
                     Spacer()
-                    SolidButton(text: "Run Query", action: {
-                        NSLog("run query")
-                        members = document.content.filterMembers {
-                            $0.status.isActive() && $0.dateOfBirth != nil &&
-                            comparison.comparator($0.age(asOf: asOfDate), age)
-                        }
-                        members.sort(by: sort.comparator)
-                        withAnimation(.easeInOut(duration: editAnimationDuration)) {
-                            self.showingResults = true
-                        }
-                    })
+                    SolidButton(text: "Run Query", action: runQuery)
                     Spacer()
                 }.padding()
             }
         }
     }
+    
+    func runQuery() {
+        NSLog("run query")
+        members = document.content.filterMembers {
+            $0.status.isActive() && $0.dateOfBirth != nil &&
+            comparison.comparator($0.age(asOf: asOfDate), age)
+        }
+        members.sort(by: sort.comparator)
+        withAnimation(.easeInOut(duration: editAnimationDuration)) {
+            self.showingResults = true
+        }
+    } 
 }
 
 struct MembersByAgeEntryView_Previews: PreviewProvider {

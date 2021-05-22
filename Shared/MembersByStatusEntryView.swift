@@ -39,24 +39,24 @@ struct MembersByStatusEntryView: View {
                     }.frame(maxWidth: 300)/*.background(Color.yellow)*/
                     Spacer()
                 }
-//            }
-//            Section {
                 HStack {
                     Spacer()
-                    SolidButton(text: "Run Query", action: {
-                        NSLog("run query")
-                        members = document.content.filterMembers {
-                            $0.status == self.desiredStatus &&
-                                ((self.includeResident && $0.resident)
-                                    || (self.includeNonResident && !$0.resident))
-                        }
-                        withAnimation(.easeInOut(duration: editAnimationDuration)) {
-                            self.showingResults = true
-                        }
-                    })
+                    SolidButton(text: "Run Query", action: runQuery)
                     Spacer()
                 }.padding()
             }
+        }
+    }
+    
+    func runQuery() {
+        NSLog("run query")
+        members = document.content.filterMembers {
+            $0.status == self.desiredStatus &&
+                ((self.includeResident && $0.resident)
+                    || (self.includeNonResident && !$0.resident))
+        }
+        withAnimation(.easeInOut(duration: editAnimationDuration)) {
+            self.showingResults = true
         }
     }
 }

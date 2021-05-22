@@ -43,29 +43,30 @@ struct PhonelistEntryView: View {
                                      max: 100)
                     Spacer()
                 }
-//            }
-//            Section {
                 HStack {
                     Spacer()
-                    SolidButton(text: "Run Query", action: {
-                        NSLog("run query, age >= \(minimumAge)")
-                        members = document.content.filterMembers {
-                            let isActive = $0.isActive()
-                            let residency = (includeResident && $0.resident)
-                                || (includeNonResident && !$0.resident)
-                            let gender = (includeMen && $0.sex == .MALE) ||
-                                (includeWomen && $0.sex == .FEMALE)
-                            let isOfAge = $0.age(asOf: Date()) >= minimumAge
-                            return isActive && residency && gender && isOfAge
-                        }
-                        withAnimation(.easeInOut(duration: editAnimationDuration)) {
-                            self.showingResults = true
-                        }
-                    }).padding()
-                    .disabled(minimumAge < 0 || minimumAge > 100)
+                    SolidButton(text: "Run Query", action: runQuery)
+                        .padding()
+                        .disabled(minimumAge < 0 || minimumAge > 100)
                     Spacer()
                 }
             }
+        }
+    }
+    
+    func runQuery() {
+        NSLog("run query, age >= \(minimumAge)")
+        members = document.content.filterMembers {
+            let isActive = $0.isActive()
+            let residency = (includeResident && $0.resident)
+                || (includeNonResident && !$0.resident)
+            let gender = (includeMen && $0.sex == .MALE) ||
+                (includeWomen && $0.sex == .FEMALE)
+            let isOfAge = $0.age(asOf: Date()) >= minimumAge
+            return isActive && residency && gender && isOfAge
+        }
+        withAnimation(.easeInOut(duration: editAnimationDuration)) {
+            self.showingResults = true
         }
     }
 }
