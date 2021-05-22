@@ -68,7 +68,7 @@ struct DataTransactionsView: View {
     }
 }
 
-struct TransactionsView_Previews: PreviewProvider {
+struct DataTransactionsView_Previews: PreviewProvider {
     static var previews: some View {
         DataTransactionsView(document: mockDocument)
     }
