@@ -32,6 +32,7 @@ struct FamilyJoinView: View {
             case .reset:
                 Text("") //EmptyView won't take a nav bar title!
                     .navigationBarTitle("")
+                    .navigationBarTitleDisplayMode(.inline)
             }
         }
         .debugPrint("FJV phase \(accumulator.phase)")

@@ -61,6 +61,7 @@ struct FamilyJoinWorkflowPhaseView: View {
                 }
             }
             .navigationBarTitle("Family Joins - Reception")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
         }
     }

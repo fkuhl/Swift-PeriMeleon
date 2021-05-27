@@ -104,6 +104,7 @@ fileprivate struct UnadornedHouseholdView: View {
             }
         }
         .navigationBarTitle(document.content.nameOf(household: household))
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

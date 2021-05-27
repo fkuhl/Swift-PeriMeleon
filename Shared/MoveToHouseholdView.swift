@@ -17,6 +17,7 @@ struct MoveToHouseholdView: View {
             Text("Coming soon!")
         }
         .navigationBarTitle("Member Moves To Different Household")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

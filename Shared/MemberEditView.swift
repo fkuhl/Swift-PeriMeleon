@@ -27,26 +27,7 @@ struct MemberEditView: View {
 
     var body: some View {
         VStack {
-            HStack {
-                Button(action: {
-                    NSLog("MEV cancel")
-                    withAnimation(.easeInOut(duration: editAnimationDuration)) { isEditing = false
-                    }
-                    self.memberCancelDelegate.cancel()
-                }) {
-                    Text("Cancel").font(.body)
-                }
-                Spacer()
-                Button(action: {
-                    NSLog("MEV Save Member \(member.fullName())")
-                    withAnimation(.easeInOut(duration: editAnimationDuration)) {
-                        isEditing = false
-                    }
-                    memberEditDelegate.store(member: member)
-                }) {
-                    Text("Save Member").font(.body)
-                }
-            }.padding()
+            topButtons
             Form {
                 Section { //Section to group in sets of <= 10
                     EditTextView(caption: "family name:", text: $member.familyName)
@@ -104,6 +85,30 @@ struct MemberEditView: View {
             }
         }
         .navigationBarTitle(member.fullName())
+        .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private var topButtons: some View {
+        HStack {
+            Button(action: {
+                NSLog("MEV cancel")
+                withAnimation(.easeInOut(duration: editAnimationDuration)) { isEditing = false
+                }
+                self.memberCancelDelegate.cancel()
+            }) {
+                Text("Cancel").font(.body)
+            }
+            Spacer()
+            Button(action: {
+                NSLog("MEV Save Member \(member.fullName())")
+                withAnimation(.easeInOut(duration: editAnimationDuration)) {
+                    isEditing = false
+                }
+                memberEditDelegate.store(member: member)
+            }) {
+                Text("Save Member").font(.body)
+            }
+        }.padding()
     }
 }
 

@@ -109,7 +109,9 @@ struct CoreMemberView: View {
                     }
                 }
             }.listStyle(GroupedListStyle())
-        }.navigationBarTitle("\(member.fullName())")
+        }
+        .navigationBarTitle("\(member.fullName())")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
