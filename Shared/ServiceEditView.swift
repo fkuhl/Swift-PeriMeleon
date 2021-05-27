@@ -55,7 +55,6 @@ struct ServiceEditView: View {
         Form {
             Section {
                 EditOptionalDateView(caption: "date:", date: $member.services[index].date)
-                EditDateButton(caption: "date:", date: $member.services[index].date)
                 EditServiceTypeView(caption: "type:", serviceType: $member.services[index].type)
                 EditOptionalTextView(caption: "place:", text: $member.services[index].place)
                 EditOptionalTextView(caption: "comment:", text: $member.services[index].comment)

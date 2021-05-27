@@ -55,7 +55,6 @@ struct TransactionEditView: View {
         Form {
             Section {
                 EditOptionalDateView(caption: "date:", date: $member.transactions[index].date)
-                EditDateButton(caption: "date:", date: $member.transactions[index].date)
                 EditTransactionTypeView(caption: "type:", transactionType: $member.transactions[index].type)
                 EditOptionalTextView(caption: "authority:", text: $member.transactions[index].authority)
                 EditOptionalTextView(caption: "church:", text: $member.transactions[index].church)

@@ -85,8 +85,6 @@
 		27B20DC42529123400C80696 /* EditOptionalDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DBA2529123400C80696 /* EditOptionalDateView.swift */; };
 		27B20DC52529123400C80696 /* EditOptionalTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DBB2529123400C80696 /* EditOptionalTextView.swift */; };
 		27B20DC62529123400C80696 /* EditOptionalTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DBB2529123400C80696 /* EditOptionalTextView.swift */; };
-		27B20DC72529123400C80696 /* EditDateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DBC2529123400C80696 /* EditDateButton.swift */; };
-		27B20DC82529123400C80696 /* EditDateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DBC2529123400C80696 /* EditDateButton.swift */; };
 		27B20DC92529123400C80696 /* EditTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DBD2529123400C80696 /* EditTextView.swift */; };
 		27B20DCA2529123400C80696 /* EditTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DBD2529123400C80696 /* EditTextView.swift */; };
 		27B20DCB2529123400C80696 /* EditOptionalParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DBE2529123400C80696 /* EditOptionalParentView.swift */; };
@@ -223,7 +221,6 @@
 		27B20DB92529123400C80696 /* ChooseHouseholdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseHouseholdView.swift; sourceTree = "<group>"; };
 		27B20DBA2529123400C80696 /* EditOptionalDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditOptionalDateView.swift; sourceTree = "<group>"; };
 		27B20DBB2529123400C80696 /* EditOptionalTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditOptionalTextView.swift; sourceTree = "<group>"; };
-		27B20DBC2529123400C80696 /* EditDateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDateButton.swift; sourceTree = "<group>"; };
 		27B20DBD2529123400C80696 /* EditTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTextView.swift; sourceTree = "<group>"; };
 		27B20DBE2529123400C80696 /* EditOptionalParentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditOptionalParentView.swift; sourceTree = "<group>"; };
 		27B20DBF2529123400C80696 /* EditSexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSexView.swift; sourceTree = "<group>"; };
@@ -461,7 +458,6 @@
 				275D3CA22532029100D65992 /* EditDisplayView.swift */,
 				27B20DB92529123400C80696 /* ChooseHouseholdView.swift */,
 				27B20DC02529123400C80696 /* EditBoolView.swift */,
-				27B20DBC2529123400C80696 /* EditDateButton.swift */,
 				27B20DBA2529123400C80696 /* EditOptionalDateView.swift */,
 				27B20DBE2529123400C80696 /* EditOptionalParentView.swift */,
 				27B20DBB2529123400C80696 /* EditOptionalTextView.swift */,
@@ -782,7 +778,6 @@
 				27D7D80D25570D1000A983AA /* BirthdaysEntryView.swift in Sources */,
 				27C55E552538E7A000923EE8 /* DataChecker.swift in Sources */,
 				27B20D9C2529113B00C80696 /* CoreMemberView.swift in Sources */,
-				27B20DC72529123400C80696 /* EditDateButton.swift in Sources */,
 				27B20DCF2529123400C80696 /* EditBoolView.swift in Sources */,
 				27C55E402538E74300923EE8 /* FamilyJoinAccumulator.swift in Sources */,
 				27C55E442538E74300923EE8 /* FamilyJoinHeadPhaseView.swift in Sources */,
@@ -855,7 +850,6 @@
 				27B20DE32529142900C80696 /* AddressView.swift in Sources */,
 				27C55E562538E7A000923EE8 /* DataChecker.swift in Sources */,
 				27B20D9D2529113B00C80696 /* CoreMemberView.swift in Sources */,
-				27B20DC82529123400C80696 /* EditDateButton.swift in Sources */,
 				27B20DD02529123400C80696 /* EditBoolView.swift in Sources */,
 				27C55E412538E74300923EE8 /* FamilyJoinAccumulator.swift in Sources */,
 				27C55E452538E74300923EE8 /* FamilyJoinHeadPhaseView.swift in Sources */,

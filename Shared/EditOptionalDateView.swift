@@ -38,6 +38,10 @@ struct EditOptionalDateView: View {
                                in: ...Date(),
                                displayedComponents: .date).font(.body)
                 }
+                Spacer()
+                Button(action: { self.date = nil }) {
+                    Text("Remove Date").font(.body)
+                }
             }
         }
     }

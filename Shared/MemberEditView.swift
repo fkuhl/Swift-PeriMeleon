@@ -44,7 +44,6 @@ struct MemberEditView: View {
                     EditBoolView(caption: "resident:", choice: $member.resident)
                     EditBoolView(caption: "ex-directory:", choice: $member.exDirectory)
                     EditOptionalDateView(caption: "date of birth:", date: $member.dateOfBirth)
-                    EditDateButton(caption: "date of birth:", date: $member.dateOfBirth)
                     EditOptionalTextView(caption: "place of birth:", text: $member.placeOfBirth)
                     EditOptionalTextView(caption: "baptism:", text: $member.baptism)
                     EditDisplayView(caption: "household:", message: "Change household via 'Change member's household.'")
@@ -53,7 +52,6 @@ struct MemberEditView: View {
                     EditMaritalStatusView(caption: "marital status:", maritalStatus: $member.maritalStatus)
                     EditOptionalTextView(caption: "spouse:", text: $member.spouse)
                     EditOptionalDateView(caption: "date of marriage:", date: $member.dateOfMarriage)
-                    EditDateButton(caption: "date of marriage:", date: $member.dateOfMarriage)
                     EditOptionalTextView(caption: "divorce:", text: $member.divorce)
                 }
                 Section {
@@ -81,7 +79,6 @@ struct MemberEditView: View {
                     ServicesEditAddView(member: $member)
                 }
                 EditOptionalDateView(caption: "date last changed:", date: $member.dateLastChanged)
-                EditDateButton(caption: "date last changed:", date: $member.dateLastChanged)
             }
         }
         .navigationBarTitle(member.fullName())
