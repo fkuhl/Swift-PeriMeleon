@@ -32,6 +32,7 @@ struct QueriesView: View {
                 }
             }
             .navigationBarTitle("Queries")
+            .navigationBarTitleDisplayMode(.inline)
             .listStyle(GroupedListStyle())
         }
     }

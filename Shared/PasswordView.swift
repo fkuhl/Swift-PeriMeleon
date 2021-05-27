@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PasswordView: View {
     var label: String
-    var forNewFile: Bool
     @Binding var document: PeriMeleonDocument
     var buttonText: String
     @State var firstAttempt = ""
@@ -20,27 +19,36 @@ struct PasswordView: View {
             VStack {
                 Text(label).font(.headline)
                 HStack {
-                    Spacer().frame(width: geometry.size.width / 5)
+                    Spacer().frame(width: geometry.size.width / 4)
                     VStack {
                         SecureField("type password", text: $firstAttempt)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                        SecureField("re-type password", text: $secondAttempt)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        switch document.content.state {
+                        case .newFile, .passwordEntriesDoNotMatch:
+                            SecureField("re-type password", text: $secondAttempt)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                        default:
+                            EmptyView()
+                        }
                     }
-                    Spacer().frame(width: geometry.size.width / 5)
+                    Spacer().frame(width: geometry.size.width / 4)
                 }.padding()
                 SolidButton(text: buttonText, action: buttonAction )
             }
+            .padding()
         }
     }
     
     private func buttonAction() {
-        if forNewFile {
+        switch document.content.state {
+        case .newFile, .passwordEntriesDoNotMatch:
             document.content.addPasswordToNewFile(firstAttempt: firstAttempt,
                                                   secondAttempt: secondAttempt)
-        } else {
-            document.content.tryPassword(firstAttempt: firstAttempt,
-                                         secondAttempt: secondAttempt)
+            firstAttempt = ""
+            secondAttempt = ""
+        default:
+            document.content.tryPassword(firstAttempt: firstAttempt)
+            firstAttempt = ""
         }
     }
 }
@@ -48,7 +56,6 @@ struct PasswordView: View {
 struct PasswordView_Previews: PreviewProvider {
     static var previews: some View {
         PasswordView(label: "Enter a Password",
-                     forNewFile: true,
                      document: mockDocument,
                      buttonText: "Press me")
             .padding()

@@ -10,15 +10,15 @@ import PMDataTypes
 import CryptoKit
 import CommonCrypto
 
-let passwordAccount = "com.tyndalesoft.PeriMeleon"
+let passwordAccount = "com.tyndalesoft.PeriMeleonx"
 
 struct PeriMeleonContent {
     enum State: Equatable {
         case noKey
         case cannotRead(errorDescription: String)
         case cannotDecrypt
-        case cannotDecode(errorDescription: String)
-        case passwordEntriesDoNotMatch(forNewFile: Bool)
+        case cannotDecode(d1: String, d2: String, d3: String)
+        case passwordEntriesDoNotMatch
         case nowWhat(errorDescription: String)
         case newFile
         case normal
@@ -65,8 +65,8 @@ struct PeriMeleonContent {
     // MARK: - initializers
 
     /**
-     This initializer is called when user makes new document.
-     Then the regular initializer is called, with no intervening Views being made.
+     The framework calls this initializer when user makes new document.
+     Then the framework calls the regular initializer, with no intervening Views being made.
      */
     init() {
         NSLog("PeriMeleonContent init no data")
@@ -121,25 +121,21 @@ struct PeriMeleonContent {
         }
         do {
             let decodedHouseholds = try jsonDecoder.decode([Household].self, from: decryptedContent)
-//            households = unsortedHouseholds.sorted {
-//                $0.head.fullName() < $1.head.fullName()
-//            }
             NSLog("read \(decodedHouseholds.count) households from init config")
             normalize(decodedHouseholds: decodedHouseholds)
             internalState = .normal
         } catch {
             let err = error as! DecodingError
-            NSLog("cannot decode \(err)")
-            internalState = .cannotDecode(errorDescription: "decode error \(err)")
+            let explanation = explain(error: err)
+            NSLog("cannot decode JSON: \(err)")
+            internalState = .cannotDecode(d1: explanation.0,
+                                          d2: explanation.1,
+                                          d3: explanation.2)
             return
         }
     }
     
-    mutating func tryPassword(firstAttempt: String, secondAttempt: String) {
-        guard firstAttempt == secondAttempt else {
-            internalState = .passwordEntriesDoNotMatch(forNewFile: false)
-            return
-        }
+    mutating func tryPassword(firstAttempt: String) {
         key = makeKey(password: firstAttempt)
         if let decryptionKey = key {
             decryptAndDecode(key: decryptionKey)
@@ -235,7 +231,7 @@ struct PeriMeleonContent {
     
     mutating func addPasswordToNewFile(firstAttempt: String, secondAttempt: String) {
         guard firstAttempt == secondAttempt else {
-            self.internalState = .passwordEntriesDoNotMatch(forNewFile: true)
+            self.internalState = .passwordEntriesDoNotMatch
             return
         }
         initializeNewDB()

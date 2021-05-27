@@ -28,6 +28,7 @@ struct HouseholdsView: View {
                 }
             }
             .navigationBarTitle(allOrActive == 0 ? "Active Households" : "All Households")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

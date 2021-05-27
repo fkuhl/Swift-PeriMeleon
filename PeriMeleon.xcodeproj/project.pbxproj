@@ -101,6 +101,8 @@
 		27B20DE32529142900C80696 /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DDF2529142900C80696 /* AddressView.swift */; };
 		27BC8CBF253B6B7700520F54 /* NormalizedHousehold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC8CBE253B6B7700520F54 /* NormalizedHousehold.swift */; };
 		27BC8CC0253B6B7700520F54 /* NormalizedHousehold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC8CBE253B6B7700520F54 /* NormalizedHousehold.swift */; };
+		27BC9304265D885C00C39B0B /* ExplainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC9303265D885C00C39B0B /* ExplainError.swift */; };
+		27BC9305265D885C00C39B0B /* ExplainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC9303265D885C00C39B0B /* ExplainError.swift */; };
 		27C55E112538CE0100923EE8 /* CompactToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E0C2538CE0100923EE8 /* CompactToggleView.swift */; };
 		27C55E122538CE0100923EE8 /* CompactToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E0C2538CE0100923EE8 /* CompactToggleView.swift */; };
 		27C55E132538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E0D2538CE0100923EE8 /* MembersByStatusResultsView.swift */; };
@@ -229,6 +231,7 @@
 		27B20DDE2529142900C80696 /* AddressEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressEditView.swift; sourceTree = "<group>"; };
 		27B20DDF2529142900C80696 /* AddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		27BC8CBE253B6B7700520F54 /* NormalizedHousehold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalizedHousehold.swift; sourceTree = "<group>"; };
+		27BC9303265D885C00C39B0B /* ExplainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainError.swift; sourceTree = "<group>"; };
 		27C55E0C2538CE0100923EE8 /* CompactToggleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompactToggleView.swift; sourceTree = "<group>"; };
 		27C55E0D2538CE0100923EE8 /* MembersByStatusResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByStatusResultsView.swift; sourceTree = "<group>"; };
 		27C55E0E2538CE0100923EE8 /* QueriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueriesView.swift; sourceTree = "<group>"; };
@@ -390,6 +393,7 @@
 				276B972A250008DA003E19BA /* PeriMeleonDocument.swift */,
 				272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */,
 				272F722D251533BD009E4CF3 /* CryptoKey.swift */,
+				27BC9303265D885C00C39B0B /* ExplainError.swift */,
 			);
 			name = Document;
 			sourceTree = "<group>";
@@ -793,6 +797,7 @@
 				275AF2A5258D09540007CF0C /* View+debug.swift in Sources */,
 				27C55E2E2538E67700923EE8 /* MoveToHouseholdAccumulator.swift in Sources */,
 				27B20DCB2529123400C80696 /* EditOptionalParentView.swift in Sources */,
+				27BC9304265D885C00C39B0B /* ExplainError.swift in Sources */,
 				277C954A2544BED40032638A /* QueryResults.swift in Sources */,
 				27B20DE02529142900C80696 /* AddressEditView.swift in Sources */,
 				276B9753250008DB003E19BA /* PeriMeleonApp.swift in Sources */,
@@ -815,6 +820,7 @@
 				275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */,
 				27B20DA92529113B00C80696 /* Services.swift in Sources */,
 				272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */,
+				27BC9305265D885C00C39B0B /* ExplainError.swift in Sources */,
 				27235931254B51AE00137925 /* RoundedOutlineButton.swift in Sources */,
 				27C55E432538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */,
 				275A1181255F320C0055E77F /* SolidButton.swift in Sources */,

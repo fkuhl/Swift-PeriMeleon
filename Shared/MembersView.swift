@@ -28,7 +28,8 @@ struct MembersView: View {
                     }
                 }
             }
-           .navigationBarTitle(allOrActive == 0 ? "Active Members" : "All Members")
+            .navigationBarTitle(allOrActive == 0 ? "Active Members" : "All Members")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

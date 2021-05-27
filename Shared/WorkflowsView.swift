@@ -60,6 +60,7 @@ struct WorkflowsView: View {
                 }
             }
             .navigationBarTitle("Workflow Types")
+            .navigationBarTitleDisplayMode(.inline)
             .listStyle(GroupedListStyle())
         }
             //A little odd having this here, but make sense:
