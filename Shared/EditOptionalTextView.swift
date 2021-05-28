@@ -23,6 +23,7 @@ struct EditOptionalTextView: View {
                 .font(.caption)
             TextField(caption, text: proxyBinding)
             .textFieldStyle(RoundedBorderTextFieldStyle())
+            .disableAutocorrection(true)
             .frame(alignment: .leading)
             .font(.body)
         }

@@ -19,7 +19,7 @@ struct FamilyJoinView: View {
         VStack {
             switch accumulator.phase {
             case .transaction:
-                FamilyJoinWorkflowPhaseView(accumulator: $accumulator, linkSelection: $linkSelection)
+                FamilyJoinTransactionPhaseView(accumulator: $accumulator, linkSelection: $linkSelection)
                     .transition(.move(edge: .trailing))
             case .head:
                 FamilyJoinHeadPhaseView(document: $document, accumulator: $accumulator)

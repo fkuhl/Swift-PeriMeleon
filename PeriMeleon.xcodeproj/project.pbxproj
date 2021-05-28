@@ -127,8 +127,8 @@
 		27C55E432538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3B2538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift */; };
 		27C55E442538E74300923EE8 /* FamilyJoinHeadPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3C2538E74300923EE8 /* FamilyJoinHeadPhaseView.swift */; };
 		27C55E452538E74300923EE8 /* FamilyJoinHeadPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3C2538E74300923EE8 /* FamilyJoinHeadPhaseView.swift */; };
-		27C55E462538E74300923EE8 /* FamilyJoinWorkflowPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3D2538E74300923EE8 /* FamilyJoinWorkflowPhaseView.swift */; };
-		27C55E472538E74300923EE8 /* FamilyJoinWorkflowPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3D2538E74300923EE8 /* FamilyJoinWorkflowPhaseView.swift */; };
+		27C55E462538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3D2538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift */; };
+		27C55E472538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E3D2538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift */; };
 		27C55E512538E7A000923EE8 /* DataCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E4D2538E7A000923EE8 /* DataCheckerView.swift */; };
 		27C55E522538E7A000923EE8 /* DataCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E4D2538E7A000923EE8 /* DataCheckerView.swift */; };
 		27C55E532538E7A000923EE8 /* DataCheckReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E4E2538E7A000923EE8 /* DataCheckReport.swift */; };
@@ -242,7 +242,7 @@
 		27C55E3A2538E74300923EE8 /* FamilyJoinAccumulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyJoinAccumulator.swift; sourceTree = "<group>"; };
 		27C55E3B2538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyJoinHouseholdPhaseView.swift; sourceTree = "<group>"; };
 		27C55E3C2538E74300923EE8 /* FamilyJoinHeadPhaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyJoinHeadPhaseView.swift; sourceTree = "<group>"; };
-		27C55E3D2538E74300923EE8 /* FamilyJoinWorkflowPhaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyJoinWorkflowPhaseView.swift; sourceTree = "<group>"; };
+		27C55E3D2538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyJoinTransactionPhaseView.swift; sourceTree = "<group>"; };
 		27C55E4D2538E7A000923EE8 /* DataCheckerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCheckerView.swift; sourceTree = "<group>"; };
 		27C55E4E2538E7A000923EE8 /* DataCheckReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCheckReport.swift; sourceTree = "<group>"; };
 		27C55E4F2538E7A000923EE8 /* DataChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataChecker.swift; sourceTree = "<group>"; };
@@ -505,7 +505,7 @@
 				27C55E3A2538E74300923EE8 /* FamilyJoinAccumulator.swift */,
 				27C55E3C2538E74300923EE8 /* FamilyJoinHeadPhaseView.swift */,
 				27C55E3B2538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift */,
-				27C55E3D2538E74300923EE8 /* FamilyJoinWorkflowPhaseView.swift */,
+				27C55E3D2538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift */,
 				27C55E392538E74300923EE8 /* FamilyJoinView.swift */,
 			);
 			name = "Family Join";
@@ -729,7 +729,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */,
-				27C55E462538E74300923EE8 /* FamilyJoinWorkflowPhaseView.swift in Sources */,
+				27C55E462538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9528254223C20032638A /* Member+Age.swift in Sources */,
 				27B20DC12529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */,
@@ -809,7 +809,7 @@
 			files = (
 				27FD5AE2254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
 				278C166A2659563E003CEC13 /* PasswordView.swift in Sources */,
-				27C55E472538E74300923EE8 /* FamilyJoinWorkflowPhaseView.swift in Sources */,
+				27C55E472538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9529254223C20032638A /* Member+Age.swift in Sources */,
 				27B20DC22529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */,

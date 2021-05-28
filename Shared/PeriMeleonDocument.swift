@@ -14,6 +14,7 @@ extension UTType {
 }
 
 struct PeriMeleonDocument: FileDocument {
+    
     static var readableContentTypes: [UTType] { [.periMeleonRollsDocument] }
     static var writableContentTypes: [UTType] { [.periMeleonRollsDocument] }
     
@@ -22,7 +23,7 @@ struct PeriMeleonDocument: FileDocument {
     init() {
         content = PeriMeleonContent()
     }
-
+    
     init(configuration: ReadConfiguration) throws {
         let encryptedContent = configuration.file.regularFileContents
         content = PeriMeleonContent(data: encryptedContent)

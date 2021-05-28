@@ -39,7 +39,6 @@ struct EditOptionalParentView: View {
 
 struct ChooseParentListView: View {
     @Binding var document: PeriMeleonDocument
-    //@ObservedObject var dataFetcher = DataFetcher.sharedInstance
     @Binding var parentId: Id
     var sex: Sex
     let title: String
@@ -51,6 +50,7 @@ struct ChooseParentListView: View {
             }
         }
         .navigationBarTitle(title)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

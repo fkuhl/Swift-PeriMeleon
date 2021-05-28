@@ -9,7 +9,7 @@
 import SwiftUI
 import PMDataTypes
 
-struct FamilyJoinWorkflowPhaseView: View {
+struct FamilyJoinTransactionPhaseView: View {
     @Binding var accumulator: FamilyJoinAccumulator
     @Binding var linkSelection: String?
     @Environment(\.presentationMode) var presentationMode
@@ -69,7 +69,7 @@ struct FamilyJoinWorkflowPhaseView: View {
 
 struct FamilyJoinWorkflowPhaseView_Previews: PreviewProvider {
     static var previews: some View {
-        FamilyJoinWorkflowPhaseView(accumulator: Binding.constant(FamilyJoinAccumulator()),
+        FamilyJoinTransactionPhaseView(accumulator: Binding.constant(FamilyJoinAccumulator()),
                                        linkSelection: Binding.constant(nil))
     }
 }

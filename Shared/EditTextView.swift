@@ -20,6 +20,7 @@ struct EditTextView: View {
                 .font(.caption)
             TextField(caption, text: $text)
             .textFieldStyle(RoundedBorderTextFieldStyle())
+            .disableAutocorrection(true)
             .frame(alignment: .leading)
             .font(.body)
         }
