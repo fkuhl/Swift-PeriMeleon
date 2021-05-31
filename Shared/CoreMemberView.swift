@@ -110,8 +110,11 @@ struct CoreMemberView: View {
                 }
             }.listStyle(GroupedListStyle())
         }
-        .navigationBarTitle("\(member.fullName())")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+                    ToolbarItem(placement: .principal, content: {
+                        Text(member.fullName())
+                    })})
     }
 }
 

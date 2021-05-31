@@ -30,9 +30,7 @@ struct FamilyJoinView: View {
                                              linkSelection: $linkSelection)
                     .transition(.move(edge: .trailing))
             case .reset:
-                Text("") //EmptyView won't take a nav bar title!
-                    .navigationBarTitle("")
-                    .navigationBarTitleDisplayMode(.inline)
+                EmptyView()
             }
         }
         .debugPrint("FJV phase \(accumulator.phase)")

@@ -31,8 +31,11 @@ struct QueriesView: View {
                     }
                 }
             }
-            .navigationBarTitle("Queries")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                        ToolbarItem(placement: .principal, content: {
+                            Text("Queries")
+                        })})
             .listStyle(GroupedListStyle())
         }
     }

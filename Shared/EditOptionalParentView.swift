@@ -49,8 +49,11 @@ struct ChooseParentListView: View {
                 ChooseParentRowView(member: $0, chosenId: self.$parentId)
             }
         }
-        .navigationBarTitle(title)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+                    ToolbarItem(placement: .principal, content: {
+                        Text(title)
+                    })})
     }
 }
 

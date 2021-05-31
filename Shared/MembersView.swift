@@ -30,8 +30,11 @@ struct MembersView: View {
                     }
                 }
             }
-            .navigationBarTitle(allOrActive == 0 ? "Active Members" : "All Members")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                        ToolbarItem(placement: .principal, content: {
+                            Text(allOrActive == 0 ? "Active Members" : "All Members")
+                        })})
         }
     }
 }

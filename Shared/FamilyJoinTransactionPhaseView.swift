@@ -60,9 +60,12 @@ struct FamilyJoinTransactionPhaseView: View {
                     EditTextView(caption: "comment", text: $accumulator.comment)
                 }
             }
-            .navigationBarTitle("Family Joins - Reception")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
+            .toolbar(content: {
+                        ToolbarItem(placement: .principal, content: {
+                            Text("Family Joins - Reception")
+                        })})
         }
     }
 }

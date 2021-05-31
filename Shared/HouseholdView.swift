@@ -103,8 +103,11 @@ fileprivate struct UnadornedHouseholdView: View {
                 }
             }
         }
-        .navigationBarTitle(document.nameOf(household: household))
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+                    ToolbarItem(placement: .principal, content: {
+                        Text(document.nameOf(household: household))
+                    })})
     }
 }
 

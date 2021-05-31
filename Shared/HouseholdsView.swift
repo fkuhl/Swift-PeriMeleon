@@ -29,8 +29,11 @@ struct HouseholdsView: View {
                     }
                 }
             }
-            .navigationBarTitle(allOrActive == 0 ? "Active Households" : "All Households")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                        ToolbarItem(placement: .principal, content: {
+                            Text(allOrActive == 0 ? "Active Households" : "All Households")
+                        })})
         }
     }
 }

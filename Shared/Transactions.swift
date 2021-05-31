@@ -46,8 +46,12 @@ struct TransactionView: View {
             if !nugatory(transaction.comment) {
                 TextAttributeView(caption: "comment", text: transaction.comment)
             }
-        }        .navigationBarTitle("Transaction")
-
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+                    ToolbarItem(placement: .principal, content: {
+                        Text("Transaction")
+                    })})
     }
 }
 

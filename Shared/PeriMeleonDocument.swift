@@ -35,16 +35,17 @@ struct PeriMeleonDocument: FileDocument {
 
     // MARK: - Data
     
+    var dataUpdateCount: UInt64 = 0
     var householdsById = [Id : NormalizedHousehold]() {
         didSet {
-            dataCouldHaveChanged = true
-            NSLog("households changed")
+            dataUpdateCount += 1
+            NSLog("households changed, upd ct \(dataUpdateCount)")
         }
     }
     var membersById = [Id : Member]() {
         didSet {
-            dataCouldHaveChanged = true
-            NSLog("members changed")
+            dataUpdateCount += 1
+            NSLog("members changed, upd ct \(dataUpdateCount)")
         }
     }
     var households: [NormalizedHousehold] {
@@ -69,7 +70,6 @@ struct PeriMeleonDocument: FileDocument {
     var state: State { get { internalState }}
     private var key: SymmetricKey? = nil
     private var encryptedData: Data
-    private var dataCouldHaveChanged = false
     
     // MARK: - initializers
 
@@ -130,8 +130,6 @@ struct PeriMeleonDocument: FileDocument {
         do {
             let sealedBox = try ChaChaPoly.SealedBox(combined: encryptedData)
             decryptedContent = try ChaChaPoly.open(sealedBox, using: key)
-            dataCouldHaveChanged = true
-            //No point in hanging on to what worked, as this whole struct gets replaced.
         } catch {
             NSLog("cannot decrypt: \(error.localizedDescription)")
             internalState = .cannotDecrypt
@@ -237,10 +235,6 @@ struct PeriMeleonDocument: FileDocument {
             NSLog("write attempted in state \(internalState)")
             throw WriteError.illegalState(state: internalState)
         }
-        if !dataCouldHaveChanged {
-            NSLog("data could not have changed")
-            return encryptedData
-        }
         guard let encryptionKey = key else {
             throw WriteError.noKey
         }
@@ -266,7 +260,6 @@ struct PeriMeleonDocument: FileDocument {
                 NSLog("writing \(encryptedData.count) bytes")
                 try GenericPasswordStore().deleteKey(account: passwordAccount)
                 try GenericPasswordStore().storeKey(encryptionKey, account: passwordAccount)
-                dataCouldHaveChanged = false
                 internalState = .normal
             } catch {
                 internalState = .nowWhat(errorDescription: "Error on encrypting new data: \( error.localizedDescription)")

@@ -43,8 +43,12 @@ struct ServiceView: View {
             if !nugatory(service.comment) {
                 TextAttributeView(caption: "comment", text: service.comment)
             }
-        }        .navigationBarTitle("Service")
-
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+                    ToolbarItem(placement: .principal, content: {
+                        Text("Service")
+                    })})
     }
 }
 

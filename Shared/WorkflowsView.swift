@@ -59,8 +59,11 @@ struct WorkflowsView: View {
                     }
                 }
             }
-            .navigationBarTitle("Workflow Types")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar(content: {
+                        ToolbarItem(placement: .principal, content: {
+                            Text("Workflow Types")
+                        })})
             .listStyle(GroupedListStyle())
         }
             //A little odd having this here, but make sense:

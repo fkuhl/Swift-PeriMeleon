@@ -81,8 +81,11 @@ struct MemberEditView: View {
                 EditOptionalDateView(caption: "date last changed:", date: $member.dateLastChanged)
             }
         }
-        .navigationBarTitle(member.fullName())
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+                    ToolbarItem(placement: .principal, content: {
+                        Text(member.fullName())
+                    })})
     }
     
     private var topButtons: some View {

@@ -21,9 +21,12 @@ struct NavigationStylingModifier: ViewModifier {
     func body(content: Content) -> some View {
         #if targetEnvironment(macCatalyst)
         return content
-            .navigationBarTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(hide)
+            .toolbar(content: {
+                        ToolbarItem(placement: .principal, content: {
+                            Text(title)
+                        })})
         #else
         return content
         #endif
