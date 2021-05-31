@@ -56,7 +56,7 @@ struct PhonelistEntryView: View {
     
     func runQuery() {
         NSLog("run query, age >= \(minimumAge)")
-        members = document.content.filterMembers {
+        members = document.filterMembers {
             let isActive = $0.isActive()
             let residency = (includeResident && $0.resident)
                 || (includeNonResident && !$0.resident)

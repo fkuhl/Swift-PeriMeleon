@@ -26,7 +26,7 @@ struct PhonelistMaker {
     }
     
     func addressContrib(_ member: Member) -> String {
-        let household = document.content.household(byId: member.household)
+        let household = document.household(byId: member.household)
         let homeEmail = member.eMail ?? household.address?.email
         return "\(household.address?.address ?? ""),\(household.address?.address2 ?? ""),\(household.address?.city ?? ""),\(household.address?.state ?? ""),\(household.address?.postalCode ?? ""),\(household.address?.country ?? ""),\(household.address?.homePhone ?? ""),\(homeEmail ?? ""),\(member.workEmail ?? ""),\(member.mobilePhone ?? ""),\(member.workPhone ?? "")"
     }

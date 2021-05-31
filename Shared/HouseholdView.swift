@@ -55,14 +55,14 @@ fileprivate struct UnadornedHouseholdView: View {
                                 memberId: household.head,
                                 editable: true)) {
                     MemberLinkView(caption: "Head of household",
-                                   name: document.content.nameOf(household: household))
+                                   name: document.nameOf(household: household))
                 }
                 if household.spouse == nil {
                     Button(action: {
                         let newSpouse = makeMember(from: self.spouseFactory)
-                        document.content.add(member: newSpouse)
+                        document.add(member: newSpouse)
                         self.household.spouse = newSpouse.id
-                        document.content.update(household: self.household)
+                        document.update(household: self.household)
                     }) {
                         Text("Add spouse").font(.body)
                     }
@@ -71,7 +71,7 @@ fileprivate struct UnadornedHouseholdView: View {
                                                            memberId: household.spouse!,
                                                            editable: true)) {
                         MemberLinkView(caption: "Spouse",
-                                       name: document.content.nameOf(member: household.spouse!))
+                                       name: document.nameOf(member: household.spouse!))
                     }
                 }
             }
@@ -103,7 +103,7 @@ fileprivate struct UnadornedHouseholdView: View {
                 }
             }
         }
-        .navigationBarTitle(document.content.nameOf(household: household))
+        .navigationBarTitle(document.nameOf(household: household))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -154,9 +154,9 @@ class HouseholdAddressEditDelegate: AddressEditDelegate {
     }
 
     func store(address: Address, in household: Binding<NormalizedHousehold>) {
-        NSLog("HAED addr: \(address.address ?? "[none]") on \(document.wrappedValue.content.nameOf(household: household.wrappedValue))")
+        NSLog("HAED addr: \(address.address ?? "[none]") on \(document.wrappedValue.nameOf(household: household.wrappedValue))")
         household.wrappedValue.address = address
-        document.wrappedValue.content.update(household: household.wrappedValue)
+        document.wrappedValue.update(household: household.wrappedValue)
     }
 }
 
@@ -195,7 +195,7 @@ fileprivate struct OtherRowView: View {
                         editable: true)) {
             MemberLinkView(captionWidth: defaultCaptionWidth,
                            caption: "",
-                           name: document.content.nameOf(member: otherId))
+                           name: document.nameOf(member: otherId))
         }
     }
 }
@@ -224,10 +224,10 @@ struct OtherAddView: View {
     var body: some View {
         Button(action: {
             let newOther = makeMember(from: self.otherFactory)
-            document.content.add(member: newOther)
+            document.add(member: newOther)
             household.others.append(newOther.id)
-            document.content.update(household: household)
-            NSLog("OAV hh \(document.content.nameOf(household: household.id)) has \(household.others.count) others")
+            document.update(household: household)
+            NSLog("OAV hh \(document.nameOf(household: household.id)) has \(household.others.count) others")
         }) {
             Image(systemName: "plus").font(.body)
         }

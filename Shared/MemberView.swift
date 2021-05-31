@@ -21,7 +21,7 @@ struct MemberView: View {
         if isEditing {
             MemberEditView(
                 document: $document,
-                member: document.content.member(byId: memberId),
+                member: document.member(byId: memberId),
                 memberEditDelegate: MemberViewEditDelegate(document: $document),
                 memberCancelDelegate: MemberViewCancelDelegate(),
                 isEditing: $isEditing)
@@ -29,7 +29,7 @@ struct MemberView: View {
                 .transition(.move(edge: .trailing))
         } else {
             CoreMemberView(document: $document,
-                           member: document.content.member(byId: memberId),
+                           member: document.member(byId: memberId),
                            memberEditDelegate: MemberViewEditDelegate(document: $document),
                            memberCancelDelegate: MemberViewCancelDelegate(),
                            editable: self.editable,
@@ -52,7 +52,7 @@ fileprivate class MemberViewEditDelegate: MemberEditDelegate {
     
     func store(member: Member) {
         NSLog("MemberEditViewDel onDis: val is \(member.fullName())")
-        document.wrappedValue.content.update(member: member)
+        document.wrappedValue.update(member: member)
     }
 }
 

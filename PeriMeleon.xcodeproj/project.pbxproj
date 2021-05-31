@@ -12,8 +12,8 @@
 		27235931254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
 		272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
-		272F7235251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */; };
-		272F7236251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */; };
+		273A79EB2662CA0100CC55A0 /* NavigationStylingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */; };
+		273A79EC2662CA0100CC55A0 /* NavigationStylingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */; };
 		273FDC96257C462F0019F2DD /* Member+isActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FDC95257C462F0019F2DD /* Member+isActive.swift */; };
 		273FDC97257C462F0019F2DD /* Member+isActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FDC95257C462F0019F2DD /* Member+isActive.swift */; };
 		275A1180255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
@@ -172,7 +172,7 @@
 /* Begin PBXFileReference section */
 		2723592F254B51AE00137925 /* RoundedOutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedOutlineButton.swift; sourceTree = "<group>"; };
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
-		272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonContent.swift; sourceTree = "<group>"; };
+		273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStylingModifier.swift; sourceTree = "<group>"; };
 		273FDC95257C462F0019F2DD /* Member+isActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Member+isActive.swift"; sourceTree = "<group>"; };
 		274157BB2594E44800A7CD7F /* PeriMeleon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeriMeleon.entitlements; sourceTree = "<group>"; };
 		275A117F255F320C0055E77F /* SolidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidButton.swift; sourceTree = "<group>"; };
@@ -388,7 +388,6 @@
 			children = (
 				277B0A9C25783A3900AB2F86 /* Keychain.swift */,
 				276B972A250008DA003E19BA /* PeriMeleonDocument.swift */,
-				272F7234251672F8009E4CF3 /* PeriMeleonContent.swift */,
 				272F722D251533BD009E4CF3 /* CryptoKey.swift */,
 				27BC9303265D885C00C39B0B /* ExplainError.swift */,
 			);
@@ -407,6 +406,7 @@
 				2723592F254B51AE00137925 /* RoundedOutlineButton.swift */,
 				27FD5AE0254DDC4F0086F120 /* IntegerTextField.swift */,
 				275AF2A4258D09540007CF0C /* View+debug.swift */,
+				273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */,
 			);
 			name = Styling;
 			sourceTree = "<group>";
@@ -735,7 +735,6 @@
 				275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */,
 				278C1666265955DF003CEC13 /* MainView.swift in Sources */,
 				27B20DA82529113B00C80696 /* Services.swift in Sources */,
-				272F7235251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */,
 				27C55E422538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */,
 				27C55E512538E7A000923EE8 /* DataCheckerView.swift in Sources */,
 				27B20DA02529113B00C80696 /* Transactions.swift in Sources */,
@@ -773,6 +772,7 @@
 				275A1180255F320C0055E77F /* SolidButton.swift in Sources */,
 				277C95112540DC230032638A /* PreviewProviderModifier.swift in Sources */,
 				27C55E112538CE0100923EE8 /* CompactToggleView.swift in Sources */,
+				273A79EB2662CA0100CC55A0 /* NavigationStylingModifier.swift in Sources */,
 				27C55E322538E67700923EE8 /* MoveToHouseholdView.swift in Sources */,
 				27B20DE22529142900C80696 /* AddressView.swift in Sources */,
 				27D7D80D25570D1000A983AA /* BirthdaysEntryView.swift in Sources */,
@@ -842,7 +842,7 @@
 				277C9531254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAF2529113B00C80696 /* MemberRowView.swift in Sources */,
 				27C55E312538E67700923EE8 /* WorkflowsView.swift in Sources */,
-				272F7236251672F8009E4CF3 /* PeriMeleonContent.swift in Sources */,
+				273A79EC2662CA0100CC55A0 /* NavigationStylingModifier.swift in Sources */,
 				277C95122540DC230032638A /* PreviewProviderModifier.swift in Sources */,
 				27C55E122538CE0100923EE8 /* CompactToggleView.swift in Sources */,
 				275AF2A6258D09540007CF0C /* View+debug.swift in Sources */,
@@ -1024,6 +1024,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
@@ -1049,6 +1050,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
@@ -1084,7 +1086,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = macosx;
@@ -1109,7 +1111,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = macosx;

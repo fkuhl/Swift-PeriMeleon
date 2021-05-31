@@ -68,7 +68,7 @@ struct PhonelistResultsView: View {
 
     private func phone(member: Member) -> String {
         if !nugatory(member.mobilePhone) { return member.mobilePhone! }
-        let household = document.content.household(byId: member.household)
+        let household = document.household(byId: member.household)
         if let address = household.address, !nugatory(address.homePhone) {
             return address.homePhone!
         } else {
@@ -78,7 +78,7 @@ struct PhonelistResultsView: View {
 
     private func email(member: Member) -> String {
         if !nugatory(member.eMail) { return member.eMail! }
-        let household = document.content.household(byId: member.household)
+        let household = document.household(byId: member.household)
         if let address = household.address, !nugatory(address.email) {
             return address.email!
         } else {

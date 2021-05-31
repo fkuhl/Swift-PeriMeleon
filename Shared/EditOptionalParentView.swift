@@ -31,7 +31,7 @@ struct EditOptionalParentView: View {
                     .frame(width: captionWidth, alignment: .trailing)
                     .font(.caption)
                 Spacer()
-                Text(document.content.nameOf(member: parentId ?? "[none]")).font(.body)
+                Text(document.nameOf(member: parentId ?? "[none]")).font(.body)
             }
         }
     }
@@ -45,7 +45,7 @@ struct ChooseParentListView: View {
     
     var body: some View {
         List {
-            ForEach(document.content.parentList(mustBeActive: true, sex: sex), id: \.id) {
+            ForEach(document.parentList(mustBeActive: true, sex: sex), id: \.id) {
                 ChooseParentRowView(member: $0, chosenId: self.$parentId)
             }
         }

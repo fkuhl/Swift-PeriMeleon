@@ -15,10 +15,10 @@ struct HouseholdRowView: View {
     
     var body: some View {
         NavigationLink(destination: HouseholdView(document: $document,
-                                                  household: document.content.household(byId: householdId),
-                                                  spouseFactory: SpouseFactory(document: $document, household: document.content.household(byId: householdId)),
-                                                  otherFactory: OtherFactory(document: $document, household: document.content.household(byId: householdId)))) {
-            Text(document.content.nameOf(household: householdId)).font(.body)
+                                                  household: document.household(byId: householdId),
+                                                  spouseFactory: SpouseFactory(document: $document, household: document.household(byId: householdId)),
+                                                  otherFactory: OtherFactory(document: $document, household: document.household(byId: householdId)))) {
+            Text(document.nameOf(household: householdId)).font(.body)
         }
     }
 }
@@ -36,10 +36,10 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
         var newval = Member()
         newval.household = self.household.id
         newval.givenName = "Spouse"
-        newval.familyName = document.wrappedValue.content.member(byId: self.household.head).familyName
+        newval.familyName = document.wrappedValue.member(byId: self.household.head).familyName
         newval.sex = .FEMALE
         newval.maritalStatus = .MARRIED
-        newval.spouse = document.wrappedValue.content.member(byId:self.household.head).fullName()
+        newval.spouse = document.wrappedValue.member(byId:self.household.head).fullName()
         return newval
     }
 }
@@ -57,11 +57,11 @@ fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
         var newval = Member()
         newval.household = self.household.id
         newval.givenName = "No. \(self.household.others.count + 1)"
-        newval.familyName = document.wrappedValue.content.member(byId: self.household.head).familyName
+        newval.familyName = document.wrappedValue.member(byId: self.household.head).familyName
         newval.status = .NONCOMMUNING
-        newval.father = document.wrappedValue.content.member(byId: self.household.head).id
+        newval.father = document.wrappedValue.member(byId: self.household.head).id
         if let mom = self.household.spouse {
-            newval.mother = document.wrappedValue.content.member(byId: mom).id
+            newval.mother = document.wrappedValue.member(byId: mom).id
         }
         return newval
     }

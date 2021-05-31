@@ -60,7 +60,7 @@ struct MembersByAgeEntryView: View {
     
     func runQuery() {
         NSLog("run query")
-        members = document.content.filterMembers {
+        members = document.filterMembers {
             $0.status.isActive() && $0.dateOfBirth != nil &&
             comparison.comparator($0.age(asOf: asOfDate), age)
         }

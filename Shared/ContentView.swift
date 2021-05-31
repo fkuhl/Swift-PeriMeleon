@@ -11,7 +11,7 @@ struct ContentView: View {
     @Binding var document: PeriMeleonDocument
 
     var body: some View {
-        switch (document.content.state) {
+        switch (document.state) {
         case .normal:
             MainView(document: $document)
         case .newFile:

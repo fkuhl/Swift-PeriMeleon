@@ -34,7 +34,7 @@ class DataChecker: ObservableObject {
     }
     
     func checkData() {
-        let reports: [DataCheckReport] = document.wrappedValue.content.members.compactMap {
+        let reports: [DataCheckReport] = document.wrappedValue.members.compactMap {
             guard let lastTransaction = $0.transactions.last else {
                 return nil //nothing to check
             }

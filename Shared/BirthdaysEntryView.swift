@@ -41,7 +41,7 @@ struct BirthdaysEntryView: View {
     
     func runQuery() {
         NSLog("run query")
-        members = document.content.filterMembers {
+        members = document.filterMembers {
             if !$0.isActive() { return false }
             if let dob = $0.dateOfBirth {
                 let calendar = Calendar.current

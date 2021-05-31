@@ -23,7 +23,7 @@ struct PasswordView: View {
                     VStack {
                         SecureField("type password", text: $firstAttempt)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
-                        switch document.content.state {
+                        switch document.state {
                         case .newFile, .passwordEntriesDoNotMatch:
                             SecureField("re-type password", text: $secondAttempt)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -40,14 +40,14 @@ struct PasswordView: View {
     }
     
     private func buttonAction() {
-        switch document.content.state {
+        switch document.state {
         case .newFile, .passwordEntriesDoNotMatch:
-            document.content.addPasswordToNewFile(firstAttempt: firstAttempt,
+            document.addPasswordToNewFile(firstAttempt: firstAttempt,
                                                   secondAttempt: secondAttempt)
             firstAttempt = ""
             secondAttempt = ""
         default:
-            document.content.tryPassword(firstAttempt: firstAttempt)
+            document.tryPassword(firstAttempt: firstAttempt)
             firstAttempt = ""
         }
     }

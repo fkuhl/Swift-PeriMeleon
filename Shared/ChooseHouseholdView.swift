@@ -33,7 +33,7 @@ struct ChooseHouseholdView: View {
                     .frame(width: captionWidth, alignment: .trailing)
                     .font(.caption)
                 Spacer()
-                Text(document.content.nameOf(household: householdId)).font(.body)
+                Text(document.nameOf(household: householdId)).font(.body)
             }
         }
     }
@@ -54,7 +54,8 @@ struct ChooseHouseholdListView: View {
                     Text("Active Households").tag(1)
             }).pickerStyle(SegmentedPickerStyle())
             List {
-                ForEach(allOrActive == 0 ? document.content.households : document.content.activeHouseholds, id: \.id) {
+                ForEach(allOrActive == 0 ? document.households
+                            : document.activeHouseholds, id: \.id) {
                     ChooseHouseholdRowView(document: $document,
                                            household: $0,
                                            chosenId: $householdId)
@@ -76,7 +77,7 @@ struct ChooseHouseholdRowView: View {
                 self.chosenId = self.household.id
                 self.presentationMode.wrappedValue.dismiss()
             } ) {
-                Text(document.content.nameOf(household: household)).font(.body)
+                Text(document.nameOf(household: household)).font(.body)
             }
         }
     }

@@ -44,8 +44,8 @@ class FamilyJoinEditDelegate: MemberEditDelegate {
         newHousehold.head = member.id
         var memberInHousehold = member
         memberInHousehold.household = newHousehold.id
-        document.wrappedValue.content.add(member: memberInHousehold)
-        document.wrappedValue.content.add(household: newHousehold)
+        document.wrappedValue.add(member: memberInHousehold)
+        document.wrappedValue.add(household: newHousehold)
         accumulator.wrappedValue.head = memberInHousehold
         accumulator.wrappedValue.addedHousehold = newHousehold
         withAnimation(.easeInOut(duration: editAnimationDuration)) {

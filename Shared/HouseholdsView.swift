@@ -22,7 +22,9 @@ struct HouseholdsView: View {
                         Text("All Households").tag(1)
                 }).pickerStyle(SegmentedPickerStyle())
                 List {
-                    ForEach(allOrActive == 0 ? document.content.activeHouseholds : document.content.households, id: \.id) {
+                    ForEach(allOrActive == 0
+                                ? document.activeHouseholds
+                                : document.households, id: \.id) {
                         HouseholdRowView(document: $document, householdId: $0.id)
                     }
                 }
@@ -32,9 +34,3 @@ struct HouseholdsView: View {
         }
     }
 }
-
-//struct HouseholdView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HouseholdsView().environmentObject(HouseholdFetcher.mockedInstance)
-//    }
-//}

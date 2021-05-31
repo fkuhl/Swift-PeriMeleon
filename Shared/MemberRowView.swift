@@ -15,7 +15,7 @@ struct MemberRowView: View {
 
     var body: some View {
         NavigationLink(destination: MemberView(document: $document, memberId: memberId)) {
-            Text(document.content.nameOf(member: memberId))
+            Text(document.nameOf(member: memberId))
                 .font(.body)
         }
         //.debugPrint("MRV \(member.fullName())")

@@ -50,7 +50,7 @@ struct MembersByStatusEntryView: View {
     
     func runQuery() {
         NSLog("run query")
-        members = document.content.filterMembers {
+        members = document.filterMembers {
             $0.status == self.desiredStatus &&
                 ((self.includeResident && $0.resident)
                     || (self.includeNonResident && !$0.resident))
