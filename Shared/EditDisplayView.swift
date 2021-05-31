@@ -22,7 +22,7 @@ struct EditDisplayView: View {
             Text(caption)
                 .frame(width: captionWidth, alignment: .trailing)
                 .font(.caption)
-            Text(message).font(.body)
+            Text(message).font(.body).italic()
         }
     }
 }

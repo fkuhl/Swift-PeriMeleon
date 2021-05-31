@@ -15,57 +15,65 @@ struct FamilyJoinTransactionPhaseView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        VStack {
-            HStack {
-                Button(action: {
-                    NSLog("FJTPV cancel")
-                    accumulator.phase = .reset
-                    linkSelection = nil //ensure DataWorkflowsView can go again
-                    presentationMode.wrappedValue.dismiss() //dismiss FamilyJoinView?
-                }) {
-                    Text("Cancel").font(.body)
-                }
-                Spacer()
-                Button(action: {
-                    accumulator.receptionTransaction.date = self.accumulator.dateReceived
-                    switch accumulator.receptionType {
-                    case .PROFESSION:
-                        accumulator.receptionTransaction.type = .PROFESSION
-                        accumulator.receptionTransaction.comment = accumulator.comment
-                    case .AFFIRMATION:
-                        accumulator.receptionTransaction.type = .RECEIVED
-                        accumulator.receptionTransaction.comment = accumulator.comment + " by affirmation"
-                    case .TRANSFER:
-                        accumulator.receptionTransaction.type = .RECEIVED
-                        accumulator.receptionTransaction.comment = accumulator.comment
-                    }
-                    accumulator.receptionTransaction.church = accumulator.churchFrom
-                    accumulator.receptionTransaction.authority = accumulator.authority
-                    accumulator.head.transactions = [accumulator.receptionTransaction]
-                    accumulator.head.familyName = "Head"
-                    accumulator.head.givenName = "of this household"
-                    withAnimation(.easeInOut(duration: editAnimationDuration)) {
-                        accumulator.phase = .head
-                    }
-                }) {
-                    Text("Save + Continue").font(.body)
-                }
-            }.padding()
-            Form {
-                Section {
-                    DateSelectionView(caption: "Date received", accumulator: $accumulator)
-                    ReceptionTypeView(caption: "Reception type", accumulator: $accumulator)
-                    EditTextView(caption: "authority", text: $accumulator.authority)
-                    EditTextView(caption: "church from", text: $accumulator.churchFrom)
-                    EditTextView(caption: "comment", text: $accumulator.comment)
-                }
+        Form {
+            Section {
+                DateSelectionView(caption: "Date received", accumulator: $accumulator)
+                ReceptionTypeView(caption: "Reception type", accumulator: $accumulator)
+                EditTextView(caption: "authority", text: $accumulator.authority)
+                EditTextView(caption: "church from", text: $accumulator.churchFrom)
+                EditTextView(caption: "comment", text: $accumulator.comment)
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
-            .toolbar(content: {
-                        ToolbarItem(placement: .principal, content: {
-                            Text("Family Joins - Reception")
-                        })})
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Family Joins - Reception")
+            }
+            ToolbarItem(placement: .primaryAction) {
+                saveButton
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                cancelButton
+            }
+        }
+    }
+    
+    private var saveButton: some View {
+        Button(action: {
+            accumulator.receptionTransaction.date = self.accumulator.dateReceived
+            switch accumulator.receptionType {
+            case .PROFESSION:
+                accumulator.receptionTransaction.type = .PROFESSION
+                accumulator.receptionTransaction.comment = accumulator.comment
+            case .AFFIRMATION:
+                accumulator.receptionTransaction.type = .RECEIVED
+                accumulator.receptionTransaction.comment = accumulator.comment + " by affirmation"
+            case .TRANSFER:
+                accumulator.receptionTransaction.type = .RECEIVED
+                accumulator.receptionTransaction.comment = accumulator.comment
+            }
+            accumulator.receptionTransaction.church = accumulator.churchFrom
+            accumulator.receptionTransaction.authority = accumulator.authority
+            accumulator.head.transactions = [accumulator.receptionTransaction]
+            accumulator.head.familyName = "Head"
+            accumulator.head.givenName = "of this household"
+            withAnimation(.easeInOut(duration: editAnimationDuration)) {
+                accumulator.phase = .head
+            }
+        }) {
+            Text("Save + Continue").font(.body)
+        }
+    }
+    
+    private var cancelButton: some View {
+        Button(action: {
+            NSLog("FJTPV cancel")
+            accumulator.phase = .reset
+            linkSelection = nil //ensure DataWorkflowsView can go again
+            presentationMode.wrappedValue.dismiss() //dismiss FamilyJoinView?
+        }) {
+            Text("Cancel").font(.body)
         }
     }
 }

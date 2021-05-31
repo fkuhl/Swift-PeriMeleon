@@ -67,10 +67,3 @@ class FamilyJoinCancelDelegate: MemberCancelDelegate {
     }
 
 }
-
-//struct PhaseOneView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PhaseOneView()
-//    }
-//}
-

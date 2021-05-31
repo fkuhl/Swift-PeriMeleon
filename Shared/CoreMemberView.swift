@@ -19,16 +19,6 @@ struct CoreMemberView: View {
     
     var body: some View {
         VStack {
-            if editable {
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        withAnimation(.easeInOut(duration: editAnimationDuration)) { isEditing = true }
-                    }, label: {
-                        Text("Edit").font(.body)
-                    })
-                }.padding()
-            }
             List {
                 Section {
                     TextAttributeView(caption: "family name:", text: member.familyName)
@@ -111,15 +101,27 @@ struct CoreMemberView: View {
             }.listStyle(GroupedListStyle())
         }
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(content: {
-                    ToolbarItem(placement: .principal, content: {
-                        Text(member.fullName())
-                    })})
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(member.fullName())
+            }
+            ToolbarItem(placement: .primaryAction) {
+                editButton
+            }
+        }
+    }
+    
+    private var editButton: some View {
+        VStack {  //a syntactic wart!
+            if editable {
+                Button(action: {
+                    withAnimation(.easeInOut(duration: editAnimationDuration)) { isEditing = true }
+                }, label: {
+                    Text("Edit").font(.body)
+                })
+            } else {
+                EmptyView()
+            }
+        }
     }
 }
-
-//struct CoreMemberView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CoreMemberView()
-//    }
-//}

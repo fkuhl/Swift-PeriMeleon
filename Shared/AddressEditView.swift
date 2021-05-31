@@ -37,27 +37,31 @@ struct AddressEditView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading:
-            Button(action: {
-                NSLog("AEV cancel")
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Cancel").font(.body)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                saveButton
             }
-            , trailing:
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-                self.addressEditDelegate.store(address: self.address, in: self.$household)
-            }) {
-                Text("Save + Finish").font(.body)
+            ToolbarItem(placement: .cancellationAction) {
+                cancelButton
             }
-        )
+        }
+    }
+    
+    private var saveButton: some View {
+        Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+            self.addressEditDelegate.store(address: self.address, in: self.$household)
+        }) {
+            Text("Save + Finish").font(.body)
+        }
+    }
+    
+    private var cancelButton: some View {
+        Button(action: {
+            NSLog("AEV cancel")
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Text("Cancel").font(.body)
+        }
     }
 }
-
-//struct AddressEditView_Previews: PreviewProvider {
-//
-////    static var previews: some View {
-////        AddressEditView()
-////    }
-//}

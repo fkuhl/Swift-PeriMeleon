@@ -35,13 +35,9 @@ struct FamilyJoinView: View {
         }
         .debugPrint("FJV phase \(accumulator.phase)")
         //We're not using navigation in subsequent views, so no nav buttons
-        .navigationBarItems(leading: EmptyView(), trailing:EmptyView())
+        //Not altogether clear I need to be doing this
+        .toolbar { }
+        //.navigationBarItems(leading: EmptyView(), trailing:EmptyView())
         .navigationBarBackButtonHidden(true)
     }
 }
-
-//struct FamilyJoinView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FamilyJoinView()
-//    }
-//}

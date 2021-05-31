@@ -27,8 +27,7 @@ struct HouseholdView: View {
                                        spouseFactory: self.spouseFactory,
                                        otherFactory: self.otherFactory)
                 .navigationBarBackButtonHidden(true)
-                .navigationBarItems(leading: EmptyView(),
-                                    trailing: EmptyView())
+                .toolbar { }
             } else {
                 UnadornedHouseholdView(document: $document,
                                        household: $household,
