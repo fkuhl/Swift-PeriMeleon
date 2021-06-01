@@ -35,19 +35,8 @@ struct PeriMeleonDocument: FileDocument {
 
     // MARK: - Data
     
-    var dataUpdateCount: UInt64 = 0
-    var householdsById = [Id : NormalizedHousehold]() {
-        didSet {
-            dataUpdateCount += 1
-            NSLog("households changed, upd ct \(dataUpdateCount)")
-        }
-    }
-    var membersById = [Id : Member]() {
-        didSet {
-            dataUpdateCount += 1
-            NSLog("members changed, upd ct \(dataUpdateCount)")
-        }
-    }
+    private var householdsById = [Id : NormalizedHousehold]()
+    private var membersById = [Id : Member]()
     var households: [NormalizedHousehold] {
         var households = [NormalizedHousehold](householdsById.values)
         households.sort {
@@ -66,61 +55,54 @@ struct PeriMeleonDocument: FileDocument {
     var activeMembers: [Member] {
         members.filter{ $0.isActive() }
     }
-    private var internalState: State = .normal
-    var state: State { get { internalState }}
+    var state: State = .normal
     private var key: SymmetricKey? = nil
+    
+    /** This, it turns out, is what the framework is watching.
+     encryptedData must be updated every time the document changes.
+     */
     private var encryptedData: Data
     
     // MARK: - initializers
 
-    /**
-     The framework calls this initializer when user makes new document.
-     Then the framework calls the regular initializer, with no intervening Views being made.
-     */
+    ///On new file, framework calls empty initializer, then regular, with no views created in between.
     init() {
-        NSLog("PeriMeleonDocument init no data")
-        encryptedData = Data()
-        internalState = .newFile
-    }
-    
-    init(data: Data?) {
-        guard let readData = data else {
+            //We have a new document.
+            NSLog("PeriMeleonDocument init no data")
             encryptedData = Data()
-            internalState = .cannotRead(errorDescription: "corrupt file")
-            NSLog("corrupt file")
+            state = .newFile
             return
+    }
+
+    init(configuration: ReadConfiguration) throws {
+        guard let data = configuration.file.regularFileContents else {
+            throw CocoaError(.fileReadCorruptFile)
         }
-        if readData.count == 0 {
+        if data.count == 0 {
             //We have a new document.
             NSLog("PeriMeleonDocument init data empty")
-            encryptedData = Data()
-            internalState = .newFile
+            self.encryptedData = data
+            state = .newFile
             return
         }
-        NSLog("PeriMeleonDocument init \(data?.count ?? 0) bytes")
-        encryptedData = readData
+        NSLog("PeriMeleonDocument init \(data.count) bytes")
+        self.encryptedData = data
         do {
             if let decryptionKey: SymmetricKey = try GenericPasswordStore().readKey(account: passwordAccount) {
                 decryptAndDecode(key: decryptionKey)
+                key = decryptionKey
             } else {
                 NSLog("no key")
-                internalState = .noKey
+                state = .noKey
             }
         } catch {
             NSLog("err reading keychain, \(error.localizedDescription)")
-            internalState = .noKey
+            state = .noKey
         }
     }
     
-    // MARK: - FileDocument
-
-    init(configuration: ReadConfiguration) throws {
-        let encryptedContent = configuration.file.regularFileContents
-        self.init(data: encryptedContent)
-    }
-    
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        return .init(regularFileWithContents: try encrypt())
+        return .init(regularFileWithContents: encryptedData)
     }
     
     //MARK: - Crypto
@@ -132,7 +114,7 @@ struct PeriMeleonDocument: FileDocument {
             decryptedContent = try ChaChaPoly.open(sealedBox, using: key)
         } catch {
             NSLog("cannot decrypt: \(error.localizedDescription)")
-            internalState = .cannotDecrypt
+            state = .cannotDecrypt
             householdsById = [Id : NormalizedHousehold]()
             membersById = [Id : Member]()
             return
@@ -142,12 +124,12 @@ struct PeriMeleonDocument: FileDocument {
                                                            from: decryptedContent)
             NSLog("read \(decodedHouseholds.count) households from init config")
             normalize(decodedHouseholds: decodedHouseholds)
-            internalState = .normal
+            state = .normal
         } catch {
             let err = error as! DecodingError
             let explanation = explain(error: err)
             NSLog("cannot decode JSON: \(err)")
-            internalState = .cannotDecode(d1: explanation.0,
+            state = .cannotDecode(d1: explanation.0,
                                           d2: explanation.1,
                                           d3: explanation.2)
             return
@@ -163,13 +145,32 @@ struct PeriMeleonDocument: FileDocument {
                 try GenericPasswordStore().storeKey(decryptionKey, account: passwordAccount)
             } catch {
                 NSLog("err storing key \(error.localizedDescription)")
-                internalState = .nowWhat(errorDescription: "err storing key \(error.localizedDescription)")
+                state = .nowWhat(errorDescription: "err storing key \(error.localizedDescription)")
             }
         } else {
-            internalState = .noKey
+            state = .noKey
         }
     }
     
+    enum WriteError: Error {
+        case illegalState(state: State)
+        case noKey
+    }
+    
+    mutating func encrypt() throws -> Data {
+        guard state == .normal || state == .newFile else {
+            NSLog("write attempted in state \(state)")
+            throw WriteError.illegalState(state: state)
+        }
+        guard let encryptionKey = key else {
+            throw WriteError.noKey
+        }
+        let unencryptedData = try jsonEncoder.encode(denormalize())
+        encryptedData = try ChaChaPoly.seal(unencryptedData, using: encryptionKey).combined
+        NSLog("storing \(encryptedData.count) bytes")
+        return encryptedData
+    }
+
     
     //MARK: - Decoding
 
@@ -224,31 +225,12 @@ struct PeriMeleonDocument: FileDocument {
         }
         return denormalizedArray
     }
-
-    enum WriteError: Error {
-        case illegalState(state: State)
-        case noKey
-    }
-
-    func encrypt() throws -> Data {
-        guard internalState == .normal || internalState == .newFile else {
-            NSLog("write attempted in state \(internalState)")
-            throw WriteError.illegalState(state: internalState)
-        }
-        guard let encryptionKey = key else {
-            throw WriteError.noKey
-        }
-        let unencryptedData = try jsonEncoder.encode(denormalize())
-        let encryptedData = try ChaChaPoly.seal(unencryptedData, using: encryptionKey).combined
-        NSLog("writing \(encryptedData.count) bytes")
-        return encryptedData
-    }
     
     //MARK: - New database
     
     mutating func addPasswordToNewFile(firstAttempt: String, secondAttempt: String) {
         guard firstAttempt == secondAttempt else {
-            self.internalState = .passwordEntriesDoNotMatch
+            self.state = .passwordEntriesDoNotMatch
             return
         }
         initializeNewDB()
@@ -260,12 +242,12 @@ struct PeriMeleonDocument: FileDocument {
                 NSLog("writing \(encryptedData.count) bytes")
                 try GenericPasswordStore().deleteKey(account: passwordAccount)
                 try GenericPasswordStore().storeKey(encryptionKey, account: passwordAccount)
-                internalState = .normal
+                state = .normal
             } catch {
-                internalState = .nowWhat(errorDescription: "Error on encrypting new data: \( error.localizedDescription)")
+                state = .nowWhat(errorDescription: "Error on encrypting new data: \( error.localizedDescription)")
             }
         } else {
-            internalState = .noKey
+            state = .noKey
         }
     }
 
@@ -337,18 +319,42 @@ struct PeriMeleonDocument: FileDocument {
     
     mutating func update(household: NormalizedHousehold) {
         householdsById[household.id] = household
+        NSLog("households changed")
+        do {
+            encryptedData = try encrypt()
+        } catch {
+            NSLog("error on encrypt:\(error.localizedDescription)")
+        }
     }
 
     mutating func add(household: NormalizedHousehold) {
         householdsById[household.id] = household
+        NSLog("households added to")
+        do {
+            encryptedData = try encrypt()
+        } catch {
+            NSLog("error on encrypt:\(error.localizedDescription)")
+        }
     }
     
     mutating func update(member: Member) {
         membersById[member.id] = member
+        NSLog("members changed")
+        do {
+            encryptedData = try encrypt()
+        } catch {
+            NSLog("error on encrypt:\(error.localizedDescription)")
+        }
     }
     
     mutating func add(member: Member) {
         membersById[member.id] = member
+        NSLog("members added to")
+        do {
+            encryptedData = try encrypt()
+        } catch {
+            NSLog("error on encrypt:\(error.localizedDescription)")
+        }
     }
 }
 
