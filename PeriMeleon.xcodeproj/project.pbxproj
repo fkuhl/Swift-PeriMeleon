@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2703A95525001B2C00BB0061 /* PMDataTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 2703A95425001B2C00BB0061 /* PMDataTypes */; };
+		270BE17C26680489005B710B /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270BE17B26680489005B710B /* InformationView.swift */; };
+		270BE17D26680489005B710B /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270BE17B26680489005B710B /* InformationView.swift */; };
 		27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		27235931254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
@@ -170,6 +172,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		270BE17B26680489005B710B /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		2723592F254B51AE00137925 /* RoundedOutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedOutlineButton.swift; sourceTree = "<group>"; };
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
 		273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStylingModifier.swift; sourceTree = "<group>"; };
@@ -495,6 +498,7 @@
 				27C55E2C2538E67700923EE8 /* WorkflowsView.swift */,
 				27C55E2B2538E67700923EE8 /* MoveToHouseholdAccumulator.swift */,
 				27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */,
+				270BE17B26680489005B710B /* InformationView.swift */,
 			);
 			name = Workflows;
 			sourceTree = "<group>";
@@ -743,6 +747,7 @@
 				27B20DC92529123400C80696 /* EditTextView.swift in Sources */,
 				27B20DC52529123400C80696 /* EditOptionalTextView.swift in Sources */,
 				27C55E532538E7A000923EE8 /* DataCheckReport.swift in Sources */,
+				270BE17C26680489005B710B /* InformationView.swift in Sources */,
 				27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
 				27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */,
 				277B0A9D25783A3900AB2F86 /* Keychain.swift in Sources */,
@@ -824,6 +829,7 @@
 				27B20DA12529113B00C80696 /* Transactions.swift in Sources */,
 				27C55E262538CE9400923EE8 /* MockedData.swift in Sources */,
 				27C55E162538CE0100923EE8 /* QueriesView.swift in Sources */,
+				270BE17D26680489005B710B /* InformationView.swift in Sources */,
 				27B20DCA2529123400C80696 /* EditTextView.swift in Sources */,
 				27B20DC62529123400C80696 /* EditOptionalTextView.swift in Sources */,
 				27C55E542538E7A000923EE8 /* DataCheckReport.swift in Sources */,

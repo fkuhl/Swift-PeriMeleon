@@ -12,6 +12,7 @@ fileprivate enum Link: String {
     case familyJoins
     case moveToHousehold
     case dataChecker
+    case information
 }
 
 struct WorkflowsView: View {
@@ -57,6 +58,15 @@ struct WorkflowsView: View {
                             Text("Data checker").font(.body)
                         }
                     }
+                    NavigationLink(destination: InformationView(document: $document),
+                                   tag: Link.information.rawValue,
+                                   selection: $linkSelection) {
+                        Button(action: {
+                            self.linkSelection = Link.information.rawValue
+                        }) {
+                            Text("Information").font(.body)
+                        }
+                    }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -74,6 +84,9 @@ struct WorkflowsView: View {
 
 struct WorkflowsView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkflowsView(document: mockDocument)
+        Group {
+            WorkflowsView(document: mockDocument)
+                .previewLayout(PreviewLayout.fixed(width: 1024, height: 768))
+        }
     }
 }
