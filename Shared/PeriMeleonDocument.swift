@@ -22,10 +22,10 @@ struct PeriMeleonDocument: FileDocument {
         case noKey
         case cannotRead(errorDescription: String)
         case cannotDecrypt
-        case cannotDecode(d1: String, d2: String, d3: String)
+        case cannotDecode(basicError: String, codingPath: String, underlyingError: String)
         case passwordEntriesDoNotMatch
-        case nowWhat(errorDescription: String)
         case newFile
+        case saveError(basicError: String, codingPath: String, underlyingError: String)
         case normal
     }
 
@@ -127,11 +127,11 @@ struct PeriMeleonDocument: FileDocument {
             state = .normal
         } catch {
             let err = error as! DecodingError
-            let explanation = explain(error: err)
+            let explanation = explain(decodingError: err)
             NSLog("cannot decode JSON: \(err)")
-            state = .cannotDecode(d1: explanation.0,
-                                          d2: explanation.1,
-                                          d3: explanation.2)
+            state = .cannotDecode(basicError: explanation.0,
+                                  codingPath: explanation.1,
+                                  underlyingError: explanation.2)
             return
         }
     }
@@ -145,7 +145,9 @@ struct PeriMeleonDocument: FileDocument {
                 try GenericPasswordStore().storeKey(decryptionKey, account: passwordAccount)
             } catch {
                 NSLog("err storing key \(error.localizedDescription)")
-                state = .nowWhat(errorDescription: "err storing key \(error.localizedDescription)")
+                state = .saveError(basicError: "error storing key",
+                                   codingPath: "",
+                                   underlyingError: error.localizedDescription)
             }
         } else {
             state = .noKey
@@ -157,18 +159,35 @@ struct PeriMeleonDocument: FileDocument {
         case noKey
     }
     
-    mutating func encrypt() throws -> Data {
+    mutating func encodeAndEncrypt() {
         guard state == .normal || state == .newFile else {
             NSLog("write attempted in state \(state)")
-            throw WriteError.illegalState(state: state)
+            state = .saveError(basicError: "write attempted in state \(state)",
+                               codingPath: "",
+                               underlyingError: "")
+            return
         }
         guard let encryptionKey = key else {
-            throw WriteError.noKey
+            state = .saveError(basicError: "key inexplicably absent",
+                               codingPath: "",
+                               underlyingError: "")
+            return
         }
-        let unencryptedData = try jsonEncoder.encode(denormalize())
-        encryptedData = try ChaChaPoly.seal(unencryptedData, using: encryptionKey).combined
+        do {
+            let unencryptedData = try jsonEncoder.encode(denormalize())
+            encryptedData = try ChaChaPoly.seal(unencryptedData, using: encryptionKey).combined
+        } catch let error where error is EncodingError {
+            let encodingError = error as! EncodingError
+            let explanation = explain(encodingError: encodingError)
+            state = .saveError(basicError: explanation.0,
+                               codingPath: explanation.1,
+                               underlyingError: explanation.2)
+        } catch {
+            state = .saveError(basicError: error.localizedDescription,
+                               codingPath: "",
+                               underlyingError: "")
+        }
         NSLog("storing \(encryptedData.count) bytes")
-        return encryptedData
     }
 
     
@@ -244,7 +263,9 @@ struct PeriMeleonDocument: FileDocument {
                 try GenericPasswordStore().storeKey(encryptionKey, account: passwordAccount)
                 state = .normal
             } catch {
-                state = .nowWhat(errorDescription: "Error on encrypting new data: \( error.localizedDescription)")
+                state = .saveError(basicError: "Error on encrypting new data",
+                                   codingPath: "",
+                                   underlyingError: error.localizedDescription)
             }
         } else {
             state = .noKey
@@ -320,41 +341,25 @@ struct PeriMeleonDocument: FileDocument {
     mutating func update(household: NormalizedHousehold) {
         householdsById[household.id] = household
         NSLog("households changed")
-        do {
-            encryptedData = try encrypt()
-        } catch {
-            NSLog("error on encrypt:\(error.localizedDescription)")
-        }
+        encodeAndEncrypt()
     }
 
     mutating func add(household: NormalizedHousehold) {
         householdsById[household.id] = household
         NSLog("households added to")
-        do {
-            encryptedData = try encrypt()
-        } catch {
-            NSLog("error on encrypt:\(error.localizedDescription)")
-        }
+        encodeAndEncrypt()
     }
     
     mutating func update(member: Member) {
         membersById[member.id] = member
         NSLog("members changed")
-        do {
-            encryptedData = try encrypt()
-        } catch {
-            NSLog("error on encrypt:\(error.localizedDescription)")
-        }
+        encodeAndEncrypt()
     }
     
     mutating func add(member: Member) {
         membersById[member.id] = member
         NSLog("members added to")
-        do {
-            encryptedData = try encrypt()
-        } catch {
-            NSLog("error on encrypt:\(error.localizedDescription)")
-        }
+        encodeAndEncrypt()
     }
 }
 

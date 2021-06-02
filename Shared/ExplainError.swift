@@ -15,10 +15,10 @@ import Foundation
  - Parameter error: the error to be decoded
  - Returns: (type of error encountered, coding stack if any, more detailed debug description)
  */
-func explain(error: DecodingError) -> (String, String, String) {
+func explain(decodingError: DecodingError) -> (String, String, String) {
     let debugDescription: String
     let explanation: (String, String)
-    switch error {
+    switch decodingError {
     case .dataCorrupted(let context):
         debugDescription = context.debugDescription
         explanation = explain(context: context)
@@ -38,6 +38,29 @@ func explain(error: DecodingError) -> (String, String, String) {
 }
 
 fileprivate func explain(context: DecodingError.Context) -> (String,String) {
+    let codingPathElements = context.codingPath.map{$0.stringValue}
+    let path = codingPathElements.joined(separator: ", ")
+    var nsDebugDescription = ""
+    if let underlying = context.underlyingError as NSError? {
+        nsDebugDescription = underlying.userInfo["NSDebugDescription"] as? String ?? ""
+    }
+    return (path, nsDebugDescription)
+}
+
+func explain(encodingError: EncodingError) -> (String, String, String) {
+    let debugDescription: String
+    let explanation: (String, String)
+    switch encodingError {
+    case .invalidValue(let value, let context):
+        debugDescription = "\(context.debugDescription), value: \(value)"
+        explanation = explain(context: context)
+    @unknown default:
+        return ("", "", "")
+    }
+    return (debugDescription, explanation.0, explanation.1)
+}
+
+fileprivate func explain(context: EncodingError.Context) -> (String,String) {
     let codingPathElements = context.codingPath.map{$0.stringValue}
     let path = codingPathElements.joined(separator: ", ")
     var nsDebugDescription = ""
