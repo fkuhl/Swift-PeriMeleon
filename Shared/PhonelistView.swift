@@ -32,8 +32,8 @@ struct PhonelistView: View {
     }
 }
 
-//struct PhoneListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PhoneListView()
-//    }
-//}
+struct PhonelistView_Previews: PreviewProvider {
+    static var previews: some View {
+        PhonelistView(document: mockDocument)
+    }
+}
