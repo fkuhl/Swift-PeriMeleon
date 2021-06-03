@@ -20,7 +20,6 @@ struct MembersByStatusEntryView: View {
     var body: some View {
         Form {
             Section {
-                Text("Query Members by Status").font(.title).padding(30)
                 HStack(alignment: .center, spacing: 20) {
                     Spacer()
                     CompactToggleView(isOn: $includeResident, label: "Include residents")

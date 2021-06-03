@@ -31,6 +31,11 @@ struct BirthdaysView: View {
                     .transition(.move(edge: .trailing))
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Birthdays")
+            }
+        }
     }
 }
 

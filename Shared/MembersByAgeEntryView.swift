@@ -21,7 +21,6 @@ struct MembersByAgeEntryView: View {
     var body: some View {
         Form {
             Section {
-                Text("Query Active Members by Age").font(.title).padding(30)
                 HStack(alignment: .center, spacing: 20) {
                     Spacer()
                     Picker(selection: $comparison, label: Text("Ordering:").font(.body)) {

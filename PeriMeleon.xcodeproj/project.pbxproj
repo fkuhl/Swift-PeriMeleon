@@ -405,7 +405,6 @@
 				277C95172540DD6A0032638A /* PreviewShowoffView.swift */,
 				277C95102540DC230032638A /* PreviewProviderModifier.swift */,
 				277C952F254333A50032638A /* CheckboxToggleStyle.swift */,
-				277C953E2544B4860032638A /* ShareSheet.swift */,
 				2723592F254B51AE00137925 /* RoundedOutlineButton.swift */,
 				27FD5AE0254DDC4F0086F120 /* IntegerTextField.swift */,
 				275AF2A4258D09540007CF0C /* View+debug.swift */,
@@ -488,6 +487,7 @@
 				27EB1307254A06F7008E8A8B /* MembersByStatus */,
 				27C55E0E2538CE0100923EE8 /* QueriesView.swift */,
 				277C95492544BED40032638A /* QueryResults.swift */,
+				277C953E2544B4860032638A /* ShareSheet.swift */,
 			);
 			name = Queries;
 			sourceTree = "<group>";

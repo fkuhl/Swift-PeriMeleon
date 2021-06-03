@@ -15,6 +15,7 @@ struct PhonelistResultsView: View {
     @Binding var showingResults: Bool
     @State private var showingShareSheet = false
     @ObservedObject private var queryResults = QueryResults.sharedInstance
+    @State private var resultsAsData = Data()
 
     let columns = [
         GridItem(.flexible()),
@@ -24,24 +25,16 @@ struct PhonelistResultsView: View {
 
     var body: some View {
         VStack {
-            Text(title).font(.title)
-            HStack {
-                Button(action: {
-                    self.members = []
-                    withAnimation(.easeInOut(duration: editAnimationDuration)) {
-                        self.showingResults = false
-                    }
-                }) {
-                    Text("Clear").font(.body)
-                }.padding(20)
+            HStack(alignment: .top) {
+                clearButton
                 Spacer()
-                Button(action: {
-                    let maker = PhonelistMaker(document: document)
-                    queryResults.setCSV(results: maker.make(from: members))
-                    showingShareSheet = true
-                }) {
-                    Image(systemName: "square.and.arrow.up").font(.body)
-                }.padding(20)
+                Text(title).font(.title)
+                Spacer()
+                #if targetEnvironment(macCatalyst)
+                macShare
+                #else
+                iosShare
+                #endif
             }
             ScrollView {
                 LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
@@ -58,7 +51,44 @@ struct PhonelistResultsView: View {
         }
         .sheet(isPresented: $showingShareSheet) {
             ShareSheet(activityItems: queryResults.toBeShared)
-//                .debugPrint("queryResults element has \((queryResults.toBeShared[0] as! NSString).length)")
+        }
+    }
+    
+    private var clearButton: some View {
+        Button(action: {
+            self.members = []
+            withAnimation(.easeInOut(duration: editAnimationDuration)) {
+                self.showingResults = false
+            }
+        }) {
+            Text("Clear").font(.body)
+        }.padding(20)
+    }
+    
+    ///Bring up share sheet
+    private var iosShare: some View {
+        Button(action: {
+            let maker = PhonelistMaker(document: document)
+            resultsAsData = maker.make(from: members).data(using: .utf8)!
+            queryResults.setCSV(results: resultsAsData)
+            showingShareSheet = true
+        }) {
+            Image(systemName: "square.and.arrow.up").font(.body)
+        }.padding(20)
+    }
+    
+    ///Copy to pasteboard
+    private var macShare: some View {
+        VStack(alignment: .trailing) {
+            Button(action: {
+                let maker = PhonelistMaker(document: document)
+                let pasteboard = UIPasteboard.general
+                pasteboard.string = maker.make(from: members)
+            }) {
+                Image(systemName: "arrow.up.doc.on.clipboard").font(.body)
+            }.padding(.top, 20).padding(.bottom, 5).padding(.trailing, 20)
+            Text("Copy to paste buffer. Paste into file.").font(.body).italic()
+                .padding(.trailing, 20)
         }
     }
 

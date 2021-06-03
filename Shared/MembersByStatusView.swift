@@ -34,6 +34,11 @@ struct MembersByStatusView: View {
                     .transition(.move(edge: .trailing))
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Query Members By Status")
+            }
+        }
     }
 }
 

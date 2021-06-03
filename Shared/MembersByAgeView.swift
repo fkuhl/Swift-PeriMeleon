@@ -35,6 +35,12 @@ struct MembersByAgeView: View {
                                            showingResults: $showingResults)
                     .transition(.move(edge: .trailing))
             }
+            Spacer().background(Color.red)
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Query Members By Age")
+            }
         }
     }
 }

@@ -29,6 +29,11 @@ struct PhonelistView: View {
                     .transition(.move(edge: .trailing))
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Export Phone List")
+            }
+        }
     }
 }
 

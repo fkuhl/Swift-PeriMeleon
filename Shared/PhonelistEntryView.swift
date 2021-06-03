@@ -22,7 +22,6 @@ struct PhonelistEntryView: View {
     var body: some View {
         Form {
             Section {
-                Text("Export Phone List").font(.title).padding(30)
                 HStack(alignment: .center, spacing: 20) {
                     CompactToggleView(isOn: $includeResident, label: "Include residents")
                     Spacer()

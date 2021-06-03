@@ -17,10 +17,11 @@ struct MoveToHouseholdView: View {
             Text("Coming soon!")
         }
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(content: {
-                    ToolbarItem(placement: .principal, content: {
-                        Text("Member Moves To Different Household")
-                    })})
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Member Moves To Different Household")
+            }
+        }
     }
 }
 

@@ -18,23 +18,16 @@ struct BirthdaysResultsView: View {
 
     var body: some View {
         VStack {
-            Text(title).font(.title)
             HStack {
-                Button(action: {
-                    self.members = []
-                    withAnimation(.easeInOut(duration: editAnimationDuration)) {
-                        self.showingResults = false
-                    }
-                }) {
-                    Text("Clear").font(.body)
-                }.padding(20)
+                clearButton
                 Spacer()
-                Button(action: {
-                    queryResults.setText(results: makeBirthdaysResult(members: self.members))
-                    showingShareSheet = true
-                }) {
-                    Image(systemName: "square.and.arrow.up").font(.body)
-                }.padding(20)
+                Text(title).font(.title)
+                Spacer()
+                #if targetEnvironment(macCatalyst)
+                macShare
+                #else
+                iosShare
+                #endif
             }
             HStack {
                 Spacer()
@@ -43,10 +36,42 @@ struct BirthdaysResultsView: View {
                     .multilineTextAlignment(.leading)
                 Spacer()
             }
+            Spacer()
         }.padding()
         .sheet(isPresented: $showingShareSheet) {
             ShareSheet(activityItems: queryResults.toBeShared)
         }
+    }
+    
+    private var clearButton: some View {
+        Button(action: {
+            self.members = []
+            withAnimation(.easeInOut(duration: editAnimationDuration)) {
+                self.showingResults = false
+            }
+        }) {
+            Text("Clear").font(.body)
+        }.padding(20)
+    }
+    
+    ///Bring up share sheet
+    private var iosShare: some View {
+        Button(action: {
+            queryResults.setText(results: makeBirthdaysResult(members: self.members))
+            showingShareSheet = true
+        }) {
+            Image(systemName: "square.and.arrow.up").font(.body)
+        }.padding(20)
+    }
+    
+    ///Copy to pasteboard
+    private var macShare: some View {
+        Button(action: {
+            let pasteboard = UIPasteboard.general
+            pasteboard.string = makeBirthdaysResult(members: self.members)
+        }) {
+            Image(systemName: "arrow.up.doc.on.clipboard").font(.body)
+        }.padding(20)
     }
 }
 

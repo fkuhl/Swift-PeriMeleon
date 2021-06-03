@@ -15,8 +15,11 @@ struct MembersByStatusResultsView: View {
     @Binding var showingResults: Bool
     @State private var showingShareSheet = false
     @ObservedObject private var queryResults = QueryResults.sharedInstance
-    
+    @State private var resultsAsData = Data()
+
     let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -25,44 +28,75 @@ struct MembersByStatusResultsView: View {
 
     var body: some View {
         VStack {
-            Text(title).font(.title)
             HStack {
-                Button(action: {
-                    self.members = []
-                    withAnimation(.easeInOut(duration: editAnimationDuration)) {
-                        self.showingResults = false
-                    }
-                }) {
-                    Text("Clear").font(.body)
-                }.padding(20)
+                clearButton
                 Spacer()
-                Button(action: {
-//                    let pasteboard = UIPasteboard.general
-//                    pasteboard.string = makeMembersByStatusResult(members: self.members)
-                    queryResults.setCSV(results: makeMembersByStatusResult(members: self.members))
-                    showingShareSheet = true
-                }) {
-                    Image(systemName: "square.and.arrow.up").font(.body)
-                }.padding(20)
+                Text(title).font(.title)
+                Spacer()
+                #if targetEnvironment(macCatalyst)
+                macShare
+                #else
+                iosShare
+                #endif
             }
             ScrollView {
                 LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
                     Text("Member").font(.caption)
-                    Text("Date joined").font(.caption)
-                    Text("Recep type").font(.caption)
-                    Text("From church").font(.caption)
+                    Text("Transaction date").font(.caption)
+                    Text("Transaction type").font(.caption)
+                    Text("Authority").font(.caption)
+                    Text("From/to church").font(.caption)
+                    Text("Comment").font(.caption)
                     ForEach(members, id: \.id) {
                         Text(memberName(member: $0)).font(.body)
-                        Text(dateJoined(member: $0)).font(.body)
-                        Text(receptionType(member: $0)).font(.body)
+                        Text(transactionDate(member: $0)).font(.body)
+                        Text(transactionType(member: $0)).font(.body)
+                        Text(authority(member: $0)).font(.body)
                         Text(churchFrom(member: $0)).font(.body)
+                        Text(comment(member: $0)).font(.body)
                     }
                 }
             }.padding()
         }
         .sheet(isPresented: $showingShareSheet) {
             ShareSheet(activityItems: queryResults.toBeShared)
-//                .debugPrint("queryResults element has \((queryResults.toBeShared[0] as! NSString).length)")
+        }
+    }
+    
+    private var clearButton: some View {
+        Button(action: {
+            self.members = []
+            withAnimation(.easeInOut(duration: editAnimationDuration)) {
+                self.showingResults = false
+            }
+        }) {
+            Text("Clear").font(.body)
+        }.padding(20)
+    }
+    
+    ///Bring up share sheet
+    private var iosShare: some View {
+        Button(action: {
+            resultsAsData = makeMembersByStatusResult(members: self.members)
+                .data(using: .utf8)!
+            queryResults.setCSV(results: resultsAsData)
+            showingShareSheet = true
+        }) {
+            Image(systemName: "square.and.arrow.up").font(.body)
+        }.padding(20)
+    }
+    
+    ///Copy to pasteboard
+    private var macShare: some View {
+        VStack(alignment: .trailing) {
+            Button(action: {
+                let pasteboard = UIPasteboard.general
+                pasteboard.string = makeMembersByStatusResult(members: self.members)
+            }) {
+                Image(systemName: "arrow.up.doc.on.clipboard").font(.body)
+            }.padding(.top, 20).padding(.bottom, 5).padding(.trailing, 20)
+            Text("Copy to paste buffer. Paste into file.").font(.body).italic()
+                .padding(.trailing, 20)
         }
     }
 }
@@ -71,21 +105,31 @@ private func memberName(member: Member) -> String {
     return member.displayName()
 }
 
-private func dateJoined(member: Member) -> String {
+private func transactionDate(member: Member) -> String {
     guard member.transactions.count > 0 else { return "" }
-    let date = member.transactions[0].date
+    let date = member.transactions.last!.date
     if date == nil { return "" }
     return dateFormatter.string(from: date!)
 }
 
-private func receptionType(member: Member) -> String {
+private func transactionType(member: Member) -> String {
     guard member.transactions.count > 0 else { return "" }
-    return member.transactions[0].type.rawValue
+    return member.transactions.last!.type.rawValue
+}
+
+private func authority(member: Member) -> String {
+    guard member.transactions.count > 0 else { return "" }
+    return member.transactions.last!.authority ?? ""
 }
 
 private func churchFrom(member: Member) -> String {
     guard member.transactions.count > 0 else { return "" }
-    return member.transactions[0].church ?? ""
+    return member.transactions.last!.church ?? ""
+}
+
+private func comment(member: Member) -> String {
+    guard member.transactions.count > 0 else { return "" }
+    return member.transactions.last!.comment ?? ""
 }
 
 struct MembersByStatusResultsView_Previews: PreviewProvider {
@@ -104,9 +148,9 @@ struct MembersByStatusResultsView_Previews: PreviewProvider {
 }
 
 fileprivate func makeMembersByStatusResult(members: [Member]) -> String {
-    var csvReturn = "name,date-joined,recep-type,from-church"
+    var csvReturn = "name,date,type,authority,from-to-church,comment"
     let strings = members.map { member in
-        "\"\(memberName(member: member))\",\(dateJoined(member: member)),\(receptionType(member: member)),\"\(churchFrom(member: member))\""
+        "\"\(memberName(member: member))\",\(transactionDate(member: member)),\(transactionType(member: member)),\(authority(member: member)),\"\(churchFrom(member: member)),\"\(comment(member: member))\""
     }
     csvReturn = strings.reduce(csvReturn) { thusFar, newString in
         "\(thusFar)\n\(newString)"
