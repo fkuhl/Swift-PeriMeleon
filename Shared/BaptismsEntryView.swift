@@ -80,6 +80,7 @@ struct BaptismsEntryView_Previews: PreviewProvider {
 /**
  The strategy for recognizing baptisms is to attempt to extract a date
  */
+//TODO: Add another pattern for ISO dates.
 fileprivate let anythingZeroOrMore = ".*"
 fileprivate let digit = "[0-9]"
 fileprivate let optDigit = digit + "?"
