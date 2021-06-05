@@ -18,6 +18,9 @@
 		273A79EC2662CA0100CC55A0 /* NavigationStylingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */; };
 		273FDC96257C462F0019F2DD /* Member+isActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FDC95257C462F0019F2DD /* Member+isActive.swift */; };
 		273FDC97257C462F0019F2DD /* Member+isActive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273FDC95257C462F0019F2DD /* Member+isActive.swift */; };
+		27415C0526699DBC00C1FB6E /* BaptismsEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27415C0426699DBC00C1FB6E /* BaptismsEntryView.swift */; };
+		27415C07266BB66900C1FB6E /* BaptismsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27415C06266BB66900C1FB6E /* BaptismsView.swift */; };
+		27415C09266BB9D100C1FB6E /* BaptismsResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27415C08266BB9D100C1FB6E /* BaptismsResultsView.swift */; };
 		275A1180255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275A1181255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275AF2A5258D09540007CF0C /* View+debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AF2A4258D09540007CF0C /* View+debug.swift */; };
@@ -178,6 +181,9 @@
 		273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStylingModifier.swift; sourceTree = "<group>"; };
 		273FDC95257C462F0019F2DD /* Member+isActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Member+isActive.swift"; sourceTree = "<group>"; };
 		274157BB2594E44800A7CD7F /* PeriMeleon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeriMeleon.entitlements; sourceTree = "<group>"; };
+		27415C0426699DBC00C1FB6E /* BaptismsEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaptismsEntryView.swift; sourceTree = "<group>"; };
+		27415C06266BB66900C1FB6E /* BaptismsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaptismsView.swift; sourceTree = "<group>"; };
+		27415C08266BB9D100C1FB6E /* BaptismsResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaptismsResultsView.swift; sourceTree = "<group>"; };
 		275A117F255F320C0055E77F /* SolidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidButton.swift; sourceTree = "<group>"; };
 		275AF2A4258D09540007CF0C /* View+debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+debug.swift"; sourceTree = "<group>"; };
 		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
@@ -303,6 +309,16 @@
 				279B6FB1255F619B0009D2BF /* MembersByAgeView.swift */,
 			);
 			name = MembersByAge;
+			sourceTree = "<group>";
+		};
+		27415C0326699D8200C1FB6E /* Baptisms */ = {
+			isa = PBXGroup;
+			children = (
+				27415C0426699DBC00C1FB6E /* BaptismsEntryView.swift */,
+				27415C06266BB66900C1FB6E /* BaptismsView.swift */,
+				27415C08266BB9D100C1FB6E /* BaptismsResultsView.swift */,
+			);
+			name = Baptisms;
 			sourceTree = "<group>";
 		};
 		276B9723250008DA003E19BA = {
@@ -481,6 +497,7 @@
 		27C55E1F2538CE0700923EE8 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
+				27415C0326699D8200C1FB6E /* Baptisms */,
 				27D7D8002557097600A983AA /* Birthdays */,
 				27EB1308254A071A008E8A8B /* Phonelist */,
 				271D1585255F60EA00BC9F3B /* MembersByAge */,
@@ -733,6 +750,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */,
+				27415C07266BB66900C1FB6E /* BaptismsView.swift in Sources */,
 				27C55E462538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9528254223C20032638A /* Member+Age.swift in Sources */,
 				27B20DC12529123400C80696 /* ChooseHouseholdView.swift in Sources */,
@@ -750,6 +768,7 @@
 				270BE17C26680489005B710B /* InformationView.swift in Sources */,
 				27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
 				27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */,
+				27415C0526699DBC00C1FB6E /* BaptismsEntryView.swift in Sources */,
 				277B0A9D25783A3900AB2F86 /* Keychain.swift in Sources */,
 				278C16692659563E003CEC13 /* PasswordView.swift in Sources */,
 				27C55E132538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */,
@@ -778,6 +797,7 @@
 				277C95112540DC230032638A /* PreviewProviderModifier.swift in Sources */,
 				27C55E112538CE0100923EE8 /* CompactToggleView.swift in Sources */,
 				273A79EB2662CA0100CC55A0 /* NavigationStylingModifier.swift in Sources */,
+				27415C09266BB9D100C1FB6E /* BaptismsResultsView.swift in Sources */,
 				27C55E322538E67700923EE8 /* MoveToHouseholdView.swift in Sources */,
 				27B20DE22529142900C80696 /* AddressView.swift in Sources */,
 				27D7D80D25570D1000A983AA /* BirthdaysEntryView.swift in Sources */,

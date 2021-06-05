@@ -20,14 +20,17 @@ struct QueriesView: View {
                     }
                 }
                 Section(header: Text("Members")) {
-                    NavigationLink(destination: BirthdaysView(document: $document)) {
-                        Text("Birthdays").font(.body)
-                    }
                     NavigationLink(destination: MembersByStatusView(document: $document)) {
                         Text("Members by status").font(.body)
                     }
                     NavigationLink(destination: MembersByAgeView(document: $document)) {
                         Text("Members by age").font(.body)
+                    }
+                    NavigationLink(destination: BirthdaysView(document: $document)) {
+                        Text("Birthdays").font(.body)
+                    }
+                    NavigationLink(destination: BaptismsView(document: $document)) {
+                        Text("Baptisms").font(.body)
                     }
                 }
             }

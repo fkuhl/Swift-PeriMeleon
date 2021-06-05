@@ -30,7 +30,7 @@ struct MembersByAgeView: View {
                                       showingResults: $showingResults)
                     .transition(.move(edge: .trailing))
             } else {
-                MembersByAgeResultsView(title: "\(members.count) Active Member\(members.count == 1 ? "" : "s"), Age \(comparison.rawValue) \(age) as of \(dateFormatter.string(from: asOfDate))",
+                MembersByAgeResultsView(title: resultsTitle,
                                            members: $members,
                                            showingResults: $showingResults)
                     .transition(.move(edge: .trailing))
@@ -42,6 +42,11 @@ struct MembersByAgeView: View {
                 Text("Query Members By Age")
             }
         }
+    }
+    
+    private var resultsTitle: String {
+        "\(members.count) Active Member\(members.count == 1 ? "" : "s"), "
+        + "Age \(comparison.rawValue) \(age) as of \(dateFormatter.string(from: asOfDate))"
     }
 }
 
