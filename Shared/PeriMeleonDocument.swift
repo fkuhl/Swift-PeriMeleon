@@ -17,6 +17,17 @@ extension UTType {
     static let periMeleonRollsDocument = UTType(exportedAs: "com.tyndalesoft.PeriMeleon.rolls")
 }
 
+/**
+ This probably should be a ReferenceFileDocument, as its state is continually changing.
+ For that to work, the document signals that it needs to be saved by doing something with an UndoManager.
+ It also must provide a snapshpt (type is Data?), which is what's written to the file when the document is saved,
+ so the snapshot would be the encoded and encrypted data.
+ See https://medium.com/@acwrightdesign/using-referencefiledocument-in-swiftui-e54ef75a14b8
+ 
+ But making this a ReferenceFileDocument is likely a premature optimization, especiall on the morning of WWDC, in which
+ many things may change.
+ */
+
 struct PeriMeleonDocument: FileDocument {
     enum State: Equatable {
         case noKey
