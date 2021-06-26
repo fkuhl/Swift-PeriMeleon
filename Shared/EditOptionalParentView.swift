@@ -45,7 +45,7 @@ struct ChooseParentListView: View {
     
     var body: some View {
         List {
-            ForEach(document.parentList(mustBeActive: true, sex: sex), id: \.id) {
+            ForEach(document.parentList(mustBeActive: true, sex: sex)) {
                 ChooseParentRowView(member: $0, chosenId: self.$parentId)
             }
         }

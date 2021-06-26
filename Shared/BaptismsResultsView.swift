@@ -38,7 +38,7 @@ struct BaptismsResultsView: View {
                 LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
                     Text("Member").font(.caption)
                     Text("Baptism").font(.caption)
-                    ForEach(members, id: \.id) {
+                    ForEach(members) {
                         Text(memberName(member: $0)).font(.body)
                         Text(baptism(member: $0)).font(.body)
                     }

@@ -25,7 +25,7 @@ struct MembersView: View {
                 List {
                     ForEach(allOrActive == 0
                                 ? document.activeMembers
-                                : document.members, id: \.id) {
+                                : document.members) {
                         MemberRowView(document: $document, memberId: $0.id)
                     }
                 }

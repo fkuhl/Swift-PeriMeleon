@@ -43,7 +43,7 @@ struct MembersByAgeResultsView: View {
                     Text("Date of birth").font(.caption)
                     Text("Status").font(.caption)
                     Text("Sex").font(.caption)
-                    ForEach(members, id: \.id) {
+                    ForEach(members) {
                         Text(memberName(member: $0)).font(.body)
                         Text(dob(member: $0)).font(.body)
                         Text($0.status.rawValue).font(.body)

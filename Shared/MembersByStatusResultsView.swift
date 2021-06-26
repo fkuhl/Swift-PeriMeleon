@@ -47,7 +47,7 @@ struct MembersByStatusResultsView: View {
                     Text("Authority").font(.caption)
                     Text("From/to church").font(.caption)
                     Text("Comment").font(.caption)
-                    ForEach(members, id: \.id) {
+                    ForEach(members) {
                         Text(memberName(member: $0)).font(.body)
                         Text(transactionDate(member: $0)).font(.body)
                         Text(transactionType(member: $0)).font(.body)

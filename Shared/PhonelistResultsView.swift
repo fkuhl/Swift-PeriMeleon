@@ -41,7 +41,7 @@ struct PhonelistResultsView: View {
                     Text("Member").font(.caption)
                     Text("Phone").font(.caption)
                     Text("Email").font(.caption)
-                    ForEach(members, id: \.id) {
+                    ForEach(members) {
                         Text(memberName(member: $0)).font(.body)
                         Text(phone(member: $0)).font(.body)
                         Text(email(member: $0)).font(.body)
