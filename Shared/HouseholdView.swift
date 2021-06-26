@@ -18,24 +18,34 @@ struct HouseholdView: View {
     var spouseFactory: HouseholdMemberFactoryDelegate
     var otherFactory: HouseholdMemberFactoryDelegate
     
+//    var body: some View {
+//        VStack {
+//            if replaceButtons {
+//                UnadornedHouseholdView(document: $document,
+//                                       household: $household,
+//                                       addressEditable: addressEditable,
+//                                       spouseFactory: self.spouseFactory,
+//                                       otherFactory: self.otherFactory)
+//                .navigationBarBackButtonHidden(true)
+//                .toolbar { }
+//            } else {
+//                UnadornedHouseholdView(document: $document,
+//                                       household: $household,
+//                                       addressEditable: addressEditable,
+//                                       spouseFactory: self.spouseFactory,
+//                                       otherFactory: self.otherFactory)
+//            }
+//        }
+//    }
+    
     var body: some View {
-        VStack {
-            if replaceButtons {
-                UnadornedHouseholdView(document: $document,
-                                       household: $household,
-                                       addressEditable: addressEditable,
-                                       spouseFactory: self.spouseFactory,
-                                       otherFactory: self.otherFactory)
-                .navigationBarBackButtonHidden(true)
-                .toolbar { }
-            } else {
-                UnadornedHouseholdView(document: $document,
-                                       household: $household,
-                                       addressEditable: addressEditable,
-                                       spouseFactory: self.spouseFactory,
-                                       otherFactory: self.otherFactory)
-            }
-        }
+        UnadornedHouseholdView(document: $document,
+                               household: $household,
+                               addressEditable: addressEditable,
+                               spouseFactory: self.spouseFactory,
+                               otherFactory: self.otherFactory)
+            .navigationBarBackButtonHidden(replaceButtons)
+        //.toolbar { }
     }
 }
 

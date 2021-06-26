@@ -22,13 +22,7 @@ struct InformationView: View {
             .padding()
             Spacer()
         }
-        //.navigationBarTitle("")
         .navigationBarHidden(true)
-        /**
-         Here you might expect a ProgressView that would appear when the library is reloaded.
-         There is already a ProgressView in the view hierarchy; see DataAvailableView.
-         And that one appears!
-         */
     }
     
     private var header: some View {
