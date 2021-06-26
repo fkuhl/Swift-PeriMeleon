@@ -14,11 +14,11 @@ struct EditOptionalParentView: View {
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
     var sex: Sex
-    @Binding var parentId: Id?
+    @Binding var parentId: ID?
     let title: String
     
     var body: some View {
-        let proxyBinding = Binding<Id> (
+        let proxyBinding = Binding<ID> (
             get: { self.parentId ?? ""  },
             set: { self.parentId = $0 })
         
@@ -39,7 +39,7 @@ struct EditOptionalParentView: View {
 
 struct ChooseParentListView: View {
     @Binding var document: PeriMeleonDocument
-    @Binding var parentId: Id
+    @Binding var parentId: ID
     var sex: Sex
     let title: String
     
@@ -60,7 +60,7 @@ struct ChooseParentListView: View {
 struct ChooseParentRowView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var member: Member
-    @Binding var chosenId: Id
+    @Binding var chosenId: ID
     
     var body: some View {
         HStack {

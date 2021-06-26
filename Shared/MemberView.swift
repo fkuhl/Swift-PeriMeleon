@@ -12,7 +12,7 @@ import PMDataTypes
 struct MemberView: View {
     
     @Binding var document: PeriMeleonDocument
-    var memberId: Id
+    var memberId: ID
     var editable = true
     @State private var isEditing = false
 

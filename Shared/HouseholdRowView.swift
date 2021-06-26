@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct HouseholdRowView: View {
     @Binding var document: PeriMeleonDocument
-    var householdId: Id
+    var householdId: ID
     
     var body: some View {
         NavigationLink(destination: HouseholdView(document: $document,

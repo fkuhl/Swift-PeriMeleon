@@ -15,6 +15,6 @@ import PMDataTypes
 
 class MoveToHouseholdAccumulator: ObservableObject {
     @Published var member = Member()
-    @Published var previousHouseholdId: Id = ""
-    @Published var newHouseholdId: Id = ""
+    @Published var previousHouseholdId: ID = ""
+    @Published var newHouseholdId: ID = ""
 }

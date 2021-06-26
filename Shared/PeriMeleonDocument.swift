@@ -46,8 +46,8 @@ struct PeriMeleonDocument: FileDocument {
 
     // MARK: - Data
     
-    private var householdsById = [Id : NormalizedHousehold]()
-    private var membersById = [Id : Member]()
+    private var householdsById = [ID : NormalizedHousehold]()
+    private var membersById = [ID : Member]()
     var households: [NormalizedHousehold] {
         var households = [NormalizedHousehold](householdsById.values)
         households.sort {
@@ -126,8 +126,8 @@ struct PeriMeleonDocument: FileDocument {
         } catch {
             NSLog("cannot decrypt: \(error.localizedDescription)")
             state = .cannotDecrypt
-            householdsById = [Id : NormalizedHousehold]()
-            membersById = [Id : Member]()
+            householdsById = [ID : NormalizedHousehold]()
+            membersById = [ID : Member]()
             return
         }
         do {
@@ -209,8 +209,8 @@ struct PeriMeleonDocument: FileDocument {
      - precondition: households has been decoded and set.
      */
     private mutating func normalize(decodedHouseholds: [Household]) {
-        householdsById = [Id : NormalizedHousehold]()
-        membersById = [Id : Member]()
+        householdsById = [ID : NormalizedHousehold]()
+        membersById = [ID : Member]()
         decodedHouseholds.forEach { household in
             var normalizedHousehold = NormalizedHousehold()
             normalizedHousehold.id = household.id
@@ -222,7 +222,7 @@ struct PeriMeleonDocument: FileDocument {
             } else {
                 normalizedHousehold.spouse = nil
             }
-            var normalizedOthers = [Id]()
+            var normalizedOthers = [ID]()
             household.others.forEach { other in
                 membersById[other.id] = other
                 normalizedOthers.append(other.id)
@@ -305,11 +305,11 @@ struct PeriMeleonDocument: FileDocument {
     
     //MARK: - Get data
     
-    func household(byId: Id) -> NormalizedHousehold {
+    func household(byId: ID) -> NormalizedHousehold {
         householdsById[byId] ?? NormalizedHousehold()
     }
     
-    func member(byId: Id) -> Member {
+    func member(byId: ID) -> Member {
         membersById[byId] ?? Member()
     }
     
@@ -317,13 +317,13 @@ struct PeriMeleonDocument: FileDocument {
         member(byId: household.head).fullName()
     }
     
-    func nameOf(household: Id) -> String {
+    func nameOf(household: ID) -> String {
         if let hh = householdsById[household] {
             return nameOf(household: hh)
         } else { return "[none]" }
     }
     
-    func nameOf(member: Id) -> String {
+    func nameOf(member: ID) -> String {
         if let mm = membersById[member] {
             return mm.fullName()
         } else { return "[none]" }

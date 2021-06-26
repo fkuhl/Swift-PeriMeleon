@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct MemberRowView: View {
     @Binding var document: PeriMeleonDocument
-    var memberId: Id
+    var memberId: ID
 
     var body: some View {
         NavigationLink(destination: MemberView(document: $document, memberId: memberId)) {

@@ -187,7 +187,7 @@ fileprivate func makeMember(from factory: HouseholdMemberFactoryDelegate?) -> Me
 
 fileprivate struct OtherRowView: View {
     @Binding var document: PeriMeleonDocument
-    var otherId: Id
+    var otherId: ID
     @Binding var household: NormalizedHousehold
     
     var body: some View {

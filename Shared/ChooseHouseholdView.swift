@@ -13,10 +13,10 @@ struct ChooseHouseholdView: View {
     @Binding var document: PeriMeleonDocument
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
-    @Binding var householdId: Id
+    @Binding var householdId: ID
     
     var body: some View {
-//        let localHouseholdId = Binding<Id> (
+//        let localHouseholdId = Binding<ID> (
 //            get: {
 //                NSLog("CHV get \(nameOfHousehold(self.householdId))")
 //                return self.householdId
@@ -43,7 +43,7 @@ struct ChooseHouseholdView: View {
 struct ChooseHouseholdListView: View {
     @Binding var document: PeriMeleonDocument
     @State private var allOrActive = 0
-    @Binding var householdId: Id
+    @Binding var householdId: ID
     
     var body: some View {
         VStack {
@@ -69,7 +69,7 @@ struct ChooseHouseholdRowView: View {
     @Binding var document: PeriMeleonDocument
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var household: NormalizedHousehold
-    @Binding var chosenId: Id
+    @Binding var chosenId: ID
     
     var body: some View {
         HStack {

@@ -14,10 +14,10 @@ import PMDataTypes
  of PeriMeleonDocument.
  */
 struct NormalizedHousehold {
-    var id: Id
-    var head: Id = ""
-    var spouse: Id? = nil
-    var others = [Id]()
+    var id: ID
+    var head: ID = ""
+    var spouse: ID? = nil
+    var others = [ID]()
     var address: Address? = nil
     
     public init() {
