@@ -30,7 +30,7 @@ struct FamilyJoinHouseholdPhaseView: View {
                 }
             }.padding()
             HouseholdView(document: $document,
-                          household: accumulator.addedHousehold,
+                          householdId: accumulator.addedHousehold.id,
                           replaceButtons: false,
                           spouseFactory: SpouseFactory(document: $document,
                                                        household: accumulator.addedHousehold),

@@ -25,16 +25,12 @@ struct MemberView: View {
                 memberEditDelegate: MemberViewEditDelegate(document: $document),
                 memberCancelDelegate: MemberViewCancelDelegate(),
                 isEditing: $isEditing)
-                //.transition(AnyTransition.scale.animation(.easeInOut(duration: 1)))
                 .transition(.move(edge: .trailing))
         } else {
             CoreMemberView(document: $document,
                            member: document.member(byId: memberId),
-                           memberEditDelegate: MemberViewEditDelegate(document: $document),
-                           memberCancelDelegate: MemberViewCancelDelegate(),
                            editable: self.editable,
                            isEditing: $isEditing)
-                //.transition(AnyTransition.scale.animation(.easeInOut(duration: 1)))
                 .transition(.move(edge: .trailing))
         }
             //.debugPrint("MemberView \(member.fullName())")
@@ -59,9 +55,3 @@ fileprivate class MemberViewEditDelegate: MemberEditDelegate {
 fileprivate class MemberViewCancelDelegate: MemberCancelDelegate {
     func cancel() { }
 }
-
-//struct MemberView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MemberView(member: member1)
-//    }
-//}

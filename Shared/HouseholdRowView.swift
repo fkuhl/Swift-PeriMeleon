@@ -15,7 +15,7 @@ struct HouseholdRowView: View {
     
     var body: some View {
         NavigationLink(destination: HouseholdView(document: $document,
-                                                  household: document.household(byId: householdId),
+                                                  householdId: householdId,
                                                   spouseFactory: SpouseFactory(document: $document, household: document.household(byId: householdId)),
                                                   otherFactory: OtherFactory(document: $document, household: document.household(byId: householdId)))) {
             Text(document.nameOf(household: householdId)).font(.body)
@@ -33,13 +33,15 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
     }
     
     func make() -> Member {
+        let head = document.wrappedValue.member(byId: household.head)
         var newval = Member()
         newval.household = self.household.id
         newval.givenName = "Spouse"
-        newval.familyName = document.wrappedValue.member(byId: self.household.head).familyName
+        newval.familyName = head.familyName
         newval.sex = .FEMALE
         newval.maritalStatus = .MARRIED
-        newval.spouse = document.wrappedValue.member(byId:self.household.head).fullName()
+        newval.dateOfMarriage = head.dateOfMarriage
+        newval.spouse = head.fullName()
         return newval
     }
 }

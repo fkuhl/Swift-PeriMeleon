@@ -12,8 +12,6 @@ import PMDataTypes
 struct CoreMemberView: View {
     @Binding var document: PeriMeleonDocument
     var member: Member
-    var memberEditDelegate: MemberEditDelegate
-    var memberCancelDelegate: MemberCancelDelegate
     var editable = true
     @Binding var isEditing: Bool
     
@@ -112,7 +110,7 @@ struct CoreMemberView: View {
     }
     
     private var editButton: some View {
-        VStack {  //a syntactic wart!
+        Group {
             if editable {
                 Button(action: {
                     withAnimation(.easeInOut(duration: editAnimationDuration)) { isEditing = true }

@@ -9,16 +9,10 @@
 import SwiftUI
 import PMDataTypes
 
-protocol AddressEditDelegate {
-    var document: Binding<PeriMeleonDocument> { get }
-
-    func store(address: Address, in household: Binding<NormalizedHousehold>) -> Void
-}
-
 struct AddressEditView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    var addressEditDelegate: AddressEditDelegate
-    @Binding var household: NormalizedHousehold
+    @Binding var document: PeriMeleonDocument
+    var householdId: ID
     @State var address: Address
 
     var body: some View {
@@ -49,8 +43,11 @@ struct AddressEditView: View {
     
     private var saveButton: some View {
         Button(action: {
+            NSLog("AEV save addr: \(address.address ?? "") / \(address.city ?? "")")
             self.presentationMode.wrappedValue.dismiss()
-            self.addressEditDelegate.store(address: self.address, in: self.$household)
+            var household = document.household(byId: householdId)
+            household.address = address
+            document.update(household: household)
         }) {
             Text("Save + Finish").font(.body)
         }
