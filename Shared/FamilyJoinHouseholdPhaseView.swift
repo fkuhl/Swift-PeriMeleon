@@ -13,7 +13,6 @@ struct FamilyJoinHouseholdPhaseView: View {
     @Binding var document: PeriMeleonDocument
     @Binding var accumulator: FamilyJoinAccumulator
     @Binding var linkSelection: WorkflowLink?
-    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack {
@@ -23,7 +22,6 @@ struct FamilyJoinHouseholdPhaseView: View {
                     NSLog("FJTPV Finish")
                     accumulator.phase = .reset
                     linkSelection = nil //ensure WorkflowsView can go again
-                    presentationMode.wrappedValue.dismiss() //dismiss FamilyJoinView?
                     
                 }) {
                     Text("Finish").font(.body)

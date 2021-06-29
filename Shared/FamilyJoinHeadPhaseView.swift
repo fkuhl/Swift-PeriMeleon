@@ -28,7 +28,7 @@ struct FamilyJoinHeadPhaseView: View {
 /**
  Delegate implementation used only by this View.
  */
-class FamilyJoinEditDelegate: MemberEditDelegate {
+fileprivate class FamilyJoinEditDelegate: MemberEditDelegate {
     var document: Binding<PeriMeleonDocument>
     var accumulator: Binding<FamilyJoinAccumulator>
     
@@ -54,7 +54,7 @@ class FamilyJoinEditDelegate: MemberEditDelegate {
     }
 }
 
-class FamilyJoinCancelDelegate: MemberCancelDelegate {
+fileprivate class FamilyJoinCancelDelegate: MemberCancelDelegate {
     var accumulator: Binding<FamilyJoinAccumulator>
     
     init(accumulator: Binding<FamilyJoinAccumulator>) {
