@@ -52,11 +52,13 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
     func make() -> Member {
         var newval = Member()
         NSLog("made spouse \(newval.id)")
+        let head = document.wrappedValue.member(byId: household.head)
         newval.household = self.household.id
         newval.givenName = "Spouse"
-        newval.familyName = document.wrappedValue.member(byId: household.head).familyName
+        newval.familyName = head.familyName
         newval.sex = .FEMALE
         newval.maritalStatus = .MARRIED
+        newval.dateOfMarriage = head.dateOfMarriage
         newval.spouse = document.wrappedValue.nameOf(member: household.head)
         if let trans = document.wrappedValue.member(byId: household.head).transactions.first {
             newval.transactions.append(trans)
@@ -81,17 +83,17 @@ fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
         var newval = Member()
         newval.household = household.id
         newval.givenName = "No. \(household.others.count + 1)"
-        newval.familyName = document.wrappedValue.member(byId: household.head).familyName
+        let head = document.wrappedValue.member(byId: household.head)
+        newval.familyName = head.familyName
         newval.status = .NONCOMMUNING
-        if let trans = document.wrappedValue.member(byId: household.head).transactions.first {
+        if let trans = head.transactions.first {
             newval.transactions.append(trans)
         }
-        newval.father = document.wrappedValue.member(byId: household.head).id
+        newval.father = head.id
         if let mom = household.spouse {
             newval.mother = document.wrappedValue.member(byId: mom).id
         }
         document.wrappedValue.add(member: newval)
-        //updating the household happens in OtherAddView?
         return newval
     }
 }
