@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct FamilyJoinTransactionPhaseView: View {
     @Binding var accumulator: FamilyJoinAccumulator
-    @Binding var linkSelection: String?
+    @Binding var linkSelection: WorkflowLink?
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {

@@ -12,11 +12,11 @@ import PMDataTypes
 struct FamilyJoinView: View {
     @Binding var document: PeriMeleonDocument
     @Environment(\.presentationMode) var presentationMode
-    @Binding var linkSelection: String?
+    @Binding var linkSelection: WorkflowLink?
     @State private var accumulator = FamilyJoinAccumulator()
 
     var body: some View {
-        VStack {
+        Group {
             switch accumulator.phase {
             case .transaction:
                 FamilyJoinTransactionPhaseView(accumulator: $accumulator, linkSelection: $linkSelection)
@@ -37,7 +37,6 @@ struct FamilyJoinView: View {
         //We're not using navigation in subsequent views, so no nav buttons
         //Not altogether clear I need to be doing this
         .toolbar { }
-        //.navigationBarItems(leading: EmptyView(), trailing:EmptyView())
         .navigationBarBackButtonHidden(true)
     }
 }
