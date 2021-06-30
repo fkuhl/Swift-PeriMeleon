@@ -9,8 +9,6 @@
 import SwiftUI
 import PMDataTypes
 
-let mockDocument = Binding.constant(PeriMeleonDocument())
-
 fileprivate func makeTrans() -> PMDataTypes.Transaction {
     var trans = PMDataTypes.Transaction()
     trans.date = Date()
@@ -63,6 +61,21 @@ let mockAddress = Address(
     postalCode: "54321"
 )
 
-var mockHousehold = NormalizedHousehold()
+var mockHousehold = NormalizedHousehold(
+    id: "abc",
+    head: mockMember1.id,
+    spouse: mockMember2.id,
+    others: [ID](),
+    address: mockAddress
+)
 
+fileprivate func makeDocument() -> PeriMeleonDocument {
+    var doc = PeriMeleonDocument()
+    doc.add(member: mockMember1)
+    doc.add(member: mockMember2)
+    doc.add(household: mockHousehold)
+    return doc
+}
+
+let mockDocument = Binding.constant(makeDocument())
 

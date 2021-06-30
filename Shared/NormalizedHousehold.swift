@@ -23,4 +23,19 @@ struct NormalizedHousehold {
     public init() {
         self.id = UUID().uuidString
     }
+    
+    ///For mocking
+    init(
+        id: ID,
+        head: ID,
+        spouse: ID,
+        others: [ID],
+        address: Address?)
+    {
+        self.id = id
+        self.head = head
+        self.spouse = spouse
+        self.others = others
+        self.address = address
+    }
 }

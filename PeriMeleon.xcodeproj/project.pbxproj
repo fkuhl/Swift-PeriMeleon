@@ -106,6 +106,8 @@
 		27BC8CC0253B6B7700520F54 /* NormalizedHousehold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC8CBE253B6B7700520F54 /* NormalizedHousehold.swift */; };
 		27BC9304265D885C00C39B0B /* ExplainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC9303265D885C00C39B0B /* ExplainError.swift */; };
 		27BC9305265D885C00C39B0B /* ExplainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC9303265D885C00C39B0B /* ExplainError.swift */; };
+		27BF5798268BAE0700BEE938 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BF5797268BAE0700BEE938 /* SearchField.swift */; };
+		27BF5799268BAE0700BEE938 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BF5797268BAE0700BEE938 /* SearchField.swift */; };
 		27C55E112538CE0100923EE8 /* CompactToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E0C2538CE0100923EE8 /* CompactToggleView.swift */; };
 		27C55E122538CE0100923EE8 /* CompactToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E0C2538CE0100923EE8 /* CompactToggleView.swift */; };
 		27C55E132538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E0D2538CE0100923EE8 /* MembersByStatusResultsView.swift */; };
@@ -238,6 +240,7 @@
 		27B20DDF2529142900C80696 /* AddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		27BC8CBE253B6B7700520F54 /* NormalizedHousehold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalizedHousehold.swift; sourceTree = "<group>"; };
 		27BC9303265D885C00C39B0B /* ExplainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainError.swift; sourceTree = "<group>"; };
+		27BF5797268BAE0700BEE938 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
 		27C55E0C2538CE0100923EE8 /* CompactToggleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompactToggleView.swift; sourceTree = "<group>"; };
 		27C55E0D2538CE0100923EE8 /* MembersByStatusResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByStatusResultsView.swift; sourceTree = "<group>"; };
 		27C55E0E2538CE0100923EE8 /* QueriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueriesView.swift; sourceTree = "<group>"; };
@@ -425,6 +428,7 @@
 				27FD5AE0254DDC4F0086F120 /* IntegerTextField.swift */,
 				275AF2A4258D09540007CF0C /* View+debug.swift */,
 				273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */,
+				27BF5797268BAE0700BEE938 /* SearchField.swift */,
 			);
 			name = Styling;
 			sourceTree = "<group>";
@@ -753,6 +757,7 @@
 				27415C07266BB66900C1FB6E /* BaptismsView.swift in Sources */,
 				27C55E462538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9528254223C20032638A /* Member+Age.swift in Sources */,
+				27BF5798268BAE0700BEE938 /* SearchField.swift in Sources */,
 				27B20DC12529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */,
 				278C1666265955DF003CEC13 /* MainView.swift in Sources */,
@@ -868,6 +873,7 @@
 				277C9531254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAF2529113B00C80696 /* MemberRowView.swift in Sources */,
 				27C55E312538E67700923EE8 /* WorkflowsView.swift in Sources */,
+				27BF5799268BAE0700BEE938 /* SearchField.swift in Sources */,
 				273A79EC2662CA0100CC55A0 /* NavigationStylingModifier.swift in Sources */,
 				277C95122540DC230032638A /* PreviewProviderModifier.swift in Sources */,
 				27C55E122538CE0100923EE8 /* CompactToggleView.swift in Sources */,
@@ -1050,7 +1056,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
@@ -1076,7 +1082,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
