@@ -35,6 +35,7 @@
           "value" : "light"
         }
       ],
+      "filename" : "nat.papyrus.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -45,6 +46,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "nat.papyrus-dark.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -59,7 +61,6 @@
           "value" : "light"
         }
       ],
-      "filename" : "nat.papyrus.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -70,7 +71,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "nat.papyrus-dark.jpeg",
       "idiom" : "universal",
       "scale" : "3x"
     }
