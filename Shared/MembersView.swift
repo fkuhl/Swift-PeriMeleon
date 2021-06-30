@@ -25,7 +25,8 @@ struct MembersView: View, FilterUpdater {
                            content: {
                             Text("Active Members").tag(0)
                             Text("All Members").tag(1)
-                           }).pickerStyle(SegmentedPickerStyle())
+                           })
+                        .pickerStyle(SegmentedPickerStyle())
                         .onChange(of: allOrActive) { _ in updateUI(filterText: filterText) }
                     SearchField(filterText: $filterText,
                                 uiUpdater: self,

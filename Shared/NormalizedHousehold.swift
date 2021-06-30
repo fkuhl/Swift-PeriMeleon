@@ -13,14 +13,14 @@ import PMDataTypes
  Instead a NormalizedHousehold stores an Id string that indexes into the membersById dictionary
  of PeriMeleonDocument.
  */
-struct NormalizedHousehold {
+struct NormalizedHousehold: Identifiable {
     var id: ID
     var head: ID = ""
     var spouse: ID? = nil
     var others = [ID]()
     var address: Address? = nil
     
-    public init() {
+    init() {
         self.id = UUID().uuidString
     }
     
