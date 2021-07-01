@@ -58,8 +58,7 @@ struct HouseholdView: View {
     private var headDestination: some View {
         MemberView(
             document: $document,
-            memberId: document.household(byId: householdId).head,
-            editable: true)
+            memberId: document.household(byId: householdId).head)
     }
     
     private var headLink: some View {
@@ -69,8 +68,7 @@ struct HouseholdView: View {
     
     private var spouseDestination: some View {
         MemberView(document: $document,
-                   memberId: document.household(byId: householdId).spouse!,
-                   editable: true)
+                   memberId: document.household(byId: householdId).spouse!)
     }
     
     private var spouseLink: some View {
@@ -176,8 +174,7 @@ fileprivate struct OtherRowView: View {
     var body: some View {
         NavigationLink(destination: MemberView(
                         document: $document,
-                        memberId: memberId,
-                        editable: true)) {
+                        memberId: memberId)) {
             MemberLinkView(captionWidth: defaultCaptionWidth,
                            caption: "",
                            name: document.nameOf(member: memberId))

@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct CoreMemberView: View {
     @Binding var document: PeriMeleonDocument
-    var member: Member
+    @State var member: Member
     var editable = true
     @Binding var isEditing: Bool
     
