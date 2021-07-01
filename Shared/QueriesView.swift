@@ -10,36 +10,37 @@ import SwiftUI
 
 struct QueriesView: View {
     @Binding var document: PeriMeleonDocument
-
+    
     var body: some View {
-        NavigationView {
-            List {
-                Section(header: Text("Phone list")) {
-                    NavigationLink(destination: PhonelistView(document: $document)) {
-                        Text("Phone list").font(.body)
-                    }
-                }
-                Section(header: Text("Members")) {
-                    NavigationLink(destination: MembersByStatusView(document: $document)) {
-                        Text("Members by status").font(.body)
-                    }
-                    NavigationLink(destination: MembersByAgeView(document: $document)) {
-                        Text("Members by age").font(.body)
-                    }
-                    NavigationLink(destination: BirthdaysView(document: $document)) {
-                        Text("Birthdays").font(.body)
-                    }
-                    NavigationLink(destination: BaptismsView(document: $document)) {
-                        Text("Baptisms").font(.body)
-                    }
-                }
+        Section(header: Text("Phone list").font(.headline)) {
+            NavigationLink(destination: PhonelistView(document: $document)) {
+                LinkText(label: "Phone list")
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                        ToolbarItem(placement: .principal, content: {
-                            Text("Queries")
-                        })})
-            .listStyle(GroupedListStyle())
+        }
+        Section(header: Text("Members").font(.headline)) {
+            NavigationLink(destination: MembersByStatusView(document: $document)) {
+                LinkText(label: "Members by status")
+            }
+            NavigationLink(destination: MembersByAgeView(document: $document)) {
+                LinkText(label: "Members by age")
+            }
+            NavigationLink(destination: BirthdaysView(document: $document)) {
+                LinkText(label: "Birthdays")
+            }
+            NavigationLink(destination: BaptismsView(document: $document)) {
+                LinkText(label: "Baptisms")
+            }
+        }
+    }
+
+    fileprivate struct LinkText: View {
+        var label: String
+        
+        var body: some View {
+            HStack {
+                Text("\(label) \(Image(systemName: "chevron.forward"))").font(.body)
+                Spacer()
+            }
         }
     }
 }

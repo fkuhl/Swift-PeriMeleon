@@ -21,59 +21,51 @@ struct WorkflowsView: View {
     @State private var linkSelection: WorkflowLink? = nil
     
     var body: some View {
-        NavigationView {
-            List {
-                Section(header: Text("Families")) {
-                    NavigationLink(destination: FamilyJoinView(document: $document,
-                                                               linkSelection: $linkSelection),
-                                   tag: .familyJoins,
-                                   selection: $linkSelection) {
-                        Button(action: { self.linkSelection = .familyJoins }) {
-                            Text("Family joins").font(.body)
-                        }
-                    }
-                }
-                Section(header: Text("Members")) {
-                    NavigationLink(destination: MoveToHouseholdView(document: $document),
-                                   tag: .moveToHousehold,
-                                   selection: $linkSelection) {
-                        Button(action: {
-                            // TODO initialize move accum
-                            self.linkSelection = .moveToHousehold
-                        }) {
-                            Text("Member moves to different household").font(.body)
-                        }
-                    }
-                }
-                Section(header: Text("Miscellaneous")) {
-                    NavigationLink(destination: dataCheckerView,
-                                   tag: .dataChecker,
-                                   selection: $linkSelection) {
-                        Button(action: { self.linkSelection = .dataChecker }) {
-                            Text("Data checker").font(.body)
-                        }
-                    }
-                    NavigationLink(destination: InformationView(document: $document),
-                                   tag: .information,
-                                   selection: $linkSelection) {
-                        Button(action: { self.linkSelection = .information }) {
-                            Text("Information").font(.body)
-                        }
-                    }
-                }
+        Section(header: Text("Families").font(.headline)) {
+            NavigationLink(destination: FamilyJoinView(document: $document,
+                                                       linkSelection: $linkSelection),
+                           tag: .familyJoins,
+                           selection: $linkSelection) {
+                LinkButton(linkSelection: $linkSelection, link: .familyJoins, label: "Family joins")
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                        ToolbarItem(placement: .principal, content: {
-                            Text("Workflow Types")
-                        })})
-            .listStyle(GroupedListStyle())
         }
-            //A little odd having this here, but make sense:
-            //this object will be referred to throughout the navigation.
-        .environmentObject(moveToHouseholdAccumulator)
+        Section(header: Text("Members").font(.headline)) {
+            NavigationLink(destination: MoveToHouseholdView(document: $document),
+                           tag: .moveToHousehold,
+                           selection: $linkSelection) {
+                LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Member moves to different household")
+            }
+        }
+        Section(header: Text("Miscellaneous").font(.headline)) {
+            NavigationLink(destination: dataCheckerView,
+                           tag: .dataChecker,
+                           selection: $linkSelection) {
+                LinkButton(linkSelection: $linkSelection, link: .dataChecker, label: "Data checker")
+            }
+            NavigationLink(destination: InformationView(document: $document),
+                           tag: .information,
+                           selection: $linkSelection) {
+                LinkButton(linkSelection: $linkSelection, link: .information, label: "Information")
+                
+            }
+        }
     }
-    
+
+    fileprivate struct LinkButton: View {
+        @Binding var linkSelection: WorkflowLink?
+        var link: WorkflowLink
+        var label: String
+        
+        var body: some View {
+            HStack {
+                Button(action: { linkSelection = link }) {
+                    Text("\(label) \(Image(systemName: "chevron.forward"))").font(.body)
+                }
+                Spacer()
+            }
+        }
+    }
+
     private var dataCheckerView: some View {
         DataCheckerView(document: $document,
                         dataChecker: DataChecker(document: $document))

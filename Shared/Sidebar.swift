@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Sidebar: View {
     @Binding var document: PeriMeleonDocument
+    @State private var linkSelection: WorkflowLink? = nil
 
     var body: some View {
         List {
@@ -18,12 +19,19 @@ struct Sidebar: View {
             NavigationLink(destination: HouseholdsView(document: $document)) {
                 Label("Households", systemImage: "house")
             }
-            NavigationLink(destination: WorkflowsView(document: $document)) {
+            DisclosureGroup(content: {
+                WorkflowsView(document: $document)
+            }, label: {
                 Label("Workflows", systemImage: "gearshape.2")
-            }
-            NavigationLink(destination: QueriesView(document: $document)) {
+            }).frame(width: 300)
+            DisclosureGroup(content: {
+                QueriesView(document: $document)
+            }, label: {
                 Label("Queries", systemImage: "magnifyingglass")
-            }
+            }).frame(width: 300)
+//            NavigationLink(destination: QueriesView(document: $document)) {
+//                Label("Queries", systemImage: "magnifyingglass")
+//            }
         }
         .listStyle(SidebarListStyle())
     }
