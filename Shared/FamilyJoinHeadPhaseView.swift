@@ -13,6 +13,7 @@ struct FamilyJoinHeadPhaseView: View {
     @Binding var document: PeriMeleonDocument
     @Binding var accumulator: FamilyJoinAccumulator
     @State private var isEditing = false //not used in FamilyJoin
+    @State private var changeCount = 0
 
     var body: some View {
         MemberEditView(
@@ -21,7 +22,8 @@ struct FamilyJoinHeadPhaseView: View {
             memberEditDelegate: FamilyJoinEditDelegate(document: $document,
                                                        accumulator: $accumulator),
             memberCancelDelegate: FamilyJoinCancelDelegate(accumulator: $accumulator),
-            isEditing: $isEditing)
+            isEditing: $isEditing,
+            changeCount: $changeCount)
     }
 }
 

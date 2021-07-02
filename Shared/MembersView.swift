@@ -15,6 +15,7 @@ struct MembersView: View, FilterUpdater {
     @State private var allOrActive = 0
     @State private var members: [Member] = []
     @State private var filterText: String = ""
+    @State private var changeCount = 0
     
     var body: some View {
         NavigationView {
@@ -34,7 +35,9 @@ struct MembersView: View, FilterUpdater {
                 }.padding()
                 List {
                     ForEach(members) {
-                        MemberRowView(document: $document, memberId: $0.id)
+                        MemberRowView(document: $document,
+                                      memberId: $0.id,
+                                      changeCount: $changeCount)
                     }
                 }
             }

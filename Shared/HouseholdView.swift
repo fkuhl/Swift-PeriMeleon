@@ -17,6 +17,7 @@ struct HouseholdView: View {
     var replaceButtons = false
     var spouseFactory: HouseholdMemberFactoryDelegate
     var otherFactory: HouseholdMemberFactoryDelegate
+    @State private var changeCount = 0
 
     var body: some View {
         Form {
@@ -30,11 +31,14 @@ struct HouseholdView: View {
             }
             Section(header: Text("Dependents").font(.callout).italic()) {
                 ForEach(document.household(byId: householdId).others, id: \.self) {
-                    OtherRowView(document: $document, memberId: $0)
+                    OtherRowView(document: $document,
+                                 memberId: $0,
+                                 changeCount: $changeCount)
                 }
                 OtherAddView(document: $document,
                              otherFactory: otherFactory,
-                             householdId: householdId)
+                             householdId: householdId,
+                             changeCount: $changeCount)
             }
             Section(header: Text("Address").font(.callout).italic()) {
                 if nugatory(document.household(byId: householdId).address) {
@@ -43,7 +47,7 @@ struct HouseholdView: View {
                     }
                 } else {
                     NavigationLink(destination: addressDestination) {
-                        AddressLinkView(household: document.household(byId: householdId))
+                        AddressLinkView(document: $document, householdId: householdId)
                     }
                 }
             }
@@ -58,7 +62,8 @@ struct HouseholdView: View {
     private var headDestination: some View {
         MemberView(
             document: $document,
-            memberId: document.household(byId: householdId).head)
+            memberId: document.household(byId: householdId).head,
+            changeCount: $changeCount)
     }
     
     private var headLink: some View {
@@ -68,7 +73,8 @@ struct HouseholdView: View {
     
     private var spouseDestination: some View {
         MemberView(document: $document,
-                   memberId: document.household(byId: householdId).spouse!)
+                   memberId: document.household(byId: householdId).spouse!,
+                   changeCount: $changeCount)
     }
     
     private var spouseLink: some View {
@@ -82,18 +88,21 @@ struct HouseholdView: View {
         var changingHousehold = document.household(byId: householdId)
         changingHousehold.spouse = newSpouse.id
         document.update(household: changingHousehold)
+        changeCount += 1
     }
     
     private var newAddressDestination: some View {
         AddressEditView(document: $document,
                         householdId: householdId,
-                        address: Address())
+                        address: Address(),
+                        changeCount: $changeCount)
     }
     
     private var addressDestination: some View {
         AddressEditView(document: $document,
                         householdId: householdId,
-                        address: document.household(byId: householdId).address!)
+                        address: document.household(byId: householdId).address!,
+                        changeCount: $changeCount)
     }
 }
 
@@ -115,7 +124,7 @@ class PreviewHouseholdMemberFactoryDelegate: HouseholdMemberFactoryDelegate {
 
 /**
  For PreviewProviderModifier, see:
-https://www.avanderlee.com/swiftui/previews-different-states/?utm_source=SwiftLee+-+Subscribers&utm_campaign=62bdcb91d7-EMAIL_CAMPAIGN_2020_03_02_08_48_COPY_01&utm_medium=email&utm_term=0_e154f6bfee-62bdcb91d7-367632929
+https://www.avanderlee.com/swiftui/previews-different-states/
 */
 struct HouseholdView_Previews: PreviewProvider {
     static var previews: some View {
@@ -136,10 +145,11 @@ struct HouseholdView_Previews: PreviewProvider {
 //MARK: - Address
 
 fileprivate struct AddressLinkView: View {
-    var household: NormalizedHousehold
+    @Binding var document: PeriMeleonDocument
+    @State var householdId: ID
     
     var body: some View {
-        Text(household.address?.addressForDisplay() ?? "[none]").font(.body)
+        Text(document.household(byId: householdId).address?.addressForDisplay() ?? "[none]").font(.body)
     }
 }
 
@@ -170,15 +180,17 @@ fileprivate struct MemberLinkView: View {
 fileprivate struct OtherRowView: View {
     @Binding var document: PeriMeleonDocument
     var memberId: ID
+    @Binding var changeCount: Int
     
     var body: some View {
         NavigationLink(destination: MemberView(
                         document: $document,
-                        memberId: memberId)) {
+                        memberId: memberId,
+                        changeCount: $changeCount)) {
             MemberLinkView(captionWidth: defaultCaptionWidth,
                            caption: "",
                            name: document.nameOf(member: memberId))
-        }
+        }.debugPrint("ORV for \(document.nameOf(member: memberId))")
     }
 }
 
@@ -186,6 +198,7 @@ fileprivate struct OtherAddView: View {
     @Binding var document: PeriMeleonDocument
     var otherFactory: HouseholdMemberFactoryDelegate
     var householdId: ID
+    @Binding var changeCount: Int
     
     var body: some View {
         Button(action: {
@@ -199,6 +212,7 @@ fileprivate struct OtherAddView: View {
             others.append(newOther.id)
             household.others = others
             document.update(household: household)
+            changeCount += 1
             NSLog("OAV hh \(document.nameOf(household: household.id)) has \(household.others.count) others")
         }) {
             Image(systemName: "plus").font(.body)

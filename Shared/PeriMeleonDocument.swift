@@ -24,8 +24,8 @@ extension UTType {
  so the snapshot would be the encoded and encrypted data.
  See https://medium.com/@acwrightdesign/using-referencefiledocument-in-swiftui-e54ef75a14b8
  
- But making this a ReferenceFileDocument is likely a premature optimization, especiall on the morning of WWDC, in which
- many things may change.
+ But making this a ReferenceFileDocument is likely a premature optimization, especially on the morning of WWDC, in which
+ many things may change. [Narrator: No changes were announced at WWDC 2021.]
  */
 
 struct PeriMeleonDocument: FileDocument {
