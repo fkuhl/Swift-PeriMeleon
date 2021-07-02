@@ -24,6 +24,7 @@ struct MemberEditView: View {
     var memberEditDelegate: MemberEditDelegate
     var memberCancelDelegate: MemberCancelDelegate
     @Binding var isEditing: Bool
+    @Binding var changeCount: Int
 
     var body: some View {
         Form {
@@ -105,6 +106,7 @@ struct MemberEditView: View {
     
     private var saveButton: some View {
         Button(action: {
+            changeCount += 1
             NSLog("MEV Save Member \(member.fullName())")
             withAnimation(.easeInOut(duration: editAnimationDuration)) {
                 isEditing = false
