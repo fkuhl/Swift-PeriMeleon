@@ -48,6 +48,7 @@ struct PeriMeleonDocument: FileDocument {
     
     private var householdsById = [ID : NormalizedHousehold]() {
         didSet {
+            //Recomputing households and activeHouseholds assumes membersById already set.
             var newHouseholds = [NormalizedHousehold](householdsById.values)
             newHouseholds.sort {
                 membersById[$0.head]?.fullName() ?? "" < membersById[$1.head]?.fullName() ?? ""
