@@ -17,6 +17,11 @@ struct HouseholdView: View {
     var replaceButtons = false
     var spouseFactory: HouseholdMemberFactoryDelegate
     var otherFactory: HouseholdMemberFactoryDelegate
+    /**
+     Passing this changeCount to subordinate views seems to make this view update properly
+     if they change data and bump up the changeCount.
+     I don't understand why just changing the document doesn't have this effect.
+     */
     @State private var changeCount = 0
 
     var body: some View {
@@ -190,7 +195,7 @@ fileprivate struct OtherRowView: View {
             MemberLinkView(captionWidth: defaultCaptionWidth,
                            caption: "",
                            name: document.nameOf(member: memberId))
-        }.debugPrint("ORV for \(document.nameOf(member: memberId))")
+        }//.debugPrint("ORV for \(document.nameOf(member: memberId))")
     }
 }
 
@@ -208,6 +213,7 @@ fileprivate struct OtherAddView: View {
             // This looks roundabout. But making a new array and adding
             // it back to the household makes it look new to SWiftUI,
             // causing a view update.
+            // --except it doesn't; hence addition of changeCount.
             var others = household.others
             others.append(newOther.id)
             household.others = others
