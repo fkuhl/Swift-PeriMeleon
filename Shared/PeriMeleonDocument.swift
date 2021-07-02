@@ -46,26 +46,28 @@ struct PeriMeleonDocument: FileDocument {
 
     // MARK: - Data
     
-    private var householdsById = [ID : NormalizedHousehold]()
-    private var membersById = [ID : Member]()
-    var households: [NormalizedHousehold] {
-        var households = [NormalizedHousehold](householdsById.values)
-        households.sort {
-            membersById[$0.head]?.fullName() ?? "" < membersById[$1.head]?.fullName() ?? ""
+    private var householdsById = [ID : NormalizedHousehold]() {
+        didSet {
+            var newHouseholds = [NormalizedHousehold](householdsById.values)
+            newHouseholds.sort {
+                membersById[$0.head]?.fullName() ?? "" < membersById[$1.head]?.fullName() ?? ""
+            }
+            households = newHouseholds
+            activeHouseholds = households.filter { membersById[$0.head]?.isActive() ?? false }
         }
-        return households
     }
-    var activeHouseholds: [NormalizedHousehold] {
-        households.filter { membersById[$0.head]?.isActive() ?? false }
+    private var membersById = [ID : Member]() {
+        didSet {
+            var newMembers = [Member](membersById.values)
+            newMembers.sort{ $0.fullName() < $1.fullName() }
+            members = newMembers
+            activeMembers = members.filter{ $0.isActive() }
+        }
     }
-    var members: [Member] {
-        var members = [Member](membersById.values)
-        members.sort{ $0.fullName() < $1.fullName() }
-        return members
-    }
-    var activeMembers: [Member] {
-        members.filter{ $0.isActive() }
-    }
+    var households = [NormalizedHousehold]()
+    var activeHouseholds = [NormalizedHousehold]()
+    var members = [Member]()
+    var activeMembers = [Member]()
     var state: State = .normal
     private var key: SymmetricKey? = nil
     
@@ -209,28 +211,33 @@ struct PeriMeleonDocument: FileDocument {
      - precondition: households has been decoded and set.
      */
     private mutating func normalize(decodedHouseholds: [Household]) {
-        householdsById = [ID : NormalizedHousehold]()
-        membersById = [ID : Member]()
+        var newHouseholdsById = [ID : NormalizedHousehold]()
+        var newMembersById = [ID : Member]()
         decodedHouseholds.forEach { household in
             var normalizedHousehold = NormalizedHousehold()
             normalizedHousehold.id = household.id
-            membersById[household.head.id] = household.head
+            newMembersById[household.head.id] = household.head
             normalizedHousehold.head = household.head.id
             if let spouse = household.spouse {
-                membersById[spouse.id] = spouse
+                newMembersById[spouse.id] = spouse
                 normalizedHousehold.spouse = spouse.id
             } else {
                 normalizedHousehold.spouse = nil
             }
             var normalizedOthers = [ID]()
             household.others.forEach { other in
-                membersById[other.id] = other
+                newMembersById[other.id] = other
                 normalizedOthers.append(other.id)
             }
             normalizedHousehold.others = normalizedOthers
             normalizedHousehold.address = household.address
-            householdsById[household.id] = normalizedHousehold
+            newHouseholdsById[household.id] = normalizedHousehold
         }
+        //Now that complete indexes have been computed, set the struct members.
+        //Order is significant: setting households assumes members already set.
+        //Sketchy!
+        membersById = newMembersById
+        householdsById = newHouseholdsById
     }
     
     /**
