@@ -16,8 +16,12 @@ struct HouseholdRowView: View {
     var body: some View {
         NavigationLink(destination: HouseholdView(document: $document,
                                                   householdId: householdId,
-                                                  spouseFactory: SpouseFactory(document: $document, household: document.household(byId: householdId)),
-                                                  otherFactory: OtherFactory(document: $document, household: document.household(byId: householdId)))) {
+                                                  spouseFactory: SpouseFactory(
+                                                    document: $document,
+                                                    householdId: householdId),
+                                                  otherFactory: OtherFactory(
+                                                    document: $document,
+                                                    householdId: householdId))) {
             Text(document.nameOf(household: householdId)).font(.body)
         }
     }
@@ -25,17 +29,18 @@ struct HouseholdRowView: View {
 
 fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
     var document: Binding<PeriMeleonDocument>
-    let household: NormalizedHousehold
+    let householdId: ID
     
-    init(document: Binding<PeriMeleonDocument>, household: NormalizedHousehold) {
+    init(document: Binding<PeriMeleonDocument>, householdId: ID) {
         self.document = document
-        self.household = household
+        self.householdId = householdId
     }
     
     func make() -> Member {
+        let household = document.wrappedValue.household(byId: householdId)
         let head = document.wrappedValue.member(byId: household.head)
         var newval = Member()
-        newval.household = self.household.id
+        newval.household = household.id
         newval.givenName = "Spouse"
         newval.familyName = head.familyName
         newval.sex = .FEMALE
@@ -48,29 +53,24 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
 
 fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
     var document: Binding<PeriMeleonDocument>
-    let household: NormalizedHousehold
+    let householdId: ID
     
-    init(document: Binding<PeriMeleonDocument>, household: NormalizedHousehold) {
+    init(document: Binding<PeriMeleonDocument>, householdId: ID) {
         self.document = document
-        self.household = household
+        self.householdId = householdId
     }
     
     func make() -> Member {
+        let household = document.wrappedValue.household(byId: householdId)
         var newval = Member()
-        newval.household = self.household.id
-        newval.givenName = "No. \(self.household.others.count + 1)"
-        newval.familyName = document.wrappedValue.member(byId: self.household.head).familyName
+        newval.household = household.id
+        newval.givenName = "No. \(household.others.count + 1)"
+        newval.familyName = document.wrappedValue.member(byId: household.head).familyName
         newval.status = .NONCOMMUNING
-        newval.father = document.wrappedValue.member(byId: self.household.head).id
-        if let mom = self.household.spouse {
+        newval.father = document.wrappedValue.member(byId: household.head).id
+        if let mom = household.spouse {
             newval.mother = document.wrappedValue.member(byId: mom).id
         }
         return newval
     }
 }
-
-//struct HouseholdRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HouseholdRowView()
-//    }
-//}

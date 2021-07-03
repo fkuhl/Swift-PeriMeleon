@@ -30,28 +30,31 @@ struct FamilyJoinHouseholdPhaseView: View {
             HouseholdView(document: $document,
                           householdId: accumulator.addedHousehold.id,
                           replaceButtons: false,
-                          spouseFactory: SpouseFactory(document: $document,
-                                                       household: accumulator.addedHousehold),
-                          otherFactory: OtherFactory(document: $document,
-                                                     household: accumulator.addedHousehold))
+                          spouseFactory: SpouseFactory(
+                            document: $document,
+                            householdId: accumulator.addedHousehold.id),
+                          otherFactory: OtherFactory(
+                            document: $document,
+                            householdId: accumulator.addedHousehold.id))
         }
     }
 }
 
 fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
     var document: Binding<PeriMeleonDocument>
-    var household: NormalizedHousehold
+    var householdId: ID
     
-    init(document: Binding<PeriMeleonDocument>, household: NormalizedHousehold) {
+    init(document: Binding<PeriMeleonDocument>, householdId: ID) {
         self.document = document
-        self.household = household
+        self.householdId = householdId
     }
     
     func make() -> Member {
         var newval = Member()
         NSLog("made spouse \(newval.id)")
+        var household = document.wrappedValue.household(byId: householdId)
         let head = document.wrappedValue.member(byId: household.head)
-        newval.household = self.household.id
+        newval.household = household.id
         newval.givenName = "Spouse"
         newval.familyName = head.familyName
         newval.sex = .FEMALE
@@ -61,23 +64,24 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
         if let trans = document.wrappedValue.member(byId: household.head).transactions.first {
             newval.transactions.append(trans)
         }
+        document.wrappedValue.add(member: newval)
         household.spouse = newval.id
         document.wrappedValue.update(household: household)
-        document.wrappedValue.add(member: newval)
         return newval
     }
 }
 
 fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
     var document: Binding<PeriMeleonDocument>
-    var household: NormalizedHousehold
+    var householdId: ID
     
-    init(document: Binding<PeriMeleonDocument>, household: NormalizedHousehold) {
+    init(document: Binding<PeriMeleonDocument>, householdId: ID) {
         self.document = document
-        self.household = household
+        self.householdId = householdId
     }
     
     func make() -> Member {
+        let household = document.wrappedValue.household(byId: householdId)
         var newval = Member()
         newval.household = household.id
         newval.givenName = "No. \(household.others.count + 1)"

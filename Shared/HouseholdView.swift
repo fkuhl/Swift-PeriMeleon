@@ -113,11 +113,11 @@ struct HouseholdView: View {
 
 class PreviewHouseholdMemberFactoryDelegate: HouseholdMemberFactoryDelegate {
     var document: Binding<PeriMeleonDocument>
-    var household: NormalizedHousehold
+    var householdId: ID
     
-    init(document: Binding<PeriMeleonDocument>, household: NormalizedHousehold) {
+    init(document: Binding<PeriMeleonDocument>, householdId: ID) {
         self.document = document
-        self.household = household
+        self.householdId = householdId
     }
     
     func make() -> Member {
@@ -135,10 +135,12 @@ struct HouseholdView_Previews: PreviewProvider {
     static var previews: some View {
         HouseholdView(document: mockDocument,
                       householdId: mockHousehold.id,
-                      spouseFactory: PreviewHouseholdMemberFactoryDelegate(document: mockDocument,
-                                                                           household: mockHousehold),
-                      otherFactory: PreviewHouseholdMemberFactoryDelegate(document: mockDocument,
-                                                                          household: mockHousehold))
+                      spouseFactory: PreviewHouseholdMemberFactoryDelegate(
+                        document: mockDocument,
+                        householdId: mockHousehold.id),
+                      otherFactory: PreviewHouseholdMemberFactoryDelegate(
+                        document: mockDocument,
+                        householdId: mockHousehold.id))
             .previewLayout(PreviewLayout.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))
@@ -162,7 +164,7 @@ fileprivate struct AddressLinkView: View {
 
 protocol HouseholdMemberFactoryDelegate {
     var document: Binding<PeriMeleonDocument> { get }
-    var household: NormalizedHousehold { get }
+    var householdId: ID { get }
     func make() -> Member
 }
 
