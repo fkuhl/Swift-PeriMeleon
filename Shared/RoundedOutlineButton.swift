@@ -12,7 +12,7 @@ import SwiftUI
 struct RoundedOutlineButton: View {
     var text = "Some Text"
     var action: () -> Void
-    
+
     var body: some View {
         Button(action:action) {
             Text(text).font(.body)

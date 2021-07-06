@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 class DataChecker: ObservableObject {
-    var document: Binding<PeriMeleonDocument>
+    var model: Model
     private let checkingQueue = DispatchQueue(label: "com.tamelea.PMClient.dataChecker", qos: .background)
     private var subject: PassthroughSubject<[DataCheckReport], Never>? = nil
     private var publisher: AnyPublisher<[DataCheckReport], Never>? = nil
@@ -18,8 +18,8 @@ class DataChecker: ObservableObject {
 
     @Published public var reports = [DataCheckReport]()
     
-    init(document: Binding<PeriMeleonDocument>) {
-        self.document = document
+    init(model: Model) {
+        self.model = model
         subject = PassthroughSubject<[DataCheckReport], Never>()
         publisher = subject?.eraseToAnyPublisher()
         sub = publisher?
@@ -34,7 +34,7 @@ class DataChecker: ObservableObject {
     }
     
     func checkData() {
-        let reports: [DataCheckReport] = document.wrappedValue.members.compactMap {
+        let reports: [DataCheckReport] = model.members.compactMap {
             guard let lastTransaction = $0.transactions.last else {
                 return nil //nothing to check
             }

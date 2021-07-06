@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct PhonelistEntryView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     @State var includeResident = true
     @State var includeNonResident = false
     @State var includeMen = true
@@ -55,7 +55,7 @@ struct PhonelistEntryView: View {
     
     func runQuery() {
         NSLog("run query, age >= \(minimumAge)")
-        members = document.filterMembers {
+        members = model.filterMembers {
             let isActive = $0.isActive()
             let residency = (includeResident && $0.resident)
                 || (includeNonResident && !$0.resident)
@@ -73,8 +73,7 @@ struct PhonelistEntryView: View {
 
 struct PhonelistEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        PhonelistEntryView(document: mockDocument,
-                           members: .constant([Member]()),
+        PhonelistEntryView(members: .constant([Member]()),
                            showingResults: .constant(false))
             .previewLayout(.sizeThatFits)
             .padding()

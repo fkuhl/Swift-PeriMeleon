@@ -10,23 +10,16 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberRowView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     var memberId: ID
     @Binding var changeCount: Int
 
     var body: some View {
-        NavigationLink(destination: MemberView(document: $document,
-                                               memberId: memberId,
+        NavigationLink(destination: MemberView(memberId: memberId,
                                                changeCount: $changeCount)) {
-            Text(document.nameOf(member: memberId))
+            Text(model.nameOf(member: memberId))
                 .font(.body)
         }
         //.debugPrint("MRV \(member.fullName())")
     }
 }
-
-//struct MemberRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        //MemberRowView(item: member1)
-//    }
-//}

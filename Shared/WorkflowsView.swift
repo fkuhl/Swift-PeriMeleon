@@ -16,21 +16,19 @@ enum WorkflowLink {
 }
 
 struct WorkflowsView: View {
-    @Binding var document: PeriMeleonDocument
     @ObservedObject var moveToHouseholdAccumulator = MoveToHouseholdAccumulator()
     @State private var linkSelection: WorkflowLink? = nil
     
     var body: some View {
         Section(header: Text("Families").font(.headline)) {
-            NavigationLink(destination: FamilyJoinView(document: $document,
-                                                       linkSelection: $linkSelection),
+            NavigationLink(destination: FamilyJoinView(linkSelection: $linkSelection),
                            tag: .familyJoins,
                            selection: $linkSelection) {
                 LinkButton(linkSelection: $linkSelection, link: .familyJoins, label: "Family joins")
             }
         }
         Section(header: Text("Members").font(.headline)) {
-            NavigationLink(destination: MoveToHouseholdView(document: $document),
+            NavigationLink(destination: MoveToHouseholdView(),
                            tag: .moveToHousehold,
                            selection: $linkSelection) {
                 LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Member moves to different household")
@@ -42,7 +40,7 @@ struct WorkflowsView: View {
                            selection: $linkSelection) {
                 LinkButton(linkSelection: $linkSelection, link: .dataChecker, label: "Data checker")
             }
-            NavigationLink(destination: InformationView(document: $document),
+            NavigationLink(destination: InformationView(),
                            tag: .information,
                            selection: $linkSelection) {
                 LinkButton(linkSelection: $linkSelection, link: .information, label: "Information")
@@ -67,15 +65,15 @@ struct WorkflowsView: View {
     }
 
     private var dataCheckerView: some View {
-        DataCheckerView(document: $document,
-                        dataChecker: DataChecker(document: $document))
+        @EnvironmentObject var model: Model
+        return DataCheckerView(dataChecker: DataChecker(model: model))
     }
 }
 
 struct WorkflowsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            WorkflowsView(document: mockDocument)
+            WorkflowsView()
                 .previewLayout(PreviewLayout.fixed(width: 1024, height: 768))
         }
     }

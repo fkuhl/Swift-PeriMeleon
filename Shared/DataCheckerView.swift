@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct DataCheckerView: View {
-    @Binding var document: PeriMeleonDocument
     @ObservedObject var dataChecker: DataChecker
 
     var body: some View {
@@ -32,7 +31,6 @@ struct DataCheckerView: View {
 
 struct DataCheckerView_Previews: PreviewProvider {
     static var previews: some View {
-        DataCheckerView(document: mockDocument,
-                        dataChecker: DataChecker(document: mockDocument))
+        DataCheckerView(dataChecker: DataChecker(model: Model()))
     }
 }

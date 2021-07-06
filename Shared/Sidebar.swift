@@ -8,30 +8,26 @@
 import SwiftUI
 
 struct Sidebar: View {
-    @Binding var document: PeriMeleonDocument
     @State private var linkSelection: WorkflowLink? = nil
 
     var body: some View {
         List {
-            NavigationLink(destination: MembersView(document: $document)) {
+            NavigationLink(destination: MembersView()) {
                 Label("Members", systemImage: "person.2")
             }
-            NavigationLink(destination: HouseholdsView(document: $document)) {
+            NavigationLink(destination: HouseholdsView()) {
                 Label("Households", systemImage: "house")
             }
             DisclosureGroup(content: {
-                WorkflowsView(document: $document)
+                WorkflowsView()
             }, label: {
                 Label("Workflows", systemImage: "gearshape.2")
             }).frame(width: 300)
             DisclosureGroup(content: {
-                QueriesView(document: $document)
+                QueriesView()
             }, label: {
                 Label("Queries", systemImage: "magnifyingglass")
             }).frame(width: 300)
-//            NavigationLink(destination: QueriesView(document: $document)) {
-//                Label("Queries", systemImage: "magnifyingglass")
-//            }
         }
         .listStyle(SidebarListStyle())
     }
@@ -39,7 +35,7 @@ struct Sidebar: View {
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
-        Sidebar(document: mockDocument)
+        Sidebar()
         
     }
 }

@@ -10,8 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberView: View {
-    
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     @State var memberId: ID
     var editable = true
     @State private var isEditing = false
@@ -20,17 +19,14 @@ struct MemberView: View {
     //Note that the transitions work because changes to isEditing are withAnimation.
     var body: some View {
         if isEditing {
-            MemberEditView(
-                document: $document,
-                member: document.member(byId: memberId),
-                memberEditDelegate: MemberViewEditDelegate(document: $document),
+            MemberEditView(member: model.member(byId: memberId),
+                           memberEditDelegate: MemberViewEditDelegate(model: model),
                 memberCancelDelegate: MemberViewCancelDelegate(),
                 isEditing: $isEditing,
                 changeCount: $changeCount)
                 .transition(.move(edge: .trailing))
         } else {
-            CoreMemberView(document: $document,
-                           member: document.member(byId: memberId),
+            CoreMemberView(member: model.member(byId: memberId),
                            editable: self.editable,
                            isEditing: $isEditing)
                 .transition(.move(edge: .trailing))
@@ -42,15 +38,15 @@ struct MemberView: View {
  Delegate implementation used only by MemberView.
  */
 fileprivate class MemberViewEditDelegate: MemberEditDelegate {
-    var document: Binding<PeriMeleonDocument>
+    var model: Model
     
-    init(document: Binding<PeriMeleonDocument>) {
-        self.document = document
+    init(model: Model) {
+        self.model = model
     }
     
     func store(member: Member) {
         NSLog("MemberEditViewDel onDis: val is \(member.fullName())")
-        document.wrappedValue.update(member: member)
+        model.update(member: member)
     }
 }
 

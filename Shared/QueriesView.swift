@@ -9,25 +9,24 @@
 import SwiftUI
 
 struct QueriesView: View {
-    @Binding var document: PeriMeleonDocument
     
     var body: some View {
         Section(header: Text("Phone list").font(.headline)) {
-            NavigationLink(destination: PhonelistView(document: $document)) {
+            NavigationLink(destination: PhonelistView()) {
                 LinkText(label: "Phone list")
             }
         }
         Section(header: Text("Members").font(.headline)) {
-            NavigationLink(destination: MembersByStatusView(document: $document)) {
+            NavigationLink(destination: MembersByStatusView()) {
                 LinkText(label: "Members by status")
             }
-            NavigationLink(destination: MembersByAgeView(document: $document)) {
+            NavigationLink(destination: MembersByAgeView()) {
                 LinkText(label: "Members by age")
             }
-            NavigationLink(destination: BirthdaysView(document: $document)) {
+            NavigationLink(destination: BirthdaysView()) {
                 LinkText(label: "Birthdays")
             }
-            NavigationLink(destination: BaptismsView(document: $document)) {
+            NavigationLink(destination: BaptismsView()) {
                 LinkText(label: "Baptisms")
             }
         }
@@ -47,7 +46,7 @@ struct QueriesView: View {
 
 struct QueriesView_Previews: PreviewProvider {
     static var previews: some View {
-        QueriesView(document: mockDocument)
+        QueriesView()
         .previewLayout(.fixed(width: 1068, height: 834))
     }
 }

@@ -10,6 +10,7 @@ import UniformTypeIdentifiers
 import PMDataTypes
 import CryptoKit
 import CommonCrypto
+import Combine
 
 let passwordAccount = "com.tyndalesoft.PeriMeleonx"
 
@@ -46,28 +47,11 @@ struct PeriMeleonDocument: FileDocument {
 
     // MARK: - Data
     
-    private var householdsById = [ID : NormalizedHousehold]()
-    private var membersById = [ID : Member]()
-    var households: [NormalizedHousehold] {
-        var households = [NormalizedHousehold](householdsById.values)
-        households.sort {
-            membersById[$0.head]?.fullName() ?? "" < membersById[$1.head]?.fullName() ?? ""
-        }
-        return households
-    }
-    var activeHouseholds: [NormalizedHousehold] {
-        households.filter { membersById[$0.head]?.isActive() ?? false }
-    }
-    var members: [Member] {
-        var members = [Member](membersById.values)
-        members.sort{ $0.fullName() < $1.fullName() }
-        return members
-    }
-    var activeMembers: [Member] {
-        members.filter{ $0.isActive() }
-    }
     var state: State = .normal
     private var key: SymmetricKey? = nil
+    var model: Model
+    //TODO: - will "willChange" sink us?
+    var modelWillChangeSubscriber: AnyCancellable?
     
     /** This, it turns out, is what the framework is watching.
      encryptedData must be updated every time the document changes.
@@ -78,11 +62,11 @@ struct PeriMeleonDocument: FileDocument {
 
     ///On new file, framework calls empty initializer, then regular, with no views created in between.
     init() {
-            //We have a new document.
-            NSLog("PeriMeleonDocument init no data")
-            encryptedData = Data()
-            state = .newFile
-            return
+        //We have a new document.
+        NSLog("PeriMeleonDocument init no data")
+        encryptedData = Data()
+        state = .newFile
+        return
     }
 
     init(configuration: ReadConfiguration) throws {
@@ -94,6 +78,7 @@ struct PeriMeleonDocument: FileDocument {
             NSLog("PeriMeleonDocument init data empty")
             self.encryptedData = data
             state = .newFile
+            model = Model()
             return
         }
         NSLog("PeriMeleonDocument init \(data.count) bytes")
@@ -126,15 +111,20 @@ struct PeriMeleonDocument: FileDocument {
         } catch {
             NSLog("cannot decrypt: \(error.localizedDescription)")
             state = .cannotDecrypt
-            householdsById = [ID : NormalizedHousehold]()
-            membersById = [ID : Member]()
+            model = Model(householdsById: [ID : NormalizedHousehold](),
+                          membersById: [ID : Member]())
             return
         }
         do {
             let decodedHouseholds = try jsonDecoder.decode([Household].self,
                                                            from: decryptedContent)
             NSLog("read \(decodedHouseholds.count) households from init config")
-            normalize(decodedHouseholds: decodedHouseholds)
+            let (householdsById, membersById) = normalize(decodedHouseholds: decodedHouseholds)
+            model = Model(householdsById: householdsById, membersById: membersById)
+            modelWillChangeSubscriber = model.objectWillChange
+                .sink { _ in
+                    encodeAndEncrypt()
+                }
             state = .normal
         } catch {
             let err = error as! DecodingError
@@ -208,9 +198,10 @@ struct PeriMeleonDocument: FileDocument {
      Create normalized indexes of households and members.
      - precondition: households has been decoded and set.
      */
-    private mutating func normalize(decodedHouseholds: [Household]) {
-        householdsById = [ID : NormalizedHousehold]()
-        membersById = [ID : Member]()
+    private func normalize(decodedHouseholds: [Household]) ->
+        ([ID : NormalizedHousehold], [ID : Member]) {
+        var householdsById = [ID : NormalizedHousehold]()
+        var membersById = [ID : Member]()
         decodedHouseholds.forEach { household in
             var normalizedHousehold = NormalizedHousehold()
             normalizedHousehold.id = household.id
@@ -231,6 +222,7 @@ struct PeriMeleonDocument: FileDocument {
             normalizedHousehold.address = household.address
             householdsById[household.id] = normalizedHousehold
         }
+        return (householdsById, membersById)
     }
     
     /**
@@ -238,18 +230,20 @@ struct PeriMeleonDocument: FileDocument {
      */
     private func denormalize() -> [Household] {
         var denormalizedArray = [Household]()
-        householdsById.values.forEach { household in
+        model.householdsById.values.forEach { household in
             var denormalized = Household()
             denormalized.id = household.id
-            if let head = membersById[household.head] {
+            if let head = model.membersById[household.head] {
                 denormalized.head = head
             }
             if let spouseId = household.spouse {
-                if let spouse = membersById[spouseId] {
+                if let spouse = model.membersById[spouseId] {
                     denormalized.spouse = spouse
                 }
             } else { denormalized.spouse = nil }
-            denormalized.others = household.others.compactMap { membersById[$0] }
+            denormalized.others = household.others.compactMap {
+                model.membersById[$0]
+            }
             denormalized.address = household.address
             denormalizedArray.append(denormalized)
         }
@@ -263,7 +257,6 @@ struct PeriMeleonDocument: FileDocument {
             self.state = .passwordEntriesDoNotMatch
             return
         }
-        initializeNewDB()
         key = makeKey(password: firstAttempt)
         if let encryptionKey = key {
             do {
@@ -281,96 +274,6 @@ struct PeriMeleonDocument: FileDocument {
         } else {
             state = .noKey
         }
-    }
-
-    private mutating func initializeNewDB() {
-        let mansionInTheSkyTempId = UUID().uuidString
-        var goodShepherd = Member()
-        goodShepherd.familyName = "Shepherd"
-        goodShepherd.givenName = "Good"
-        goodShepherd.placeOfBirth = "Bethlehem"
-        goodShepherd.status = MemberStatus.PASTOR  // not counted against communicants
-        goodShepherd.resident = false  // not counted against residents
-        goodShepherd.exDirectory = true  // not included in directory
-        goodShepherd.household = mansionInTheSkyTempId
-        
-        var mansionInTheSky = NormalizedHousehold()
-        goodShepherd.household = mansionInTheSky.id
-        mansionInTheSky.head = goodShepherd.id
-        mansionInTheSky.id = mansionInTheSkyTempId
-        membersById[goodShepherd.id] = goodShepherd
-        householdsById[mansionInTheSky.id] = mansionInTheSky
-    }
-    
-    
-    //MARK: - Get data
-    
-    func household(byId: ID) -> NormalizedHousehold {
-        householdsById[byId] ?? NormalizedHousehold()
-    }
-    
-    func member(byId: ID) -> Member {
-        membersById[byId] ?? Member()
-    }
-    
-    func nameOf(household: NormalizedHousehold) -> String {
-        member(byId: household.head).fullName()
-    }
-    
-    func nameOf(household: ID) -> String {
-        if let hh = householdsById[household] {
-            return nameOf(household: hh)
-        } else { return "[none]" }
-    }
-    
-    func nameOf(member: ID) -> String {
-        if let mm = membersById[member] {
-            return mm.fullName()
-        } else { return "[none]" }
-    }
-
-    func parentList(mustBeActive: Bool, sex: Sex) -> [Member] {
-        var matches = [Member](membersById.values.filter { member in
-            return member.sex == sex && !(mustBeActive && !member.isActive())
-        })
-        matches.sort { $0.fullName() < $1.fullName() }
-        return matches
-    }
-    
-    func filterMembers(_ isIncluded: (Member) throws -> Bool) -> [Member] {
-        do {
-            var results = try membersById.values.filter(isIncluded)
-            results.sort { $0.fullName() < $1.fullName() }
-            return results
-        } catch {
-            return [Member]()
-        }
-    }
-
-    //MARK: - Update data
-    
-    mutating func update(household: NormalizedHousehold) {
-        householdsById[household.id] = household
-        NSLog("households changed")
-        encodeAndEncrypt()
-    }
-
-    mutating func add(household: NormalizedHousehold) {
-        householdsById[household.id] = household
-        NSLog("households added to")
-        encodeAndEncrypt()
-    }
-    
-    mutating func update(member: Member) {
-        membersById[member.id] = member
-        NSLog("members changed")
-        encodeAndEncrypt()
-    }
-    
-    mutating func add(member: Member) {
-        membersById[member.id] = member
-        NSLog("members added to")
-        encodeAndEncrypt()
     }
 }
 

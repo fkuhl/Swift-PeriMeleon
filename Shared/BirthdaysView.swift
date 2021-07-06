@@ -11,7 +11,6 @@ import PMDataTypes
 
 struct BirthdaysView: View {
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Hun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    @Binding var document: PeriMeleonDocument
     @State var selectedMonth = 0
     @State var members = [Member]()
     @State var showingResults = false
@@ -19,8 +18,7 @@ struct BirthdaysView: View {
     var body: some View {
         VStack {
             if !showingResults {
-                BirthdaysEntryView(document: $document,
-                                   selectedMonth: $selectedMonth,
+                BirthdaysEntryView(selectedMonth: $selectedMonth,
                                    members: $members,
                                    showingResults: $showingResults)
                     .transition(.move(edge: .trailing))
@@ -41,11 +39,12 @@ struct BirthdaysView: View {
 
 struct Birthdays_Previews: PreviewProvider {
     static var previews: some View {
-        BirthdaysView(document: mockDocument)
+        BirthdaysView()
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
+            .environmentObject(Model())
             .previewDisplayName("Preview")
     }
 }

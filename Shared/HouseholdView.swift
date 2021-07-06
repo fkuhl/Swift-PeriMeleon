@@ -11,7 +11,7 @@ import PMDataTypes
 
 
 struct HouseholdView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     var householdId: ID
     var addressEditable = true
     var replaceButtons = false
@@ -28,31 +28,29 @@ struct HouseholdView: View {
         Form {
             Section {
                 NavigationLink(destination: headDestination) { headLink }
-                if document.household(byId: householdId).spouse == nil {
+                if model.household(byId: householdId).spouse == nil {
                     Button(action: addSpouse) { Text("Add spouse").font(.body) }
                 } else {
                     NavigationLink(destination: spouseDestination) { spouseLink }
                 }
             }
             Section(header: Text("Dependents").font(.callout).italic()) {
-                ForEach(document.household(byId: householdId).others, id: \.self) {
-                    OtherRowView(document: $document,
-                                 memberId: $0,
+                ForEach(model.household(byId: householdId).others, id: \.self) {
+                    OtherRowView(memberId: $0,
                                  changeCount: $changeCount)
                 }
-                OtherAddView(document: $document,
-                             otherFactory: otherFactory,
+                OtherAddView(otherFactory: otherFactory,
                              householdId: householdId,
                              changeCount: $changeCount)
             }
             Section(header: Text("Address").font(.callout).italic()) {
-                if nugatory(document.household(byId: householdId).address) {
+                if nugatory(model.household(byId: householdId).address) {
                     NavigationLink(destination: newAddressDestination) {
                         Text("Add address").font(.body)
                     }
                 } else {
                     NavigationLink(destination: addressDestination) {
-                        AddressLinkView(document: $document, householdId: householdId)
+                        AddressLinkView(householdId: householdId)
                     }
                 }
             }
@@ -60,63 +58,59 @@ struct HouseholdView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
                     ToolbarItem(placement: .principal, content: {
-                        Text(document.nameOf(household: document.household(byId: householdId)))
+                        Text(model.nameOf(household: model.household(byId: householdId)))
                     })})
     }
     
     private var headDestination: some View {
         MemberView(
-            document: $document,
-            memberId: document.household(byId: householdId).head,
+            memberId: model.household(byId: householdId).head,
             changeCount: $changeCount)
     }
     
     private var headLink: some View {
         MemberLinkView(caption: "Head of household",
-                       name: document.nameOf(household: document.household(byId: householdId)))
+                       name: model.nameOf(household: model.household(byId: householdId)))
     }
     
     private var spouseDestination: some View {
-        MemberView(document: $document,
-                   memberId: document.household(byId: householdId).spouse!,
+        MemberView(memberId: model.household(byId: householdId).spouse!,
                    changeCount: $changeCount)
     }
     
     private var spouseLink: some View {
         MemberLinkView(caption: "Spouse",
-                       name: document.nameOf(member: document.household(byId: householdId).spouse!))
+                       name: model.nameOf(member: model.household(byId: householdId).spouse!))
     }
 
     private func addSpouse() {
         let newSpouse = spouseFactory.make()
-        document.add(member: newSpouse)
-        var changingHousehold = document.household(byId: householdId)
+        model.add(member: newSpouse)
+        var changingHousehold = model.household(byId: householdId)
         changingHousehold.spouse = newSpouse.id
-        document.update(household: changingHousehold)
+        model.update(household: changingHousehold)
         changeCount += 1
     }
     
     private var newAddressDestination: some View {
-        AddressEditView(document: $document,
-                        householdId: householdId,
+        AddressEditView(householdId: householdId,
                         address: Address(),
                         changeCount: $changeCount)
     }
     
     private var addressDestination: some View {
-        AddressEditView(document: $document,
-                        householdId: householdId,
-                        address: document.household(byId: householdId).address!,
+        AddressEditView(householdId: householdId,
+                        address: model.household(byId: householdId).address!,
                         changeCount: $changeCount)
     }
 }
 
 class PreviewHouseholdMemberFactoryDelegate: HouseholdMemberFactoryDelegate {
-    var document: Binding<PeriMeleonDocument>
+    var model: Model
     var householdId: ID
     
-    init(document: Binding<PeriMeleonDocument>, householdId: ID) {
-        self.document = document
+    init(model: Model, householdId: ID) {
+        self.model = model
         self.householdId = householdId
     }
     
@@ -133,13 +127,12 @@ https://www.avanderlee.com/swiftui/previews-different-states/
 */
 struct HouseholdView_Previews: PreviewProvider {
     static var previews: some View {
-        HouseholdView(document: mockDocument,
-                      householdId: mockHousehold.id,
+        HouseholdView(householdId: mockHousehold.id,
                       spouseFactory: PreviewHouseholdMemberFactoryDelegate(
-                        document: mockDocument,
+                        model: Model(),
                         householdId: mockHousehold.id),
                       otherFactory: PreviewHouseholdMemberFactoryDelegate(
-                        document: mockDocument,
+                        model: Model(),
                         householdId: mockHousehold.id))
             .previewLayout(PreviewLayout.sizeThatFits)
             .padding()
@@ -152,18 +145,18 @@ struct HouseholdView_Previews: PreviewProvider {
 //MARK: - Address
 
 fileprivate struct AddressLinkView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     @State var householdId: ID
     
     var body: some View {
-        Text(document.household(byId: householdId).address?.addressForDisplay() ?? "[none]").font(.body)
+        Text(model.household(byId: householdId).address?.addressForDisplay() ?? "[none]").font(.body)
     }
 }
 
 //MARK: - Members
 
 protocol HouseholdMemberFactoryDelegate {
-    var document: Binding<PeriMeleonDocument> { get }
+    var model: Model { get }
     var householdId: ID { get }
     func make() -> Member
 }
@@ -185,24 +178,23 @@ fileprivate struct MemberLinkView: View {
 }
 
 fileprivate struct OtherRowView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     var memberId: ID
     @Binding var changeCount: Int
     
     var body: some View {
         NavigationLink(destination: MemberView(
-                        document: $document,
                         memberId: memberId,
                         changeCount: $changeCount)) {
             MemberLinkView(captionWidth: defaultCaptionWidth,
                            caption: "",
-                           name: document.nameOf(member: memberId))
+                           name: model.nameOf(member: memberId))
         }//.debugPrint("ORV for \(document.nameOf(member: memberId))")
     }
 }
 
 fileprivate struct OtherAddView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     var otherFactory: HouseholdMemberFactoryDelegate
     var householdId: ID
     @Binding var changeCount: Int
@@ -210,8 +202,8 @@ fileprivate struct OtherAddView: View {
     var body: some View {
         Button(action: {
             let newOther = otherFactory.make()
-            document.add(member: newOther)
-            var household = document.household(byId: householdId)
+            model.add(member: newOther)
+            var household = model.household(byId: householdId)
             // This looks roundabout. But making a new array and adding
             // it back to the household makes it look new to SWiftUI,
             // causing a view update.
@@ -219,9 +211,9 @@ fileprivate struct OtherAddView: View {
             var others = household.others
             others.append(newOther.id)
             household.others = others
-            document.update(household: household)
+            model.update(household: household)
             changeCount += 1
-            NSLog("OAV hh \(document.nameOf(household: household.id)) has \(household.others.count) others")
+            NSLog("OAV hh \(model.nameOf(household: household.id)) has \(household.others.count) others")
         }) {
             Image(systemName: "plus").font(.body)
         }

@@ -10,7 +10,6 @@ import PMDataTypes
 
 struct BaptismsView: View {
     private static let titleDateFormatter = makeTitleDateFormatter()
-    @Binding var document: PeriMeleonDocument
     @State var earliest: Date = yearEarlier()
     @State var latest: Date = Date()
     @State var members = [Member]()
@@ -19,8 +18,7 @@ struct BaptismsView: View {
     var body: some View {
         VStack {
             if !showingResults {
-                BaptismsEntryView(document: $document,
-                                  earliest: $earliest,
+                BaptismsEntryView(earliest: $earliest,
                                   latest: $latest,
                                   members: $members,
                                    showingResults: $showingResults)
@@ -59,11 +57,12 @@ fileprivate func makeTitleDateFormatter() -> DateFormatter {
 
 struct BaptismsView_Previews: PreviewProvider {
     static var previews: some View {
-        BaptismsView(document: mockDocument)
+        BaptismsView()
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
+            .environmentObject(Model())
             .previewDisplayName("Preview")
     }
 }

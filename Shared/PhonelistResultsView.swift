@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct PhonelistResultsView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     var title: String
     @Binding var members: [Member]
     @Binding var showingResults: Bool
@@ -68,7 +68,7 @@ struct PhonelistResultsView: View {
     ///Bring up share sheet
     private var iosShare: some View {
         Button(action: {
-            let maker = PhonelistMaker(document: document)
+            let maker = PhonelistMaker(model: model)
             resultsAsData = maker.make(from: members).data(using: .utf8)!
             queryResults.setCSV(results: resultsAsData)
             showingShareSheet = true
@@ -81,7 +81,7 @@ struct PhonelistResultsView: View {
     private var macShare: some View {
         VStack(alignment: .trailing) {
             Button(action: {
-                let maker = PhonelistMaker(document: document)
+                let maker = PhonelistMaker(model: model)
                 let pasteboard = UIPasteboard.general
                 pasteboard.string = maker.make(from: members)
             }) {
@@ -98,7 +98,7 @@ struct PhonelistResultsView: View {
 
     private func phone(member: Member) -> String {
         if !nugatory(member.mobilePhone) { return member.mobilePhone! }
-        let household = document.household(byId: member.household)
+        let household = model.household(byId: member.household)
         if let address = household.address, !nugatory(address.homePhone) {
             return address.homePhone!
         } else {
@@ -108,7 +108,7 @@ struct PhonelistResultsView: View {
 
     private func email(member: Member) -> String {
         if !nugatory(member.eMail) { return member.eMail! }
-        let household = document.household(byId: member.household)
+        let household = model.household(byId: member.household)
         if let address = household.address, !nugatory(address.email) {
             return address.email!
         } else {
@@ -120,8 +120,7 @@ struct PhonelistResultsView: View {
 
 struct PhonelistResultsView_Previews: PreviewProvider {
     static var previews: some View {
-        PhonelistResultsView(document: mockDocument,
-                             title: "Phone list",
+        PhonelistResultsView(title: "Phone list",
                              members: .constant([mockMember1, mockMember2]),
                              showingResults: .constant(true))
             .previewLayout(.sizeThatFits)

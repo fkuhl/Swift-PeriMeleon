@@ -12,6 +12,8 @@
 		270BE17D26680489005B710B /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270BE17B26680489005B710B /* InformationView.swift */; };
 		27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		27235931254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
+		2724846326934B4B008709B4 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724846226934B4B008709B4 /* Model.swift */; };
+		2724846426934B4B008709B4 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724846226934B4B008709B4 /* Model.swift */; };
 		272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
 		272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
 		273A79EB2662CA0100CC55A0 /* NavigationStylingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */; };
@@ -179,6 +181,7 @@
 /* Begin PBXFileReference section */
 		270BE17B26680489005B710B /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		2723592F254B51AE00137925 /* RoundedOutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedOutlineButton.swift; sourceTree = "<group>"; };
+		2724846226934B4B008709B4 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
 		273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStylingModifier.swift; sourceTree = "<group>"; };
 		273FDC95257C462F0019F2DD /* Member+isActive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Member+isActive.swift"; sourceTree = "<group>"; };
@@ -411,6 +414,7 @@
 				276B972A250008DA003E19BA /* PeriMeleonDocument.swift */,
 				272F722D251533BD009E4CF3 /* CryptoKey.swift */,
 				27BC9303265D885C00C39B0B /* ExplainError.swift */,
+				2724846226934B4B008709B4 /* Model.swift */,
 			);
 			name = Document;
 			sourceTree = "<group>";
@@ -790,6 +794,7 @@
 				27C55E302538E67700923EE8 /* WorkflowsView.swift in Sources */,
 				27FD5AE8254DE2CD0086F120 /* PhonelistMaker.swift in Sources */,
 				276B9755250008DB003E19BA /* PeriMeleonDocument.swift in Sources */,
+				2724846326934B4B008709B4 /* Model.swift in Sources */,
 				275A1180255F320C0055E77F /* SolidButton.swift in Sources */,
 				277C95112540DC230032638A /* PreviewProviderModifier.swift in Sources */,
 				27C55E112538CE0100923EE8 /* CompactToggleView.swift in Sources */,
@@ -892,6 +897,7 @@
 				276B9758250008DB003E19BA /* ContentView.swift in Sources */,
 				27B20D822529106500C80696 /* HouseholdRowView.swift in Sources */,
 				278C1667265955DF003CEC13 /* MainView.swift in Sources */,
+				2724846426934B4B008709B4 /* Model.swift in Sources */,
 				27C55E182538CE0100923EE8 /* MembersByStatusEntryView.swift in Sources */,
 				27B20D9F2529113B00C80696 /* TransactionEditView.swift in Sources */,
 			);

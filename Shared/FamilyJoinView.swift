@@ -10,7 +10,6 @@ import SwiftUI
 import PMDataTypes
 
 struct FamilyJoinView: View {
-    @Binding var document: PeriMeleonDocument
     @Environment(\.presentationMode) var presentationMode
     @Binding var linkSelection: WorkflowLink?
     @State private var accumulator = FamilyJoinAccumulator()
@@ -22,11 +21,10 @@ struct FamilyJoinView: View {
                 FamilyJoinTransactionPhaseView(accumulator: $accumulator, linkSelection: $linkSelection)
                     .transition(.move(edge: .trailing))
             case .head:
-                FamilyJoinHeadPhaseView(document: $document, accumulator: $accumulator)
+                FamilyJoinHeadPhaseView(accumulator: $accumulator)
                     .transition(.move(edge: .trailing))
             case .household:
-                FamilyJoinHouseholdPhaseView(document: $document,
-                                             accumulator: $accumulator,
+                FamilyJoinHouseholdPhaseView(accumulator: $accumulator,
                                              linkSelection: $linkSelection)
                     .transition(.move(edge: .trailing))
             case .reset:

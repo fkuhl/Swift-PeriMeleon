@@ -56,8 +56,9 @@ struct PasswordView: View {
 struct PasswordView_Previews: PreviewProvider {
     static var previews: some View {
         PasswordView(label: "Enter a Password",
-                     document: mockDocument,
+                     document: .constant(PeriMeleonDocument()),
                      buttonText: "Press me")
+            .environmentObject(mockModel)
             .padding()
             .background(Color(.systemBackground))
             .makeForPreviewProvider()

@@ -10,30 +10,19 @@ import SwiftUI
 import PMDataTypes
 
 struct ChooseHouseholdView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
     @Binding var householdId: ID
     
     var body: some View {
-//        let localHouseholdId = Binding<ID> (
-//            get: {
-//                NSLog("CHV get \(nameOfHousehold(self.householdId))")
-//                return self.householdId
-//            }, set: {
-//                NSLog("CHV set** \(nameOfHousehold($0))")
-//                self.householdId = $0
-//            }
-//        )
-        
-        NavigationLink(destination: ChooseHouseholdListView(document: $document,
-                                                            householdId: $householdId)) {
+        NavigationLink(destination: ChooseHouseholdListView(householdId: $householdId)) {
             HStack(alignment: .lastTextBaseline) {
                 Text(caption)
                     .frame(width: captionWidth, alignment: .trailing)
                     .font(.caption)
                 Spacer()
-                Text(document.nameOf(household: householdId)).font(.body)
+                Text(model.nameOf(household: householdId)).font(.body)
             }
         }
     }
@@ -41,7 +30,7 @@ struct ChooseHouseholdView: View {
 
 
 struct ChooseHouseholdListView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     @State private var allOrActive = 0
     @Binding var householdId: ID
     
@@ -54,10 +43,9 @@ struct ChooseHouseholdListView: View {
                     Text("Active Households").tag(1)
             }).pickerStyle(SegmentedPickerStyle())
             List {
-                ForEach(allOrActive == 0 ? document.households
-                            : document.activeHouseholds, id: \.id) {
-                    ChooseHouseholdRowView(document: $document,
-                                           household: $0,
+                ForEach(allOrActive == 0 ? model.households
+                            : model.activeHouseholds, id: \.id) {
+                    ChooseHouseholdRowView(household: $0,
                                            chosenId: $householdId)
                 }
             }
@@ -66,7 +54,7 @@ struct ChooseHouseholdListView: View {
 }
 
 struct ChooseHouseholdRowView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var household: NormalizedHousehold
     @Binding var chosenId: ID
@@ -77,14 +65,8 @@ struct ChooseHouseholdRowView: View {
                 self.chosenId = self.household.id
                 self.presentationMode.wrappedValue.dismiss()
             } ) {
-                Text(document.nameOf(household: household)).font(.body)
+                Text(model.nameOf(household: household)).font(.body)
             }
         }
     }
 }
-
-//struct ChooseHouseholdView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ChooseHouseholdView()
-//    }
-//}

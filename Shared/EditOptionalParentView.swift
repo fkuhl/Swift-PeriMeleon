@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct EditOptionalParentView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
     var sex: Sex
@@ -22,8 +22,7 @@ struct EditOptionalParentView: View {
             get: { self.parentId ?? ""  },
             set: { self.parentId = $0 })
         
-        return NavigationLink(destination: ChooseParentListView(document: $document,
-                                                                parentId: proxyBinding,
+        return NavigationLink(destination: ChooseParentListView(parentId: proxyBinding,
                                                                 sex: sex,
                                                                 title: title)) {
             HStack(alignment: .lastTextBaseline) {
@@ -31,21 +30,21 @@ struct EditOptionalParentView: View {
                     .frame(width: captionWidth, alignment: .trailing)
                     .font(.caption)
                 Spacer()
-                Text(document.nameOf(member: parentId ?? "[none]")).font(.body)
+                Text(model.nameOf(member: parentId ?? "[none]")).font(.body)
             }
         }
     }
 }
 
 struct ChooseParentListView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     @Binding var parentId: ID
     var sex: Sex
     let title: String
     
     var body: some View {
         List {
-            ForEach(document.parentList(mustBeActive: true, sex: sex)) {
+            ForEach(model.parentList(mustBeActive: true, sex: sex)) {
                 ChooseParentRowView(member: $0, chosenId: self.$parentId)
             }
         }
@@ -74,9 +73,3 @@ struct ChooseParentRowView: View {
     }
 
 }
-
-//struct EditOptionalParentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EditOptionalParentView()
-//    }
-//}

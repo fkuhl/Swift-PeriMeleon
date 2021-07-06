@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct MoveToHouseholdView: View {
-    @Binding var document: PeriMeleonDocument
     @EnvironmentObject var accumulator: MoveToHouseholdAccumulator
     
     var body: some View {
@@ -27,6 +26,6 @@ struct MoveToHouseholdView: View {
 
 struct MoveToHouseholdView_Previews: PreviewProvider {
     static var previews: some View {
-        MoveToHouseholdView(document: mockDocument)
+        MoveToHouseholdView()
     }
 }

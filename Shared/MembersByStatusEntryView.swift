@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MembersByStatusEntryView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     @Binding var includeResident: Bool
     @Binding var includeNonResident: Bool
     @Binding var desiredStatus: MemberStatus
@@ -49,7 +49,7 @@ struct MembersByStatusEntryView: View {
     
     func runQuery() {
         NSLog("run query")
-        members = document.filterMembers {
+        members = model.filterMembers {
             $0.status == self.desiredStatus &&
                 ((self.includeResident && $0.resident)
                     || (self.includeNonResident && !$0.resident))
@@ -63,8 +63,7 @@ struct MembersByStatusEntryView: View {
 struct MembersByStatusEntryView_Previews: PreviewProvider {
     
     static var previews: some View {
-        MembersByStatusEntryView(document: mockDocument,
-                                 includeResident: .constant(true),
+        MembersByStatusEntryView(includeResident: .constant(true),
                                  includeNonResident: .constant(false),
                                  desiredStatus: .constant(.COMMUNING),
                                  members: .constant([Member]()),
@@ -73,6 +72,7 @@ struct MembersByStatusEntryView_Previews: PreviewProvider {
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
+            .environmentObject(Model())
             .previewDisplayName("Preview")
     }
 }

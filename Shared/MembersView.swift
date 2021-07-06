@@ -11,7 +11,7 @@ import PMDataTypes
 
 
 struct MembersView: View, FilterUpdater {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     @State private var allOrActive = 0
     @State private var members: [Member] = []
     @State private var filterText: String = ""
@@ -35,8 +35,7 @@ struct MembersView: View, FilterUpdater {
                 }.padding()
                 List {
                     ForEach(members) {
-                        MemberRowView(document: $document,
-                                      memberId: $0.id,
+                        MemberRowView(memberId: $0.id,
                                       changeCount: $changeCount)
                     }
                 }
@@ -54,14 +53,14 @@ struct MembersView: View, FilterUpdater {
 
     func updateUI(filterText: String) {
         let candidates = allOrActive == 0
-            ? document.activeMembers
-            : document.members
+            ? model.activeMembers
+            : model.members
         if filterText.isEmpty {
             members = candidates
             return
         }
         members = candidates.filter { member in
-            document.nameOf(member: member.id).localizedCaseInsensitiveContains(filterText)
+            model.nameOf(member: member.id).localizedCaseInsensitiveContains(filterText)
         }
     }
 }
@@ -70,7 +69,7 @@ struct MembersView: View, FilterUpdater {
 
 struct MembersView_Previews: PreviewProvider {
     static var previews: some View {
-        MembersView(document: mockDocument)
+        MembersView()
             .padding()
             .background(Color(.systemBackground))
             .previewLayout(.fixed(width: 1024, height: 768))

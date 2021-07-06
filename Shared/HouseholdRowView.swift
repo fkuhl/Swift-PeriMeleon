@@ -10,35 +10,34 @@ import SwiftUI
 import PMDataTypes
 
 struct HouseholdRowView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     var householdId: ID
     
     var body: some View {
-        NavigationLink(destination: HouseholdView(document: $document,
-                                                  householdId: householdId,
+        NavigationLink(destination: HouseholdView(householdId: householdId,
                                                   spouseFactory: SpouseFactory(
-                                                    document: $document,
+                                                    model: model,
                                                     householdId: householdId),
                                                   otherFactory: OtherFactory(
-                                                    document: $document,
+                                                    model: model,
                                                     householdId: householdId))) {
-            Text(document.nameOf(household: householdId)).font(.body)
+            Text(model.nameOf(household: householdId)).font(.body)
         }
     }
 }
 
 fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
-    var document: Binding<PeriMeleonDocument>
+    var model: Model
     let householdId: ID
     
-    init(document: Binding<PeriMeleonDocument>, householdId: ID) {
-        self.document = document
+    init(model: Model, householdId: ID) {
+        self.model = model
         self.householdId = householdId
     }
     
     func make() -> Member {
-        let household = document.wrappedValue.household(byId: householdId)
-        let head = document.wrappedValue.member(byId: household.head)
+        let household = model.household(byId: householdId)
+        let head = model.member(byId: household.head)
         var newval = Member()
         newval.household = household.id
         newval.givenName = "Spouse"
@@ -52,24 +51,24 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
 }
 
 fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
-    var document: Binding<PeriMeleonDocument>
+    var model: Model
     let householdId: ID
     
-    init(document: Binding<PeriMeleonDocument>, householdId: ID) {
-        self.document = document
+    init(model: Model, householdId: ID) {
+        self.model = model
         self.householdId = householdId
     }
     
     func make() -> Member {
-        let household = document.wrappedValue.household(byId: householdId)
+        let household = model.household(byId: householdId)
         var newval = Member()
         newval.household = household.id
         newval.givenName = "No. \(household.others.count + 1)"
-        newval.familyName = document.wrappedValue.member(byId: household.head).familyName
+        newval.familyName = model.member(byId: household.head).familyName
         newval.status = .NONCOMMUNING
-        newval.father = document.wrappedValue.member(byId: household.head).id
+        newval.father = model.member(byId: household.head).id
         if let mom = household.spouse {
-            newval.mother = document.wrappedValue.member(byId: mom).id
+            newval.mother = model.member(byId: mom).id
         }
         return newval
     }

@@ -10,7 +10,6 @@ import SwiftUI
 import PMDataTypes
 
 protocol MemberEditDelegate {
-    var document: Binding<PeriMeleonDocument> { get }
     func store(member: Member) -> Void
 }
 
@@ -19,7 +18,6 @@ protocol MemberCancelDelegate {
 }
 
 struct MemberEditView: View {
-    @Binding var document: PeriMeleonDocument
     @State var member: Member
     var memberEditDelegate: MemberEditDelegate
     var memberCancelDelegate: MemberCancelDelegate
@@ -54,13 +52,11 @@ struct MemberEditView: View {
                 EditOptionalTextView(caption: "divorce:", text: $member.divorce)
             }
             Section {
-                EditOptionalParentView(document: $document,
-                                       caption: "father",
+                EditOptionalParentView(caption: "father",
                                        sex: .MALE,
                                        parentId: $member.father,
                                        title: "Father of \(member.fullName())")
-                EditOptionalParentView(document: $document,
-                                       caption: "mother",
+                EditOptionalParentView(caption: "mother",
                                        sex: .FEMALE,
                                        parentId: $member.mother,
                                        title: "Mother of \(member.fullName())")

@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct BirthdaysEntryView: View {
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Hun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     @Binding var selectedMonth: Int
     @Binding var members: [Member]
     @Binding var showingResults: Bool
@@ -41,7 +41,7 @@ struct BirthdaysEntryView: View {
     
     func runQuery() {
         NSLog("run query")
-        members = document.filterMembers {
+        members = model.filterMembers {
             if !$0.isActive() { return false }
             if let dob = $0.dateOfBirth {
                 let calendar = Calendar.current
@@ -57,14 +57,14 @@ struct BirthdaysEntryView: View {
 struct BirthdaysEntryView_Previews: PreviewProvider {
     
     static var previews: some View {
-        BirthdaysEntryView(document: mockDocument,
-                           selectedMonth: .constant(10),
+        BirthdaysEntryView(selectedMonth: .constant(10),
                            members: .constant([Member]()),
                            showingResults: .constant(false))
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
+            .environmentObject(Model())
             .previewDisplayName("Preview")
     }
 }

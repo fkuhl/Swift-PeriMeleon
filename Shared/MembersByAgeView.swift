@@ -10,7 +10,6 @@ import SwiftUI
 import PMDataTypes
 
 struct MembersByAgeView: View {
-    @Binding var document: PeriMeleonDocument
     @State var asOfDate = Date()
     @State var comparison = Comparison.lessThan
     @State var age = 0
@@ -21,8 +20,7 @@ struct MembersByAgeView: View {
     var body: some View {
         VStack {
             if !showingResults {
-                MembersByAgeEntryView(document: $document,
-                                      asOfDate: $asOfDate,
+                MembersByAgeEntryView(asOfDate: $asOfDate,
                                       comparison: $comparison,
                                       age: $age,
                                       sort: $sort,
@@ -52,11 +50,12 @@ struct MembersByAgeView: View {
 
 struct MembersByAgeView_Previews: PreviewProvider {
     static var previews: some View {
-        MembersByAgeView(document: mockDocument)
+        MembersByAgeView()
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
+            .environmentObject(Model())
             .previewDisplayName("Preview")
     }
 }

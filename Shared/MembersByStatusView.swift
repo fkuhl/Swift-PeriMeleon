@@ -10,7 +10,6 @@ import SwiftUI
 import PMDataTypes
 
 struct MembersByStatusView: View {
-    @Binding var document: PeriMeleonDocument
     @State var includeResident = true
     @State var includeNonResident = false
     @State var desiredStatus: MemberStatus = .COMMUNING
@@ -20,8 +19,7 @@ struct MembersByStatusView: View {
     var body: some View {
         VStack {
             if !showingResults {
-                MembersByStatusEntryView(document: $document,
-                                         includeResident: $includeResident,
+                MembersByStatusEntryView(includeResident: $includeResident,
                                          includeNonResident: $includeNonResident,
                                          desiredStatus: $desiredStatus,
                                          members: $members,
@@ -44,7 +42,7 @@ struct MembersByStatusView: View {
 
 struct MembersByStatus_Previews: PreviewProvider {
     static var previews: some View {
-        MembersByStatusView(document: mockDocument)
+        MembersByStatusView()
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))

@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MembersByAgeEntryView: View {
-    @Binding var document: PeriMeleonDocument
+    @EnvironmentObject var model: Model
     @Binding var asOfDate: Date
     @Binding var comparison: Comparison
     @Binding var age: Int
@@ -59,7 +59,7 @@ struct MembersByAgeEntryView: View {
     
     func runQuery() {
         NSLog("run query")
-        members = document.filterMembers {
+        members = model.filterMembers {
             $0.status.isActive() && $0.dateOfBirth != nil &&
             comparison.comparator($0.age(asOf: asOfDate), age)
         }
@@ -73,8 +73,7 @@ struct MembersByAgeEntryView: View {
 struct MembersByAgeEntryView_Previews: PreviewProvider {
     
     static var previews: some View {
-        MembersByAgeEntryView(document: mockDocument,
-                              asOfDate: .constant(Date()),
+        MembersByAgeEntryView(asOfDate: .constant(Date()),
                               comparison: .constant(.lessThan),
                               age: .constant(21),
                               sort: .constant(.name),
@@ -84,6 +83,7 @@ struct MembersByAgeEntryView_Previews: PreviewProvider {
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
+            .environmentObject(Model())
             .previewDisplayName("Preview")
     }
 }

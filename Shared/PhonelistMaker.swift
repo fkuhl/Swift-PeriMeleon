@@ -9,7 +9,7 @@ import Foundation
 import PMDataTypes
 
 struct PhonelistMaker {
-    var document: PeriMeleonDocument
+    var model: Model
     let note = "PeriMeleon \(dateFormatter.string(from: Date()))"
     
     func make(from members: [Member]) -> String {
@@ -26,7 +26,7 @@ struct PhonelistMaker {
     }
     
     func addressContrib(_ member: Member) -> String {
-        let household = document.household(byId: member.household)
+        let household = model.household(byId: member.household)
         let homeEmail = member.eMail ?? household.address?.email
         return "\(household.address?.address ?? ""),\(household.address?.address2 ?? ""),\(household.address?.city ?? ""),\(household.address?.state ?? ""),\(household.address?.postalCode ?? ""),\(household.address?.country ?? ""),\(household.address?.homePhone ?? ""),\(homeEmail ?? ""),\(member.workEmail ?? ""),\(member.mobilePhone ?? ""),\(member.workPhone ?? "")"
     }

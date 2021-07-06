@@ -69,13 +69,13 @@ var mockHousehold = NormalizedHousehold(
     address: mockAddress
 )
 
-fileprivate func makeDocument() -> PeriMeleonDocument {
-    var doc = PeriMeleonDocument()
-    doc.add(member: mockMember1)
-    doc.add(member: mockMember2)
-    doc.add(household: mockHousehold)
-    return doc
+fileprivate func makeModel() -> Model {
+    let model = Model()
+    model.add(member: mockMember1)
+    model.add(member: mockMember2)
+    model.add(household: mockHousehold)
+    return model
 }
 
-let mockDocument = Binding.constant(makeDocument())
+let mockModel = makeModel()
 

@@ -13,7 +13,7 @@ struct MainView: View {
     
     var body: some View {
         NavigationView {
-            Sidebar(document: $document).frame(width: 350)
+            Sidebar().frame(width: 350)
             Color(.gray)
 //            Image("NaturalPapyrus")
 //                .resizable()
@@ -22,5 +22,6 @@ struct MainView: View {
 //                .navigationBarHidden(true)
 //                .frame(maxWidth: 500)
         }
+        .environmentObject(document.model)
     }
 }
