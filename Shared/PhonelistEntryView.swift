@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct PhonelistEntryView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @State var includeResident = true
     @State var includeNonResident = false
     @State var includeMen = true

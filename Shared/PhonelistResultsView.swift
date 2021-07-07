@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct PhonelistResultsView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     var title: String
     @Binding var members: [Member]
     @Binding var showingResults: Bool

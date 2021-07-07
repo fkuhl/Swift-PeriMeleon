@@ -10,13 +10,14 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberRowView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     var memberId: ID
     @Binding var changeCount: Int
 
     var body: some View {
         NavigationLink(destination: MemberView(memberId: memberId,
-                                               changeCount: $changeCount)) {
+                                               changeCount: $changeCount)
+                        .environmentObject(model)) {
             Text(model.nameOf(member: memberId))
                 .font(.body)
         }

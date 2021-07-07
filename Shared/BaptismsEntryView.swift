@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct BaptismsEntryView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @Binding var earliest: Date
     @Binding var latest: Date
     @Binding var members: [Member]

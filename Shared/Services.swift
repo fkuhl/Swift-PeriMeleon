@@ -51,9 +51,3 @@ struct ServiceView: View {
                     })})
     }
 }
-
-//struct Services_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Services()
-//    }
-//}

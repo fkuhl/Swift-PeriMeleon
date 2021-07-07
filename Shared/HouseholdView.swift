@@ -11,7 +11,7 @@ import PMDataTypes
 
 
 struct HouseholdView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     var householdId: ID
     var addressEditable = true
     var replaceButtons = false
@@ -145,7 +145,7 @@ struct HouseholdView_Previews: PreviewProvider {
 //MARK: - Address
 
 fileprivate struct AddressLinkView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @State var householdId: ID
     
     var body: some View {
@@ -156,7 +156,6 @@ fileprivate struct AddressLinkView: View {
 //MARK: - Members
 
 protocol HouseholdMemberFactoryDelegate {
-    var model: Model { get }
     var householdId: ID { get }
     func make() -> Member
 }
@@ -178,7 +177,7 @@ fileprivate struct MemberLinkView: View {
 }
 
 fileprivate struct OtherRowView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     var memberId: ID
     @Binding var changeCount: Int
     
@@ -194,7 +193,7 @@ fileprivate struct OtherRowView: View {
 }
 
 fileprivate struct OtherAddView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     var otherFactory: HouseholdMemberFactoryDelegate
     var householdId: ID
     @Binding var changeCount: Int
@@ -212,7 +211,7 @@ fileprivate struct OtherAddView: View {
             others.append(newOther.id)
             household.others = others
             model.update(household: household)
-            changeCount += 1
+            //changeCount += 1
             NSLog("OAV hh \(model.nameOf(household: household.id)) has \(household.others.count) others")
         }) {
             Image(systemName: "plus").font(.body)

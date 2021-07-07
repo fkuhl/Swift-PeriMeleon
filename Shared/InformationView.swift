@@ -13,7 +13,7 @@ struct InformationView: View {
     @ScaledMetric(relativeTo: .headline) var dateTitleWidth: CGFloat = 150
     @ScaledMetric(relativeTo: .body) var datumTitleWidth: CGFloat = 150
     @ScaledMetric(relativeTo: .body) var datumStringWidth: CGFloat = 70
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
 
     var body: some View {
         VStack {

@@ -10,90 +10,113 @@ import SwiftUI
 import PMDataTypes
 
 struct CoreMemberView: View {
-    @EnvironmentObject var model: Model
-    @State var member: Member
+    @ObservedObject var model: Model = .shared
+    var memberId: ID
     var editable = true
     @Binding var isEditing: Bool
-    
+
     var body: some View {
         VStack {
             List {
                 Section {
-                    TextAttributeView(caption: "family name:", text: member.familyName)
-                    TextAttributeView(caption: "given name:", text: member.givenName)
-                    if member.middleName != nil {
-                        TextAttributeView(caption: "middle name:", text: member.middleName)
+                    TextAttributeView(caption: "family name:",
+                                      text: model.member(byId: memberId).familyName)
+                    TextAttributeView(caption: "given name:",
+                                      text: model.member(byId: memberId).givenName)
+                    if model.member(byId: memberId).middleName != nil {
+                        TextAttributeView(caption: "middle name:",
+                                          text: model.member(byId: memberId).middleName)
                     }
-                    if member.previousFamilyName != nil {
-                        TextAttributeView(caption: "prev fam name:", text: member.previousFamilyName)
+                    if model.member(byId: memberId).previousFamilyName != nil {
+                        TextAttributeView(caption: "prev fam name:",
+                                          text: model.member(byId: memberId).previousFamilyName)
                     }
-                    if member.nameSuffix != nil {
-                        TextAttributeView(caption: "suffix:", text: member.nameSuffix)
+                    if model.member(byId: memberId).nameSuffix != nil {
+                        TextAttributeView(caption: "suffix:",
+                                          text: model.member(byId: memberId).nameSuffix)
                     }
-                    if member.title != nil {
-                        TextAttributeView(caption: "title:", text: member.title)
+                    if model.member(byId: memberId).title != nil {
+                        TextAttributeView(caption: "title:",
+                                          text: model.member(byId: memberId).title)
                     }
-                    if member.nickname != nil {
-                        TextAttributeView(caption: "nickname:", text: member.nickname)
+                    if model.member(byId: memberId).nickname != nil {
+                        TextAttributeView(caption: "nickname:",
+                                          text: model.member(byId: memberId).nickname)
                     }
-                    TextAttributeView(caption: "sex:", text: member.sex.rawValue)
-                    TextAttributeView(caption: "status:", text: member.status.rawValue)
+                    TextAttributeView(caption: "sex:",
+                                      text: model.member(byId: memberId).sex.rawValue)
+                    TextAttributeView(caption: "status:",
+                                      text: model.member(byId: memberId).status.rawValue)
                 }
                 Section {
-                    TextAttributeView(caption: "resident:", text: member.resident ? "yes" : "no")
-                    TextAttributeView(caption: "ex-directory:", text: member.exDirectory ? "yes" : "no")
-                    if member.dateOfBirth != nil {
-                        TextAttributeView(caption: "date of birth:", text: dateForDisplay(member.dateOfBirth!))
+                    TextAttributeView(caption: "resident:",
+                                      text: model.member(byId: memberId).resident ? "yes" : "no")
+                    TextAttributeView(caption: "ex-directory:",
+                                      text: model.member(byId: memberId).exDirectory ? "yes" : "no")
+                    if model.member(byId: memberId).dateOfBirth != nil {
+                        TextAttributeView(caption: "date of birth:",
+                                          text: dateForDisplay(
+                                            model.member(byId: memberId).dateOfBirth!))
                     }
-                    if member.placeOfBirth != nil {
-                        TextAttributeView(caption: "place of birth:", text: member.placeOfBirth!)
+                    if model.member(byId: memberId).placeOfBirth != nil {
+                        TextAttributeView(caption: "place of birth:",
+                                          text: model.member(byId: memberId).placeOfBirth!)
                     }
-                    if member.baptism != nil {
-                        TextAttributeView(caption: "baptism:", text: member.baptism)
+                    if model.member(byId: memberId).baptism != nil {
+                        TextAttributeView(caption: "baptism:",
+                                          text: model.member(byId: memberId).baptism)
                     }
-                    TextAttributeView(caption: "household:", text: model.nameOf(household: member.household))
-                    TextAttributeView(caption: "martial status:", text: member.maritalStatus.rawValue)
-                    if member.spouse != nil {
-                        TextAttributeView(caption: "spouse:", text: member.spouse)
+                    TextAttributeView(caption: "household:",
+                                      text: model.nameOf(household: model.member(byId: memberId).household))
+                    TextAttributeView(caption: "martial status:",
+                                      text: model.member(byId: memberId).maritalStatus.rawValue)
+                    if model.member(byId: memberId).spouse != nil {
+                        TextAttributeView(caption: "spouse:",
+                                          text: model.member(byId: memberId).spouse)
                     }
-                    if member.dateOfMarriage != nil {
-                        TextAttributeView(caption: "date of marriage:", text: dateForDisplay(member.dateOfMarriage))
+                    if model.member(byId: memberId).dateOfMarriage != nil {
+                        TextAttributeView(caption: "date of marriage:", text: dateForDisplay(model.member(byId: memberId).dateOfMarriage))
                     }
-                    if member.divorce != nil {
-                        TextAttributeView(caption: "divorce:", text: member.divorce)
+                    if model.member(byId: memberId).divorce != nil {
+                        TextAttributeView(caption: "divorce:",
+                                          text: model.member(byId: memberId).divorce)
                     }
                 }
                 Section {
-                    if member.father != nil {
+                    if model.member(byId: memberId).father != nil {
                         TextAttributeView(caption: "father:",
-                                          text: model.nameOf(member: member.father!))
+                                          text: model.nameOf(member: model.member(byId: memberId).father!))
                     }
-                    if member.mother != nil {
+                    if model.member(byId: memberId).mother != nil {
                         TextAttributeView(caption: "mother:",
-                                          text: model.nameOf(member: member.mother!))
+                                          text: model.nameOf(member: model.member(byId: memberId).mother!))
                     }
-                    if member.eMail != nil {
-                        TextAttributeView(caption: "email:", text: member.eMail)
+                    if model.member(byId: memberId).eMail != nil {
+                        TextAttributeView(caption: "email:",
+                                          text: model.member(byId: memberId).eMail)
                     }
-                    if member.workEmail != nil {
-                        TextAttributeView(caption: "work email:", text: member.workEmail)
+                    if model.member(byId: memberId).workEmail != nil {
+                        TextAttributeView(caption: "work email:",
+                                          text: model.member(byId: memberId).workEmail)
                     }
-                    if member.mobilePhone != nil {
-                        TextAttributeView(caption: "mobile phone:", text: member.mobilePhone)
+                    if model.member(byId: memberId).mobilePhone != nil {
+                        TextAttributeView(caption: "mobile phone:",
+                                          text: model.member(byId: memberId).mobilePhone)
                     }
-                    if member.workPhone != nil {
-                        TextAttributeView(caption: "work phone:", text: member.workPhone)
+                    if model.member(byId: memberId).workPhone != nil {
+                        TextAttributeView(caption: "work phone:",
+                                          text: model.member(byId: memberId).workPhone)
                     }
                 }
-                if member.dateLastChanged != nil {
-                    TextAttributeView(caption: "date last changed:", text: dateForDisplay(member.dateLastChanged))
+                if model.member(byId: memberId).dateLastChanged != nil {
+                    TextAttributeView(caption: "date last changed:", text: dateForDisplay(model.member(byId: memberId).dateLastChanged))
                 }
                 Section(header: Text("Transactions").font(.callout).italic()) {
-                    TransactionsView(member: member)
+                    TransactionsView(member: model.member(byId: memberId))
                 }
-                if member.services.count > 0 {
+                if model.member(byId: memberId).services.count > 0 {
                     Section(header: Text("Officer Service").font(.callout).italic()) {
-                        ServicesView(member: member)
+                        ServicesView(member: model.member(byId: memberId))
                     }
                 }
             }.listStyle(GroupedListStyle())
@@ -101,7 +124,7 @@ struct CoreMemberView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(member.fullName())
+                Text(model.member(byId: memberId).fullName())
             }
             ToolbarItem(placement: .primaryAction) {
                 editButton

@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct FamilyJoinHouseholdPhaseView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @Binding var accumulator: FamilyJoinAccumulator
     @Binding var linkSelection: WorkflowLink?
 
@@ -30,25 +30,22 @@ struct FamilyJoinHouseholdPhaseView: View {
             HouseholdView(householdId: accumulator.addedHousehold.id,
                           replaceButtons: false,
                           spouseFactory: SpouseFactory(
-                            model: model,
                             householdId: accumulator.addedHousehold.id),
                           otherFactory: OtherFactory(
-                            model: model,
                             householdId: accumulator.addedHousehold.id))
         }
     }
 }
 
 fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
-    var model: Model
     var householdId: ID
     
-    init(model: Model, householdId: ID) {
-        self.model = model
+    init(householdId: ID) {
         self.householdId = householdId
     }
     
     func make() -> Member {
+        let model: Model = .shared
         var newval = Member()
         NSLog("made spouse \(newval.id)")
         var household = model.household(byId: householdId)
@@ -71,15 +68,14 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
 }
 
 fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
-    var model: Model
     var householdId: ID
     
-    init(model: Model, householdId: ID) {
-        self.model = model
+    init(householdId: ID) {
         self.householdId = householdId
     }
     
     func make() -> Member {
+        let model: Model = .shared
         let household = model.household(byId: householdId)
         var newval = Member()
         newval.household = household.id

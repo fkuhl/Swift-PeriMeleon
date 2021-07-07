@@ -16,6 +16,7 @@ enum WorkflowLink {
 }
 
 struct WorkflowsView: View {
+    @ObservedObject var model: Model = .shared
     @ObservedObject var moveToHouseholdAccumulator = MoveToHouseholdAccumulator()
     @State private var linkSelection: WorkflowLink? = nil
     
@@ -65,7 +66,6 @@ struct WorkflowsView: View {
     }
 
     private var dataCheckerView: some View {
-        @EnvironmentObject var model: Model
         return DataCheckerView(dataChecker: DataChecker(model: model))
     }
 }
@@ -75,6 +75,7 @@ struct WorkflowsView_Previews: PreviewProvider {
         Group {
             WorkflowsView()
                 .previewLayout(PreviewLayout.fixed(width: 1024, height: 768))
+                .environmentObject(mockModel)
         }
     }
 }

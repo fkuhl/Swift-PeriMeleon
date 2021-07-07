@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct AddressEditView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     var householdId: ID
     @State var address: Address
     @Binding var changeCount: Int

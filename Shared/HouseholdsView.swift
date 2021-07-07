@@ -11,7 +11,7 @@ import PMDataTypes
 
 
 struct HouseholdsView: View, FilterUpdater {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @State private var allOrActive = 0
     @State private var households: [NormalizedHousehold] = []
     @State private var filterText: String = ""

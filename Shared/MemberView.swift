@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @State var memberId: ID
     var editable = true
     @State private var isEditing = false
@@ -26,7 +26,7 @@ struct MemberView: View {
                 changeCount: $changeCount)
                 .transition(.move(edge: .trailing))
         } else {
-            CoreMemberView(member: model.member(byId: memberId),
+            CoreMemberView(memberId: memberId,
                            editable: self.editable,
                            isEditing: $isEditing)
                 .transition(.move(edge: .trailing))

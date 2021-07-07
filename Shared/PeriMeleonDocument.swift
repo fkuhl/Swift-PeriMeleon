@@ -49,7 +49,6 @@ struct PeriMeleonDocument: FileDocument {
     
     var state: State = .normal
     private var key: SymmetricKey? = nil
-    var model: Model
     //TODO: - will "willChange" sink us?
     var modelWillChangeSubscriber: AnyCancellable?
     
@@ -78,7 +77,6 @@ struct PeriMeleonDocument: FileDocument {
             NSLog("PeriMeleonDocument init data empty")
             self.encryptedData = data
             state = .newFile
-            model = Model()
             return
         }
         NSLog("PeriMeleonDocument init \(data.count) bytes")
@@ -111,7 +109,8 @@ struct PeriMeleonDocument: FileDocument {
         } catch {
             NSLog("cannot decrypt: \(error.localizedDescription)")
             state = .cannotDecrypt
-            model = Model(householdsById: [ID : NormalizedHousehold](),
+            //The changing singleton!!!
+            Model.shared = Model(householdsById: [ID : NormalizedHousehold](),
                           membersById: [ID : Member]())
             return
         }
@@ -120,11 +119,8 @@ struct PeriMeleonDocument: FileDocument {
                                                            from: decryptedContent)
             NSLog("read \(decodedHouseholds.count) households from init config")
             let (householdsById, membersById) = normalize(decodedHouseholds: decodedHouseholds)
-            model = Model(householdsById: householdsById, membersById: membersById)
-            modelWillChangeSubscriber = model.objectWillChange
-                .sink { _ in
-                    encodeAndEncrypt()
-                }
+            //The changing singleton!!!
+            Model.shared = Model(householdsById: householdsById, membersById: membersById)
             state = .normal
         } catch {
             let err = error as! DecodingError
@@ -230,19 +226,19 @@ struct PeriMeleonDocument: FileDocument {
      */
     private func denormalize() -> [Household] {
         var denormalizedArray = [Household]()
-        model.householdsById.values.forEach { household in
+        Model.shared.householdsById.values.forEach { household in
             var denormalized = Household()
             denormalized.id = household.id
-            if let head = model.membersById[household.head] {
+            if let head = Model.shared.membersById[household.head] {
                 denormalized.head = head
             }
             if let spouseId = household.spouse {
-                if let spouse = model.membersById[spouseId] {
+                if let spouse = Model.shared.membersById[spouseId] {
                     denormalized.spouse = spouse
                 }
             } else { denormalized.spouse = nil }
             denormalized.others = household.others.compactMap {
-                model.membersById[$0]
+                Model.shared.membersById[$0]
             }
             denormalized.address = household.address
             denormalizedArray.append(denormalized)

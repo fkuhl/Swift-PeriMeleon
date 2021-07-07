@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MembersByAgeEntryView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @Binding var asOfDate: Date
     @Binding var comparison: Comparison
     @Binding var age: Int
@@ -83,7 +83,6 @@ struct MembersByAgeEntryView_Previews: PreviewProvider {
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
-            .environmentObject(Model())
             .previewDisplayName("Preview")
     }
 }

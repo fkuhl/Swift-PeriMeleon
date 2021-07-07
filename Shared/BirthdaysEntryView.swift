@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct BirthdaysEntryView: View {
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Hun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @Binding var selectedMonth: Int
     @Binding var members: [Member]
     @Binding var showingResults: Bool
@@ -64,7 +64,6 @@ struct BirthdaysEntryView_Previews: PreviewProvider {
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
-            .environmentObject(Model())
             .previewDisplayName("Preview")
     }
 }

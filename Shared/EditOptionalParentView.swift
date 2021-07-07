@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct EditOptionalParentView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
     var sex: Sex
@@ -37,7 +37,7 @@ struct EditOptionalParentView: View {
 }
 
 struct ChooseParentListView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @Binding var parentId: ID
     var sex: Sex
     let title: String

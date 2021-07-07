@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct MoveToHouseholdView: View {
-    @EnvironmentObject var accumulator: MoveToHouseholdAccumulator
     
     var body: some View {
         Form {

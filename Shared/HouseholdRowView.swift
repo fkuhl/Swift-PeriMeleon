@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct HouseholdRowView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     var householdId: ID
     
     var body: some View {

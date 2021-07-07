@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct FamilyJoinHeadPhaseView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @Binding var accumulator: FamilyJoinAccumulator
     @State private var isEditing = false //not used in FamilyJoin
     @State private var changeCount = 0

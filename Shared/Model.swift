@@ -8,7 +8,15 @@
 import SwiftUI
 import PMDataTypes
 
-class Model: ObservableObject {
+final class Model: ObservableObject {
+    /**
+     For the shared ObservableObject rather than EnvironmentObjst, see:
+     https://betterprogramming.pub/the-best-way-to-use-environment-objects-in-swiftui-d9a88b1e253f
+     Yeah, var not let. And initializer not private.
+     */
+    static var shared = Model()
+    
+    var document: Binding<PeriMeleonDocument>? = nil
     @Published var householdsById: [ID : NormalizedHousehold]
     @Published var membersById: [ID : Member]
 
@@ -112,27 +120,28 @@ class Model: ObservableObject {
 
     //MARK: - Update data
     
-    /**
-     
-     */
     
     func update(household: NormalizedHousehold) {
         householdsById[household.id] = household
         NSLog("households changed")
+        document?.wrappedValue.encodeAndEncrypt()
     }
 
     func add(household: NormalizedHousehold) {
         householdsById[household.id] = household
         NSLog("households added to")
+        document?.wrappedValue.encodeAndEncrypt()
     }
     
     func update(member: Member) {
         membersById[member.id] = member
         NSLog("members changed")
+        document?.wrappedValue.encodeAndEncrypt()
     }
     
     func add(member: Member) {
         membersById[member.id] = member
         NSLog("members added to")
+        document?.wrappedValue.encodeAndEncrypt()
     }
 }

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainView: View {
-    @Binding var document: PeriMeleonDocument
     @State private var selection = 0
     
     var body: some View {
@@ -22,6 +21,5 @@ struct MainView: View {
 //                .navigationBarHidden(true)
 //                .frame(maxWidth: 500)
         }
-        .environmentObject(document.model)
     }
 }

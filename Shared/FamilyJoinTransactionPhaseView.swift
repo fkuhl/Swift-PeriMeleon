@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import PMDataTypes
 
 struct FamilyJoinTransactionPhaseView: View {
     @Binding var accumulator: FamilyJoinAccumulator

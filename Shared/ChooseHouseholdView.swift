@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct ChooseHouseholdView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
     @Binding var householdId: ID
@@ -30,7 +30,7 @@ struct ChooseHouseholdView: View {
 
 
 struct ChooseHouseholdListView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @State private var allOrActive = 0
     @Binding var householdId: ID
     
@@ -54,7 +54,7 @@ struct ChooseHouseholdListView: View {
 }
 
 struct ChooseHouseholdRowView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var household: NormalizedHousehold
     @Binding var chosenId: ID

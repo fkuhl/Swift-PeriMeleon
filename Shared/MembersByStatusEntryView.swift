@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MembersByStatusEntryView: View {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @Binding var includeResident: Bool
     @Binding var includeNonResident: Bool
     @Binding var desiredStatus: MemberStatus
@@ -72,7 +72,6 @@ struct MembersByStatusEntryView_Previews: PreviewProvider {
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
-            .environmentObject(Model())
             .previewDisplayName("Preview")
     }
 }

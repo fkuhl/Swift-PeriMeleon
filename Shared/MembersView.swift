@@ -11,7 +11,7 @@ import PMDataTypes
 
 
 struct MembersView: View, FilterUpdater {
-    @EnvironmentObject var model: Model
+    @ObservedObject var model: Model = .shared
     @State private var allOrActive = 0
     @State private var members: [Member] = []
     @State private var filterText: String = ""
@@ -37,6 +37,7 @@ struct MembersView: View, FilterUpdater {
                     ForEach(members) {
                         MemberRowView(memberId: $0.id,
                                       changeCount: $changeCount)
+                            .environmentObject(model)
                     }
                 }
             }
@@ -46,6 +47,7 @@ struct MembersView: View, FilterUpdater {
                             Text(allOrActive == 0 ? "Active Members" : "All Members")
                         })})
         }
+        .debugPrint("MembersView \(model.members.count) members")
         .onAppear() { updateUI(filterText: "") }
     }
     

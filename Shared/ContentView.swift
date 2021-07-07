@@ -11,33 +11,38 @@ struct ContentView: View {
     @Binding var document: PeriMeleonDocument
 
     var body: some View {
-        switch (document.state) {
-        case .normal:
-            MainView(document: $document)
-        case .newFile:
-            PasswordView(label: "Please provide password for new document:",
-                         document: $document,
-                         buttonText: "Open New Document")
-        case .noKey:
-            PasswordView(label: "Please provide a password for the file:",
-                         document: $document,
-                         buttonText: "Open")
-        case .cannotRead:
-            Text("cannot read: corrupt document?")
-        case .cannotDecrypt:
-            PasswordView(label: "Unable to decrypt the file; please provide another password:",
-                         document: $document,
-                         buttonText: "Open")
-        case .cannotDecode(let d1, let d2, let d3):
-            swanSong(lastGasp: "Alas, the file cannot be decoded.",
+        Group {
+            switch (document.state) {
+            case .normal:
+                MainView()
+            case .newFile:
+                PasswordView(label: "Please provide password for new document:",
+                             document: $document,
+                             buttonText: "Open New Document")
+            case .noKey:
+                PasswordView(label: "Please provide a password for the file:",
+                             document: $document,
+                             buttonText: "Open")
+            case .cannotRead:
+                Text("cannot read: corrupt document?")
+            case .cannotDecrypt:
+                PasswordView(label: "Unable to decrypt the file; please provide another password:",
+                             document: $document,
+                             buttonText: "Open")
+            case .cannotDecode(let d1, let d2, let d3):
+                swanSong(lastGasp: "Alas, the file cannot be decoded.",
                          basicError: d1, codingPath: d2, underlyingError: d3)
-        case .saveError(let d1, let d2, let d3):
-            swanSong(lastGasp: "Alas, the file could not be saved.",
-                     basicError: d1, codingPath: d2, underlyingError: d3)
-        case .passwordEntriesDoNotMatch:
-            PasswordView(label: "Passwords didn't match. Please enter again:",
-                         document: $document.animation(),
-                         buttonText: "Open")
+            case .saveError(let d1, let d2, let d3):
+                swanSong(lastGasp: "Alas, the file could not be saved.",
+                         basicError: d1, codingPath: d2, underlyingError: d3)
+            case .passwordEntriesDoNotMatch:
+                PasswordView(label: "Passwords didn't match. Please enter again:",
+                             document: $document.animation(),
+                             buttonText: "Open")
+            }
+        }
+        .onAppear() {
+            Model.shared.document = $document
         }
     }
     

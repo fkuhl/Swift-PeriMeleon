@@ -55,7 +55,6 @@ struct MembersByAgeView_Previews: PreviewProvider {
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
-            .environmentObject(Model())
             .previewDisplayName("Preview")
     }
 }
