@@ -10,7 +10,6 @@ import UniformTypeIdentifiers
 import PMDataTypes
 import CryptoKit
 import CommonCrypto
-import Combine
 
 let passwordAccount = "com.tyndalesoft.PeriMeleonx"
 
@@ -49,8 +48,6 @@ struct PeriMeleonDocument: FileDocument {
     
     var state: State = .normal
     private var key: SymmetricKey? = nil
-    //TODO: - will "willChange" sink us?
-    var modelWillChangeSubscriber: AnyCancellable?
     
     /** This, it turns out, is what the framework is watching.
      encryptedData must be updated every time the document changes.
@@ -96,6 +93,7 @@ struct PeriMeleonDocument: FileDocument {
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        NSLog("wrapping \(encryptedData.count) bytes")
         return .init(regularFileWithContents: encryptedData)
     }
     

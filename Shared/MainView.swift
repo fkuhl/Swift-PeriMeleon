@@ -13,13 +13,13 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             Sidebar().frame(width: 350)
-            Color(.gray)
-//            Image("NaturalPapyrus")
-//                .resizable()
-//                .aspectRatio(contentMode: .fill)
-//                .navigationBarTitle("")
-//                .navigationBarHidden(true)
-//                .frame(maxWidth: 500)
+//            Color(.gray)
+            Image("NaturalPapyrus")
+                .resizable(resizingMode: .tile)
+                //.aspectRatio(contentMode: .fill)
+                .navigationBarTitle("")
+                .navigationBarHidden(true)
+                //.frame(maxWidth: 500)
         }
     }
 }

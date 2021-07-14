@@ -40,8 +40,7 @@ struct HouseholdView: View {
                                  changeCount: $changeCount)
                 }
                 OtherAddView(otherFactory: otherFactory,
-                             householdId: householdId,
-                             changeCount: $changeCount)
+                             householdId: householdId)
             }
             Section(header: Text("Address").font(.callout).italic()) {
                 if nugatory(model.household(byId: householdId).address) {
@@ -196,7 +195,6 @@ fileprivate struct OtherAddView: View {
     @ObservedObject var model: Model = .shared
     var otherFactory: HouseholdMemberFactoryDelegate
     var householdId: ID
-    @Binding var changeCount: Int
     
     var body: some View {
         Button(action: {
@@ -206,12 +204,10 @@ fileprivate struct OtherAddView: View {
             // This looks roundabout. But making a new array and adding
             // it back to the household makes it look new to SWiftUI,
             // causing a view update.
-            // --except it doesn't; hence addition of changeCount.
             var others = household.others
             others.append(newOther.id)
             household.others = others
             model.update(household: household)
-            //changeCount += 1
             NSLog("OAV hh \(model.nameOf(household: household.id)) has \(household.others.count) others")
         }) {
             Image(systemName: "plus").font(.body)

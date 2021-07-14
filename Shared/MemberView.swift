@@ -20,8 +20,8 @@ struct MemberView: View {
     var body: some View {
         if isEditing {
             MemberEditView(member: model.member(byId: memberId),
-                           memberEditDelegate: MemberViewEditDelegate(model: model),
-                memberCancelDelegate: MemberViewCancelDelegate(),
+                           memberEditDelegate: MemberViewEditDelegate(),
+                           memberCancelDelegate: MemberViewCancelDelegate(),
                 isEditing: $isEditing,
                 changeCount: $changeCount)
                 .transition(.move(edge: .trailing))
@@ -38,15 +38,10 @@ struct MemberView: View {
  Delegate implementation used only by MemberView.
  */
 fileprivate class MemberViewEditDelegate: MemberEditDelegate {
-    var model: Model
-    
-    init(model: Model) {
-        self.model = model
-    }
-    
+
     func store(member: Member) {
         NSLog("MemberEditViewDel onDis: val is \(member.fullName())")
-        model.update(member: member)
+        Model.shared.update(member: member)
     }
 }
 

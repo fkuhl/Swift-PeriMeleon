@@ -47,7 +47,7 @@ struct MembersView: View, FilterUpdater {
                             Text(allOrActive == 0 ? "Active Members" : "All Members")
                         })})
         }
-        .debugPrint("MembersView \(model.members.count) members")
+        //.debugPrint("MembersView \(model.members.count) members")
         .onAppear() { updateUI(filterText: "") }
     }
     
