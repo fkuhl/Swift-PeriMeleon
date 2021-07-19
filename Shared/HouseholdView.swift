@@ -11,7 +11,8 @@ import PMDataTypes
 
 
 struct HouseholdView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
+    @Environment(\.undoManager) var undoManager
     var householdId: ID
     var addressEditable = true
     var replaceButtons = false
@@ -28,14 +29,14 @@ struct HouseholdView: View {
         Form {
             Section {
                 NavigationLink(destination: headDestination) { headLink }
-                if model.household(byId: householdId).spouse == nil {
+                if document.household(byId: householdId).spouse == nil {
                     Button(action: addSpouse) { Text("Add spouse").font(.body) }
                 } else {
                     NavigationLink(destination: spouseDestination) { spouseLink }
                 }
             }
             Section(header: Text("Dependents").font(.callout).italic()) {
-                ForEach(model.household(byId: householdId).others, id: \.self) {
+                ForEach(document.household(byId: householdId).others, id: \.self) {
                     OtherRowView(memberId: $0,
                                  changeCount: $changeCount)
                 }
@@ -43,7 +44,7 @@ struct HouseholdView: View {
                              householdId: householdId)
             }
             Section(header: Text("Address").font(.callout).italic()) {
-                if nugatory(model.household(byId: householdId).address) {
+                if nugatory(document.household(byId: householdId).address) {
                     NavigationLink(destination: newAddressDestination) {
                         Text("Add address").font(.body)
                     }
@@ -57,37 +58,37 @@ struct HouseholdView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
                     ToolbarItem(placement: .principal, content: {
-                        Text(model.nameOf(household: model.household(byId: householdId)))
+                        Text(document.nameOf(household: document.household(byId: householdId)))
                     })})
     }
     
     private var headDestination: some View {
         MemberView(
-            memberId: model.household(byId: householdId).head,
+            memberId: document.household(byId: householdId).head,
             changeCount: $changeCount)
     }
     
     private var headLink: some View {
         MemberLinkView(caption: "Head of household",
-                       name: model.nameOf(household: model.household(byId: householdId)))
+                       name: document.nameOf(household: document.household(byId: householdId)))
     }
     
     private var spouseDestination: some View {
-        MemberView(memberId: model.household(byId: householdId).spouse!,
+        MemberView(memberId: document.household(byId: householdId).spouse!,
                    changeCount: $changeCount)
     }
     
     private var spouseLink: some View {
         MemberLinkView(caption: "Spouse",
-                       name: model.nameOf(member: model.household(byId: householdId).spouse!))
+                       name: document.nameOf(member: document.household(byId: householdId).spouse!))
     }
 
     private func addSpouse() {
         let newSpouse = spouseFactory.make()
-        model.add(member: newSpouse)
-        var changingHousehold = model.household(byId: householdId)
+        document.add(member: newSpouse, undoManager: undoManager)
+        var changingHousehold = document.household(byId: householdId)
         changingHousehold.spouse = newSpouse.id
-        model.update(household: changingHousehold)
+        document.update(household: changingHousehold , undoManager: undoManager)
         changeCount += 1
     }
     
@@ -99,17 +100,16 @@ struct HouseholdView: View {
     
     private var addressDestination: some View {
         AddressEditView(householdId: householdId,
-                        address: model.household(byId: householdId).address!,
+                        address: document.household(byId: householdId).address!,
                         changeCount: $changeCount)
     }
 }
 
 class PreviewHouseholdMemberFactoryDelegate: HouseholdMemberFactoryDelegate {
-    var model: Model
+    @ObservedObject var document = PeriMeleonDocument.shared
     var householdId: ID
     
-    init(model: Model, householdId: ID) {
-        self.model = model
+    init(householdId: ID) {
         self.householdId = householdId
     }
     
@@ -128,10 +128,8 @@ struct HouseholdView_Previews: PreviewProvider {
     static var previews: some View {
         HouseholdView(householdId: mockHousehold.id,
                       spouseFactory: PreviewHouseholdMemberFactoryDelegate(
-                        model: Model(),
                         householdId: mockHousehold.id),
                       otherFactory: PreviewHouseholdMemberFactoryDelegate(
-                        model: Model(),
                         householdId: mockHousehold.id))
             .previewLayout(PreviewLayout.sizeThatFits)
             .padding()
@@ -144,11 +142,11 @@ struct HouseholdView_Previews: PreviewProvider {
 //MARK: - Address
 
 fileprivate struct AddressLinkView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @State var householdId: ID
     
     var body: some View {
-        Text(model.household(byId: householdId).address?.addressForDisplay() ?? "[none]").font(.body)
+        Text(document.household(byId: householdId).address?.addressForDisplay() ?? "[none]").font(.body)
     }
 }
 
@@ -176,7 +174,7 @@ fileprivate struct MemberLinkView: View {
 }
 
 fileprivate struct OtherRowView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     var memberId: ID
     @Binding var changeCount: Int
     
@@ -186,29 +184,30 @@ fileprivate struct OtherRowView: View {
                         changeCount: $changeCount)) {
             MemberLinkView(captionWidth: defaultCaptionWidth,
                            caption: "",
-                           name: model.nameOf(member: memberId))
+                           name: document.nameOf(member: memberId))
         }//.debugPrint("ORV for \(document.nameOf(member: memberId))")
     }
 }
 
 fileprivate struct OtherAddView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
+    @Environment(\.undoManager) var undoManager
     var otherFactory: HouseholdMemberFactoryDelegate
     var householdId: ID
     
     var body: some View {
         Button(action: {
             let newOther = otherFactory.make()
-            model.add(member: newOther)
-            var household = model.household(byId: householdId)
+            document.add(member: newOther , undoManager: undoManager)
+            var household = document.household(byId: householdId)
             // This looks roundabout. But making a new array and adding
             // it back to the household makes it look new to SWiftUI,
             // causing a view update.
             var others = household.others
             others.append(newOther.id)
             household.others = others
-            model.update(household: household)
-            NSLog("OAV hh \(model.nameOf(household: household.id)) has \(household.others.count) others")
+            document.update(household: household, undoManager: undoManager)
+            NSLog("OAV hh \(document.nameOf(household: household.id)) has \(household.others.count) others")
         }) {
             Image(systemName: "plus").font(.body)
         }

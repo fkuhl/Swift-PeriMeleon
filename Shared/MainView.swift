@@ -14,7 +14,7 @@ struct MainView: View {
         NavigationView {
             Sidebar().frame(width: 350)
 //            Color(.gray)
-            Image("NaturalPapyrus")
+            Image("sinaiticus")
                 .resizable(resizingMode: .tile)
                 //.aspectRatio(contentMode: .fill)
                 .navigationBarTitle("")

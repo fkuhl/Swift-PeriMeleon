@@ -18,17 +18,14 @@ extension UTType {
 }
 
 /**
- This probably should be a ReferenceFileDocument, as its state is continually changing.
- For that to work, the document signals that it needs to be saved by doing something with an UndoManager.
- It also must provide a snapshpt (type is Data?), which is what's written to the file when the document is saved,
- so the snapshot would be the encoded and encrypted data.
+ See:.
  See https://medium.com/@acwrightdesign/using-referencefiledocument-in-swiftui-e54ef75a14b8
- 
- But making this a ReferenceFileDocument is likely a premature optimization, especially on the morning of WWDC, in which
- many things may change. [Narrator: No changes were announced at WWDC 2021.]
+ and
+ https://developer.apple.com/documentation/swiftui/building_a_document-based_app_with_swiftui
+
  */
 
-struct PeriMeleonDocument: FileDocument {
+class PeriMeleonDocument: ReferenceFileDocument {
     enum State: Equatable {
         case noKey
         case cannotRead(errorDescription: String)
@@ -43,16 +40,47 @@ struct PeriMeleonDocument: FileDocument {
     static var readableContentTypes: [UTType] { [.periMeleonRollsDocument] }
     static var writableContentTypes: [UTType] { [.periMeleonRollsDocument] }
     
+    /**
+     On this branch is an attempt to use a sort-of singleton to make the document available.
+     It compiles. But, an order-of-initialization problem. A PMDoc is initialized. But setting that in ContentView.onAppear()
+     is too late: that doesn't get called until (apparently) MembersView initializer is run, which is looking for PMDoc.shared,
+     and that gets initialized with the blank init.
+     */
+    static var shared = PeriMeleonDocument()
+    
 
     // MARK: - Data
     
+    @Published var householdsById = [ID : NormalizedHousehold]()
+    @Published var membersById = [ID : Member]()
+    
+    /**Holds data initially read from file, till it can be decrypted. Otherwise the document's data are in
+     householdsById and membersById, with snapshots as copies of them (as Model structs).
+     */
+    private var initialData = Data()
+
+    var households: [NormalizedHousehold] {
+        var households = [NormalizedHousehold](householdsById.values)
+        households.sort {
+            membersById[$0.head]?.fullName() ?? "" < membersById[$1.head]?.fullName() ?? ""
+        }
+        return households
+    }
+    var activeHouseholds: [NormalizedHousehold] {
+        households.filter { membersById[$0.head]?.isActive() ?? false }
+    }
+    var members: [Member] {
+        var members = [Member](membersById.values)
+        members.sort{ $0.fullName() < $1.fullName() }
+        return members
+    }
+    var activeMembers: [Member] {
+        members.filter{ $0.isActive() }
+    }
+
     var state: State = .normal
     private var key: SymmetricKey? = nil
     
-    /** This, it turns out, is what the framework is watching.
-     encryptedData must be updated every time the document changes.
-     */
-    private var encryptedData: Data
     
     // MARK: - initializers
 
@@ -60,27 +88,37 @@ struct PeriMeleonDocument: FileDocument {
     init() {
         //We have a new document.
         NSLog("PeriMeleonDocument init no data")
-        encryptedData = Data()
         state = .newFile
-        return
+        self.householdsById = [ID : NormalizedHousehold]()
+        self.membersById = [ID : Member]()
+        initializeNewDB()
+    }
+    
+    ///For mocking only
+    init(model: Model) {
+        householdsById = model.h
+        membersById = model.m
+        state = .normal
     }
 
-    init(configuration: ReadConfiguration) throws {
+    required init(configuration: ReadConfiguration) throws {
         guard let data = configuration.file.regularFileContents else {
             throw CocoaError(.fileReadCorruptFile)
         }
         if data.count == 0 {
             //We have a new document.
             NSLog("PeriMeleonDocument init data empty")
-            self.encryptedData = data
             state = .newFile
+            self.householdsById = [ID : NormalizedHousehold]()
+            self.membersById = [ID : Member]()
+            initializeNewDB()
             return
         }
         NSLog("PeriMeleonDocument init \(data.count) bytes")
-        self.encryptedData = data
+        initialData = data
         do {
             if let decryptionKey: SymmetricKey = try GenericPasswordStore().readKey(account: passwordAccount) {
-                decryptAndDecode(key: decryptionKey)
+                decryptAndDecode(data, key: decryptionKey)
                 key = decryptionKey
             } else {
                 NSLog("no key")
@@ -91,34 +129,62 @@ struct PeriMeleonDocument: FileDocument {
             state = .noKey
         }
     }
-    
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        NSLog("wrapping \(encryptedData.count) bytes")
-        return .init(regularFileWithContents: encryptedData)
+
+    private func initializeNewDB() {
+        let mansionInTheSkyTempId = UUID().uuidString
+        var goodShepherd = Member()
+        goodShepherd.familyName = "Shepherd"
+        goodShepherd.givenName = "Good"
+        goodShepherd.placeOfBirth = "Bethlehem"
+        goodShepherd.status = MemberStatus.PASTOR  // not counted against communicants
+        goodShepherd.resident = false  // not counted against residents
+        goodShepherd.exDirectory = true  // not included in directory
+        goodShepherd.household = mansionInTheSkyTempId
+        
+        var mansionInTheSky = NormalizedHousehold()
+        goodShepherd.household = mansionInTheSky.id
+        mansionInTheSky.head = goodShepherd.id
+        mansionInTheSky.id = mansionInTheSkyTempId
+        membersById[goodShepherd.id] = goodShepherd
+        householdsById[mansionInTheSky.id] = mansionInTheSky
     }
+    
+    
+    // MARK: - ReferenceFileDocument
+
+    func snapshot(contentType: UTType) throws -> Model {
+        NSLog("snapshot \(householdsById.count) households, \(membersById.count) members")
+        return Model(h: householdsById, m: membersById)
+    }
+    
+    func fileWrapper(snapshot: Model, configuration: WriteConfiguration) throws -> FileWrapper {
+        let encrypted = encodeAndEncrypt(model: snapshot)
+        NSLog("writing \(encrypted.count) bytes")
+        return FileWrapper(regularFileWithContents: encrypted)
+    }
+
     
     //MARK: - Crypto
     
-    mutating private func decryptAndDecode(key: SymmetricKey) {
+    private func decryptAndDecode(_ data: Data, key: SymmetricKey) {
         let decryptedContent: Data
         do {
-            let sealedBox = try ChaChaPoly.SealedBox(combined: encryptedData)
+            let sealedBox = try ChaChaPoly.SealedBox(combined: data)
             decryptedContent = try ChaChaPoly.open(sealedBox, using: key)
         } catch {
             NSLog("cannot decrypt: \(error.localizedDescription)")
             state = .cannotDecrypt
-            //The changing singleton!!!
-            Model.shared = Model(householdsById: [ID : NormalizedHousehold](),
-                          membersById: [ID : Member]())
+            householdsById = [ID : NormalizedHousehold]()
+            membersById = [ID : Member]()
             return
         }
         do {
             let decodedHouseholds = try jsonDecoder.decode([Household].self,
                                                            from: decryptedContent)
             NSLog("read \(decodedHouseholds.count) households from init config")
-            let (householdsById, membersById) = normalize(decodedHouseholds: decodedHouseholds)
-            //The changing singleton!!!
-            Model.shared = Model(householdsById: householdsById, membersById: membersById)
+            let model = normalize(decodedHouseholds: decodedHouseholds)
+            householdsById = model.h
+            membersById = model.m
             state = .normal
         } catch {
             let err = error as! DecodingError
@@ -131,10 +197,10 @@ struct PeriMeleonDocument: FileDocument {
         }
     }
     
-    mutating func tryPassword(firstAttempt: String) {
+    func tryPassword(firstAttempt: String) {
         key = makeKey(password: firstAttempt)
         if let decryptionKey = key {
-            decryptAndDecode(key: decryptionKey)
+            decryptAndDecode(initialData, key: decryptionKey)
             do {
                 try GenericPasswordStore().deleteKey(account: passwordAccount)
                 try GenericPasswordStore().storeKey(decryptionKey, account: passwordAccount)
@@ -154,35 +220,38 @@ struct PeriMeleonDocument: FileDocument {
         case noKey
     }
     
-    mutating func encodeAndEncrypt() {
+    func encodeAndEncrypt(model: Model) -> Data {
         guard state == .normal || state == .newFile else {
             NSLog("write attempted in state \(state)")
             state = .saveError(basicError: "write attempted in state \(state)",
                                codingPath: "",
                                underlyingError: "")
-            return
+            return Data()
         }
         guard let encryptionKey = key else {
             state = .saveError(basicError: "key inexplicably absent",
                                codingPath: "",
                                underlyingError: "")
-            return
+            return Data()
         }
         do {
-            let unencryptedData = try jsonEncoder.encode(denormalize())
-            encryptedData = try ChaChaPoly.seal(unencryptedData, using: encryptionKey).combined
+            let unencryptedData = try jsonEncoder.encode(denormalize(model: model))
+            let encryptedData = try ChaChaPoly.seal(unencryptedData, using: encryptionKey).combined
+            NSLog("storing \(encryptedData.count) bytes")
+            return encryptedData
         } catch let error where error is EncodingError {
             let encodingError = error as! EncodingError
             let explanation = explain(encodingError: encodingError)
             state = .saveError(basicError: explanation.0,
                                codingPath: explanation.1,
                                underlyingError: explanation.2)
+            return Data()
         } catch {
             state = .saveError(basicError: error.localizedDescription,
                                codingPath: "",
                                underlyingError: "")
+            return Data()
         }
-        NSLog("storing \(encryptedData.count) bytes")
     }
 
     
@@ -192,8 +261,7 @@ struct PeriMeleonDocument: FileDocument {
      Create normalized indexes of households and members.
      - precondition: households has been decoded and set.
      */
-    private func normalize(decodedHouseholds: [Household]) ->
-        ([ID : NormalizedHousehold], [ID : Member]) {
+    private func normalize(decodedHouseholds: [Household]) -> Model {
         var householdsById = [ID : NormalizedHousehold]()
         var membersById = [ID : Member]()
         decodedHouseholds.forEach { household in
@@ -216,27 +284,27 @@ struct PeriMeleonDocument: FileDocument {
             normalizedHousehold.address = household.address
             householdsById[household.id] = normalizedHousehold
         }
-        return (householdsById, membersById)
+        return Model(h: householdsById, m: membersById)
     }
     
     /**
      Recreate normalized array of Households for encoding from denormalized indexes.
      */
-    private func denormalize() -> [Household] {
+    private func denormalize(model: Model) -> [Household] {
         var denormalizedArray = [Household]()
-        Model.shared.householdsById.values.forEach { household in
+        model.h.values.forEach { household in
             var denormalized = Household()
             denormalized.id = household.id
-            if let head = Model.shared.membersById[household.head] {
+            if let head = model.m[household.head] {
                 denormalized.head = head
             }
             if let spouseId = household.spouse {
-                if let spouse = Model.shared.membersById[spouseId] {
+                if let spouse = model.m[spouseId] {
                     denormalized.spouse = spouse
                 }
             } else { denormalized.spouse = nil }
             denormalized.others = household.others.compactMap {
-                Model.shared.membersById[$0]
+                model.m[$0]
             }
             denormalized.address = household.address
             denormalizedArray.append(denormalized)
@@ -246,7 +314,7 @@ struct PeriMeleonDocument: FileDocument {
     
     //MARK: - New database
     
-    mutating func addPasswordToNewFile(firstAttempt: String, secondAttempt: String) {
+    func addPasswordToNewFile(firstAttempt: String, secondAttempt: String) {
         guard firstAttempt == secondAttempt else {
             self.state = .passwordEntriesDoNotMatch
             return
@@ -254,9 +322,6 @@ struct PeriMeleonDocument: FileDocument {
         key = makeKey(password: firstAttempt)
         if let encryptionKey = key {
             do {
-                let unencryptedData = try jsonEncoder.encode(denormalize())
-                encryptedData = try ChaChaPoly.seal(unencryptedData, using: encryptionKey).combined
-                NSLog("writing \(encryptedData.count) bytes")
                 try GenericPasswordStore().deleteKey(account: passwordAccount)
                 try GenericPasswordStore().storeKey(encryptionKey, account: passwordAccount)
                 state = .normal
@@ -267,6 +332,87 @@ struct PeriMeleonDocument: FileDocument {
             }
         } else {
             state = .noKey
+        }
+    }
+
+    //MARK: - Get data
+    
+    func household(byId: ID) -> NormalizedHousehold {
+        householdsById[byId] ?? NormalizedHousehold()
+    }
+    
+    func member(byId: ID) -> Member {
+        membersById[byId] ?? Member()
+    }
+    
+    func nameOf(household: NormalizedHousehold) -> String {
+        member(byId: household.head).fullName()
+    }
+    
+    func nameOf(household: ID) -> String {
+        if let hh = householdsById[household] {
+            return nameOf(household: hh)
+        } else { return "[none]" }
+    }
+    
+    func nameOf(member: ID) -> String {
+        if let mm = membersById[member] {
+            return mm.fullName()
+        } else { return "[none]" }
+    }
+
+    func parentList(mustBeActive: Bool, sex: Sex) -> [Member] {
+        var matches = [Member](membersById.values.filter { member in
+            return member.sex == sex && !(mustBeActive && !member.isActive())
+        })
+        matches.sort { $0.fullName() < $1.fullName() }
+        return matches
+    }
+    
+    func filterMembers(_ isIncluded: (Member) throws -> Bool) -> [Member] {
+        do {
+            var results = try membersById.values.filter(isIncluded)
+            results.sort { $0.fullName() < $1.fullName() }
+            return results
+        } catch {
+            return [Member]()
+        }
+    }
+    
+
+    //MARK: - Update data
+    //TODO: - To implement undo & redo, need inverse mutators. But at what level undo?
+    
+    
+    func update(household: NormalizedHousehold, undoManager: UndoManager?) {
+        householdsById[household.id] = household
+        NSLog("households changed")
+        undoManager?.registerUndo(withTarget: self) { doc in
+            NSLog("No undo implemented")
+        }
+    }
+
+    func add(household: NormalizedHousehold, undoManager: UndoManager?) {
+        householdsById[household.id] = household
+        NSLog("households added to")
+        undoManager?.registerUndo(withTarget: self) { doc in
+            NSLog("No undo implemented")
+        }
+    }
+    
+    func update(member: Member, undoManager: UndoManager?) {
+        membersById[member.id] = member
+        NSLog("members changed")
+        undoManager?.registerUndo(withTarget: self) { doc in
+            NSLog("No undo implemented")
+        }
+    }
+    
+    func add(member: Member, undoManager: UndoManager?) {
+        membersById[member.id] = member
+        NSLog("members added to")
+        undoManager?.registerUndo(withTarget: self) { doc in
+            NSLog("No undo implemented")
         }
     }
 }

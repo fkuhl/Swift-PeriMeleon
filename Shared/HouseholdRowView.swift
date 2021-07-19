@@ -10,34 +10,31 @@ import SwiftUI
 import PMDataTypes
 
 struct HouseholdRowView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     var householdId: ID
     
     var body: some View {
         NavigationLink(destination: HouseholdView(householdId: householdId,
                                                   spouseFactory: SpouseFactory(
-                                                    model: model,
                                                     householdId: householdId),
                                                   otherFactory: OtherFactory(
-                                                    model: model,
                                                     householdId: householdId))) {
-            Text(model.nameOf(household: householdId)).font(.body)
+            Text(document.nameOf(household: householdId)).font(.body)
         }
     }
 }
 
 fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
-    var model: Model
+    @ObservedObject var document = PeriMeleonDocument.shared
     let householdId: ID
     
-    init(model: Model, householdId: ID) {
-        self.model = model
+    init(householdId: ID) {
         self.householdId = householdId
     }
     
     func make() -> Member {
-        let household = model.household(byId: householdId)
-        let head = model.member(byId: household.head)
+        let household = document.household(byId: householdId)
+        let head = document.member(byId: household.head)
         var newval = Member()
         newval.household = household.id
         newval.givenName = "Spouse"
@@ -51,24 +48,23 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
 }
 
 fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
-    var model: Model
+    @ObservedObject var document = PeriMeleonDocument.shared
     let householdId: ID
     
-    init(model: Model, householdId: ID) {
-        self.model = model
+    init(householdId: ID) {
         self.householdId = householdId
     }
     
     func make() -> Member {
-        let household = model.household(byId: householdId)
+        let household = document.household(byId: householdId)
         var newval = Member()
         newval.household = household.id
         newval.givenName = "No. \(household.others.count + 1)"
-        newval.familyName = model.member(byId: household.head).familyName
+        newval.familyName = document.member(byId: household.head).familyName
         newval.status = .NONCOMMUNING
-        newval.father = model.member(byId: household.head).id
+        newval.father = document.member(byId: household.head).id
         if let mom = household.spouse {
-            newval.mother = model.member(byId: mom).id
+            newval.mother = document.member(byId: mom).id
         }
         return newval
     }

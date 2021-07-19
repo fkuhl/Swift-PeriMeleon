@@ -10,15 +10,14 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberRowView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     var memberId: ID
     @Binding var changeCount: Int
 
     var body: some View {
         NavigationLink(destination: MemberView(memberId: memberId,
-                                               changeCount: $changeCount)
-                        .environmentObject(model)) {
-            Text(model.nameOf(member: memberId))
+                                               changeCount: $changeCount)) {
+            Text(document.nameOf(member: memberId))
                 .font(.body)
         }
         //.debugPrint("MRV \(member.fullName())")

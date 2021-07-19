@@ -13,7 +13,7 @@ struct InformationView: View {
     @ScaledMetric(relativeTo: .headline) var dateTitleWidth: CGFloat = 150
     @ScaledMetric(relativeTo: .body) var datumTitleWidth: CGFloat = 150
     @ScaledMetric(relativeTo: .body) var datumStringWidth: CGFloat = 70
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
 
     var body: some View {
         VStack {
@@ -79,10 +79,11 @@ struct InformationView: View {
     private var documentInfo: some View {
         HStack {
             VStack(alignment: .leading) {
-                DocInfoView(caption: "Active members:", number: model.activeMembers.count)
-                DocInfoView(caption: "All members:", number: model.members.count)
-                DocInfoView(caption: "Active households:", number: model.activeHouseholds.count)
-                DocInfoView(caption: "All households:", number: model.households.count)
+                DocInfoView(caption: "Active members:", number: document.activeMembers.count)
+                DocInfoView(caption: "All members:", number: document.members.count)
+                DocInfoView(caption: "Active households:",
+                            number: document.activeHouseholds.count)
+                DocInfoView(caption: "All households:", number: document.households.count)
             }
             Spacer()
         }

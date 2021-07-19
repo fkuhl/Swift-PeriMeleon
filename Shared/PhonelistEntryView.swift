@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct PhonelistEntryView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @State var includeResident = true
     @State var includeNonResident = false
     @State var includeMen = true
@@ -55,7 +55,7 @@ struct PhonelistEntryView: View {
     
     func runQuery() {
         NSLog("run query, age >= \(minimumAge)")
-        members = model.filterMembers {
+        members = document.filterMembers {
             let isActive = $0.isActive()
             let residency = (includeResident && $0.resident)
                 || (includeNonResident && !$0.resident)

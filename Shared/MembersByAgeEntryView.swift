@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MembersByAgeEntryView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @Binding var asOfDate: Date
     @Binding var comparison: Comparison
     @Binding var age: Int
@@ -59,7 +59,7 @@ struct MembersByAgeEntryView: View {
     
     func runQuery() {
         NSLog("run query")
-        members = model.filterMembers {
+        members = document.filterMembers {
             $0.status.isActive() && $0.dateOfBirth != nil &&
             comparison.comparator($0.age(asOf: asOfDate), age)
         }

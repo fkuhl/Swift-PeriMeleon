@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MembersByStatusEntryView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @Binding var includeResident: Bool
     @Binding var includeNonResident: Bool
     @Binding var desiredStatus: MemberStatus
@@ -49,7 +49,7 @@ struct MembersByStatusEntryView: View {
     
     func runQuery() {
         NSLog("run query")
-        members = model.filterMembers {
+        members = document.filterMembers {
             $0.status == self.desiredStatus &&
                 ((self.includeResident && $0.resident)
                     || (self.includeNonResident && !$0.resident))

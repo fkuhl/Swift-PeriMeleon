@@ -10,8 +10,8 @@ import SwiftUI
 @main
 struct PeriMeleonApp: App {
     var body: some Scene {
-        DocumentGroup(newDocument: PeriMeleonDocument()) { file in
-            ContentView(document: file.$document)
+        DocumentGroup(newDocument: PeriMeleonDocument.init) { file in
+            ContentView(document: file.document)
         }
     }
 }

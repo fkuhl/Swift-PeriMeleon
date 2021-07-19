@@ -11,7 +11,7 @@ import PMDataTypes
 
 
 struct HouseholdsView: View, FilterUpdater {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @State private var allOrActive = 0
     @State private var households: [NormalizedHousehold] = []
     @State private var filterText: String = ""
@@ -51,14 +51,14 @@ struct HouseholdsView: View, FilterUpdater {
 
     func updateUI(filterText: String) {
         let candidates = allOrActive == 0
-            ? model.activeHouseholds
-            : model.households
+            ? document.activeHouseholds
+            : document.households
         if filterText.isEmpty {
             households = candidates
             return
         }
         households = candidates.filter { household in
-            model.nameOf(household: household.id).localizedCaseInsensitiveContains(filterText)
+            document.nameOf(household: household.id).localizedCaseInsensitiveContains(filterText)
         }
     }
 }

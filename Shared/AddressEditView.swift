@@ -11,7 +11,8 @@ import PMDataTypes
 
 struct AddressEditView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
+    @Environment(\.undoManager) var undoManager
     var householdId: ID
     @State var address: Address
     @Binding var changeCount: Int
@@ -47,9 +48,9 @@ struct AddressEditView: View {
             NSLog("AEV save addr: \(address.address ?? "") / \(address.city ?? "")")
             changeCount += 1 //make parent view update
             self.presentationMode.wrappedValue.dismiss()
-            var household = model.household(byId: householdId)
+            var household = document.household(byId: householdId)
             household.address = address
-            model.update(household: household)
+            document.update(household: household , undoManager: undoManager)
         }) {
             Text("Save + Finish").font(.body)
         }

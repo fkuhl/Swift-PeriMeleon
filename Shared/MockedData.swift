@@ -70,12 +70,14 @@ var mockHousehold = NormalizedHousehold(
 )
 
 fileprivate func makeModel() -> Model {
-    let model = Model()
-    model.add(member: mockMember1)
-    model.add(member: mockMember2)
-    model.add(household: mockHousehold)
+    var model = Model()
+    model.m[mockMember1.id] = mockMember1
+    model.m[mockMember2.id] = mockMember2
+    model.h[mockHousehold.id] = mockHousehold
     return model
 }
 
-let mockModel = makeModel()
+//let mockModel = makeModel()
+
+let mockDocument = PeriMeleonDocument(model: makeModel())
 

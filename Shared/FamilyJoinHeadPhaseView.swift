@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct FamilyJoinHeadPhaseView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @Binding var accumulator: FamilyJoinAccumulator
     @State private var isEditing = false //not used in FamilyJoin
     @State private var changeCount = 0
@@ -18,8 +18,7 @@ struct FamilyJoinHeadPhaseView: View {
     var body: some View {
         MemberEditView(
             member: accumulator.head,
-            memberEditDelegate: FamilyJoinEditDelegate(model: model,
-                                                       accumulator: $accumulator),
+            memberEditDelegate: FamilyJoinEditDelegate(accumulator: $accumulator),
             memberCancelDelegate: FamilyJoinCancelDelegate(accumulator: $accumulator),
             isEditing: $isEditing,
             changeCount: $changeCount)
@@ -30,12 +29,11 @@ struct FamilyJoinHeadPhaseView: View {
  Delegate implementation used only by this View.
  */
 fileprivate class FamilyJoinEditDelegate: MemberEditDelegate {
-    var model: Model
+    @ObservedObject var document = PeriMeleonDocument.shared
+    @Environment(\.undoManager) var undoManager
     var accumulator: Binding<FamilyJoinAccumulator>
     
-    init(model: Model,
-         accumulator: Binding<FamilyJoinAccumulator>) {
-        self.model = model
+    init(accumulator: Binding<FamilyJoinAccumulator>) {
         self.accumulator = accumulator
     }
     
@@ -45,8 +43,8 @@ fileprivate class FamilyJoinEditDelegate: MemberEditDelegate {
         newHousehold.head = member.id
         var memberInHousehold = member
         memberInHousehold.household = newHousehold.id
-        model.add(member: memberInHousehold)
-        model.add(household: newHousehold)
+        document.add(member: memberInHousehold , undoManager: undoManager)
+        document.add(household: newHousehold , undoManager: undoManager)
         accumulator.wrappedValue.head = memberInHousehold
         accumulator.wrappedValue.addedHousehold = newHousehold
         withAnimation(.easeInOut(duration: editAnimationDuration)) {

@@ -16,7 +16,7 @@ enum WorkflowLink {
 }
 
 struct WorkflowsView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @ObservedObject var moveToHouseholdAccumulator = MoveToHouseholdAccumulator()
     @State private var linkSelection: WorkflowLink? = nil
     
@@ -66,7 +66,7 @@ struct WorkflowsView: View {
     }
 
     private var dataCheckerView: some View {
-        return DataCheckerView(dataChecker: DataChecker(model: model))
+        return DataCheckerView(dataChecker: DataChecker())
     }
 }
 
@@ -75,7 +75,7 @@ struct WorkflowsView_Previews: PreviewProvider {
         Group {
             WorkflowsView()
                 .previewLayout(PreviewLayout.fixed(width: 1024, height: 768))
-                .environmentObject(mockModel)
+                .environmentObject(mockDocument)
         }
     }
 }

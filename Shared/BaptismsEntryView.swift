@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct BaptismsEntryView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @Binding var earliest: Date
     @Binding var latest: Date
     @Binding var members: [Member]
@@ -43,7 +43,7 @@ struct BaptismsEntryView: View {
     
     func runQuery() {
         NSLog("run query")
-        members = model.filterMembers {
+        members = document.filterMembers {
             if let recordedBaptism = $0.baptism, recordedBaptism.count > 0 {
                 if let baptismalDate = findDate(raw: recordedBaptism) {
                     return earliest <= baptismalDate && baptismalDate <= latest
@@ -69,7 +69,7 @@ struct BaptismsEntryView_Previews: PreviewProvider {
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
-            .environmentObject(Model())
+            .environmentObject(PeriMeleonDocument())
             .previewDisplayName("Preview")    }
 }
 

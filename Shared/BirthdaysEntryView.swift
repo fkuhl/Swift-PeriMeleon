@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct BirthdaysEntryView: View {
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Hun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @Binding var selectedMonth: Int
     @Binding var members: [Member]
     @Binding var showingResults: Bool
@@ -41,7 +41,7 @@ struct BirthdaysEntryView: View {
     
     func runQuery() {
         NSLog("run query")
-        members = model.filterMembers {
+        members = document.filterMembers {
             if !$0.isActive() { return false }
             if let dob = $0.dateOfBirth {
                 let calendar = Calendar.current

@@ -44,7 +44,7 @@ struct Birthdays_Previews: PreviewProvider {
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
-            .environmentObject(Model())
+            .environmentObject(mockDocument)
             .previewDisplayName("Preview")
     }
 }

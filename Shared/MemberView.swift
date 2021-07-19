@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @State var memberId: ID
     var editable = true
     @State private var isEditing = false
@@ -19,7 +19,7 @@ struct MemberView: View {
     //Note that the transitions work because changes to isEditing are withAnimation.
     var body: some View {
         if isEditing {
-            MemberEditView(member: model.member(byId: memberId),
+            MemberEditView(member: document.member(byId: memberId),
                            memberEditDelegate: MemberViewEditDelegate(),
                            memberCancelDelegate: MemberViewCancelDelegate(),
                 isEditing: $isEditing,
@@ -38,10 +38,12 @@ struct MemberView: View {
  Delegate implementation used only by MemberView.
  */
 fileprivate class MemberViewEditDelegate: MemberEditDelegate {
+    @ObservedObject var document = PeriMeleonDocument.shared
+    @Environment(\.undoManager) var undoManager
 
     func store(member: Member) {
         NSLog("MemberEditViewDel onDis: val is \(member.fullName())")
-        Model.shared.update(member: member)
+        document.update(member: member , undoManager: undoManager)
     }
 }
 

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct PasswordView: View {
+    @ObservedObject var document = PeriMeleonDocument.shared
     var label: String
-    @Binding var document: PeriMeleonDocument
     var buttonText: String
     @State var firstAttempt = ""
     @State var secondAttempt = ""
@@ -43,7 +43,7 @@ struct PasswordView: View {
         switch document.state {
         case .newFile, .passwordEntriesDoNotMatch:
             document.addPasswordToNewFile(firstAttempt: firstAttempt,
-                                                  secondAttempt: secondAttempt)
+                                          secondAttempt: secondAttempt)
             firstAttempt = ""
             secondAttempt = ""
         default:
@@ -56,9 +56,8 @@ struct PasswordView: View {
 struct PasswordView_Previews: PreviewProvider {
     static var previews: some View {
         PasswordView(label: "Enter a Password",
-                     document: .constant(PeriMeleonDocument()),
                      buttonText: "Press me")
-            .environmentObject(mockModel)
+            .environmentObject(PeriMeleonDocument())
             .padding()
             .background(Color(.systemBackground))
             .makeForPreviewProvider()

@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct FamilyJoinHouseholdPhaseView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @Binding var accumulator: FamilyJoinAccumulator
     @Binding var linkSelection: WorkflowLink?
 
@@ -38,6 +38,8 @@ struct FamilyJoinHouseholdPhaseView: View {
 }
 
 fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
+    @ObservedObject var document = PeriMeleonDocument.shared
+    @Environment(\.undoManager) var undoManager
     var householdId: ID
     
     init(householdId: ID) {
@@ -45,29 +47,30 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
     }
     
     func make() -> Member {
-        let model: Model = .shared
         var newval = Member()
         NSLog("made spouse \(newval.id)")
-        var household = model.household(byId: householdId)
-        let head = model.member(byId: household.head)
+        var household = document.household(byId: householdId)
+        let head = document.member(byId: household.head)
         newval.household = household.id
         newval.givenName = "Spouse"
         newval.familyName = head.familyName
         newval.sex = .FEMALE
         newval.maritalStatus = .MARRIED
         newval.dateOfMarriage = head.dateOfMarriage
-        newval.spouse = model.nameOf(member: household.head)
-        if let trans = model.member(byId: household.head).transactions.first {
+        newval.spouse = document.nameOf(member: household.head)
+        if let trans = document.member(byId: household.head).transactions.first {
             newval.transactions.append(trans)
         }
-        model.add(member: newval)
+        document.add(member: newval, undoManager: undoManager)
         household.spouse = newval.id
-        model.update(household: household)
+        document.update(household: household, undoManager: undoManager)
         return newval
     }
 }
 
 fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
+    @ObservedObject var document = PeriMeleonDocument.shared
+    @Environment(\.undoManager) var undoManager
     var householdId: ID
     
     init(householdId: ID) {
@@ -75,12 +78,11 @@ fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
     }
     
     func make() -> Member {
-        let model: Model = .shared
-        let household = model.household(byId: householdId)
+        let household = document.household(byId: householdId)
         var newval = Member()
         newval.household = household.id
         newval.givenName = "No. \(household.others.count + 1)"
-        let head = model.member(byId: household.head)
+        let head = document.member(byId: household.head)
         newval.familyName = head.familyName
         newval.status = .NONCOMMUNING
         if let trans = head.transactions.first {
@@ -88,9 +90,9 @@ fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
         }
         newval.father = head.id
         if let mom = household.spouse {
-            newval.mother = model.member(byId: mom).id
+            newval.mother = document.member(byId: mom).id
         }
-        model.add(member: newval)
+        document.add(member: newval , undoManager: undoManager)
         return newval
     }
 }

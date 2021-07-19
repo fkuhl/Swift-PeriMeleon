@@ -11,7 +11,7 @@ import PMDataTypes
 
 
 struct MembersView: View, FilterUpdater {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @State private var allOrActive = 0
     @State private var members: [Member] = []
     @State private var filterText: String = ""
@@ -37,7 +37,6 @@ struct MembersView: View, FilterUpdater {
                     ForEach(members) {
                         MemberRowView(memberId: $0.id,
                                       changeCount: $changeCount)
-                            .environmentObject(model)
                     }
                 }
             }
@@ -48,21 +47,24 @@ struct MembersView: View, FilterUpdater {
                         })})
         }
         //.debugPrint("MembersView \(model.members.count) members")
-        .onAppear() { updateUI(filterText: "") }
+        .onAppear() {
+            NSLog("MembersView.opApp \(document.membersById.count) members")
+            updateUI(filterText: "")
+        }
     }
     
     // MARK: - FilterUpdater
 
     func updateUI(filterText: String) {
         let candidates = allOrActive == 0
-            ? model.activeMembers
-            : model.members
+            ? document.activeMembers
+            : document.members
         if filterText.isEmpty {
             members = candidates
             return
         }
         members = candidates.filter { member in
-            model.nameOf(member: member.id).localizedCaseInsensitiveContains(filterText)
+            document.nameOf(member: member.id).localizedCaseInsensitiveContains(filterText)
         }
     }
 }

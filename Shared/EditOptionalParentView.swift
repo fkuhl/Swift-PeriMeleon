@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct EditOptionalParentView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
     var sex: Sex
@@ -30,21 +30,21 @@ struct EditOptionalParentView: View {
                     .frame(width: captionWidth, alignment: .trailing)
                     .font(.caption)
                 Spacer()
-                Text(model.nameOf(member: parentId ?? "[none]")).font(.body)
+                Text(document.nameOf(member: parentId ?? "[none]")).font(.body)
             }
         }
     }
 }
 
 struct ChooseParentListView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @Binding var parentId: ID
     var sex: Sex
     let title: String
     
     var body: some View {
         List {
-            ForEach(model.parentList(mustBeActive: true, sex: sex)) {
+            ForEach(document.parentList(mustBeActive: true, sex: sex)) {
                 ChooseParentRowView(member: $0, chosenId: self.$parentId)
             }
         }

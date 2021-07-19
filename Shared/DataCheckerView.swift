@@ -31,6 +31,7 @@ struct DataCheckerView: View {
 
 struct DataCheckerView_Previews: PreviewProvider {
     static var previews: some View {
-        DataCheckerView(dataChecker: DataChecker(model: Model()))
+        DataCheckerView(dataChecker: DataChecker())
+            .environmentObject(mockDocument)
     }
 }

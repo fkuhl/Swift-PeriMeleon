@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct ChooseHouseholdView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
     @Binding var householdId: ID
@@ -22,7 +22,7 @@ struct ChooseHouseholdView: View {
                     .frame(width: captionWidth, alignment: .trailing)
                     .font(.caption)
                 Spacer()
-                Text(model.nameOf(household: householdId)).font(.body)
+                Text(document.nameOf(household: householdId)).font(.body)
             }
         }
     }
@@ -30,7 +30,7 @@ struct ChooseHouseholdView: View {
 
 
 struct ChooseHouseholdListView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @State private var allOrActive = 0
     @Binding var householdId: ID
     
@@ -43,8 +43,8 @@ struct ChooseHouseholdListView: View {
                     Text("Active Households").tag(1)
             }).pickerStyle(SegmentedPickerStyle())
             List {
-                ForEach(allOrActive == 0 ? model.households
-                            : model.activeHouseholds, id: \.id) {
+                ForEach(allOrActive == 0 ? document.households
+                            : document.activeHouseholds, id: \.id) {
                     ChooseHouseholdRowView(household: $0,
                                            chosenId: $householdId)
                 }
@@ -54,7 +54,7 @@ struct ChooseHouseholdListView: View {
 }
 
 struct ChooseHouseholdRowView: View {
-    @ObservedObject var model: Model = .shared
+    @ObservedObject var document = PeriMeleonDocument.shared
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var household: NormalizedHousehold
     @Binding var chosenId: ID
@@ -65,7 +65,7 @@ struct ChooseHouseholdRowView: View {
                 self.chosenId = self.household.id
                 self.presentationMode.wrappedValue.dismiss()
             } ) {
-                Text(model.nameOf(household: household)).font(.body)
+                Text(document.nameOf(household: household)).font(.body)
             }
         }
     }
