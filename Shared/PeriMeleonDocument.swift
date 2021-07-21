@@ -51,11 +51,11 @@ class PeriMeleonDocument: ReferenceFileDocument {
      */
     private var initialData = Data()
     
-//    private var undoManager: UndoManager?
-//
-//    func setUndoManager(undoManager: UndoManager?) {
-//        self.undoManager = undoManager
-//    }
+    private var undoManager: UndoManager?
+
+    func setUndoManager(undoManager: UndoManager?) {
+        self.undoManager = undoManager
+    }
 
     var households: [NormalizedHousehold] {
         var households = [NormalizedHousehold](householdsById.values)
@@ -401,16 +401,16 @@ class PeriMeleonDocument: ReferenceFileDocument {
     func update(member: Member, undoManager: UndoManager?) {
         guard let oldValue = membersById[member.id] else {
             membersById[member.id] = member
-            NSLog("members changed (really, added to), undo is \(undoManager)")
-            undoManager?.registerUndo(withTarget: self) { doc in
-                doc.remove(member: member, undoManager: undoManager)
+            NSLog("members changed (really, added to), undo is \(self.undoManager)")
+            self.undoManager?.registerUndo(withTarget: self) { doc in
+                doc.remove(member: member, undoManager: self.undoManager)
             }
             return
         }
         membersById[member.id] = member
         NSLog("members changed, undo is \(undoManager)")
-        undoManager?.registerUndo(withTarget: self) { doc in
-            doc.update(member: oldValue, undoManager: undoManager)
+        self.undoManager?.registerUndo(withTarget: self) { doc in
+            doc.update(member: oldValue, undoManager: self.undoManager)
         }
     }
     
