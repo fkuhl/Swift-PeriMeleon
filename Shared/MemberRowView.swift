@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberRowView: View {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     var memberId: ID
     @Binding var changeCount: Int
 

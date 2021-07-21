@@ -11,7 +11,7 @@ import PMDataTypes
 
 
 struct HouseholdView: View {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     @Environment(\.undoManager) var undoManager
     var householdId: ID
     var addressEditable = true
@@ -106,7 +106,7 @@ struct HouseholdView: View {
 }
 
 class PreviewHouseholdMemberFactoryDelegate: HouseholdMemberFactoryDelegate {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     var householdId: ID
     
     init(householdId: ID) {
@@ -125,12 +125,15 @@ class PreviewHouseholdMemberFactoryDelegate: HouseholdMemberFactoryDelegate {
 https://www.avanderlee.com/swiftui/previews-different-states/
 */
 struct HouseholdView_Previews: PreviewProvider {
+    @EnvironmentObject var document: PeriMeleonDocument
+    
     static var previews: some View {
         HouseholdView(householdId: mockHousehold.id,
                       spouseFactory: PreviewHouseholdMemberFactoryDelegate(
                         householdId: mockHousehold.id),
                       otherFactory: PreviewHouseholdMemberFactoryDelegate(
                         householdId: mockHousehold.id))
+            .environmentObject(mockDocument)
             .previewLayout(PreviewLayout.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))
@@ -142,7 +145,7 @@ struct HouseholdView_Previews: PreviewProvider {
 //MARK: - Address
 
 fileprivate struct AddressLinkView: View {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     @State var householdId: ID
     
     var body: some View {
@@ -174,7 +177,7 @@ fileprivate struct MemberLinkView: View {
 }
 
 fileprivate struct OtherRowView: View {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     var memberId: ID
     @Binding var changeCount: Int
     
@@ -190,7 +193,7 @@ fileprivate struct OtherRowView: View {
 }
 
 fileprivate struct OtherAddView: View {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     @Environment(\.undoManager) var undoManager
     var otherFactory: HouseholdMemberFactoryDelegate
     var householdId: ID

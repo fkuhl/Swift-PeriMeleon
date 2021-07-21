@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct CoreMemberView: View {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     var memberId: ID
     var editable = true
     @Binding var isEditing: Bool

@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct EditOptionalParentView: View {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
     var sex: Sex
@@ -37,7 +37,7 @@ struct EditOptionalParentView: View {
 }
 
 struct ChooseParentListView: View {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     @Binding var parentId: ID
     var sex: Sex
     let title: String

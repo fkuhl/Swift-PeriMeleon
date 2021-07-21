@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 class DataChecker: ObservableObject {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     private let checkingQueue = DispatchQueue(label: "com.tamelea.PMClient.dataChecker", qos: .background)
     private var subject: PassthroughSubject<[DataCheckReport], Never>? = nil
     private var publisher: AnyPublisher<[DataCheckReport], Never>? = nil

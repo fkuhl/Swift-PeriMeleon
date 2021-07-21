@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct BaptismsEntryView: View {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     @Binding var earliest: Date
     @Binding var latest: Date
     @Binding var members: [Member]

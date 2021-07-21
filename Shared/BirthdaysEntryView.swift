@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct BirthdaysEntryView: View {
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Hun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     @Binding var selectedMonth: Int
     @Binding var members: [Member]
     @Binding var showingResults: Bool
@@ -60,6 +60,7 @@ struct BirthdaysEntryView_Previews: PreviewProvider {
         BirthdaysEntryView(selectedMonth: .constant(10),
                            members: .constant([Member]()),
                            showingResults: .constant(false))
+            .environmentObject(mockDocument)
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))

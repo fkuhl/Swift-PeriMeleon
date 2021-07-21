@@ -37,10 +37,7 @@ struct ContentView: View {
                              buttonText: "Open")
             }
         }
-        .onAppear() {
-            NSLog("CV onAppear doc \(document.membersById.count) members")
-            PeriMeleonDocument.shared = document //sets for everybody
-        }
+        .environmentObject(document)
     }
     
     private func swanSong(lastGasp: String,

@@ -9,26 +9,32 @@
 import SwiftUI
 
 struct QueriesView: View {
+    @EnvironmentObject var document: PeriMeleonDocument
     
     var body: some View {
         Section(header: Text("Phone list").font(.headline)) {
             NavigationLink(destination: PhonelistView()) {
                 LinkText(label: "Phone list")
             }
+            .environmentObject(document)
         }
         Section(header: Text("Members").font(.headline)) {
             NavigationLink(destination: MembersByStatusView()) {
                 LinkText(label: "Members by status")
             }
+            .environmentObject(document)
             NavigationLink(destination: MembersByAgeView()) {
                 LinkText(label: "Members by age")
             }
+            .environmentObject(document)
             NavigationLink(destination: BirthdaysView()) {
                 LinkText(label: "Birthdays")
             }
+            .environmentObject(document)
             NavigationLink(destination: BaptismsView()) {
                 LinkText(label: "Baptisms")
             }
+            .environmentObject(document)
         }
     }
 

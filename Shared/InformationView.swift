@@ -13,7 +13,7 @@ struct InformationView: View {
     @ScaledMetric(relativeTo: .headline) var dateTitleWidth: CGFloat = 150
     @ScaledMetric(relativeTo: .body) var datumTitleWidth: CGFloat = 150
     @ScaledMetric(relativeTo: .body) var datumStringWidth: CGFloat = 70
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
 
     var body: some View {
         VStack {
@@ -110,6 +110,7 @@ fileprivate struct DocInfoView: View {
 struct InformationView_Previews: PreviewProvider {
     static var previews: some View {
         InformationView()
+            .environmentObject(mockDocument)
             .previewLayout(PreviewLayout.fixed(width: 1024, height: 768))
 
     }

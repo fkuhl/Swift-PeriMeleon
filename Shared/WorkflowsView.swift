@@ -16,7 +16,7 @@ enum WorkflowLink {
 }
 
 struct WorkflowsView: View {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     @ObservedObject var moveToHouseholdAccumulator = MoveToHouseholdAccumulator()
     @State private var linkSelection: WorkflowLink? = nil
     
@@ -27,6 +27,8 @@ struct WorkflowsView: View {
                            selection: $linkSelection) {
                 LinkButton(linkSelection: $linkSelection, link: .familyJoins, label: "Family joins")
             }
+            .environmentObject(document)
+
         }
         Section(header: Text("Members").font(.headline)) {
             NavigationLink(destination: MoveToHouseholdView(),
@@ -34,6 +36,8 @@ struct WorkflowsView: View {
                            selection: $linkSelection) {
                 LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Member moves to different household")
             }
+            .environmentObject(document)
+
         }
         Section(header: Text("Miscellaneous").font(.headline)) {
             NavigationLink(destination: dataCheckerView,
@@ -41,12 +45,16 @@ struct WorkflowsView: View {
                            selection: $linkSelection) {
                 LinkButton(linkSelection: $linkSelection, link: .dataChecker, label: "Data checker")
             }
+            .environmentObject(document)
+
             NavigationLink(destination: InformationView(),
                            tag: .information,
                            selection: $linkSelection) {
                 LinkButton(linkSelection: $linkSelection, link: .information, label: "Information")
                 
             }
+            .environmentObject(document)
+
         }
     }
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PasswordView: View {
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     var label: String
     var buttonText: String
     @State var firstAttempt = ""

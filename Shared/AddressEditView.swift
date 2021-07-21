@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct AddressEditView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @ObservedObject var document = PeriMeleonDocument.shared
+    @EnvironmentObject var document: PeriMeleonDocument
     @Environment(\.undoManager) var undoManager
     var householdId: ID
     @State var address: Address

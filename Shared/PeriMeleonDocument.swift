@@ -40,14 +40,6 @@ class PeriMeleonDocument: ReferenceFileDocument {
     static var readableContentTypes: [UTType] { [.periMeleonRollsDocument] }
     static var writableContentTypes: [UTType] { [.periMeleonRollsDocument] }
     
-    /**
-     On this branch is an attempt to use a sort-of singleton to make the document available.
-     It compiles. But, an order-of-initialization problem. A PMDoc is initialized. But setting that in ContentView.onAppear()
-     is too late: that doesn't get called until (apparently) MembersView initializer is run, which is looking for PMDoc.shared,
-     and that gets initialized with the blank init.
-     */
-    static var shared = PeriMeleonDocument()
-    
 
     // MARK: - Data
     
