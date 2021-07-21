@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct BaptismsEntryView: View {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     @Binding var earliest: Date
     @Binding var latest: Date
     @Binding var members: [Member]
@@ -69,7 +69,6 @@ struct BaptismsEntryView_Previews: PreviewProvider {
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
-            .environmentObject(PeriMeleonDocument())
             .previewDisplayName("Preview")    }
 }
 

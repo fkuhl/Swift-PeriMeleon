@@ -37,7 +37,9 @@ struct ContentView: View {
                              buttonText: "Open")
             }
         }
-        .environmentObject(document)
+        .onAppear() {
+            InjectedValues[\.periMeleonDocument] = document
+        }
     }
     
     private func swanSong(lastGasp: String,

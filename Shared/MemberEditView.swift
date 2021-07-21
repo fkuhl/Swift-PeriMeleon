@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 protocol MemberEditDelegate {
-    func store(member: Member) -> Void
+    func store(member: Member, undoManager: UndoManager?) -> Void
 }
 
 protocol MemberCancelDelegate {
@@ -23,6 +23,7 @@ struct MemberEditView: View {
     var memberCancelDelegate: MemberCancelDelegate
     @Binding var isEditing: Bool
     @Binding var changeCount: Int
+    @Environment(\.undoManager) var undoManager
 
     var body: some View {
         Form {
@@ -107,7 +108,7 @@ struct MemberEditView: View {
             withAnimation(.easeInOut(duration: editAnimationDuration)) {
                 isEditing = false
             }
-            memberEditDelegate.store(member: member)
+            memberEditDelegate.store(member: member, undoManager: undoManager)
         }) {
             Text("Save Member").font(.body)
         }

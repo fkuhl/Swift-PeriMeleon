@@ -11,7 +11,7 @@ import PMDataTypes
 
 
 struct HouseholdsView: View, FilterUpdater {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     @State private var allOrActive = 0
     @State private var households: [NormalizedHousehold] = []
     @State private var filterText: String = ""
@@ -44,7 +44,6 @@ struct HouseholdsView: View, FilterUpdater {
                             Text(allOrActive == 0 ? "Active Households" : "All Households")
                         })})
         }
-        .environmentObject(document)
         .onAppear() { updateUI(filterText: "") }
     }
     

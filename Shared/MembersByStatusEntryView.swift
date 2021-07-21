@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MembersByStatusEntryView: View {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     @Binding var includeResident: Bool
     @Binding var includeNonResident: Bool
     @Binding var desiredStatus: MemberStatus
@@ -61,14 +61,14 @@ struct MembersByStatusEntryView: View {
 }
 
 struct MembersByStatusEntryView_Previews: PreviewProvider {
-    
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+
     static var previews: some View {
         MembersByStatusEntryView(includeResident: .constant(true),
                                  includeNonResident: .constant(false),
                                  desiredStatus: .constant(.COMMUNING),
                                  members: .constant([Member]()),
                                  showingResults: .constant(false))
-            .environmentObject(mockDocument)
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))

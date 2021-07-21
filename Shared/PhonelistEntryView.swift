@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct PhonelistEntryView: View {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     @State var includeResident = true
     @State var includeNonResident = false
     @State var includeMen = true
@@ -72,11 +72,10 @@ struct PhonelistEntryView: View {
 
 
 struct PhonelistEntryView_Previews: PreviewProvider {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     static var previews: some View {
         PhonelistEntryView(members: .constant([Member]()),
                            showingResults: .constant(false))
-            .environmentObject(mockDocument)
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))

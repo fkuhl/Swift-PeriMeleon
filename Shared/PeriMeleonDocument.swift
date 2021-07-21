@@ -50,6 +50,12 @@ class PeriMeleonDocument: ReferenceFileDocument {
      householdsById and membersById, with snapshots as copies of them (as Model structs).
      */
     private var initialData = Data()
+    
+//    private var undoManager: UndoManager?
+//
+//    func setUndoManager(undoManager: UndoManager?) {
+//        self.undoManager = undoManager
+//    }
 
     var households: [NormalizedHousehold] {
         var households = [NormalizedHousehold](householdsById.values)
@@ -393,10 +399,25 @@ class PeriMeleonDocument: ReferenceFileDocument {
     }
     
     func update(member: Member, undoManager: UndoManager?) {
+        guard let oldValue = membersById[member.id] else {
+            membersById[member.id] = member
+            NSLog("members changed (really, added to), undo is \(undoManager)")
+            undoManager?.registerUndo(withTarget: self) { doc in
+                doc.remove(member: member, undoManager: undoManager)
+            }
+            return
+        }
         membersById[member.id] = member
-        NSLog("members changed")
+        NSLog("members changed, undo is \(undoManager)")
         undoManager?.registerUndo(withTarget: self) { doc in
-            NSLog("No undo implemented")
+            doc.update(member: oldValue, undoManager: undoManager)
+        }
+    }
+    
+    private func remove(member: Member, undoManager: UndoManager?) {
+        membersById.removeValue(forKey: member.id)
+        undoManager?.registerUndo(withTarget: self) { doc in
+            doc.add(member: member, undoManager: undoManager)
         }
     }
     
@@ -418,4 +439,21 @@ fileprivate func makeKey(password: String) -> SymmetricKey? {
                             rounds: 8) {
         return SymmetricKey(data: keyData)
     } else { return nil }
+}
+
+// MARK: - Support for Injection
+
+///See Injection.swift. And thanks to A. van der Lee.
+
+private struct PeriMeleonDocumentKey: InjectionKey {
+    typealias Value = PeriMeleonDocument
+    
+    static var currentValue: PeriMeleonDocument = PeriMeleonDocument()
+}
+
+extension InjectedValues {
+    var periMeleonDocument: PeriMeleonDocument {
+        get { Self[PeriMeleonDocumentKey.self] }
+        set { Self[PeriMeleonDocumentKey.self] = newValue }
+    }
 }

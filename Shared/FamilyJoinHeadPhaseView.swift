@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct FamilyJoinHeadPhaseView: View {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     @Binding var accumulator: FamilyJoinAccumulator
     @State private var isEditing = false //not used in FamilyJoin
     @State private var changeCount = 0
@@ -29,15 +29,14 @@ struct FamilyJoinHeadPhaseView: View {
  Delegate implementation used only by this View.
  */
 fileprivate class FamilyJoinEditDelegate: MemberEditDelegate {
-    @EnvironmentObject var document: PeriMeleonDocument
-    @Environment(\.undoManager) var undoManager
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     var accumulator: Binding<FamilyJoinAccumulator>
     
     init(accumulator: Binding<FamilyJoinAccumulator>) {
         self.accumulator = accumulator
     }
     
-    func store(member: Member) {
+    func store(member: Member, undoManager: UndoManager?) {
         NSLog("FJED onDis: val is \(member.fullName())")
         var newHousehold = NormalizedHousehold()
         newHousehold.head = member.id

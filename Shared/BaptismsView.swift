@@ -56,13 +56,13 @@ fileprivate func makeTitleDateFormatter() -> DateFormatter {
 }
 
 struct BaptismsView_Previews: PreviewProvider {
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     static var previews: some View {
         BaptismsView()
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
-            .environmentObject(PeriMeleonDocument())
             .previewDisplayName("Preview")
     }
 }

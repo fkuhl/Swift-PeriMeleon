@@ -38,13 +38,13 @@ struct BirthdaysView: View {
 }
 
 struct Birthdays_Previews: PreviewProvider {
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     static var previews: some View {
         BirthdaysView()
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
-            .environmentObject(mockDocument)
             .previewDisplayName("Preview")
     }
 }

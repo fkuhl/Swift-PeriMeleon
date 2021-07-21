@@ -11,7 +11,7 @@ import PMDataTypes
 
 
 struct MembersView: View, FilterUpdater {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     @State private var allOrActive = 0
     @State private var members: [Member] = []
     @State private var filterText: String = ""
@@ -51,7 +51,6 @@ struct MembersView: View, FilterUpdater {
             NSLog("MembersView.opApp \(document.membersById.count) members")
             updateUI(filterText: "")
         }
-        .environmentObject(document)
     }
     
     // MARK: - FilterUpdater
@@ -73,11 +72,11 @@ struct MembersView: View, FilterUpdater {
 
 
 struct MembersView_Previews: PreviewProvider {
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     static var previews: some View {
         MembersView()
             .padding()
             .background(Color(.systemBackground))
             .previewLayout(.fixed(width: 1024, height: 768))
-            .environmentObject(mockDocument)
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberView: View {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     @State var memberId: ID
     var editable = true
     @State private var isEditing = false
@@ -45,7 +45,7 @@ fileprivate class MemberViewEditDelegate: MemberEditDelegate {
         self.document = document
     }
 
-    func store(member: Member) {
+    func store(member: Member, undoManager: UndoManager?) {
         NSLog("MemberEditViewDel onDis: val is \(member.fullName())")
         document.update(member: member , undoManager: undoManager)
     }

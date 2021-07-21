@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct HouseholdRowView: View {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     var householdId: ID
     
     var body: some View {
@@ -25,7 +25,7 @@ struct HouseholdRowView: View {
 }
 
 fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     let householdId: ID
     
     init(householdId: ID) {
@@ -48,7 +48,7 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
 }
 
 fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     let householdId: ID
     
     init(householdId: ID) {

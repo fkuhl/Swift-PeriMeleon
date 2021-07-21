@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PasswordView: View {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     var label: String
     var buttonText: String
     @State var firstAttempt = ""
@@ -57,7 +57,6 @@ struct PasswordView_Previews: PreviewProvider {
     static var previews: some View {
         PasswordView(label: "Enter a Password",
                      buttonText: "Press me")
-            .environmentObject(PeriMeleonDocument())
             .padding()
             .background(Color(.systemBackground))
             .makeForPreviewProvider()
