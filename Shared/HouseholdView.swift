@@ -93,14 +93,12 @@ struct HouseholdView: View {
     
     private var newAddressDestination: some View {
         AddressEditView(householdId: householdId,
-                        address: Address(),
-                        changeCount: $changeCount)
+                        address: Address())
     }
     
     private var addressDestination: some View {
         AddressEditView(householdId: householdId,
-                        address: document.household(byId: householdId).address!,
-                        changeCount: $changeCount)
+                        address: document.household(byId: householdId).address!)
     }
 }
 

@@ -14,7 +14,6 @@ struct AddressEditView: View {
     @EnvironmentObject var document: PeriMeleonDocument
     var householdId: ID
     @State var address: Address
-    @Binding var changeCount: Int
 
     var body: some View {
         VStack {
@@ -45,7 +44,6 @@ struct AddressEditView: View {
     private var saveButton: some View {
         Button(action: {
             NSLog("AEV save addr: \(address.address ?? "") / \(address.city ?? "")")
-            changeCount += 1 //make parent view update
             self.presentationMode.wrappedValue.dismiss()
             var household = document.household(byId: householdId)
             household.address = address

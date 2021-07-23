@@ -11,7 +11,9 @@ import SwiftUI
 struct PeriMeleonApp: App {
     var body: some Scene {
         DocumentGroup(newDocument: PeriMeleonDocument.init) { file in
-            ContentView(document: file.document)
+            NavigationView {
+                ContentView(document: file.document)
+            }
         }
     }
 }

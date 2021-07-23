@@ -12,36 +12,33 @@ struct ContentView: View {
     @Environment(\.undoManager) var undoManager
 
     var body: some View {
-        NavigationView {
-            switch (document.state) {
-            case .normal:
-                MainView()
-                    .onAppear() {
-                        document.setUndoManager(undoManager: undoManager)
-                    }
-            case .newFile:
-                PasswordView(label: "Please provide password for new document:",
-                             buttonText: "Open New Document")
-            case .noKey:
-                PasswordView(label: "Please provide a password for the file:",
-                             buttonText: "Open")
-            case .cannotRead:
-                Text("cannot read: corrupt document?")
-            case .cannotDecrypt:
-                PasswordView(label: "Unable to decrypt the file; please provide another password:",
-                             buttonText: "Open")
-            case .cannotDecode(let d1, let d2, let d3):
-                swanSong(lastGasp: "Alas, the file cannot be decoded.",
-                         basicError: d1, codingPath: d2, underlyingError: d3)
-            case .saveError(let d1, let d2, let d3):
-                swanSong(lastGasp: "Alas, the file could not be saved.",
-                         basicError: d1, codingPath: d2, underlyingError: d3)
-            case .passwordEntriesDoNotMatch:
-                PasswordView(label: "Passwords didn't match. Please enter again:",
-                             buttonText: "Open")
-            }
+        switch (document.state) {
+        case .normal:
+            MainView()
+                .onAppear() {
+                    document.setUndoManager(undoManager: undoManager)
+                }
+        case .newFile:
+            PasswordView(label: "Please provide password for new document:",
+                         buttonText: "Open New Document")
+        case .noKey:
+            PasswordView(label: "Please provide a password for the file:",
+                         buttonText: "Open")
+        case .cannotRead:
+            Text("cannot read: corrupt document?")
+        case .cannotDecrypt:
+            PasswordView(label: "Unable to decrypt the file; please provide another password:",
+                         buttonText: "Open")
+        case .cannotDecode(let d1, let d2, let d3):
+            swanSong(lastGasp: "Alas, the file cannot be decoded.",
+                     basicError: d1, codingPath: d2, underlyingError: d3)
+        case .saveError(let d1, let d2, let d3):
+            swanSong(lastGasp: "Alas, the file could not be saved.",
+                     basicError: d1, codingPath: d2, underlyingError: d3)
+        case .passwordEntriesDoNotMatch:
+            PasswordView(label: "Passwords didn't match. Please enter again:",
+                         buttonText: "Open")
         }
-        .environmentObject(document)
     }
     
     private func swanSong(lastGasp: String,
