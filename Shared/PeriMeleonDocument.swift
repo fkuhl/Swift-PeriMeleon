@@ -379,53 +379,68 @@ class PeriMeleonDocument: ReferenceFileDocument {
     
 
     //MARK: - Update data
-    //TODO: - To implement undo & redo, need inverse mutators. But at what level undo?
     
-    
-    func update(household: NormalizedHousehold, undoManager: UndoManager?) {
+    func update(household: NormalizedHousehold) {
+        guard let oldValue = householdsById[household.id] else {
+            householdsById[household.id] = household
+            NSLog("households changed (really, added to), undo is \(String(describing: undoManager))")
+            undoManager?.registerUndo(withTarget: self) { doc in
+                doc.remove(household: household)
+            }
+            return
+        }
         householdsById[household.id] = household
-        NSLog("households changed")
+        NSLog("households changed, undo is \(String(describing: undoManager))")
         undoManager?.registerUndo(withTarget: self) { doc in
-            NSLog("No undo implemented")
+            doc.update(household: oldValue)
+        }
+    }
+    
+    ///At present this is included only to give (a possibly unneeded) symmetry to the undo
+    private func remove(household: NormalizedHousehold) {
+        householdsById.removeValue(forKey: household.id)
+        undoManager?.registerUndo(withTarget: self) { doc in
+            doc.add(household: household)
         }
     }
 
-    func add(household: NormalizedHousehold, undoManager: UndoManager?) {
+    func add(household: NormalizedHousehold) {
         householdsById[household.id] = household
-        NSLog("households added to")
+        NSLog("households added to, undo is \(String(describing: undoManager))")
         undoManager?.registerUndo(withTarget: self) { doc in
-            NSLog("No undo implemented")
+            doc.remove(household: household)
         }
     }
     
-    func update(member: Member, undoManager: UndoManager?) {
+    func update(member: Member) {
         guard let oldValue = membersById[member.id] else {
             membersById[member.id] = member
-            NSLog("members changed (really, added to), undo is \(self.undoManager)")
-            self.undoManager?.registerUndo(withTarget: self) { doc in
-                doc.remove(member: member, undoManager: self.undoManager)
+            NSLog("members changed (really, added to), undo is \(String(describing: undoManager))")
+            undoManager?.registerUndo(withTarget: self) { doc in
+                doc.remove(member: member)
             }
             return
         }
         membersById[member.id] = member
-        NSLog("members changed, undo is \(undoManager)")
+        NSLog("members changed, undo is \(String(describing: undoManager))")
         self.undoManager?.registerUndo(withTarget: self) { doc in
-            doc.update(member: oldValue, undoManager: self.undoManager)
+            doc.update(member: oldValue)
         }
     }
     
-    private func remove(member: Member, undoManager: UndoManager?) {
+    ///At present this is included only to give (a possibly unneeded) symmetry to the undo
+    private func remove(member: Member) {
         membersById.removeValue(forKey: member.id)
         undoManager?.registerUndo(withTarget: self) { doc in
-            doc.add(member: member, undoManager: undoManager)
+            doc.add(member: member)
         }
     }
     
-    func add(member: Member, undoManager: UndoManager?) {
+    func add(member: Member) {
         membersById[member.id] = member
-        NSLog("members added to")
+        NSLog("members added to, undo is \(String(describing: undoManager))")
         undoManager?.registerUndo(withTarget: self) { doc in
-            NSLog("No undo implemented")
+            doc.remove(member: member)
         }
     }
 }

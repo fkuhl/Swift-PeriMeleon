@@ -12,6 +12,9 @@ struct PeriMeleonApp: App {
     var body: some Scene {
         DocumentGroup(newDocument: PeriMeleonDocument.init) { file in
             ContentView(document: file.document)
+                .onAppear() {
+                    InjectedValues[\.periMeleonDocument] = file.document
+                }
         }
     }
 }

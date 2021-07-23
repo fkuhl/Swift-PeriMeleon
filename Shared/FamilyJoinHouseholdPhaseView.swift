@@ -39,7 +39,6 @@ struct FamilyJoinHouseholdPhaseView: View {
 
 fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
     @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
-    @Environment(\.undoManager) var undoManager
     var householdId: ID
     
     init(householdId: ID) {
@@ -61,16 +60,15 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
         if let trans = document.member(byId: household.head).transactions.first {
             newval.transactions.append(trans)
         }
-        document.add(member: newval, undoManager: undoManager)
+        document.add(member: newval)
         household.spouse = newval.id
-        document.update(household: household, undoManager: undoManager)
+        document.update(household: household)
         return newval
     }
 }
 
 fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
     @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
-    @Environment(\.undoManager) var undoManager
     var householdId: ID
     
     init(householdId: ID) {
@@ -92,7 +90,7 @@ fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
         if let mom = household.spouse {
             newval.mother = document.member(byId: mom).id
         }
-        document.add(member: newval , undoManager: undoManager)
+        document.add(member: newval)
         return newval
     }
 }

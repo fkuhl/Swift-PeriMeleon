@@ -12,7 +12,6 @@ import PMDataTypes
 
 struct HouseholdView: View {
     @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
-    @Environment(\.undoManager) var undoManager
     var householdId: ID
     var addressEditable = true
     var replaceButtons = false
@@ -85,10 +84,10 @@ struct HouseholdView: View {
 
     private func addSpouse() {
         let newSpouse = spouseFactory.make()
-        document.add(member: newSpouse, undoManager: undoManager)
+        document.add(member: newSpouse)
         var changingHousehold = document.household(byId: householdId)
         changingHousehold.spouse = newSpouse.id
-        document.update(household: changingHousehold , undoManager: undoManager)
+        document.update(household: changingHousehold)
         changeCount += 1
     }
     
@@ -193,14 +192,13 @@ fileprivate struct OtherRowView: View {
 
 fileprivate struct OtherAddView: View {
     @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
-    @Environment(\.undoManager) var undoManager
     var otherFactory: HouseholdMemberFactoryDelegate
     var householdId: ID
     
     var body: some View {
         Button(action: {
             let newOther = otherFactory.make()
-            document.add(member: newOther , undoManager: undoManager)
+            document.add(member: newOther)
             var household = document.household(byId: householdId)
             // This looks roundabout. But making a new array and adding
             // it back to the household makes it look new to SWiftUI,
@@ -208,7 +206,7 @@ fileprivate struct OtherAddView: View {
             var others = household.others
             others.append(newOther.id)
             household.others = others
-            document.update(household: household, undoManager: undoManager)
+            document.update(household: household)
             NSLog("OAV hh \(document.nameOf(household: household.id)) has \(household.others.count) others")
         }) {
             Image(systemName: "plus").font(.body)

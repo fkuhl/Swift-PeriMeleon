@@ -42,8 +42,8 @@ fileprivate class FamilyJoinEditDelegate: MemberEditDelegate {
         newHousehold.head = member.id
         var memberInHousehold = member
         memberInHousehold.household = newHousehold.id
-        document.add(member: memberInHousehold , undoManager: undoManager)
-        document.add(household: newHousehold , undoManager: undoManager)
+        document.add(member: memberInHousehold)
+        document.add(household: newHousehold)
         accumulator.wrappedValue.head = memberInHousehold
         accumulator.wrappedValue.addedHousehold = newHousehold
         withAnimation(.easeInOut(duration: editAnimationDuration)) {

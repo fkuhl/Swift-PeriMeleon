@@ -39,7 +39,6 @@ struct MemberView: View {
  */
 fileprivate class MemberViewEditDelegate: MemberEditDelegate {
     var document: PeriMeleonDocument
-    @Environment(\.undoManager) var undoManager
     
     init(document: PeriMeleonDocument) {
         self.document = document
@@ -47,7 +46,7 @@ fileprivate class MemberViewEditDelegate: MemberEditDelegate {
 
     func store(member: Member, undoManager: UndoManager?) {
         NSLog("MemberEditViewDel onDis: val is \(member.fullName())")
-        document.update(member: member , undoManager: undoManager)
+        document.update(member: member)
     }
 }
 

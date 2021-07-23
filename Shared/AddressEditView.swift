@@ -12,7 +12,6 @@ import PMDataTypes
 struct AddressEditView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
-    @Environment(\.undoManager) var undoManager
     var householdId: ID
     @State var address: Address
     @Binding var changeCount: Int
@@ -50,7 +49,7 @@ struct AddressEditView: View {
             self.presentationMode.wrappedValue.dismiss()
             var household = document.household(byId: householdId)
             household.address = address
-            document.update(household: household , undoManager: undoManager)
+            document.update(household: household)
         }) {
             Text("Save + Finish").font(.body)
         }

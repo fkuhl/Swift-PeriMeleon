@@ -12,10 +12,13 @@ struct ContentView: View {
     @Environment(\.undoManager) var undoManager
 
     var body: some View {
-        Group {
+        NavigationView {
             switch (document.state) {
             case .normal:
                 MainView()
+                    .onAppear() {
+                        document.setUndoManager(undoManager: undoManager)
+                    }
             case .newFile:
                 PasswordView(label: "Please provide password for new document:",
                              buttonText: "Open New Document")
@@ -37,10 +40,6 @@ struct ContentView: View {
                 PasswordView(label: "Passwords didn't match. Please enter again:",
                              buttonText: "Open")
             }
-        }
-        .onAppear() {
-            InjectedValues[\.periMeleonDocument] = document
-            document.setUndoManager(undoManager: undoManager)
         }
     }
     
