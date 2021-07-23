@@ -14,7 +14,6 @@ struct MemberView: View {
     @State var memberId: ID
     var editable = true
     @State private var isEditing = false
-    @Binding var changeCount: Int
 
     //Note that the transitions work because changes to isEditing are withAnimation.
     var body: some View {
@@ -22,8 +21,7 @@ struct MemberView: View {
             MemberEditView(member: document.member(byId: memberId),
                            memberEditDelegate: MemberViewEditDelegate(document: document),
                            memberCancelDelegate: MemberViewCancelDelegate(),
-                isEditing: $isEditing,
-                changeCount: $changeCount)
+                isEditing: $isEditing)
                 .transition(.move(edge: .trailing))
         } else {
             CoreMemberView(memberId: memberId,

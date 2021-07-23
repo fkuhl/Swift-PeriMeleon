@@ -45,6 +45,8 @@ class PeriMeleonDocument: ReferenceFileDocument {
     
     @Published var householdsById = [ID : NormalizedHousehold]()
     @Published var membersById = [ID : Member]()
+    ///A non-private published var to ensure all Views see that the data changed.
+    @Published var changeCount: UInt64 = 0
     
     /**Holds data initially read from file, till it can be decrypted. Otherwise the document's data are in
      householdsById and membersById, with snapshots as copies of them (as Model structs).
@@ -384,6 +386,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
         guard let oldValue = householdsById[household.id] else {
             householdsById[household.id] = household
             NSLog("households changed (really, added to), undo is \(String(describing: undoManager))")
+            changeCount += 1
             undoManager?.registerUndo(withTarget: self) { doc in
                 doc.remove(household: household)
             }
@@ -391,6 +394,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
         }
         householdsById[household.id] = household
         NSLog("households changed, undo is \(String(describing: undoManager))")
+        changeCount += 1
         undoManager?.registerUndo(withTarget: self) { doc in
             doc.update(household: oldValue)
         }
@@ -399,6 +403,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     ///At present this is included only to give (a possibly unneeded) symmetry to the undo
     private func remove(household: NormalizedHousehold) {
         householdsById.removeValue(forKey: household.id)
+        changeCount += 1
         undoManager?.registerUndo(withTarget: self) { doc in
             doc.add(household: household)
         }
@@ -407,6 +412,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     func add(household: NormalizedHousehold) {
         householdsById[household.id] = household
         NSLog("households added to, undo is \(String(describing: undoManager))")
+        changeCount += 1
         undoManager?.registerUndo(withTarget: self) { doc in
             doc.remove(household: household)
         }
@@ -416,6 +422,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
         guard let oldValue = membersById[member.id] else {
             membersById[member.id] = member
             NSLog("members changed (really, added to), undo is \(String(describing: undoManager))")
+            changeCount += 1
             undoManager?.registerUndo(withTarget: self) { doc in
                 doc.remove(member: member)
             }
@@ -423,6 +430,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
         }
         membersById[member.id] = member
         NSLog("members changed, undo is \(String(describing: undoManager))")
+        changeCount += 1
         self.undoManager?.registerUndo(withTarget: self) { doc in
             doc.update(member: oldValue)
         }
@@ -431,6 +439,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     ///At present this is included only to give (a possibly unneeded) symmetry to the undo
     private func remove(member: Member) {
         membersById.removeValue(forKey: member.id)
+        changeCount += 1
         undoManager?.registerUndo(withTarget: self) { doc in
             doc.add(member: member)
         }
@@ -438,6 +447,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     
     func add(member: Member) {
         membersById[member.id] = member
+        changeCount += 1
         NSLog("members added to, undo is \(String(describing: undoManager))")
         undoManager?.registerUndo(withTarget: self) { doc in
             doc.remove(member: member)

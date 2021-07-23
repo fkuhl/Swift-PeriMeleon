@@ -17,12 +17,7 @@ struct HouseholdView: View {
     var replaceButtons = false
     var spouseFactory: HouseholdMemberFactoryDelegate
     var otherFactory: HouseholdMemberFactoryDelegate
-    /**
-     Passing this changeCount to subordinate views seems to make this view update properly
-     if they change data and bump up the changeCount.
-     I don't understand why just changing the document doesn't have this effect.
-     */
-    @State private var changeCount = 0
+
 
     var body: some View {
         Form {
@@ -36,8 +31,7 @@ struct HouseholdView: View {
             }
             Section(header: Text("Dependents").font(.callout).italic()) {
                 ForEach(document.household(byId: householdId).others, id: \.self) {
-                    OtherRowView(memberId: $0,
-                                 changeCount: $changeCount)
+                    OtherRowView(memberId: $0)
                 }
                 OtherAddView(otherFactory: otherFactory,
                              householdId: householdId)
@@ -63,8 +57,7 @@ struct HouseholdView: View {
     
     private var headDestination: some View {
         MemberView(
-            memberId: document.household(byId: householdId).head,
-            changeCount: $changeCount)
+            memberId: document.household(byId: householdId).head)
     }
     
     private var headLink: some View {
@@ -73,8 +66,7 @@ struct HouseholdView: View {
     }
     
     private var spouseDestination: some View {
-        MemberView(memberId: document.household(byId: householdId).spouse!,
-                   changeCount: $changeCount)
+        MemberView(memberId: document.household(byId: householdId).spouse!)
     }
     
     private var spouseLink: some View {
@@ -88,7 +80,6 @@ struct HouseholdView: View {
         var changingHousehold = document.household(byId: householdId)
         changingHousehold.spouse = newSpouse.id
         document.update(household: changingHousehold)
-        //changeCount += 1
     }
     
     private var newAddressDestination: some View {
@@ -173,12 +164,10 @@ fileprivate struct MemberLinkView: View {
 fileprivate struct OtherRowView: View {
     @EnvironmentObject var document: PeriMeleonDocument
     var memberId: ID
-    @Binding var changeCount: Int
     
     var body: some View {
         NavigationLink(destination: MemberView(
-                        memberId: memberId,
-                        changeCount: $changeCount)) {
+                        memberId: memberId)) {
             MemberLinkView(captionWidth: defaultCaptionWidth,
                            caption: "",
                            name: document.nameOf(member: memberId))

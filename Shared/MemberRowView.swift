@@ -12,11 +12,9 @@ import PMDataTypes
 struct MemberRowView: View {
     @EnvironmentObject var document: PeriMeleonDocument
     var memberId: ID
-    @Binding var changeCount: Int
 
     var body: some View {
-        NavigationLink(destination: MemberView(memberId: memberId,
-                                               changeCount: $changeCount)) {
+        NavigationLink(destination: MemberView(memberId: memberId)) {
             Text(document.nameOf(member: memberId))
                 .font(.body)
         }
