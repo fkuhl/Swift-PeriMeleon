@@ -41,6 +41,7 @@ struct ContentView: View {
                              buttonText: "Open")
             }
         }
+        .environmentObject(document)
     }
     
     private func swanSong(lastGasp: String,

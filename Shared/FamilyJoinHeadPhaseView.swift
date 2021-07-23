@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct FamilyJoinHeadPhaseView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     @Binding var accumulator: FamilyJoinAccumulator
     @State private var isEditing = false //not used in FamilyJoin
     @State private var changeCount = 0
@@ -18,7 +18,8 @@ struct FamilyJoinHeadPhaseView: View {
     var body: some View {
         MemberEditView(
             member: accumulator.head,
-            memberEditDelegate: FamilyJoinEditDelegate(accumulator: $accumulator),
+            memberEditDelegate: FamilyJoinEditDelegate(document: document,
+                accumulator: $accumulator),
             memberCancelDelegate: FamilyJoinCancelDelegate(accumulator: $accumulator),
             isEditing: $isEditing,
             changeCount: $changeCount)
@@ -29,10 +30,11 @@ struct FamilyJoinHeadPhaseView: View {
  Delegate implementation used only by this View.
  */
 fileprivate class FamilyJoinEditDelegate: MemberEditDelegate {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    private var document: PeriMeleonDocument
     var accumulator: Binding<FamilyJoinAccumulator>
     
-    init(accumulator: Binding<FamilyJoinAccumulator>) {
+    init(document: PeriMeleonDocument, accumulator: Binding<FamilyJoinAccumulator>) {
+        self.document = document
         self.accumulator = accumulator
     }
     

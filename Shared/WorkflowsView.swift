@@ -16,7 +16,7 @@ enum WorkflowLink {
 }
 
 struct WorkflowsView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     @ObservedObject var moveToHouseholdAccumulator = MoveToHouseholdAccumulator()
     @State private var linkSelection: WorkflowLink? = nil
     

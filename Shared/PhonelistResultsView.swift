@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct PhonelistResultsView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     var title: String
     @Binding var members: [Member]
     @Binding var showingResults: Bool
@@ -119,7 +119,6 @@ struct PhonelistResultsView: View {
 
 
 struct PhonelistResultsView_Previews: PreviewProvider {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     static var previews: some View {
         PhonelistResultsView(title: "Phone list",
                              members: .constant([mockMember1, mockMember2]),
@@ -129,5 +128,6 @@ struct PhonelistResultsView_Previews: PreviewProvider {
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
             .previewDisplayName("Preview")
+            .environmentObject(mockDocument)
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PasswordView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     var label: String
     var buttonText: String
     @State var firstAttempt = ""
@@ -61,5 +61,6 @@ struct PasswordView_Previews: PreviewProvider {
             .background(Color(.systemBackground))
             .makeForPreviewProvider()
             .previewLayout(.sizeThatFits)
+            .environmentObject(mockDocument)
     }
 }

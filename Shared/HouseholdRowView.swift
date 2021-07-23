@@ -10,14 +10,16 @@ import SwiftUI
 import PMDataTypes
 
 struct HouseholdRowView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     var householdId: ID
     
     var body: some View {
         NavigationLink(destination: HouseholdView(householdId: householdId,
                                                   spouseFactory: SpouseFactory(
+                                                    document: document,
                                                     householdId: householdId),
                                                   otherFactory: OtherFactory(
+                                                    document: document,
                                                     householdId: householdId))) {
             Text(document.nameOf(household: householdId)).font(.body)
         }
@@ -25,10 +27,11 @@ struct HouseholdRowView: View {
 }
 
 fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    var document: PeriMeleonDocument
     let householdId: ID
     
-    init(householdId: ID) {
+    init(document: PeriMeleonDocument, householdId: ID) {
+        self.document = document
         self.householdId = householdId
     }
     
@@ -48,10 +51,11 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
 }
 
 fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    var document: PeriMeleonDocument
     let householdId: ID
     
-    init(householdId: ID) {
+    init(document: PeriMeleonDocument, householdId: ID) {
+        self.document = document
         self.householdId = householdId
     }
     

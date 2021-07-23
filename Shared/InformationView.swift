@@ -13,7 +13,7 @@ struct InformationView: View {
     @ScaledMetric(relativeTo: .headline) var dateTitleWidth: CGFloat = 150
     @ScaledMetric(relativeTo: .body) var datumTitleWidth: CGFloat = 150
     @ScaledMetric(relativeTo: .body) var datumStringWidth: CGFloat = 70
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
 
     var body: some View {
         VStack {

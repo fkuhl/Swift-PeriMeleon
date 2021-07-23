@@ -23,8 +23,6 @@
 		27415C0526699DBC00C1FB6E /* BaptismsEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27415C0426699DBC00C1FB6E /* BaptismsEntryView.swift */; };
 		27415C07266BB66900C1FB6E /* BaptismsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27415C06266BB66900C1FB6E /* BaptismsView.swift */; };
 		27415C09266BB9D100C1FB6E /* BaptismsResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27415C08266BB9D100C1FB6E /* BaptismsResultsView.swift */; };
-		274E140A26A88D76008BBED7 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E140926A88D76008BBED7 /* Injection.swift */; };
-		274E140B26A88D76008BBED7 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E140926A88D76008BBED7 /* Injection.swift */; };
 		275A1180255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275A1181255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275AF2A5258D09540007CF0C /* View+debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AF2A4258D09540007CF0C /* View+debug.swift */; };
@@ -191,7 +189,6 @@
 		27415C0426699DBC00C1FB6E /* BaptismsEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaptismsEntryView.swift; sourceTree = "<group>"; };
 		27415C06266BB66900C1FB6E /* BaptismsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaptismsView.swift; sourceTree = "<group>"; };
 		27415C08266BB9D100C1FB6E /* BaptismsResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaptismsResultsView.swift; sourceTree = "<group>"; };
-		274E140926A88D76008BBED7 /* Injection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Injection.swift; sourceTree = "<group>"; };
 		275A117F255F320C0055E77F /* SolidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidButton.swift; sourceTree = "<group>"; };
 		275AF2A4258D09540007CF0C /* View+debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+debug.swift"; sourceTree = "<group>"; };
 		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
@@ -447,7 +444,6 @@
 				278C1665265955DF003CEC13 /* MainView.swift */,
 				278C16682659563E003CEC13 /* PasswordView.swift */,
 				27BF579A268CBD0F00BEE938 /* Sidebar.swift */,
-				274E140926A88D76008BBED7 /* Injection.swift */,
 			);
 			name = App;
 			sourceTree = "<group>";
@@ -809,7 +805,6 @@
 				27C55E552538E7A000923EE8 /* DataChecker.swift in Sources */,
 				27B20D9C2529113B00C80696 /* CoreMemberView.swift in Sources */,
 				27B20DCF2529123400C80696 /* EditBoolView.swift in Sources */,
-				274E140A26A88D76008BBED7 /* Injection.swift in Sources */,
 				27C55E402538E74300923EE8 /* FamilyJoinAccumulator.swift in Sources */,
 				27C55E442538E74300923EE8 /* FamilyJoinHeadPhaseView.swift in Sources */,
 				277C953F2544B4870032638A /* ShareSheet.swift in Sources */,
@@ -875,7 +870,6 @@
 				277C9531254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAF2529113B00C80696 /* MemberRowView.swift in Sources */,
 				27C55E312538E67700923EE8 /* WorkflowsView.swift in Sources */,
-				274E140B26A88D76008BBED7 /* Injection.swift in Sources */,
 				27BF5799268BAE0700BEE938 /* SearchField.swift in Sources */,
 				273A79EC2662CA0100CC55A0 /* NavigationStylingModifier.swift in Sources */,
 				277C95122540DC230032638A /* PreviewProviderModifier.swift in Sources */,

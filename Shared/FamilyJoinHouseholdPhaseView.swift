@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct FamilyJoinHouseholdPhaseView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     @Binding var accumulator: FamilyJoinAccumulator
     @Binding var linkSelection: WorkflowLink?
 
@@ -30,18 +30,21 @@ struct FamilyJoinHouseholdPhaseView: View {
             HouseholdView(householdId: accumulator.addedHousehold.id,
                           replaceButtons: false,
                           spouseFactory: SpouseFactory(
+                            document: document,
                             householdId: accumulator.addedHousehold.id),
                           otherFactory: OtherFactory(
+                            document: document,
                             householdId: accumulator.addedHousehold.id))
         }
     }
 }
 
 fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    var document: PeriMeleonDocument
     var householdId: ID
     
-    init(householdId: ID) {
+    init(document: PeriMeleonDocument, householdId: ID) {
+        self.document = document
         self.householdId = householdId
     }
     
@@ -68,10 +71,11 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
 }
 
 fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    var document: PeriMeleonDocument
     var householdId: ID
     
-    init(householdId: ID) {
+    init(document: PeriMeleonDocument, householdId: ID) {
+        self.document = document
         self.householdId = householdId
     }
     

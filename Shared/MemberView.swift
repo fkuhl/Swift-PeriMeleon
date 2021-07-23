@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     @State var memberId: ID
     var editable = true
     @State private var isEditing = false

@@ -455,20 +455,3 @@ fileprivate func makeKey(password: String) -> SymmetricKey? {
         return SymmetricKey(data: keyData)
     } else { return nil }
 }
-
-// MARK: - Support for Injection
-
-///See Injection.swift. And thanks to A. van der Lee.
-
-private struct PeriMeleonDocumentKey: InjectionKey {
-    typealias Value = PeriMeleonDocument
-    
-    static var currentValue: PeriMeleonDocument = PeriMeleonDocument()
-}
-
-extension InjectedValues {
-    var periMeleonDocument: PeriMeleonDocument {
-        get { Self[PeriMeleonDocumentKey.self] }
-        set { Self[PeriMeleonDocumentKey.self] = newValue }
-    }
-}

@@ -11,7 +11,7 @@ import PMDataTypes
 
 
 struct HouseholdView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     var householdId: ID
     var addressEditable = true
     var replaceButtons = false
@@ -105,7 +105,6 @@ struct HouseholdView: View {
 }
 
 class PreviewHouseholdMemberFactoryDelegate: HouseholdMemberFactoryDelegate {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
     var householdId: ID
     
     init(householdId: ID) {
@@ -113,7 +112,7 @@ class PreviewHouseholdMemberFactoryDelegate: HouseholdMemberFactoryDelegate {
     }
     
     func make() -> Member {
-        Member()
+        mockMember1
     }
     
     
@@ -124,8 +123,6 @@ class PreviewHouseholdMemberFactoryDelegate: HouseholdMemberFactoryDelegate {
 https://www.avanderlee.com/swiftui/previews-different-states/
 */
 struct HouseholdView_Previews: PreviewProvider {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
-    
     static var previews: some View {
         HouseholdView(householdId: mockHousehold.id,
                       spouseFactory: PreviewHouseholdMemberFactoryDelegate(
@@ -137,13 +134,14 @@ struct HouseholdView_Previews: PreviewProvider {
             .background(Color(.systemBackground))
             .environment(\.colorScheme, .dark)
             .previewDisplayName("Dark Mode")
+            .environmentObject(mockDocument)
     }
 }
 
 //MARK: - Address
 
 fileprivate struct AddressLinkView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     @State var householdId: ID
     
     var body: some View {
@@ -175,7 +173,7 @@ fileprivate struct MemberLinkView: View {
 }
 
 fileprivate struct OtherRowView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     var memberId: ID
     @Binding var changeCount: Int
     
@@ -191,7 +189,7 @@ fileprivate struct OtherRowView: View {
 }
 
 fileprivate struct OtherAddView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     var otherFactory: HouseholdMemberFactoryDelegate
     var householdId: ID
     

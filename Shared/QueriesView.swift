@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct QueriesView: View {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     
     var body: some View {
         Section(header: Text("Phone list").font(.headline)) {

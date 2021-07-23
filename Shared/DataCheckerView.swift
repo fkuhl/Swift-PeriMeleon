@@ -30,7 +30,7 @@ struct DataCheckerView: View {
 }
 
 struct DataCheckerView_Previews: PreviewProvider {
-    @Injected(\.periMeleonDocument) var document: PeriMeleonDocument
+    @EnvironmentObject var document: PeriMeleonDocument
     static var previews: some View {
         DataCheckerView(dataChecker: DataChecker())
     }
