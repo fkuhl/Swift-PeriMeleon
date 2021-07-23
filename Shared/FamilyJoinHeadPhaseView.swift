@@ -38,7 +38,7 @@ fileprivate class FamilyJoinEditDelegate: MemberEditDelegate {
         self.accumulator = accumulator
     }
     
-    func store(member: Member, undoManager: UndoManager?) {
+    func store(member: Member) {
         NSLog("FJED onDis: val is \(member.fullName())")
         var newHousehold = NormalizedHousehold()
         newHousehold.head = member.id

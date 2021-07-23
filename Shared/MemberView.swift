@@ -44,7 +44,7 @@ fileprivate class MemberViewEditDelegate: MemberEditDelegate {
         self.document = document
     }
 
-    func store(member: Member, undoManager: UndoManager?) {
+    func store(member: Member) {
         NSLog("MemberEditViewDel onDis: val is \(member.fullName())")
         document.update(member: member)
     }

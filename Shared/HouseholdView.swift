@@ -88,7 +88,7 @@ struct HouseholdView: View {
         var changingHousehold = document.household(byId: householdId)
         changingHousehold.spouse = newSpouse.id
         document.update(household: changingHousehold)
-        changeCount += 1
+        //changeCount += 1
     }
     
     private var newAddressDestination: some View {
