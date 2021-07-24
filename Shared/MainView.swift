@@ -14,6 +14,11 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             Sidebar().frame(width: 350)
+                .toolbar(content: {
+                            ToolbarItem(placement: .principal, content: {
+                                Text("PeriMeleōn").font(.largeTitle)
+                            })})
+
 //            Color(.gray)
             Image("sinaiticus")
                 .resizable(resizingMode: .tile)

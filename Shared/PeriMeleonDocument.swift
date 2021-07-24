@@ -45,9 +45,10 @@ class PeriMeleonDocument: ReferenceFileDocument {
     
     @Published var householdsById = [ID : NormalizedHousehold]()
     @Published var membersById = [ID : Member]()
+    @Published var state: State = .normal
     ///A non-private published var to ensure all Views see that the data changed.
     @Published var changeCount: UInt64 = 0
-    
+
     /**Holds data initially read from file, till it can be decrypted. Otherwise the document's data are in
      householdsById and membersById, with snapshots as copies of them (as Model structs).
      */
@@ -78,20 +79,18 @@ class PeriMeleonDocument: ReferenceFileDocument {
         members.filter{ $0.isActive() }
     }
 
-    var state: State = .normal
     private var key: SymmetricKey? = nil
     
     
     // MARK: - initializers
 
-    ///On new file, framework calls empty initializer, then regular, with no views created in between.
+    ///On new file, this initializer is called, then the oter with zero data.
     init() {
         //We have a new document.
         NSLog("PeriMeleonDocument init no data")
         state = .newFile
         self.householdsById = [ID : NormalizedHousehold]()
         self.membersById = [ID : Member]()
-        initializeNewDB()
     }
     
     ///For mocking only
@@ -111,7 +110,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
             state = .newFile
             self.householdsById = [ID : NormalizedHousehold]()
             self.membersById = [ID : Member]()
-            initializeNewDB()
+            //Initializing the DB is deferred: see addPasswordToNewFile
             return
         }
         NSLog("PeriMeleonDocument init \(data.count) bytes")
@@ -128,25 +127,6 @@ class PeriMeleonDocument: ReferenceFileDocument {
             NSLog("err reading keychain, \(error.localizedDescription)")
             state = .noKey
         }
-    }
-
-    private func initializeNewDB() {
-        let mansionInTheSkyTempId = UUID().uuidString
-        var goodShepherd = Member()
-        goodShepherd.familyName = "Shepherd"
-        goodShepherd.givenName = "Good"
-        goodShepherd.placeOfBirth = "Bethlehem"
-        goodShepherd.status = MemberStatus.PASTOR  // not counted against communicants
-        goodShepherd.resident = false  // not counted against residents
-        goodShepherd.exDirectory = true  // not included in directory
-        goodShepherd.household = mansionInTheSkyTempId
-        
-        var mansionInTheSky = NormalizedHousehold()
-        goodShepherd.household = mansionInTheSky.id
-        mansionInTheSky.head = goodShepherd.id
-        mansionInTheSky.id = mansionInTheSkyTempId
-        membersById[goodShepherd.id] = goodShepherd
-        householdsById[mansionInTheSky.id] = mansionInTheSky
     }
     
     
@@ -325,6 +305,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
                 try GenericPasswordStore().deleteKey(account: passwordAccount)
                 try GenericPasswordStore().storeKey(encryptionKey, account: passwordAccount)
                 state = .normal
+                initializeNewDB()
             } catch {
                 state = .saveError(basicError: "Error on encrypting new data",
                                    codingPath: "",
@@ -333,6 +314,25 @@ class PeriMeleonDocument: ReferenceFileDocument {
         } else {
             state = .noKey
         }
+    }
+
+    private func initializeNewDB() {
+        let mansionInTheSkyTempId = UUID().uuidString
+        var goodShepherd = Member()
+        goodShepherd.familyName = "Shepherd"
+        goodShepherd.givenName = "Good"
+        goodShepherd.placeOfBirth = "Bethlehem"
+        goodShepherd.status = MemberStatus.PASTOR  // not counted against communicants
+        goodShepherd.resident = false  // not counted against residents
+        goodShepherd.exDirectory = true  // not included in directory
+        goodShepherd.household = mansionInTheSkyTempId
+        
+        var mansionInTheSky = NormalizedHousehold()
+        goodShepherd.household = mansionInTheSky.id
+        mansionInTheSky.head = goodShepherd.id
+        mansionInTheSky.id = mansionInTheSkyTempId
+        add(member: goodShepherd) //Set the undo! (Hope the mgr is set!)
+        add(household: mansionInTheSky)
     }
 
     //MARK: - Get data

@@ -21,6 +21,9 @@ struct ContentView: View {
         case .newFile:
             PasswordView(label: "Please provide password for new document:",
                          buttonText: "Open New Document")
+                .onAppear() {
+                    document.setUndoManager(undoManager: undoManager)
+                }
         case .noKey:
             PasswordView(label: "Please provide a password for the file:",
                          buttonText: "Open")

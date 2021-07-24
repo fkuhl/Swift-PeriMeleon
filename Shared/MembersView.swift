@@ -47,7 +47,7 @@ struct MembersView: View, FilterUpdater {
         .environmentObject(document)
         //.debugPrint("MembersView \(model.members.count) members")
         .onAppear() {
-            NSLog("MembersView.opApp \(document.membersById.count) members")
+            NSLog("MembersView.onApp \(document.membersById.count) members")
             updateUI(filterText: "")
         }
     }
