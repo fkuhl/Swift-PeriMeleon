@@ -22,16 +22,19 @@ struct Sidebar: View {
                 WorkflowsView()
             }, label: {
                 Label("Workflows", systemImage: "gearshape.2")
-            }).frame(width: 300)
+            }).frame(width: sidebarLabelWidth)
             DisclosureGroup(content: {
                 QueriesView()
             }, label: {
                 Label("Queries", systemImage: "magnifyingglass")
-            }).frame(width: 300)
+            }).frame(width: sidebarLabelWidth)
         }
         .listStyle(SidebarListStyle())
     }
 }
+
+let sidebarLabelWidth: CGFloat = 210
+
 
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
