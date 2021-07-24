@@ -21,11 +21,15 @@ struct PasswordView: View {
                 HStack {
                     Spacer().frame(width: geometry.size.width / 4)
                     VStack {
-                        SecureField("type password", text: $firstAttempt)
+                        SecureField("type password",
+                                    text: $firstAttempt,
+                                    onCommit: buttonAction)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         switch document.state {
                         case .newFile, .passwordEntriesDoNotMatch:
-                            SecureField("re-type password", text: $secondAttempt)
+                            SecureField("re-type password",
+                                        text: $secondAttempt,
+                                        onCommit: buttonAction)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                         default:
                             EmptyView()
