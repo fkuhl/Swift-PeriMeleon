@@ -30,8 +30,7 @@ struct DataCheckerView: View {
 }
 
 struct DataCheckerView_Previews: PreviewProvider {
-    @EnvironmentObject var document: PeriMeleonDocument
     static var previews: some View {
-        DataCheckerView(dataChecker: DataChecker())
+        DataCheckerView(dataChecker: DataChecker(document: mockDocument))
     }
 }

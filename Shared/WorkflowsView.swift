@@ -66,7 +66,7 @@ struct WorkflowsView: View {
     }
 
     private var dataCheckerView: some View {
-        return DataCheckerView(dataChecker: DataChecker())
+        return DataCheckerView(dataChecker: DataChecker(document: document))
     }
 }
 
