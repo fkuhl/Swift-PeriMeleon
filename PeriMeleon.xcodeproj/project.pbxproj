@@ -23,6 +23,9 @@
 		27415C0526699DBC00C1FB6E /* BaptismsEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27415C0426699DBC00C1FB6E /* BaptismsEntryView.swift */; };
 		27415C07266BB66900C1FB6E /* BaptismsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27415C06266BB66900C1FB6E /* BaptismsView.swift */; };
 		27415C09266BB9D100C1FB6E /* BaptismsResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27415C08266BB9D100C1FB6E /* BaptismsResultsView.swift */; };
+		274E143926AF1161008BBED7 /* TransactionsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E143826AF1161008BBED7 /* TransactionsQuery.swift */; };
+		274E143B26AF1FB9008BBED7 /* TransactionsQueryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E143A26AF1FB9008BBED7 /* TransactionsQueryEntry.swift */; };
+		274E143D26AF2667008BBED7 /* TransactionsQueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E143C26AF2667008BBED7 /* TransactionsQueryResults.swift */; };
 		275A1180255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275A1181255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275AF2A5258D09540007CF0C /* View+debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AF2A4258D09540007CF0C /* View+debug.swift */; };
@@ -189,6 +192,9 @@
 		27415C0426699DBC00C1FB6E /* BaptismsEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaptismsEntryView.swift; sourceTree = "<group>"; };
 		27415C06266BB66900C1FB6E /* BaptismsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaptismsView.swift; sourceTree = "<group>"; };
 		27415C08266BB9D100C1FB6E /* BaptismsResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaptismsResultsView.swift; sourceTree = "<group>"; };
+		274E143826AF1161008BBED7 /* TransactionsQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsQuery.swift; sourceTree = "<group>"; };
+		274E143A26AF1FB9008BBED7 /* TransactionsQueryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsQueryEntry.swift; sourceTree = "<group>"; };
+		274E143C26AF2667008BBED7 /* TransactionsQueryResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsQueryResults.swift; sourceTree = "<group>"; };
 		275A117F255F320C0055E77F /* SolidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidButton.swift; sourceTree = "<group>"; };
 		275AF2A4258D09540007CF0C /* View+debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+debug.swift"; sourceTree = "<group>"; };
 		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
@@ -325,6 +331,16 @@
 				27415C08266BB9D100C1FB6E /* BaptismsResultsView.swift */,
 			);
 			name = Baptisms;
+			sourceTree = "<group>";
+		};
+		274E143726AF1138008BBED7 /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				274E143826AF1161008BBED7 /* TransactionsQuery.swift */,
+				274E143A26AF1FB9008BBED7 /* TransactionsQueryEntry.swift */,
+				274E143C26AF2667008BBED7 /* TransactionsQueryResults.swift */,
+			);
+			name = Transactions;
 			sourceTree = "<group>";
 		};
 		276B9723250008DA003E19BA = {
@@ -496,6 +512,7 @@
 		27C55E1F2538CE0700923EE8 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
+				274E143726AF1138008BBED7 /* Transactions */,
 				27415C0326699D8200C1FB6E /* Baptisms */,
 				27D7D8002557097600A983AA /* Birthdays */,
 				27EB1308254A071A008E8A8B /* Phonelist */,
@@ -757,6 +774,7 @@
 				27B20DC12529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */,
 				278C1666265955DF003CEC13 /* MainView.swift in Sources */,
+				274E143B26AF1FB9008BBED7 /* TransactionsQueryEntry.swift in Sources */,
 				27B20DA82529113B00C80696 /* Services.swift in Sources */,
 				27C55E422538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */,
 				27C55E512538E7A000923EE8 /* DataCheckerView.swift in Sources */,
@@ -788,6 +806,7 @@
 				27B20DA42529113B00C80696 /* MembersView.swift in Sources */,
 				27B20DAC2529113B00C80696 /* MemberEditView.swift in Sources */,
 				279B6FB3255F619B0009D2BF /* MembersByAgeResultsView.swift in Sources */,
+				274E143926AF1161008BBED7 /* TransactionsQuery.swift in Sources */,
 				27B20D832529106500C80696 /* HouseholdsView.swift in Sources */,
 				277C9530254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAE2529113B00C80696 /* MemberRowView.swift in Sources */,
@@ -824,6 +843,7 @@
 				276B9753250008DB003E19BA /* PeriMeleonApp.swift in Sources */,
 				276B9757250008DB003E19BA /* ContentView.swift in Sources */,
 				27B20D812529106500C80696 /* HouseholdRowView.swift in Sources */,
+				274E143D26AF2667008BBED7 /* TransactionsQueryResults.swift in Sources */,
 				27C55E172538CE0100923EE8 /* MembersByStatusEntryView.swift in Sources */,
 				27BF579B268CBD0F00BEE938 /* Sidebar.swift in Sources */,
 				27B20D9E2529113B00C80696 /* TransactionEditView.swift in Sources */,

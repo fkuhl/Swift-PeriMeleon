@@ -39,6 +39,6 @@ let sidebarLabelWidth: CGFloat = 210
 struct Sidebar_Previews: PreviewProvider {
     static var previews: some View {
         Sidebar()
-        
+            .environmentObject(mockDocument)
     }
 }

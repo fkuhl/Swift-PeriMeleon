@@ -25,7 +25,17 @@ struct WorkflowsView: View {
             NavigationLink(destination: FamilyJoinView(linkSelection: $linkSelection),
                            tag: .familyJoins,
                            selection: $linkSelection) {
-                LinkButton(linkSelection: $linkSelection, link: .familyJoins, label: "Family joins")
+                LinkButton(linkSelection: $linkSelection,
+                           link: .familyJoins,
+                           label: "Family joins")
+//                Text("Family joins church. A new household is created. "
+//                        + "Enter the reception data once for the entire family. "
+//                     + "Enter the head of the household, then edit the new household, "
+//                     + "adding spouse and dependents.")
+//                    .font(.caption)
+//                    .lineLimit(nil)
+//                    .frame(width: 300)
+//                    .padding()
             }
         }
         Section(header: Text("Members").font(.headline)) {
@@ -72,9 +82,8 @@ struct WorkflowsView: View {
 
 struct WorkflowsView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            WorkflowsView()
-                .previewLayout(PreviewLayout.fixed(width: 1024, height: 768))
-        }
+        WorkflowsView()
+            .previewLayout(PreviewLayout.fixed(width: 1024, height: 768))
+            .environmentObject(mockDocument)
     }
 }

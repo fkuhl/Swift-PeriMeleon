@@ -30,6 +30,9 @@ struct QueriesView: View {
             NavigationLink(destination: BaptismsView()) {
                 LinkText(label: "Baptisms")
             }
+            NavigationLink(destination: TransactionsQuery()) {
+                LinkText(label: "Transactions for statistics")
+            }
         }
     }
 

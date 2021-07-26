@@ -1,22 +1,24 @@
 //
-//  BaptismsResultsView.swift
+//  TransactionQueryResult.swift
 //  PeriMeleon (iOS)
 //
-//  Created by Frederick Kuhl on 6/5/21.
+//  Created by Frederick Kuhl on 7/26/21.
 //
 
 import SwiftUI
 import PMDataTypes
 
-struct BaptismsResultsView: View {
+struct TransactionsQueryResults: View {
     var title: String
-    @Binding var members: [Member]
+    @Binding var transactions: [TransactionQueryRecord]
     @Binding var showingResults: Bool
     @State private var showingShareSheet = false
     @ObservedObject private var queryResults = QueryResults.sharedInstance
     @State private var resultsAsData = Data()
 
     let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
@@ -36,11 +38,15 @@ struct BaptismsResultsView: View {
             }
             ScrollView {
                 LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
-                    Text("Member").font(.caption)
-                    Text("Baptism").font(.caption)
-                    ForEach(members) {
-                        Text(memberName(member: $0)).font(.body)
-                        Text(baptism(member: $0)).font(.body)
+                    Text("Name").font(.caption)
+                    Text("Type").font(.caption)
+                    Text("Date").font(.caption)
+                    Text("Status").font(.caption)
+                    ForEach(transactions) {
+                        Text($0.name).font(.body)
+                        Text($0.type.rawValue).font(.body)
+                        Text(dateFormatter.string(from: $0.date)).font(.body)
+                        Text($0.status.rawValue).font(.body)
                     }
                 }
             }.padding()
@@ -52,7 +58,7 @@ struct BaptismsResultsView: View {
     
     private var clearButton: some View {
         Button(action: {
-            self.members = []
+            self.transactions = []
             withAnimation(.easeInOut(duration: editAnimationDuration)) {
                 self.showingResults = false
             }
@@ -64,7 +70,7 @@ struct BaptismsResultsView: View {
     ///Bring up share sheet
     private var iosShare: some View {
         Button(action: {
-            resultsAsData = makeBaptismResult(members: self.members)
+            resultsAsData = makeTransactionsResult(records: transactions)
                 .data(using: .utf8)!
             queryResults.setCSV(results: resultsAsData)
             showingShareSheet = true
@@ -78,7 +84,7 @@ struct BaptismsResultsView: View {
         VStack(alignment: .trailing) {
             Button(action: {
                 let pasteboard = UIPasteboard.general
-                pasteboard.string = makeBaptismResult(members: self.members)
+                pasteboard.string = makeTransactionsResult(records: transactions)
             }) {
                 Image(systemName: "arrow.up.doc.on.clipboard").font(.body)
             }.padding(.top, 20).padding(.bottom, 5).padding(.trailing, 20)
@@ -88,18 +94,10 @@ struct BaptismsResultsView: View {
     }
 }
 
-private func memberName(member: Member) -> String {
-    return member.fullName()
-}
-
-private func baptism(member: Member) -> String {
-   return member.baptism ?? ""
-}
-
-fileprivate func makeBaptismResult(members: [Member]) -> String {
-    var csvReturn = "name,baptism"
-    let strings = members.map { member in
-        "\"\(memberName(member: member))\",\"\(baptism(member: member))\""
+fileprivate func makeTransactionsResult(records: [TransactionQueryRecord]) -> String {
+    var csvReturn = "name,type,date,status"
+    let strings = records.map { record in
+        "\"\(record.name)\",\"\(record.type.rawValue)\",\"\(dateFormatter.string(from: record.date))\",\"\(record.status.rawValue)\""
     }
     csvReturn = strings.reduce(csvReturn) { thusFar, newString in
         "\(thusFar)\n\(newString)"
@@ -107,12 +105,11 @@ fileprivate func makeBaptismResult(members: [Member]) -> String {
     return csvReturn
 }
 
-struct BaptismsResultsView_Previews: PreviewProvider {
+struct TransactionQueryResult_Previews: PreviewProvider {
     static var previews: some View {
-        let mocks = [mockMember1, mockMember2]
-        BaptismsResultsView(title: "This is The Title",
-                            members: .constant(mocks),
-                            showingResults: .constant(true))
+        TransactionsQueryResults(title: "Transaction Results",
+                                transactions: .constant([TransactionQueryRecord]()),
+                                showingResults: .constant(true))
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))
