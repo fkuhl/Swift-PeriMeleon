@@ -11,7 +11,7 @@ import PMDataTypes
 
 struct BirthdaysView: View {
     let months = ["Jan", "Feb", "Mar", "Apr", "May", "Hun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    @State var selectedMonth = 0
+    @State var selectedMonth = Calendar.current.component(.month, from: Date()) - 1
     @State var members = [Member]()
     @State var showingResults = false
     
