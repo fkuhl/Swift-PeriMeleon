@@ -68,7 +68,7 @@ struct PhonelistResultsView: View {
     ///Bring up share sheet
     private var iosShare: some View {
         Button(action: {
-            let maker = PhonelistMaker()
+            let maker = PhonelistMaker(document: document)
             resultsAsData = maker.make(from: members).data(using: .utf8)!
             queryResults.setCSV(results: resultsAsData)
             showingShareSheet = true
@@ -81,7 +81,7 @@ struct PhonelistResultsView: View {
     private var macShare: some View {
         VStack(alignment: .trailing) {
             Button(action: {
-                let maker = PhonelistMaker()
+                let maker = PhonelistMaker(document: document)
                 let pasteboard = UIPasteboard.general
                 pasteboard.string = maker.make(from: members)
             }) {

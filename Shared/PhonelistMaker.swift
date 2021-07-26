@@ -9,7 +9,7 @@ import SwiftUI
 import PMDataTypes
 
 struct PhonelistMaker {
-    @EnvironmentObject var document: PeriMeleonDocument
+    @ObservedObject var document: PeriMeleonDocument
     let note = "PeriMeleon \(dateFormatter.string(from: Date()))"
     
     func make(from members: [Member]) -> String {

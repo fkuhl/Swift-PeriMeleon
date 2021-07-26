@@ -347,7 +347,6 @@
 				278C1664265955A2003CEC13 /* App */,
 				277C9526254223110032638A /* Document */,
 				27C55E5D2538E7A400923EE8 /* DataChecker */,
-				27C55E4C2538E74900923EE8 /* Family Join */,
 				27C55E382538E67D00923EE8 /* Workflows */,
 				27C55E1F2538CE0700923EE8 /* Queries */,
 				276B972C250008DB003E19BA /* Assets.xcassets */,
@@ -512,6 +511,7 @@
 		27C55E382538E67D00923EE8 /* Workflows */ = {
 			isa = PBXGroup;
 			children = (
+				27C55E4C2538E74900923EE8 /* Family Join */,
 				27C55E2C2538E67700923EE8 /* WorkflowsView.swift */,
 				27C55E2B2538E67700923EE8 /* MoveToHouseholdAccumulator.swift */,
 				27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */,
