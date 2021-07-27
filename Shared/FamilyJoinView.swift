@@ -28,7 +28,10 @@ struct FamilyJoinView: View {
                                              linkSelection: $linkSelection)
                     .transition(.move(edge: .trailing))
             case .reset:
-                EmptyView()
+                Text("")
+                    .toolbar {
+                        ToolbarItem(placement: .principal) { Text("") }
+                    }
             }
         }
         .debugPrint("FJV phase \(accumulator.phase)")

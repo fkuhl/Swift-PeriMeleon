@@ -15,33 +15,35 @@ struct FamilyDismissedVerificationView: View {
 
     var body: some View {
         Form {
-            Text("\(accumulator.dismissalIsPending ? "Dismissal Pending" : "Dismissal") "
-                    + "on \(dateFormatter.string(from: accumulator.dateDismissed))")
-                .font(.headline)
-            if !accumulator.churchFrom.isEmpty {
-                EditDisplayView(caption: "Church to:", message: accumulator.churchFrom)
+            Section(header: Text(
+                        "\(accumulator.dismissalIsPending ? "Dismissal Pending" : "Dismissal") "
+                        + "on \(dateFormatter.string(from: accumulator.dateDismissed))")
+                        .font(.headline)) {
+                if !accumulator.churchFrom.isEmpty {
+                    EditDisplayView(caption: "Church to:", message: accumulator.churchFrom)
+                }
+                if !accumulator.authority.isEmpty {
+                    EditDisplayView(caption: "Authority:", message: accumulator.authority)
+                }
+                if !accumulator.comment.isEmpty {
+                    EditDisplayView(caption: "Comment:", message: accumulator.comment)
+                }
             }
-            if !accumulator.authority.isEmpty {
-                EditDisplayView(caption: "Authority:", message: accumulator.authority)
-            }
-            if !accumulator.comment.isEmpty {
-                EditDisplayView(caption: "Comment:", message: accumulator.comment)
-            }
-            Text("Household members")
-            Text(document.nameOf(member: document.household(byId: accumulator.householdId).head))
-            if let spouseId = document.household(byId: accumulator.householdId).spouse {
-                Text(document.nameOf(member: spouseId))
-            }
-            ForEach(document.household(byId: accumulator.householdId).others, id: \.self) { otherId in
-                Text(document.nameOf(member: otherId))
+            Section(header: Text("Household members:").font(.headline)) {
+                Text(document.nameOf(member: document.household(byId: accumulator.householdId).head))
+                if let spouseId = document.household(byId: accumulator.householdId).spouse {
+                    Text(document.nameOf(member: spouseId))
+                }
+                ForEach(document.household(byId: accumulator.householdId).others, id: \.self) { otherId in
+                    Text(document.nameOf(member: otherId))
+                }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("Verify \(accumulator.dismissalIsPending ? "Dismissal Pending" : "Dismissal") "
-                        + "on \(dateFormatter.string(from: accumulator.dateDismissed))")
+                Text("Family \(accumulator.dismissalIsPending ? "Dismissal Pending" : "Dismissal") - Verify")
             }
             ToolbarItem(placement: .primaryAction) {
                 applyButton
@@ -69,10 +71,18 @@ struct FamilyDismissedVerificationView: View {
     }
     
     private func dismiss(memberId: ID) {
+        var newTransaction = accumulator.dismissalTransaction
         var member = document.member(byId: memberId)
+        if member.status == .NONCOMMUNING {
+            if let comment = newTransaction.comment {
+                newTransaction.comment = comment + " Noncommuning"
+            } else {
+                newTransaction.comment = "Noncommuning"
+            }
+        }
         member.status = accumulator.dismissalIsPending ? .DISMISSAL_PENDING : .DISMISSED
         member.resident = false
-        member.transactions.append(accumulator.dismissalTransaction)
+        member.transactions.append(newTransaction)
         member.dateLastChanged = Date()
         document.update(member: member)
     }

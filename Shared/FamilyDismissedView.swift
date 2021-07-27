@@ -12,7 +12,7 @@ struct FamilyDismissedView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var linkSelection: WorkflowLink?
     @State private var accumulator = FamilyDismissedAccumulator()
-
+    
     var body: some View {
         Group {
             switch accumulator.phase {
@@ -25,13 +25,15 @@ struct FamilyDismissedView: View {
                                                 linkSelection: $linkSelection)
                     .transition(.move(edge: .trailing))
             case .reset:
-                EmptyView()
+                Text("")
+                    .toolbar {
+                        ToolbarItem(placement: .principal) { Text("") }
+                    }
             }
         }
-        .debugPrint("FJV phase \(accumulator.phase)")
+        .debugPrint("FDV phase \(accumulator.phase)")
         //We're not using navigation in subsequent views, so no nav buttons
         //Not altogether clear I need to be doing this
-        .toolbar { }
         .navigationBarBackButtonHidden(true)
     }
 }
