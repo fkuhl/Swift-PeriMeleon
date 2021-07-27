@@ -16,7 +16,7 @@ struct FamilyJoinTransactionPhaseView: View {
     var body: some View {
         Form {
             Section {
-                DateSelectionView(caption: "Date received", accumulator: $accumulator)
+                DateSelectionView(caption: "Date received", date: $accumulator.dateReceived)
                 ReceptionTypeView(caption: "Reception type", accumulator: $accumulator)
                 EditTextView(caption: "authority", text: $accumulator.authority)
                 EditTextView(caption: "church from", text: $accumulator.churchFrom)
@@ -88,7 +88,7 @@ struct FamilyJoinWorkflowPhaseView_Previews: PreviewProvider {
 struct DateSelectionView: View {
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
-    @Binding var accumulator: FamilyJoinAccumulator
+    @Binding var date: Date
 
     var body: some View {
         HStack(alignment: .lastTextBaseline) {
@@ -96,7 +96,7 @@ struct DateSelectionView: View {
                 .frame(width: captionWidth, alignment: .trailing)
                 .font(.caption)
             DatePicker("",
-                       selection: $accumulator.dateReceived,
+                       selection: $date,
                        in: ...Date(),
                        displayedComponents: .date).font(.body)
         }

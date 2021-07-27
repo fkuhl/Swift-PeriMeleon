@@ -26,6 +26,10 @@
 		274E143926AF1161008BBED7 /* TransactionsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E143826AF1161008BBED7 /* TransactionsQuery.swift */; };
 		274E143B26AF1FB9008BBED7 /* TransactionsQueryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E143A26AF1FB9008BBED7 /* TransactionsQueryEntry.swift */; };
 		274E143D26AF2667008BBED7 /* TransactionsQueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E143C26AF2667008BBED7 /* TransactionsQueryResults.swift */; };
+		274E144126B04368008BBED7 /* FamilyDismissedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E144026B04368008BBED7 /* FamilyDismissedView.swift */; };
+		274E144326B0440E008BBED7 /* FamilyDismissedAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E144226B0440E008BBED7 /* FamilyDismissedAccumulator.swift */; };
+		274E144526B0473C008BBED7 /* FamilyDismissedTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E144426B0473C008BBED7 /* FamilyDismissedTransactionView.swift */; };
+		274E144726B04DB6008BBED7 /* FamilyDismissedVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E144626B04DB6008BBED7 /* FamilyDismissedVerificationView.swift */; };
 		275A1180255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275A1181255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275AF2A5258D09540007CF0C /* View+debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AF2A4258D09540007CF0C /* View+debug.swift */; };
@@ -195,6 +199,10 @@
 		274E143826AF1161008BBED7 /* TransactionsQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsQuery.swift; sourceTree = "<group>"; };
 		274E143A26AF1FB9008BBED7 /* TransactionsQueryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsQueryEntry.swift; sourceTree = "<group>"; };
 		274E143C26AF2667008BBED7 /* TransactionsQueryResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsQueryResults.swift; sourceTree = "<group>"; };
+		274E144026B04368008BBED7 /* FamilyDismissedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyDismissedView.swift; sourceTree = "<group>"; };
+		274E144226B0440E008BBED7 /* FamilyDismissedAccumulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyDismissedAccumulator.swift; sourceTree = "<group>"; };
+		274E144426B0473C008BBED7 /* FamilyDismissedTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyDismissedTransactionView.swift; sourceTree = "<group>"; };
+		274E144626B04DB6008BBED7 /* FamilyDismissedVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyDismissedVerificationView.swift; sourceTree = "<group>"; };
 		275A117F255F320C0055E77F /* SolidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidButton.swift; sourceTree = "<group>"; };
 		275AF2A4258D09540007CF0C /* View+debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+debug.swift"; sourceTree = "<group>"; };
 		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
@@ -341,6 +349,26 @@
 				274E143C26AF2667008BBED7 /* TransactionsQueryResults.swift */,
 			);
 			name = Transactions;
+			sourceTree = "<group>";
+		};
+		274E143E26AF451A008BBED7 /* MoveToHousehold */ = {
+			isa = PBXGroup;
+			children = (
+				27C55E2B2538E67700923EE8 /* MoveToHouseholdAccumulator.swift */,
+				27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */,
+			);
+			name = MoveToHousehold;
+			sourceTree = "<group>";
+		};
+		274E143F26B04336008BBED7 /* Family dismissed */ = {
+			isa = PBXGroup;
+			children = (
+				274E144026B04368008BBED7 /* FamilyDismissedView.swift */,
+				274E144226B0440E008BBED7 /* FamilyDismissedAccumulator.swift */,
+				274E144426B0473C008BBED7 /* FamilyDismissedTransactionView.swift */,
+				274E144626B04DB6008BBED7 /* FamilyDismissedVerificationView.swift */,
+			);
+			name = "Family dismissed";
 			sourceTree = "<group>";
 		};
 		276B9723250008DA003E19BA = {
@@ -528,10 +556,10 @@
 		27C55E382538E67D00923EE8 /* Workflows */ = {
 			isa = PBXGroup;
 			children = (
+				274E143F26B04336008BBED7 /* Family dismissed */,
+				274E143E26AF451A008BBED7 /* MoveToHousehold */,
 				27C55E4C2538E74900923EE8 /* Family Join */,
 				27C55E2C2538E67700923EE8 /* WorkflowsView.swift */,
-				27C55E2B2538E67700923EE8 /* MoveToHouseholdAccumulator.swift */,
-				27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */,
 				270BE17B26680489005B710B /* InformationView.swift */,
 			);
 			name = Workflows;
@@ -768,6 +796,7 @@
 			files = (
 				27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */,
 				27415C07266BB66900C1FB6E /* BaptismsView.swift in Sources */,
+				274E144126B04368008BBED7 /* FamilyDismissedView.swift in Sources */,
 				27C55E462538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9528254223C20032638A /* Member+Age.swift in Sources */,
 				27BF5798268BAE0700BEE938 /* SearchField.swift in Sources */,
@@ -783,6 +812,8 @@
 				27C55E152538CE0100923EE8 /* QueriesView.swift in Sources */,
 				27B20DC92529123400C80696 /* EditTextView.swift in Sources */,
 				27B20DC52529123400C80696 /* EditOptionalTextView.swift in Sources */,
+				274E144726B04DB6008BBED7 /* FamilyDismissedVerificationView.swift in Sources */,
+				274E144326B0440E008BBED7 /* FamilyDismissedAccumulator.swift in Sources */,
 				27C55E532538E7A000923EE8 /* DataCheckReport.swift in Sources */,
 				270BE17C26680489005B710B /* InformationView.swift in Sources */,
 				27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
@@ -795,6 +826,7 @@
 				272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */,
 				27D7D80E25570D1000A983AA /* BirthdaysView.swift in Sources */,
 				277C95182540DD6A0032638A /* PreviewShowoffView.swift in Sources */,
+				274E144526B0473C008BBED7 /* FamilyDismissedTransactionView.swift in Sources */,
 				27B20DCD2529123400C80696 /* EditSexView.swift in Sources */,
 				27C55E3E2538E74300923EE8 /* FamilyJoinView.swift in Sources */,
 				273FDC96257C462F0019F2DD /* Member+isActive.swift in Sources */,

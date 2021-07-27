@@ -10,6 +10,7 @@ import SwiftUI
 
 enum WorkflowLink {
     case familyJoins
+    case familyDismissed
     case moveToHousehold
     case dataChecker
     case information
@@ -22,21 +23,31 @@ struct WorkflowsView: View {
     
     var body: some View {
         Section(header: Text("Families").font(.headline)) {
-            NavigationLink(destination: FamilyJoinView(linkSelection: $linkSelection),
-                           tag: .familyJoins,
-                           selection: $linkSelection) {
-                LinkButton(linkSelection: $linkSelection,
-                           link: .familyJoins,
-                           label: "Family joins")
-//                Text("Family joins church. A new household is created. "
-//                        + "Enter the reception data once for the entire family. "
-//                     + "Enter the head of the household, then edit the new household, "
-//                     + "adding spouse and dependents.")
-//                    .font(.caption)
-//                    .lineLimit(nil)
-//                    .frame(width: 300)
-//                    .padding()
+            VStack(alignment: .leading) {
+                NavigationLink(destination: FamilyJoinView(linkSelection: $linkSelection),
+                               tag: .familyJoins,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection,
+                               link: .familyJoins,
+                               label: "Family joins")
+                }
+                Caption(text: "Family joins church. A new household is created. "
+                        + "Enter the reception data once for the entire family. "
+                        + "Enter the head of the household, then edit the new household, "
+                        + "adding spouse and dependents.")
             }
+            VStack(alignment: .leading) {
+                NavigationLink(destination: FamilyDismissedView(linkSelection: $linkSelection),
+                               tag: .familyDismissed,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection,
+                               link: .familyDismissed,
+                               label: "Family dismissed")
+                }
+                Caption(text: "Family is dismissed or dismissal is pending. "
+                        + "Enter date and comment "
+                        + "and all members of the family are changed.")
+            }.padding(.top, 20)
         }
         Section(header: Text("Members").font(.headline)) {
             NavigationLink(destination: MoveToHouseholdView(),
@@ -72,6 +83,17 @@ struct WorkflowsView: View {
                 }
                 Spacer()
             }
+        }
+    }
+    
+    fileprivate struct Caption: View {
+        var text: String
+        
+        var body: some View {
+            Text(text)
+                .font(.caption)
+                .lineLimit(nil)
+                .frame(width: 150)
         }
     }
 

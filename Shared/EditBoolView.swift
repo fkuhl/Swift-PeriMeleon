@@ -24,9 +24,3 @@ struct EditBoolView: View {
         }
     }
 }
-
-//struct EditBoolView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EditBoolView(caption: "a field", choice: true)
-//    }
-//}
