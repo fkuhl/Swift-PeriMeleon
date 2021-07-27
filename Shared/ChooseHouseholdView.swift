@@ -29,26 +29,51 @@ struct ChooseHouseholdView: View {
 }
 
 
-struct ChooseHouseholdListView: View {
+struct ChooseHouseholdListView: View, FilterUpdater {
     @EnvironmentObject var document: PeriMeleonDocument
     @State private var allOrActive = 0
     @Binding var householdId: ID
-    
+    @State private var households: [NormalizedHousehold] = []
+    @State private var filterText: String = ""
+
     var body: some View {
         VStack {
-            Picker(selection: $allOrActive,
-                   label: Text("What's in a name?"),
-                   content: {
-                    Text("All Households").tag(0)
-                    Text("Active Households").tag(1)
-            }).pickerStyle(SegmentedPickerStyle())
+            VStack {
+                Picker(selection: $allOrActive,
+                       label: Text("What's in a name?"),
+                       content: {
+                        Text("Active Households").tag(0)
+                        Text("All Households").tag(1)
+                       }).pickerStyle(SegmentedPickerStyle())
+                    .onChange(of: allOrActive) { _ in updateUI(filterText: filterText) }
+                SearchField(filterText: $filterText,
+                            uiUpdater: self,
+                            sortMessage: "filter by name")
+            }
+            .padding()
             List {
-                ForEach(allOrActive == 0 ? document.households
-                            : document.activeHouseholds, id: \.id) {
+                ForEach(households) {
                     ChooseHouseholdRowView(household: $0,
                                            chosenId: $householdId)
                 }
             }
+        }
+        .onAppear() { updateUI(filterText: "")
+        }
+    }
+    
+    // MARK: - FilterUpdater
+
+    func updateUI(filterText: String) {
+        let candidates = allOrActive == 0
+            ? document.activeHouseholds
+            : document.households
+        if filterText.isEmpty {
+            households = candidates
+            return
+        }
+        households = candidates.filter { household in
+            document.nameOf(household: household.id).localizedCaseInsensitiveContains(filterText)
         }
     }
 }
