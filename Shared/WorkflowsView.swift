@@ -12,6 +12,7 @@ enum WorkflowLink {
     case familyJoins
     case familyDismissed
     case newAddition
+    case profession
     case moveToHousehold
     case dataChecker
     case information
@@ -59,6 +60,14 @@ struct WorkflowsView: View {
                 }
                 Caption(text: "Household welcomes new member.")
             }
+            VStack(alignment: .leading) {
+                NavigationLink(destination: ProfessionView(linkSelection: $linkSelection),
+                               tag: .profession,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection, link: .profession, label: "Profession of faith")
+                }
+                Caption(text: "Non-communing member makes profession and becomes communing.")
+            }.padding(.top, 20)
             VStack(alignment: .leading) {
                 NavigationLink(destination: MoveToHouseholdView(),
                                tag: .moveToHousehold,

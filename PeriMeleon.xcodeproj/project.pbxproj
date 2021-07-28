@@ -159,6 +159,11 @@
 		27C72EAC26B1A5B200468A67 /* NewAdditionAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EAB26B1A5B200468A67 /* NewAdditionAccumulator.swift */; };
 		27C72EAE26B1A7F600468A67 /* NewAdditionEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EAD26B1A7F600468A67 /* NewAdditionEntryView.swift */; };
 		27C72EB026B1A84B00468A67 /* NewAdditionVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EAF26B1A84B00468A67 /* NewAdditionVerificationView.swift */; };
+		27C72EB326B1E61800468A67 /* ProfessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EB226B1E61800468A67 /* ProfessionView.swift */; };
+		27C72EB526B1E62F00468A67 /* ProfessionAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EB426B1E62F00468A67 /* ProfessionAccumulator.swift */; };
+		27C72EB726B1E74300468A67 /* ProfessionEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EB626B1E74300468A67 /* ProfessionEntryView.swift */; };
+		27C72EB926B1E9AD00468A67 /* ChooseMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EB826B1E9AD00468A67 /* ChooseMemberView.swift */; };
+		27C72EBB26B1ECFB00468A67 /* ProfessionVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EBA26B1ECFB00468A67 /* ProfessionVerificationView.swift */; };
 		27D7D7F32555D2B200A983AA /* PhonelistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D7F22555D2B200A983AA /* PhonelistView.swift */; };
 		27D7D80C25570D1000A983AA /* BirthdaysResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80925570D1000A983AA /* BirthdaysResultsView.swift */; };
 		27D7D80D25570D1000A983AA /* BirthdaysEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */; };
@@ -285,6 +290,11 @@
 		27C72EAB26B1A5B200468A67 /* NewAdditionAccumulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAdditionAccumulator.swift; sourceTree = "<group>"; };
 		27C72EAD26B1A7F600468A67 /* NewAdditionEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAdditionEntryView.swift; sourceTree = "<group>"; };
 		27C72EAF26B1A84B00468A67 /* NewAdditionVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAdditionVerificationView.swift; sourceTree = "<group>"; };
+		27C72EB226B1E61800468A67 /* ProfessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionView.swift; sourceTree = "<group>"; };
+		27C72EB426B1E62F00468A67 /* ProfessionAccumulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionAccumulator.swift; sourceTree = "<group>"; };
+		27C72EB626B1E74300468A67 /* ProfessionEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionEntryView.swift; sourceTree = "<group>"; };
+		27C72EB826B1E9AD00468A67 /* ChooseMemberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseMemberView.swift; sourceTree = "<group>"; };
+		27C72EBA26B1ECFB00468A67 /* ProfessionVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionVerificationView.swift; sourceTree = "<group>"; };
 		27D7D7F22555D2B200A983AA /* PhonelistView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonelistView.swift; sourceTree = "<group>"; };
 		27D7D80925570D1000A983AA /* BirthdaysResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdaysResultsView.swift; sourceTree = "<group>"; };
 		27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdaysEntryView.swift; sourceTree = "<group>"; };
@@ -535,6 +545,7 @@
 			children = (
 				275D3CA22532029100D65992 /* EditDisplayView.swift */,
 				27B20DB92529123400C80696 /* ChooseHouseholdView.swift */,
+				27C72EB826B1E9AD00468A67 /* ChooseMemberView.swift */,
 				27B20DC02529123400C80696 /* EditBoolView.swift */,
 				27B20DBA2529123400C80696 /* EditOptionalDateView.swift */,
 				27B20DBE2529123400C80696 /* EditOptionalParentView.swift */,
@@ -564,6 +575,7 @@
 		27C55E382538E67D00923EE8 /* Workflows */ = {
 			isa = PBXGroup;
 			children = (
+				27C72EB126B1E55E00468A67 /* ProfessionOfFaith */,
 				27C72EA826B1A55C00468A67 /* NewAddition */,
 				274E143F26B04336008BBED7 /* Family dismissed */,
 				274E143E26AF451A008BBED7 /* MoveToHousehold */,
@@ -606,6 +618,17 @@
 				27C72EAF26B1A84B00468A67 /* NewAdditionVerificationView.swift */,
 			);
 			name = NewAddition;
+			sourceTree = "<group>";
+		};
+		27C72EB126B1E55E00468A67 /* ProfessionOfFaith */ = {
+			isa = PBXGroup;
+			children = (
+				27C72EB226B1E61800468A67 /* ProfessionView.swift */,
+				27C72EB426B1E62F00468A67 /* ProfessionAccumulator.swift */,
+				27C72EB626B1E74300468A67 /* ProfessionEntryView.swift */,
+				27C72EBA26B1ECFB00468A67 /* ProfessionVerificationView.swift */,
+			);
+			name = ProfessionOfFaith;
 			sourceTree = "<group>";
 		};
 		27D7D8002557097600A983AA /* Birthdays */ = {
@@ -828,9 +851,11 @@
 				27C55E422538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */,
 				27C55E512538E7A000923EE8 /* DataCheckerView.swift in Sources */,
 				27B20DA02529113B00C80696 /* Transactions.swift in Sources */,
+				27C72EBB26B1ECFB00468A67 /* ProfessionVerificationView.swift in Sources */,
 				27C55E252538CE9400923EE8 /* MockedData.swift in Sources */,
 				27C55E152538CE0100923EE8 /* QueriesView.swift in Sources */,
 				27B20DC92529123400C80696 /* EditTextView.swift in Sources */,
+				27C72EB526B1E62F00468A67 /* ProfessionAccumulator.swift in Sources */,
 				27B20DC52529123400C80696 /* EditOptionalTextView.swift in Sources */,
 				274E144726B04DB6008BBED7 /* FamilyDismissedVerificationView.swift in Sources */,
 				274E144326B0440E008BBED7 /* FamilyDismissedAccumulator.swift in Sources */,
@@ -842,6 +867,8 @@
 				277B0A9D25783A3900AB2F86 /* Keychain.swift in Sources */,
 				278C16692659563E003CEC13 /* PasswordView.swift in Sources */,
 				27C55E132538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */,
+				27C72EB726B1E74300468A67 /* ProfessionEntryView.swift in Sources */,
+				27C72EB926B1E9AD00468A67 /* ChooseMemberView.swift in Sources */,
 				27B20DA22529113B00C80696 /* MemberView.swift in Sources */,
 				27C72EB026B1A84B00468A67 /* NewAdditionVerificationView.swift in Sources */,
 				272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */,
@@ -860,6 +887,7 @@
 				27B20DA42529113B00C80696 /* MembersView.swift in Sources */,
 				27B20DAC2529113B00C80696 /* MemberEditView.swift in Sources */,
 				279B6FB3255F619B0009D2BF /* MembersByAgeResultsView.swift in Sources */,
+				27C72EB326B1E61800468A67 /* ProfessionView.swift in Sources */,
 				274E143926AF1161008BBED7 /* TransactionsQuery.swift in Sources */,
 				27B20D832529106500C80696 /* HouseholdsView.swift in Sources */,
 				277C9530254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
