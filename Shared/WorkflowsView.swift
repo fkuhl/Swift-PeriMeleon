@@ -11,6 +11,7 @@ import SwiftUI
 enum WorkflowLink {
     case familyJoins
     case familyDismissed
+    case newAddition
     case moveToHousehold
     case dataChecker
     case information
@@ -50,24 +51,43 @@ struct WorkflowsView: View {
             }.padding(.top, 20)
         }
         Section(header: Text("Members").font(.headline)) {
-            NavigationLink(destination: MoveToHouseholdView(),
-                           tag: .moveToHousehold,
-                           selection: $linkSelection) {
-                LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Member moves to different household")
+            VStack(alignment: .leading) {
+                NavigationLink(destination: NewAddition(linkSelection: $linkSelection),
+                               tag: .newAddition,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection, link: .newAddition, label: "New addition to household")
+                }
+                Caption(text: "Household welcomes new member.")
             }
+            VStack(alignment: .leading) {
+                NavigationLink(destination: MoveToHouseholdView(),
+                               tag: .moveToHousehold,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Member moves to different household")
+                }
+                Caption(text: "Member of one household moves to establish their "
+                            + "own household.")
+            }.padding(.top, 20)
         }
         Section(header: Text("Miscellaneous").font(.headline)) {
-            NavigationLink(destination: dataCheckerView,
-                           tag: .dataChecker,
-                           selection: $linkSelection) {
-                LinkButton(linkSelection: $linkSelection, link: .dataChecker, label: "Data checker")
+            VStack(alignment: .leading) {
+                NavigationLink(destination: dataCheckerView,
+                               tag: .dataChecker,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection, link: .dataChecker, label: "Data checker")
+                }
+                Caption(text: "For each member, check that member's status "
+                            + "and last transaction are consistent.")
             }
-            NavigationLink(destination: InformationView(),
-                           tag: .information,
-                           selection: $linkSelection) {
-                LinkButton(linkSelection: $linkSelection, link: .information, label: "Information")
-                
-            }
+            VStack(alignment: .leading) {
+                NavigationLink(destination: InformationView(),
+                               tag: .information,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection, link: .information, label: "Information")
+                    
+                }
+                Caption(text: "Statistics on the data; app build information.")
+            }.padding(.top, 20)
         }
     }
 
