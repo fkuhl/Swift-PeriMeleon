@@ -30,28 +30,16 @@ struct MemberEditView: View {
                 EditTextView(caption: "family name:", text: $member.familyName)
                 EditTextView(caption: "given name:", text: $member.givenName)
                 EditOptionalTextView(caption: "middle name:", text: $member.middleName)
-                EditOptionalTextView(caption: "prev fam name:", text: $member.previousFamilyName)
                 EditOptionalTextView(caption: "suffix:", text: $member.nameSuffix)
-                EditOptionalTextView(caption: "title:", text: $member.title)
                 EditOptionalTextView(caption: "nickname:", text: $member.nickname)
-                EditSexView(caption: "sex:", sex: $member.sex)
-                EditMemberStatusView(caption: "status:", memberStatus: $member.status)
+                EditOptionalTextView(caption: "prev fam name:", text: $member.previousFamilyName)
+                EditOptionalTextView(caption: "title:", text: $member.title)
             }
             Section {
-                EditBoolView(caption: "resident:", choice: $member.resident)
-                EditBoolView(caption: "ex-directory:", choice: $member.exDirectory)
+                EditSexView(caption: "sex:", sex: $member.sex)
                 EditOptionalDateView(caption: "date of birth:", date: $member.dateOfBirth)
                 EditOptionalTextView(caption: "place of birth:", text: $member.placeOfBirth)
-                EditOptionalTextView(caption: "baptism:", text: $member.baptism)
                 EditDisplayView(caption: "household:", message: "Change household via 'Change member's household.'")
-            }
-            Section {
-                EditMaritalStatusView(caption: "marital status:", maritalStatus: $member.maritalStatus)
-                EditOptionalTextView(caption: "spouse:", text: $member.spouse)
-                EditOptionalDateView(caption: "date of marriage:", date: $member.dateOfMarriage)
-                EditOptionalTextView(caption: "divorce:", text: $member.divorce)
-            }
-            Section {
                 EditOptionalParentView(caption: "father",
                                        sex: .MALE,
                                        parentId: $member.father,
@@ -60,10 +48,25 @@ struct MemberEditView: View {
                                        sex: .FEMALE,
                                        parentId: $member.mother,
                                        title: "Mother of \(member.fullName())")
-                EditOptionalTextView(caption: "email:", text: $member.eMail)
-                EditOptionalTextView(caption: "work email:", text: $member.workEmail)
+                }
+            Section {
+                EditMaritalStatusView(caption: "marital status:", maritalStatus: $member.maritalStatus)
+                EditOptionalTextView(caption: "spouse:", text: $member.spouse)
+                EditOptionalDateView(caption: "date of marriage:", date: $member.dateOfMarriage)
+                EditOptionalTextView(caption: "divorce:", text: $member.divorce)
+            }
+            Section {
+                EditMemberStatusView(caption: "status:", memberStatus: $member.status)
+                EditOptionalTextView(caption: "baptism:", text: $member.baptism)
+                EditBoolView(caption: "resident:", choice: $member.resident)
+                EditBoolView(caption: "ex-directory:", choice: $member.exDirectory)
+            }
+            
+            Section {
                 EditOptionalTextView(caption: "mobile phone:", text: $member.mobilePhone)
+                EditOptionalTextView(caption: "email:", text: $member.eMail)
                 EditOptionalTextView(caption: "work phone:", text: $member.workPhone)
+                EditOptionalTextView(caption: "work email:", text: $member.workEmail)
             }
             Section(header: Text("Transactions").font(.callout).italic()) {
                 TransactionsEditView(member: $member)
@@ -73,7 +76,9 @@ struct MemberEditView: View {
                 ServicesEditView(member: $member)
                 ServicesEditAddView(member: $member)
             }
-            EditOptionalDateView(caption: "date last changed:", date: $member.dateLastChanged)
+            Section {
+                EditOptionalDateView(caption: "date last changed:", date: $member.dateLastChanged)
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
