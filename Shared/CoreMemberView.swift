@@ -23,23 +23,23 @@ struct CoreMemberView: View {
                                       text: document.member(byId: memberId).familyName)
                     TextAttributeView(caption: "given name:",
                                       text: document.member(byId: memberId).givenName)
-                    if document.member(byId: memberId).middleName != nil {
+                    if !nugatory(document.member(byId: memberId).middleName) {
                         TextAttributeView(caption: "middle name:",
                                           text: document.member(byId: memberId).middleName)
                     }
-                    if document.member(byId: memberId).previousFamilyName != nil {
+                    if !nugatory(document.member(byId: memberId).previousFamilyName) {
                         TextAttributeView(caption: "prev fam name:",
                                           text: document.member(byId: memberId).previousFamilyName)
                     }
-                    if document.member(byId: memberId).nameSuffix != nil {
+                    if !nugatory(document.member(byId: memberId).nameSuffix) {
                         TextAttributeView(caption: "suffix:",
                                           text: document.member(byId: memberId).nameSuffix)
                     }
-                    if document.member(byId: memberId).title != nil {
+                    if !nugatory(document.member(byId: memberId).title) {
                         TextAttributeView(caption: "title:",
                                           text: document.member(byId: memberId).title)
                     }
-                    if document.member(byId: memberId).nickname != nil {
+                    if !nugatory(document.member(byId: memberId).nickname) {
                         TextAttributeView(caption: "nickname:",
                                           text: document.member(byId: memberId).nickname)
                     }
@@ -51,8 +51,10 @@ struct CoreMemberView: View {
                 Section {
                     TextAttributeView(caption: "resident:",
                                       text: document.member(byId: memberId).resident ? "yes" : "no")
-                    TextAttributeView(caption: "ex-directory:",
-                                      text: document.member(byId: memberId).exDirectory ? "yes" : "no")
+                    if document.member(byId: memberId).exDirectory {
+                        TextAttributeView(caption: "ex-directory:",
+                                          text: document.member(byId: memberId).exDirectory ? "yes" : "no")
+                    }
                     if document.member(byId: memberId).dateOfBirth != nil {
                         TextAttributeView(caption: "date of birth:",
                                           text: dateForDisplay(
@@ -62,7 +64,7 @@ struct CoreMemberView: View {
                         TextAttributeView(caption: "place of birth:",
                                           text: document.member(byId: memberId).placeOfBirth!)
                     }
-                    if document.member(byId: memberId).baptism != nil {
+                    if !nugatory(document.member(byId: memberId).baptism) {
                         TextAttributeView(caption: "baptism:",
                                           text: document.member(byId: memberId).baptism)
                     }
@@ -70,14 +72,14 @@ struct CoreMemberView: View {
                                       text: document.nameOf(household: document.member(byId: memberId).household))
                     TextAttributeView(caption: "martial status:",
                                       text: document.member(byId: memberId).maritalStatus.rawValue)
-                    if document.member(byId: memberId).spouse != nil {
+                    if !nugatory(document.member(byId: memberId).spouse) {
                         TextAttributeView(caption: "spouse:",
                                           text: document.member(byId: memberId).spouse)
                     }
                     if document.member(byId: memberId).dateOfMarriage != nil {
                         TextAttributeView(caption: "date of marriage:", text: dateForDisplay(document.member(byId: memberId).dateOfMarriage))
                     }
-                    if document.member(byId: memberId).divorce != nil {
+                    if !nugatory(document.member(byId: memberId).divorce) {
                         TextAttributeView(caption: "divorce:",
                                           text: document.member(byId: memberId).divorce)
                     }
@@ -91,19 +93,19 @@ struct CoreMemberView: View {
                         TextAttributeView(caption: "mother:",
                                           text: document.nameOf(member: document.member(byId: memberId).mother!))
                     }
-                    if document.member(byId: memberId).eMail != nil {
+                    if !nugatory(document.member(byId: memberId).eMail) {
                         TextAttributeView(caption: "email:",
                                           text: document.member(byId: memberId).eMail)
                     }
-                    if document.member(byId: memberId).workEmail != nil {
+                    if !nugatory(document.member(byId: memberId).workEmail) {
                         TextAttributeView(caption: "work email:",
                                           text: document.member(byId: memberId).workEmail)
                     }
-                    if document.member(byId: memberId).mobilePhone != nil {
+                    if !nugatory(document.member(byId: memberId).mobilePhone) {
                         TextAttributeView(caption: "mobile phone:",
                                           text: document.member(byId: memberId).mobilePhone)
                     }
-                    if document.member(byId: memberId).workPhone != nil {
+                    if !nugatory(document.member(byId: memberId).workPhone) {
                         TextAttributeView(caption: "work phone:",
                                           text: document.member(byId: memberId).workPhone)
                     }
