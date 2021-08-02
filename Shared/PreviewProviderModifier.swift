@@ -7,7 +7,7 @@
 
 //https://gist.github.com/davidsteppenbeck/8f0986c314853c0748d3469d00dc7fc2https://gist.github.com/davidsteppenbeck/8f0986c314853c0748d3469d00dc7fc2
 
-#if DEBUG
+//#if DEBUG
 import SwiftUI
 struct PreviewProviderModifier: ViewModifier {
 /// Whether or not a basic light mode preview is included in the group.
@@ -62,4 +62,4 @@ extension View {
         )
     }
 }
-#endif
+//#endif

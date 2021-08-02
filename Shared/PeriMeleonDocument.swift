@@ -72,7 +72,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     }
     var members: [Member] {
         var members = [Member](membersById.values)
-        members.sort{ $0.fullName() < $1.fullName() }
+        members.sort{ $0.displayName() < $1.displayName() }
         return members
     }
     var activeMembers: [Member] {
@@ -357,7 +357,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     
     func nameOf(member: ID) -> String {
         if let mm = membersById[member] {
-            return mm.fullName()
+            return mm.displayName()
         } else { return "[none]" }
     }
 
