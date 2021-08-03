@@ -164,6 +164,8 @@
 		27C72EB726B1E74300468A67 /* ProfessionEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EB626B1E74300468A67 /* ProfessionEntryView.swift */; };
 		27C72EB926B1E9AD00468A67 /* ChooseMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EB826B1E9AD00468A67 /* ChooseMemberView.swift */; };
 		27C72EBB26B1ECFB00468A67 /* ProfessionVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EBA26B1ECFB00468A67 /* ProfessionVerificationView.swift */; };
+		27C72EE626B9879F00468A67 /* SomeMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EE526B9879F00468A67 /* SomeMembersView.swift */; };
+		27C72EE726B9879F00468A67 /* SomeMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EE526B9879F00468A67 /* SomeMembersView.swift */; };
 		27D7D7F32555D2B200A983AA /* PhonelistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D7F22555D2B200A983AA /* PhonelistView.swift */; };
 		27D7D80C25570D1000A983AA /* BirthdaysResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80925570D1000A983AA /* BirthdaysResultsView.swift */; };
 		27D7D80D25570D1000A983AA /* BirthdaysEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */; };
@@ -295,6 +297,7 @@
 		27C72EB626B1E74300468A67 /* ProfessionEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionEntryView.swift; sourceTree = "<group>"; };
 		27C72EB826B1E9AD00468A67 /* ChooseMemberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseMemberView.swift; sourceTree = "<group>"; };
 		27C72EBA26B1ECFB00468A67 /* ProfessionVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionVerificationView.swift; sourceTree = "<group>"; };
+		27C72EE526B9879F00468A67 /* SomeMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeMembersView.swift; sourceTree = "<group>"; };
 		27D7D7F22555D2B200A983AA /* PhonelistView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonelistView.swift; sourceTree = "<group>"; };
 		27D7D80925570D1000A983AA /* BirthdaysResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdaysResultsView.swift; sourceTree = "<group>"; };
 		27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdaysEntryView.swift; sourceTree = "<group>"; };
@@ -536,6 +539,7 @@
 				27B20D902529113B00C80696 /* Transactions.swift */,
 				277C9527254223C20032638A /* Member+Age.swift */,
 				273FDC95257C462F0019F2DD /* Member+isActive.swift */,
+				27C72EE526B9879F00468A67 /* SomeMembersView.swift */,
 			);
 			name = Members;
 			sourceTree = "<group>";
@@ -873,6 +877,7 @@
 				27C72EB026B1A84B00468A67 /* NewAdditionVerificationView.swift in Sources */,
 				272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */,
 				27D7D80E25570D1000A983AA /* BirthdaysView.swift in Sources */,
+				27C72EE626B9879F00468A67 /* SomeMembersView.swift in Sources */,
 				277C95182540DD6A0032638A /* PreviewShowoffView.swift in Sources */,
 				274E144526B0473C008BBED7 /* FamilyDismissedTransactionView.swift in Sources */,
 				27B20DCD2529123400C80696 /* EditSexView.swift in Sources */,
@@ -940,6 +945,7 @@
 			files = (
 				27FD5AE2254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
 				278C166A2659563E003CEC13 /* PasswordView.swift in Sources */,
+				27C72EE726B9879F00468A67 /* SomeMembersView.swift in Sources */,
 				27C55E472538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9529254223C20032638A /* Member+Age.swift in Sources */,
 				27B20DC22529123400C80696 /* ChooseHouseholdView.swift in Sources */,

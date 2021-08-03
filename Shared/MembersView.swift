@@ -10,7 +10,7 @@ import SwiftUI
 import PMDataTypes
 
 
-struct MembersView: View, FilterUpdater {
+struct MembersView: View {
     @EnvironmentObject var document: PeriMeleonDocument
     @State private var allOrActive = 0
     @State private var members: [Member] = []
@@ -27,15 +27,14 @@ struct MembersView: View, FilterUpdater {
                             Text("All Members").tag(1)
                            })
                         .pickerStyle(SegmentedPickerStyle())
-                        .onChange(of: allOrActive) { _ in updateUI(filterText: filterText) }
-                    SearchField(filterText: $filterText,
-                                uiUpdater: self,
-                                sortMessage: "filter by name")
+                        
                 }.padding()
-                List {
-                    ForEach(members) {
-                        MemberRowView(memberId: $0.id)
-                    }
+                ///Dividing all and active members into 2 views lessens the work (and delay) when changing
+                ///from one to the other.
+                if allOrActive == 0 {
+                    SomeMembersView(allOrActive: 0)
+                } else {
+                    SomeMembersView(allOrActive: 1)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -46,25 +45,6 @@ struct MembersView: View, FilterUpdater {
         }
         .environmentObject(document)
         //.debugPrint("MembersView \(model.members.count) members")
-        .onAppear() {
-            NSLog("MembersView.onApp \(document.membersById.count) members")
-            updateUI(filterText: "")
-        }
-    }
-    
-    // MARK: - FilterUpdater
-
-    func updateUI(filterText: String) {
-        let candidates = allOrActive == 0
-            ? document.activeMembers
-            : document.members
-        if filterText.isEmpty {
-            members = candidates
-            return
-        }
-        members = candidates.filter { member in
-            document.nameOf(member: member.id).localizedCaseInsensitiveContains(filterText)
-        }
     }
 }
 
