@@ -16,7 +16,12 @@ import PMDataTypes
 struct NormalizedHousehold: Identifiable {
     var id: ID
     var head: ID = ""
-    var name: String? = nil //for sorting
+    /** This field supports storing NormalizedHouseholds in SortedArray.
+     It is assumed that this field will be filled in anytime a NormalizedHousehold is created,
+     and thereafter not changed.
+     I suppose there is a potential bug if the head of a household every changes his name
+ */
+    var name: String? = nil
     var spouse: ID? = nil
     var others = [ID]()
     var address: Address? = nil
