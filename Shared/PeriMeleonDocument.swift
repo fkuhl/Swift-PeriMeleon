@@ -44,8 +44,22 @@ class PeriMeleonDocument: ReferenceFileDocument {
 
     // MARK: - Data
     
+
+    // householdsById and households must be kept consistent.
     @Published var householdsById = [ID : NormalizedHousehold]()
+    var households = SortedArray<NormalizedHousehold>(areInIncreasingOrder: compareHouseholds)
+    var activeHouseholds: SortedArray<NormalizedHousehold> {
+        //order-of-initialization bug lurking here!
+        households.filter { membersById[$0.head]?.isActive() ?? false }
+    }
+    
+    // membersById and members must be kept consistent
     @Published var membersById = [ID : Member]()
+    var members = SortedArray<Member>(areInIncreasingOrder: compareMembers)
+    var activeMembers: SortedArray<Member> {
+        members.filter { $0.isActive() }
+    }
+    
     @Published var state: State = .normal
     ///A non-private published var to ensure all Views see that the data changed.
     @Published var changeCount: UInt64 = 0
@@ -59,16 +73,6 @@ class PeriMeleonDocument: ReferenceFileDocument {
 
     func setUndoManager(undoManager: UndoManager?) {
         self.undoManager = undoManager
-    }
-
-    var households = SortedArray<NormalizedHousehold>(areInIncreasingOrder: compareHouseholds)
-    var activeHouseholds: SortedArray<NormalizedHousehold> {
-        //order-of-initialization bug lurking here!
-        households.filter { membersById[$0.head]?.isActive() ?? false }
-    }
-    var members = SortedArray<Member>(areInIncreasingOrder: compareMembers)
-    var activeMembers: SortedArray<Member> {
-        members.filter { $0.isActive() }
     }
 
     private var key: SymmetricKey? = nil
