@@ -26,6 +26,7 @@ extension UTType {
  */
 
 class PeriMeleonDocument: ReferenceFileDocument {
+    
     enum State: Equatable {
         case noKey
         case cannotRead(errorDescription: String)
@@ -154,28 +155,37 @@ class PeriMeleonDocument: ReferenceFileDocument {
             members = SortedArray<Member>(areInIncreasingOrder: compareMembers)
             return
         }
-        do {
-            NSLog("will decode")
-            let decodedHouseholds = try jsonDecoder.decode([Household].self,
-                                                           from: decryptedContent)
-            NSLog("did decode \(decodedHouseholds.count) households from init config")
-            let model = normalize(decodedHouseholds: decodedHouseholds)
-            householdsById = model.h
-            households = SortedArray<NormalizedHousehold>(unsorted: householdsById.values,
+        DispatchQueue.global(qos: .userInitiated).async { [self] in
+            do {
+                NSLog("will decode")
+                let decodedHouseholds = try jsonDecoder.decode([Household].self,
+                                                               from: decryptedContent)
+                NSLog("did decode \(decodedHouseholds.count) households from init config")
+                let model = self.normalize(decodedHouseholds: decodedHouseholds)
+                let hh = SortedArray<NormalizedHousehold>(unsorted: model.h.values,
                                                           areInIncreasingOrder: compareHouseholds)
-            membersById = model.m
-            members = SortedArray<Member>(unsorted: membersById.values,
-                                          areInIncreasingOrder: compareMembers)
-            state = .normal
-            NSLog("sorted")
-        } catch {
-            let err = error as! DecodingError
-            let explanation = explain(decodingError: err)
-            NSLog("cannot decode JSON: \(err)")
-            state = .cannotDecode(basicError: explanation.0,
-                                  codingPath: explanation.1,
-                                  underlyingError: explanation.2)
-            return
+                let mm = SortedArray<Member>(unsorted: model.m.values,
+                                             areInIncreasingOrder: compareMembers)
+                DispatchQueue.main.async {
+                    membersById = model.m
+                    householdsById = model.h
+                    households = hh
+                    members = mm
+                    state = .normal
+                    changeCount += 1
+                    NSLog("sorted")
+                }
+            } catch {
+                let err = error as! DecodingError
+                let explanation = explain(decodingError: err)
+                NSLog("cannot decode JSON: \(err)")
+                DispatchQueue.main.async {
+                    state = .cannotDecode(basicError: explanation.0,
+                                          codingPath: explanation.1,
+                                          underlyingError: explanation.2)
+                }
+                return
+        }
         }
     }
     
