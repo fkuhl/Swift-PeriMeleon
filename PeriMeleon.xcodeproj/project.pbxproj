@@ -166,6 +166,10 @@
 		27C72EBB26B1ECFB00468A67 /* ProfessionVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EBA26B1ECFB00468A67 /* ProfessionVerificationView.swift */; };
 		27C72EE626B9879F00468A67 /* SomeMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EE526B9879F00468A67 /* SomeMembersView.swift */; };
 		27C72EE726B9879F00468A67 /* SomeMembersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EE526B9879F00468A67 /* SomeMembersView.swift */; };
+		27C72EEA26B996A000468A67 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 27C72EE826B996A000468A67 /* LICENSE.txt */; };
+		27C72EEB26B996A000468A67 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 27C72EE826B996A000468A67 /* LICENSE.txt */; };
+		27C72EEC26B996A000468A67 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EE926B996A000468A67 /* SortedArray.swift */; };
+		27C72EED26B996A000468A67 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EE926B996A000468A67 /* SortedArray.swift */; };
 		27D7D7F32555D2B200A983AA /* PhonelistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D7F22555D2B200A983AA /* PhonelistView.swift */; };
 		27D7D80C25570D1000A983AA /* BirthdaysResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80925570D1000A983AA /* BirthdaysResultsView.swift */; };
 		27D7D80D25570D1000A983AA /* BirthdaysEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */; };
@@ -298,6 +302,8 @@
 		27C72EB826B1E9AD00468A67 /* ChooseMemberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseMemberView.swift; sourceTree = "<group>"; };
 		27C72EBA26B1ECFB00468A67 /* ProfessionVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfessionVerificationView.swift; sourceTree = "<group>"; };
 		27C72EE526B9879F00468A67 /* SomeMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeMembersView.swift; sourceTree = "<group>"; };
+		27C72EE826B996A000468A67 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		27C72EE926B996A000468A67 /* SortedArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedArray.swift; sourceTree = "<group>"; };
 		27D7D7F22555D2B200A983AA /* PhonelistView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonelistView.swift; sourceTree = "<group>"; };
 		27D7D80925570D1000A983AA /* BirthdaysResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdaysResultsView.swift; sourceTree = "<group>"; };
 		27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdaysEntryView.swift; sourceTree = "<group>"; };
@@ -479,6 +485,8 @@
 				272F722D251533BD009E4CF3 /* CryptoKey.swift */,
 				27BC9303265D885C00C39B0B /* ExplainError.swift */,
 				2724846226934B4B008709B4 /* Model.swift */,
+				27C72EE826B996A000468A67 /* LICENSE.txt */,
+				27C72EE926B996A000468A67 /* SortedArray.swift */,
 			);
 			name = Document;
 			sourceTree = "<group>";
@@ -806,6 +814,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27C72EEA26B996A000468A67 /* LICENSE.txt in Resources */,
 				27C6B4A42506ADD20086181F /* README.md in Resources */,
 				276B9759250008DB003E19BA /* Assets.xcassets in Resources */,
 			);
@@ -815,6 +824,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27C72EEB26B996A000468A67 /* LICENSE.txt in Resources */,
 				27C6B4A52506ADD20086181F /* README.md in Resources */,
 				276B975A250008DB003E19BA /* Assets.xcassets in Resources */,
 			);
@@ -869,6 +879,7 @@
 				27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */,
 				27415C0526699DBC00C1FB6E /* BaptismsEntryView.swift in Sources */,
 				277B0A9D25783A3900AB2F86 /* Keychain.swift in Sources */,
+				27C72EEC26B996A000468A67 /* SortedArray.swift in Sources */,
 				278C16692659563E003CEC13 /* PasswordView.swift in Sources */,
 				27C55E132538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */,
 				27C72EB726B1E74300468A67 /* ProfessionEntryView.swift in Sources */,
@@ -979,6 +990,7 @@
 				27B20D842529106500C80696 /* HouseholdsView.swift in Sources */,
 				277C9531254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAF2529113B00C80696 /* MemberRowView.swift in Sources */,
+				27C72EED26B996A000468A67 /* SortedArray.swift in Sources */,
 				27C55E312538E67700923EE8 /* WorkflowsView.swift in Sources */,
 				27BF5799268BAE0700BEE938 /* SearchField.swift in Sources */,
 				273A79EC2662CA0100CC55A0 /* NavigationStylingModifier.swift in Sources */,

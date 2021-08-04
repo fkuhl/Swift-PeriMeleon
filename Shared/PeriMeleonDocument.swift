@@ -60,23 +60,14 @@ class PeriMeleonDocument: ReferenceFileDocument {
         self.undoManager = undoManager
     }
 
-    var households: [NormalizedHousehold] {
-        var households = [NormalizedHousehold](householdsById.values)
-        households.sort {
-            membersById[$0.head]?.fullName() ?? "" < membersById[$1.head]?.fullName() ?? ""
-        }
-        return households
-    }
-    var activeHouseholds: [NormalizedHousehold] {
+    var households = SortedArray<NormalizedHousehold>(areInIncreasingOrder: compareHouseholds)
+    var activeHouseholds: SortedArray<NormalizedHousehold> {
+        //order-of-initialization bug lurking here!
         households.filter { membersById[$0.head]?.isActive() ?? false }
     }
-    var members: [Member] {
-        var members = [Member](membersById.values)
-        members.sort{ $0.displayName() < $1.displayName() }
-        return members
-    }
-    var activeMembers: [Member] {
-        members.filter{ $0.isActive() }
+    var members = SortedArray<Member>(areInIncreasingOrder: compareMembers)
+    var activeMembers: SortedArray<Member> {
+        members.filter { $0.isActive() }
     }
 
     private var key: SymmetricKey? = nil
@@ -89,14 +80,16 @@ class PeriMeleonDocument: ReferenceFileDocument {
         //We have a new document.
         NSLog("PeriMeleonDocument init no data")
         state = .newFile
-        self.householdsById = [ID : NormalizedHousehold]()
-        self.membersById = [ID : Member]()
     }
     
     ///For mocking only
     init(model: Model) {
         householdsById = model.h
         membersById = model.m
+        members = SortedArray<Member>(unsorted: membersById.values,
+                                      areInIncreasingOrder: compareMembers)
+        households = SortedArray<NormalizedHousehold>(unsorted: householdsById.values,
+                                                      areInIncreasingOrder: compareHouseholds)
         state = .normal
     }
 
@@ -149,23 +142,32 @@ class PeriMeleonDocument: ReferenceFileDocument {
     private func decryptAndDecode(_ data: Data, key: SymmetricKey) {
         let decryptedContent: Data
         do {
+            NSLog("will decrypt")
             let sealedBox = try ChaChaPoly.SealedBox(combined: data)
             decryptedContent = try ChaChaPoly.open(sealedBox, using: key)
         } catch {
             NSLog("cannot decrypt: \(error.localizedDescription)")
             state = .cannotDecrypt
             householdsById = [ID : NormalizedHousehold]()
+            households = SortedArray<NormalizedHousehold>(areInIncreasingOrder: compareHouseholds)
             membersById = [ID : Member]()
+            members = SortedArray<Member>(areInIncreasingOrder: compareMembers)
             return
         }
         do {
+            NSLog("will decode")
             let decodedHouseholds = try jsonDecoder.decode([Household].self,
                                                            from: decryptedContent)
-            NSLog("read \(decodedHouseholds.count) households from init config")
+            NSLog("did decode \(decodedHouseholds.count) households from init config")
             let model = normalize(decodedHouseholds: decodedHouseholds)
             householdsById = model.h
+            households = SortedArray<NormalizedHousehold>(unsorted: householdsById.values,
+                                                          areInIncreasingOrder: compareHouseholds)
             membersById = model.m
+            members = SortedArray<Member>(unsorted: membersById.values,
+                                          areInIncreasingOrder: compareMembers)
             state = .normal
+            NSLog("sorted")
         } catch {
             let err = error as! DecodingError
             let explanation = explain(decodingError: err)
@@ -249,6 +251,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
             normalizedHousehold.id = household.id
             membersById[household.head.id] = household.head
             normalizedHousehold.head = household.head.id
+            normalizedHousehold.name = household.head.displayName()
             if let spouse = household.spouse {
                 membersById[spouse.id] = spouse
                 normalizedHousehold.spouse = spouse.id
@@ -330,6 +333,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
         var mansionInTheSky = NormalizedHousehold()
         goodShepherd.household = mansionInTheSky.id
         mansionInTheSky.head = goodShepherd.id
+        mansionInTheSky.name = goodShepherd.displayName()
         mansionInTheSky.id = mansionInTheSkyTempId
         add(member: goodShepherd) //Set the undo! (Hope the mgr is set!)
         add(household: mansionInTheSky)
@@ -383,8 +387,10 @@ class PeriMeleonDocument: ReferenceFileDocument {
     //MARK: - Update data
     
     func update(household: NormalizedHousehold) {
-        guard let oldValue = householdsById[household.id] else {
+        guard let oldValue = householdsById[household.id],
+              let oldIndex = households.firstIndex(of: oldValue) else {
             householdsById[household.id] = household
+            households.insert(household)
             NSLog("households changed (really, added to), undo is \(String(describing: undoManager))")
             changeCount += 1
             undoManager?.registerUndo(withTarget: self) { doc in
@@ -393,6 +399,8 @@ class PeriMeleonDocument: ReferenceFileDocument {
             return
         }
         householdsById[household.id] = household
+        households.remove(at: oldIndex)
+        households.insert(household)
         NSLog("households changed, undo is \(String(describing: undoManager))")
         changeCount += 1
         undoManager?.registerUndo(withTarget: self) { doc in
@@ -403,6 +411,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     ///At present this is included only to give (a possibly unneeded) symmetry to the undo
     private func remove(household: NormalizedHousehold) {
         householdsById.removeValue(forKey: household.id)
+        households.remove(household)
         changeCount += 1
         undoManager?.registerUndo(withTarget: self) { doc in
             doc.add(household: household)
@@ -411,6 +420,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
 
     func add(household: NormalizedHousehold) {
         householdsById[household.id] = household
+        households.insert(household)
         NSLog("households added to, undo is \(String(describing: undoManager))")
         changeCount += 1
         undoManager?.registerUndo(withTarget: self) { doc in
@@ -419,8 +429,9 @@ class PeriMeleonDocument: ReferenceFileDocument {
     }
     
     func update(member: Member) {
-        guard let oldValue = membersById[member.id] else {
+        guard let oldValue = membersById[member.id], let oldIndex = members.firstIndex(of: oldValue) else {
             membersById[member.id] = member
+            members.insert(member)
             NSLog("members changed (really, added to), undo is \(String(describing: undoManager))")
             changeCount += 1
             undoManager?.registerUndo(withTarget: self) { doc in
@@ -429,6 +440,8 @@ class PeriMeleonDocument: ReferenceFileDocument {
             return
         }
         membersById[member.id] = member
+        members.remove(at: oldIndex)
+        members.insert(member)
         NSLog("members changed, undo is \(String(describing: undoManager))")
         changeCount += 1
         self.undoManager?.registerUndo(withTarget: self) { doc in
@@ -439,6 +452,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     ///At present this is included only to give (a possibly unneeded) symmetry to the undo
     private func remove(member: Member) {
         membersById.removeValue(forKey: member.id)
+        members.remove(member)
         changeCount += 1
         undoManager?.registerUndo(withTarget: self) { doc in
             doc.add(member: member)
@@ -447,6 +461,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     
     func add(member: Member) {
         membersById[member.id] = member
+        members.insert(member)
         changeCount += 1
         NSLog("members added to, undo is \(String(describing: undoManager))")
         undoManager?.registerUndo(withTarget: self) { doc in
@@ -465,3 +480,16 @@ fileprivate func makeKey(password: String) -> SymmetricKey? {
         return SymmetricKey(data: keyData)
     } else { return nil }
 }
+
+
+//MARK: - Comparators
+
+func compareMembers(a: Member, b: Member) -> Bool {
+    a.displayName() < b.displayName()
+}
+
+func compareHouseholds(a: NormalizedHousehold, b: NormalizedHousehold) -> Bool {
+    a.name ?? "" < b.name ?? ""
+}
+
+

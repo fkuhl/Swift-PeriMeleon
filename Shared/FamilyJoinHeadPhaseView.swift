@@ -40,6 +40,7 @@ fileprivate class FamilyJoinEditDelegate: MemberEditDelegate {
         NSLog("FJED onDis: val is \(member.fullName())")
         var newHousehold = NormalizedHousehold()
         newHousehold.head = member.id
+        newHousehold.name = member.displayName()
         var memberInHousehold = member
         memberInHousehold.household = newHousehold.id
         document.add(member: memberInHousehold)

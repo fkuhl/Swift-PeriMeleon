@@ -13,7 +13,8 @@ import PMDataTypes
 struct HouseholdsView: View, FilterUpdater {
     @EnvironmentObject var document: PeriMeleonDocument
     @State private var allOrActive = 0
-    @State private var households: [NormalizedHousehold] = []
+    @State private var households =
+        SortedArray<NormalizedHousehold>(areInIncreasingOrder: compareHouseholds)
     @State private var filterText: String = ""
 
     var body: some View {

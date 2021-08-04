@@ -33,7 +33,7 @@ struct ChooseMemberListView: View, FilterUpdater {
     @EnvironmentObject var document: PeriMeleonDocument
     @State private var allOrActive = 0
     @Binding var memberId: ID
-    @State private var members: [Member] = []
+    @State private var members = SortedArray<Member>(areInIncreasingOrder: compareMembers)
     @State private var filterText: String = ""
 
     var body: some View {

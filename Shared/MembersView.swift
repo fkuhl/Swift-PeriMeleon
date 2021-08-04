@@ -9,11 +9,14 @@
 import SwiftUI
 import PMDataTypes
 
+enum AllOrActive: Hashable {
+    case all
+    case active
+}
 
 struct MembersView: View {
     @EnvironmentObject var document: PeriMeleonDocument
-    @State private var allOrActive = 0
-    @State private var members: [Member] = []
+    @State private var allOrActive = AllOrActive.active
     @State private var filterText: String = ""
     
     var body: some View {
@@ -23,24 +26,25 @@ struct MembersView: View {
                     Picker(selection: $allOrActive,
                            label: Text("What's in a name?"),
                            content: {
-                            Text("Active Members").tag(0)
-                            Text("All Members").tag(1)
+                            Text("Active Members").tag(AllOrActive.active)
+                            Text("All Members").tag(AllOrActive.all)
                            })
                         .pickerStyle(SegmentedPickerStyle())
                         
                 }.padding()
                 ///Dividing all and active members into 2 views lessens the work (and delay) when changing
                 ///from one to the other.
-                if allOrActive == 0 {
-                    SomeMembersView(allOrActive: 0)
-                } else {
-                    SomeMembersView(allOrActive: 1)
+                switch allOrActive {
+                case .active:
+                    SomeMembersView(allOrActive: .active)
+                case .all:
+                    SomeMembersView(allOrActive: .all)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                         ToolbarItem(placement: .principal, content: {
-                            Text(allOrActive == 0 ? "Active Members" : "All Members")
+                            Text(allOrActive == .active ? "Active Members" : "All Members")
                         })})
         }
         .environmentObject(document)

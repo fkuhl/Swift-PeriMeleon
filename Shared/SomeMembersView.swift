@@ -10,8 +10,8 @@ import PMDataTypes
 
 struct SomeMembersView: View, FilterUpdater {
     @EnvironmentObject var document: PeriMeleonDocument
-    var allOrActive: Int
-    @State private var members: [Member] = []
+    var allOrActive: AllOrActive
+    @State private var members = SortedArray<Member>(areInIncreasingOrder: compareMembers)
     @State private var filterText: String = ""
     
     var body: some View {
@@ -36,7 +36,7 @@ struct SomeMembersView: View, FilterUpdater {
     // MARK: - FilterUpdater
 
     func updateUI(filterText: String) {
-        let candidates = allOrActive == 0
+        let candidates = allOrActive == .active
             ? document.activeMembers
             : document.members
         if filterText.isEmpty {

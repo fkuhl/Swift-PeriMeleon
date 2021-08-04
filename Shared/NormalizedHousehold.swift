@@ -16,6 +16,7 @@ import PMDataTypes
 struct NormalizedHousehold: Identifiable {
     var id: ID
     var head: ID = ""
+    var name: String? = nil //for sorting
     var spouse: ID? = nil
     var others = [ID]()
     var address: Address? = nil
