@@ -45,7 +45,10 @@ class PeriMeleonDocument: ReferenceFileDocument {
     // MARK: - Data
     
 
-    // householdsById and households must be kept consistent.
+    /** householdsById gives access by household ID, whereas households is the same set of households, sorted
+     by head's display name; used for presenting lists. (SortedArray keeps the list sorted as it changes.)
+     householdsById and households must be kept consistent.
+     */
     @Published var householdsById = [ID : NormalizedHousehold]()
     var households = SortedArray<NormalizedHousehold>(areInIncreasingOrder: compareHouseholds)
     var activeHouseholds: SortedArray<NormalizedHousehold> {
