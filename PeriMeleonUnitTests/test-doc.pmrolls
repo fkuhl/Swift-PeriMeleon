@@ -4,7 +4,7 @@
 	"head": {
 		"id": "1",
 		"familyName": "Hornswoggle",
-		"givenName": "Hortio",
+		"givenName": "Horatio",
 		"sex": "MALE",
 		"resident": true,
 		"exDirectory": false,
