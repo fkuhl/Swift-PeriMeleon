@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "C1F00A5C-3C6E-4C5F-A791-7091DF46B897",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:PeriMeleon.xcodeproj",
+      "identifier" : "276B9730250008DB003E19BA",
+      "name" : "PeriMeleon (iOS)"
+    }
+  },
+  "testTargets" : [
+    {
+      "enabled" : false,
+      "target" : {
+        "containerPath" : "container:PeriMeleon.xcodeproj",
+        "identifier" : "276B9740250008DB003E19BA",
+        "name" : "Tests iOS"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:PeriMeleon.xcodeproj",
+        "identifier" : "27C72FA826BF159800468A67",
+        "name" : "PeriMeleonUnitTests"
+      }
+    }
+  ],
+  "version" : 1
+}

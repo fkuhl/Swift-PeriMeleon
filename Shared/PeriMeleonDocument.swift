@@ -63,6 +63,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
         members.filter { $0.isActive() }
     }
     
+    //Defaulting to .normal lets the normal UI come up while waiting for decode
     @Published var state: State = .normal
     ///A non-private published var to ensure all Views see that the data changed.
     @Published var changeCount: UInt64 = 0
@@ -79,6 +80,8 @@ class PeriMeleonDocument: ReferenceFileDocument {
     }
 
     private var key: SymmetricKey? = nil
+    ///If testing, don't decode on background thread
+    private var decodeSynchronusly = false
     
     
     // MARK: - initializers
@@ -130,6 +133,12 @@ class PeriMeleonDocument: ReferenceFileDocument {
         }
     }
     
+    ///For testing: sidestep decryption
+    init(data: Data) {
+        decodeSynchronusly = true
+        decode(data)
+    }
+    
     
     // MARK: - ReferenceFileDocument
 
@@ -147,6 +156,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     
     //MARK: - Crypto
     
+    ///The `decrypt` part of this is very fast. The `decode` part is much slower, so goes on a background thread.
     private func decryptAndDecode(_ data: Data, key: SymmetricKey) {
         let decryptedContent: Data
         do {
@@ -163,17 +173,33 @@ class PeriMeleonDocument: ReferenceFileDocument {
             return
         }
         DispatchQueue.global(qos: .userInitiated).async { [self] in
-            do {
-                NSLog("will decode")
-                let decodedHouseholds = try jsonDecoder.decode([Household].self,
-                                                               from: decryptedContent)
-                NSLog("did decode \(decodedHouseholds.count) households from init config")
-                let model = self.normalize(decodedHouseholds: decodedHouseholds)
-                let hh = SortedArray<NormalizedHousehold>(unsorted: model.h.values,
-                                                          areInIncreasingOrder: compareHouseholds)
-                let mm = SortedArray<Member>(unsorted: model.m.values,
-                                             areInIncreasingOrder: compareMembers)
-                DispatchQueue.main.async {
+            decode(decryptedContent)
+        }
+    }
+    
+    ///Split out to facilitate testing: sidesteps decryption
+    func decode(_ decryptedContent: Data) {
+        do {
+            NSLog("will decode")
+            let decodedHouseholds = try jsonDecoder.decode([Household].self,
+                                                           from: decryptedContent)
+            NSLog("did decode \(decodedHouseholds.count) households from init config")
+            let model = self.normalize(decodedHouseholds: decodedHouseholds)
+            let hh = SortedArray<NormalizedHousehold>(unsorted: model.h.values,
+                                                      areInIncreasingOrder: compareHouseholds)
+            let mm = SortedArray<Member>(unsorted: model.m.values,
+                                         areInIncreasingOrder: compareMembers)
+            // FIXME - terrible code duplication
+            if decodeSynchronusly {
+                membersById = model.m
+                householdsById = model.h
+                households = hh
+                members = mm
+                state = .normal
+                changeCount += 1
+                NSLog("sorted")
+            } else {
+                DispatchQueue.main.async { [self] in
                     membersById = model.m
                     householdsById = model.h
                     households = hh
@@ -182,17 +208,24 @@ class PeriMeleonDocument: ReferenceFileDocument {
                     changeCount += 1
                     NSLog("sorted")
                 }
-            } catch {
-                let err = error as! DecodingError
-                let explanation = explain(decodingError: err)
-                NSLog("cannot decode JSON: \(err)")
-                DispatchQueue.main.async {
+
+            }
+        } catch {
+            let err = error as! DecodingError
+            let explanation = explain(decodingError: err)
+            NSLog("cannot decode JSON: \(err)")
+            if decodeSynchronusly {
+                state = .cannotDecode(basicError: explanation.0,
+                                      codingPath: explanation.1,
+                                      underlyingError: explanation.2)
+            } else {
+                DispatchQueue.main.async { [self] in
                     state = .cannotDecode(basicError: explanation.0,
                                           codingPath: explanation.1,
                                           underlyingError: explanation.2)
                 }
-                return
-        }
+            }
+            return
         }
     }
     

@@ -1,0 +1,76 @@
+[
+{
+	"id": "1",
+	"head": {
+		"id": "1",
+		"familyName": "Hornswoggle",
+		"givenName": "Hortio",
+		"sex": "MALE",
+		"resident": true,
+		"exDirectory": false,
+		"household": "1",
+		"status": "COMMUNING",
+		"maritalStatus": "MARRIED",
+		"dateOfMarriage": "2000-01-01",
+		"dateOfBirth": "1980-07-04",
+		"transactions": [
+			{
+				"index": "0",
+				"date": "2020-05-04",
+				"type": "RECEIVED"
+			}
+		],
+		"services": [ ]
+	},
+	"spouse": {
+		"id": "2",
+		"familyName": "Hornswoggle",
+		"givenName": "Hermione",
+		"sex": "FEMALE",
+		"resident": true,
+		"exDirectory": false,
+		"household": "1",
+		"status": "COMMUNING",
+		"dateOfBirth": "1980-07-04",
+		"maritalStatus": "MARRIED",
+		"dateOfMarriage": "2000-01-01",
+		"transactions": [
+			{
+				"index": "1",
+				"date": "2020-05-04",
+				"type": "RECEIVED"
+			}
+		],
+		"services": [ ]
+	},	
+	"others": [
+		{
+		"id": "3",
+		"familyName": "Hornswoggle",
+		"givenName": "Hephzibah",
+		"sex": "FEMALE",
+		"dateOfBirth": "1999-07-04",
+		"resident": true,
+		"exDirectory": false,
+		"status": "NONCOMMUNING",
+		"household": "1",
+		"maritalStatus": "SINGLE",
+		"transactions": [
+			{
+				"index": "2",
+				"date": "2020-05-04",
+				"type": "RECEIVED"
+			}
+		],
+		"services": [ ]
+		}
+	],
+	"address": {
+		"address": "123 Pleasant Avenue",
+		"city": "Anytown",
+		"state": "XX",
+		"postalCode": "12345"
+	}
+}
+]
+

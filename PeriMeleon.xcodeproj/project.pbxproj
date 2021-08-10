@@ -170,6 +170,13 @@
 		27C72EEB26B996A000468A67 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 27C72EE826B996A000468A67 /* LICENSE.txt */; };
 		27C72EEC26B996A000468A67 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EE926B996A000468A67 /* SortedArray.swift */; };
 		27C72EED26B996A000468A67 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72EE926B996A000468A67 /* SortedArray.swift */; };
+		27C72FBE26C2BB7E00468A67 /* test-bad-doc.pmrolls in Resources */ = {isa = PBXBuildFile; fileRef = 27C72FB926C2BB7E00468A67 /* test-bad-doc.pmrolls */; };
+		27C72FBF26C2BB7E00468A67 /* GoodDocumentUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72FBA26C2BB7E00468A67 /* GoodDocumentUnitTests.swift */; };
+		27C72FC026C2BB7E00468A67 /* BadDocumentUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C72FBB26C2BB7E00468A67 /* BadDocumentUnitTests.swift */; };
+		27C72FC126C2BB7E00468A67 /* test-doc.pmrolls in Resources */ = {isa = PBXBuildFile; fileRef = 27C72FBC26C2BB7E00468A67 /* test-doc.pmrolls */; };
+		27C72FC226C2BB7E00468A67 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27C72FBD26C2BB7E00468A67 /* Info.plist */; };
+		27C72FC326C2BF1600468A67 /* test-doc.pmrolls in Resources */ = {isa = PBXBuildFile; fileRef = 27C72FBC26C2BB7E00468A67 /* test-doc.pmrolls */; };
+		27C72FC426C2BF1600468A67 /* test-bad-doc.pmrolls in Resources */ = {isa = PBXBuildFile; fileRef = 27C72FB926C2BB7E00468A67 /* test-bad-doc.pmrolls */; };
 		27D7D7F32555D2B200A983AA /* PhonelistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D7F22555D2B200A983AA /* PhonelistView.swift */; };
 		27D7D80C25570D1000A983AA /* BirthdaysResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80925570D1000A983AA /* BirthdaysResultsView.swift */; };
 		27D7D80D25570D1000A983AA /* BirthdaysEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */; };
@@ -197,6 +204,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 276B9738250008DB003E19BA;
 			remoteInfo = "PeriMeleon (macOS)";
+		};
+		27C72FAE26BF159900468A67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 276B9724250008DA003E19BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 276B9730250008DB003E19BA;
+			remoteInfo = "PeriMeleon (iOS)";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -304,6 +318,13 @@
 		27C72EE526B9879F00468A67 /* SomeMembersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeMembersView.swift; sourceTree = "<group>"; };
 		27C72EE826B996A000468A67 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		27C72EE926B996A000468A67 /* SortedArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedArray.swift; sourceTree = "<group>"; };
+		27C72FA926BF159800468A67 /* PeriMeleonUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeriMeleonUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		27C72FB926C2BB7E00468A67 /* test-bad-doc.pmrolls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-bad-doc.pmrolls"; sourceTree = "<group>"; };
+		27C72FBA26C2BB7E00468A67 /* GoodDocumentUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodDocumentUnitTests.swift; sourceTree = "<group>"; };
+		27C72FBB26C2BB7E00468A67 /* BadDocumentUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadDocumentUnitTests.swift; sourceTree = "<group>"; };
+		27C72FBC26C2BB7E00468A67 /* test-doc.pmrolls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-doc.pmrolls"; sourceTree = "<group>"; };
+		27C72FBD26C2BB7E00468A67 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27C72FC526C2C3A600468A67 /* PeriMeleon (iOS).xctestplan */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PeriMeleon (iOS).xctestplan"; path = "Tests iOS/PeriMeleon (iOS).xctestplan"; sourceTree = SOURCE_ROOT; };
 		27D7D7F22555D2B200A983AA /* PhonelistView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonelistView.swift; sourceTree = "<group>"; };
 		27D7D80925570D1000A983AA /* BirthdaysResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdaysResultsView.swift; sourceTree = "<group>"; };
 		27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdaysEntryView.swift; sourceTree = "<group>"; };
@@ -339,6 +360,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		276B9749250008DB003E19BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27C72FA626BF159800468A67 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -407,6 +435,7 @@
 				276B973A250008DB003E19BA /* macOS */,
 				276B9744250008DB003E19BA /* Tests iOS */,
 				276B974F250008DB003E19BA /* Tests macOS */,
+				27C72FAA26BF159800468A67 /* PeriMeleonUnitTests */,
 				276B9732250008DB003E19BA /* Products */,
 				27D9767225940EAF00E12893 /* Frameworks */,
 			);
@@ -420,13 +449,13 @@
 				27C55E5D2538E7A400923EE8 /* DataChecker */,
 				27C55E382538E67D00923EE8 /* Workflows */,
 				27C55E1F2538CE0700923EE8 /* Queries */,
-				276B972C250008DB003E19BA /* Assets.xcassets */,
 				27B20DD52529123C00C80696 /* EditFields */,
 				27B20D8B2529107200C80696 /* Households */,
 				27B20DB42529116B00C80696 /* Members */,
 				277C952E254333760032638A /* Styling */,
 				27C6B4A32506ADD20086181F /* README.md */,
 				27C55E242538CE9400923EE8 /* MockedData.swift */,
+				276B972C250008DB003E19BA /* Assets.xcassets */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -438,6 +467,7 @@
 				276B9739250008DB003E19BA /* PeriMeleon.app */,
 				276B9741250008DB003E19BA /* Tests iOS.xctest */,
 				276B974C250008DB003E19BA /* Tests macOS.xctest */,
+				27C72FA926BF159800468A67 /* PeriMeleonUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -462,6 +492,7 @@
 		276B9744250008DB003E19BA /* Tests iOS */ = {
 			isa = PBXGroup;
 			children = (
+				27C72FC526C2C3A600468A67 /* PeriMeleon (iOS).xctestplan */,
 				276B9745250008DB003E19BA /* Tests_iOS.swift */,
 				276B9747250008DB003E19BA /* Info.plist */,
 			);
@@ -643,6 +674,18 @@
 			name = ProfessionOfFaith;
 			sourceTree = "<group>";
 		};
+		27C72FAA26BF159800468A67 /* PeriMeleonUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				27C72FBA26C2BB7E00468A67 /* GoodDocumentUnitTests.swift */,
+				27C72FBB26C2BB7E00468A67 /* BadDocumentUnitTests.swift */,
+				27C72FBC26C2BB7E00468A67 /* test-doc.pmrolls */,
+				27C72FB926C2BB7E00468A67 /* test-bad-doc.pmrolls */,
+				27C72FBD26C2BB7E00468A67 /* Info.plist */,
+			);
+			path = PeriMeleonUnitTests;
+			sourceTree = "<group>";
+		};
 		27D7D8002557097600A983AA /* Birthdays */ = {
 			isa = PBXGroup;
 			children = (
@@ -760,13 +803,31 @@
 			productReference = 276B974C250008DB003E19BA /* Tests macOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		27C72FA826BF159800468A67 /* PeriMeleonUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27C72FB226BF159900468A67 /* Build configuration list for PBXNativeTarget "PeriMeleonUnitTests" */;
+			buildPhases = (
+				27C72FA526BF159800468A67 /* Sources */,
+				27C72FA626BF159800468A67 /* Frameworks */,
+				27C72FA726BF159800468A67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				27C72FAF26BF159900468A67 /* PBXTargetDependency */,
+			);
+			name = PeriMeleonUnitTests;
+			productName = PeriMeleonUnitTests;
+			productReference = 27C72FA926BF159800468A67 /* PeriMeleonUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		276B9724250008DA003E19BA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					276B9730250008DB003E19BA = {
@@ -782,6 +843,10 @@
 					276B974B250008DB003E19BA = {
 						CreatedOnToolsVersion = 12.0;
 						TestTargetID = 276B9738250008DB003E19BA;
+					};
+					27C72FA826BF159800468A67 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 276B9730250008DB003E19BA;
 					};
 				};
 			};
@@ -805,6 +870,7 @@
 				276B9738250008DB003E19BA /* PeriMeleon (macOS) */,
 				276B9740250008DB003E19BA /* Tests iOS */,
 				276B974B250008DB003E19BA /* Tests macOS */,
+				27C72FA826BF159800468A67 /* PeriMeleonUnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -814,6 +880,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27C72FC326C2BF1600468A67 /* test-doc.pmrolls in Resources */,
+				27C72FC426C2BF1600468A67 /* test-bad-doc.pmrolls in Resources */,
 				27C72EEA26B996A000468A67 /* LICENSE.txt in Resources */,
 				27C6B4A42506ADD20086181F /* README.md in Resources */,
 				276B9759250008DB003E19BA /* Assets.xcassets in Resources */,
@@ -841,6 +909,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		27C72FA726BF159800468A67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27C72FC126C2BB7E00468A67 /* test-doc.pmrolls in Resources */,
+				27C72FC226C2BB7E00468A67 /* Info.plist in Resources */,
+				27C72FBE26C2BB7E00468A67 /* test-bad-doc.pmrolls in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1041,6 +1119,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		27C72FA526BF159800468A67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27C72FC026C2BB7E00468A67 /* BadDocumentUnitTests.swift in Sources */,
+				27C72FBF26C2BB7E00468A67 /* GoodDocumentUnitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1053,6 +1140,11 @@
 			isa = PBXTargetDependency;
 			target = 276B9738250008DB003E19BA /* PeriMeleon (macOS) */;
 			targetProxy = 276B974D250008DB003E19BA /* PBXContainerItemProxy */;
+		};
+		27C72FAF26BF159900468A67 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 276B9730250008DB003E19BA /* PeriMeleon (iOS) */;
+			targetProxy = 27C72FAE26BF159900468A67 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1177,6 +1269,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_ASSET_PATHS = "PeriMeleonUnitTests/test-doc.pmrolls PeriMeleonUnitTests/test-bad-doc.pmrolls";
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
@@ -1204,6 +1297,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_ASSET_PATHS = "PeriMeleonUnitTests/test-doc.pmrolls PeriMeleonUnitTests/test-bad-doc.pmrolls";
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
@@ -1362,6 +1456,51 @@
 			};
 			name = Release;
 		};
+		27C72FB026BF159900468A67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KRGB7TX9DU;
+				INFOPLIST_FILE = PeriMeleonUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleonUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PeriMeleon.app/PeriMeleon";
+			};
+			name = Debug;
+		};
+		27C72FB126BF159900468A67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KRGB7TX9DU;
+				INFOPLIST_FILE = PeriMeleonUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleonUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PeriMeleon.app/PeriMeleon";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1406,6 +1545,15 @@
 			buildConfigurations = (
 				276B9767250008DB003E19BA /* Debug */,
 				276B9768250008DB003E19BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27C72FB226BF159900468A67 /* Build configuration list for PBXNativeTarget "PeriMeleonUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27C72FB026BF159900468A67 /* Debug */,
+				27C72FB126BF159900468A67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
