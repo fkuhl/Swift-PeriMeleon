@@ -252,7 +252,6 @@ class PeriMeleonDocument: ReferenceFileDocument {
                                                            from: decryptedContent)
             NSLog("did decode \(decodedHouseholds.count) households from init config")
             let model = self.normalize(decodedHouseholds: decodedHouseholds)
-            Thread.sleep(forTimeInterval: 5)
             DispatchQueue.main.async {
                 normalCompletion(model)
             }
