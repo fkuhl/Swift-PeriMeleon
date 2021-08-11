@@ -80,8 +80,6 @@ class PeriMeleonDocument: ReferenceFileDocument {
     }
 
     private var key: SymmetricKey? = nil
-    ///If testing, don't decode on background thread
-    private var decodeSynchronusly = false
     
     
     // MARK: - initializers
@@ -134,9 +132,12 @@ class PeriMeleonDocument: ReferenceFileDocument {
     }
     
     ///For testing: sidestep decryption
-    init(data: Data) {
-        decodeSynchronusly = true
-        decode(data)
+    init(data: Data,
+         normalCompletion: @escaping (Model) -> Void,
+         cannotDecodeCompletion: @escaping ((String,String,String)) -> Void) {
+        decode(data,
+               normalCompletion: normalCompletion,
+               cannotDecodeCompletion: cannotDecodeCompletion)
     }
     
     
@@ -144,7 +145,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
 
     func snapshot(contentType: UTType) throws -> Model {
         NSLog("snapshot \(householdsById.count) households, \(membersById.count) members")
-        return Model(h: householdsById, m: membersById)
+        return Model(h: householdsById, m: membersById, sh: households, sm: members)
     }
     
     func fileWrapper(snapshot: Model, configuration: WriteConfiguration) throws -> FileWrapper {
@@ -173,57 +174,49 @@ class PeriMeleonDocument: ReferenceFileDocument {
             return
         }
         DispatchQueue.global(qos: .userInitiated).async { [self] in
-            decode(decryptedContent)
+            decode(decryptedContent, normalCompletion: { model in
+                setModel(model: model)
+            }, cannotDecodeCompletion: { explanation in
+                setCannotDecode(explanation: explanation)
+            })
         }
     }
     
+    func setModel(model: Model) {
+        membersById = model.m
+        householdsById = model.h
+        households = model.sh
+        members = model.sm
+        state = .normal
+        changeCount += 1
+        NSLog("sorted")
+    }
+    
+    func setCannotDecode(explanation: (String,String,String)) {
+        state = .cannotDecode(basicError: explanation.0,
+                              codingPath: explanation.1,
+                              underlyingError: explanation.2)
+    }
+    
     ///Split out to facilitate testing: sidesteps decryption
-    func decode(_ decryptedContent: Data) {
+    func decode(_ decryptedContent: Data,
+                normalCompletion: @escaping (Model) -> Void,
+                cannotDecodeCompletion: @escaping ((String,String,String)) -> Void) {
         do {
             NSLog("will decode")
             let decodedHouseholds = try jsonDecoder.decode([Household].self,
                                                            from: decryptedContent)
             NSLog("did decode \(decodedHouseholds.count) households from init config")
             let model = self.normalize(decodedHouseholds: decodedHouseholds)
-            let hh = SortedArray<NormalizedHousehold>(unsorted: model.h.values,
-                                                      areInIncreasingOrder: compareHouseholds)
-            let mm = SortedArray<Member>(unsorted: model.m.values,
-                                         areInIncreasingOrder: compareMembers)
-            // FIXME - terrible code duplication
-            if decodeSynchronusly {
-                membersById = model.m
-                householdsById = model.h
-                households = hh
-                members = mm
-                state = .normal
-                changeCount += 1
-                NSLog("sorted")
-            } else {
-                DispatchQueue.main.async { [self] in
-                    membersById = model.m
-                    householdsById = model.h
-                    households = hh
-                    members = mm
-                    state = .normal
-                    changeCount += 1
-                    NSLog("sorted")
-                }
-
+            DispatchQueue.main.async {
+                normalCompletion(model)
             }
         } catch {
             let err = error as! DecodingError
             let explanation = explain(decodingError: err)
             NSLog("cannot decode JSON: \(err)")
-            if decodeSynchronusly {
-                state = .cannotDecode(basicError: explanation.0,
-                                      codingPath: explanation.1,
-                                      underlyingError: explanation.2)
-            } else {
-                DispatchQueue.main.async { [self] in
-                    state = .cannotDecode(basicError: explanation.0,
-                                          codingPath: explanation.1,
-                                          underlyingError: explanation.2)
-                }
+            DispatchQueue.main.async {
+                cannotDecodeCompletion(explanation)
             }
             return
         }
@@ -317,7 +310,14 @@ class PeriMeleonDocument: ReferenceFileDocument {
             normalizedHousehold.address = household.address
             householdsById[household.id] = normalizedHousehold
         }
-        return Model(h: householdsById, m: membersById)
+        let sh = SortedArray<NormalizedHousehold>(unsorted: householdsById.values,
+                                                  areInIncreasingOrder: compareHouseholds)
+        let sm = SortedArray<Member>(unsorted: membersById.values,
+                                     areInIncreasingOrder: compareMembers)
+        return Model(h: householdsById,
+                     m: membersById,
+                     sh: sh,
+                     sm: sm)
     }
     
     /**

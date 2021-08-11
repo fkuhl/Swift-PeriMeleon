@@ -12,9 +12,17 @@ class BadDocumentUnitTests: XCTestCase {
     var document: PeriMeleonDocument?
 
     override func setUpWithError() throws {
+        let expectation = XCTestExpectation(description: "decode document data")
         let filePath = Bundle.main.url(forResource: "test-bad-doc", withExtension: "pmrolls")
         let data = try Data(contentsOf: filePath!)
-        document = PeriMeleonDocument(data: data)
+        document = PeriMeleonDocument(data: data, normalCompletion: { model in
+            self.document?.setModel(model: model)
+            expectation.fulfill()
+        }, cannotDecodeCompletion: { explanation in
+            self.document?.setCannotDecode(explanation: explanation)
+            expectation.fulfill()
+        })
+        wait(for: [expectation], timeout: 2)
     }
 
     override func tearDownWithError() throws {
