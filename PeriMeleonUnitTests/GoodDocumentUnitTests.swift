@@ -16,13 +16,13 @@ class GoodDocumentUnitTests: XCTestCase {
         let expectation = XCTestExpectation(description: "decode document data")
         let filePath = Bundle.main.url(forResource: "test-doc", withExtension: "pmrolls")
         let data = try Data(contentsOf: filePath!)
-        document = PeriMeleonDocument(data: data, normalCompletion: { model in
+        document = PeriMeleonDocument(data: data) { model in
             self.document?.setModel(model: model)
             expectation.fulfill()
-        }, cannotDecodeCompletion: { explanation in
+        } cannotDecodeCompletion: { explanation in
             self.document?.setCannotDecode(explanation: explanation)
             expectation.fulfill()
-        })
+        }
         wait(for: [expectation], timeout: 2)
     }
 
