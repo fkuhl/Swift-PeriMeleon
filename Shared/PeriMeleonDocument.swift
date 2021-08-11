@@ -182,46 +182,6 @@ class PeriMeleonDocument: ReferenceFileDocument {
         }
     }
     
-    func setModel(model: Model) {
-        membersById = model.m
-        householdsById = model.h
-        households = model.sh
-        members = model.sm
-        state = .normal
-        changeCount += 1
-        NSLog("sorted")
-    }
-    
-    func setCannotDecode(explanation: (String,String,String)) {
-        state = .cannotDecode(basicError: explanation.0,
-                              codingPath: explanation.1,
-                              underlyingError: explanation.2)
-    }
-    
-    ///Split out to facilitate testing: sidesteps decryption
-    func decode(_ decryptedContent: Data,
-                normalCompletion: @escaping (Model) -> Void,
-                cannotDecodeCompletion: @escaping ((String,String,String)) -> Void) {
-        do {
-            NSLog("will decode")
-            let decodedHouseholds = try jsonDecoder.decode([Household].self,
-                                                           from: decryptedContent)
-            NSLog("did decode \(decodedHouseholds.count) households from init config")
-            let model = self.normalize(decodedHouseholds: decodedHouseholds)
-            DispatchQueue.main.async {
-                normalCompletion(model)
-            }
-        } catch {
-            let err = error as! DecodingError
-            let explanation = explain(decodingError: err)
-            NSLog("cannot decode JSON: \(err)")
-            DispatchQueue.main.async {
-                cannotDecodeCompletion(explanation)
-            }
-            return
-        }
-    }
-    
     func tryPassword(firstAttempt: String) {
         key = makeKey(password: firstAttempt)
         if let decryptionKey = key {
@@ -281,6 +241,47 @@ class PeriMeleonDocument: ReferenceFileDocument {
 
     
     //MARK: - Decoding
+    
+    ///Split out to facilitate testing: sidesteps decryption
+    func decode(_ decryptedContent: Data,
+                normalCompletion: @escaping (Model) -> Void,
+                cannotDecodeCompletion: @escaping ((String,String,String)) -> Void) {
+        do {
+            NSLog("will decode")
+            let decodedHouseholds = try jsonDecoder.decode([Household].self,
+                                                           from: decryptedContent)
+            NSLog("did decode \(decodedHouseholds.count) households from init config")
+            let model = self.normalize(decodedHouseholds: decodedHouseholds)
+            Thread.sleep(forTimeInterval: 5)
+            DispatchQueue.main.async {
+                normalCompletion(model)
+            }
+        } catch {
+            let err = error as! DecodingError
+            let explanation = explain(decodingError: err)
+            NSLog("cannot decode JSON: \(err)")
+            DispatchQueue.main.async {
+                cannotDecodeCompletion(explanation)
+            }
+            return
+        }
+    }
+    
+    func setModel(model: Model) {
+        membersById = model.m
+        householdsById = model.h
+        households = model.sh
+        members = model.sm
+        state = .normal
+        changeCount += 1
+        NSLog("sorted")
+    }
+    
+    func setCannotDecode(explanation: (String,String,String)) {
+        state = .cannotDecode(basicError: explanation.0,
+                              codingPath: explanation.1,
+                              underlyingError: explanation.2)
+    }
 
     /**
      Create normalized indexes of households and members.
