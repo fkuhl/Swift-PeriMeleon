@@ -71,7 +71,7 @@ class GoodDocumentUnitTests: XCTestCase {
         
         XCTAssertEqual(document?.membersById.count, 4)
         XCTAssertEqual(document?.nameOf(member: newMember.id), "\(familyName), \(givenName)")
-        XCTAssertGreaterThan(document!.changeCount, previousChangeCount)
+        XCTAssertNotEqual(document!.changeCount, previousChangeCount)
     }
 
     func test_PMDoc_ReadGoodDoc_UpdateMember() throws {
@@ -83,7 +83,7 @@ class GoodDocumentUnitTests: XCTestCase {
         
         XCTAssertEqual(document?.membersById.count, 3)
         XCTAssertEqual(document?.member(byId: "3").nickname, nickname)
-        XCTAssertGreaterThan(document!.changeCount, previousChangeCount)
+        XCTAssertNotEqual(document!.changeCount, previousChangeCount)
     }
 
     func test_PMDoc_ReadGoodDoc_AddHousehold() throws {
@@ -100,7 +100,7 @@ class GoodDocumentUnitTests: XCTestCase {
         
         XCTAssertEqual(document?.householdsById.count, 2)
         XCTAssertEqual(document?.nameOf(household: newHousehold), "\(familyName), \(givenName)")
-        XCTAssertGreaterThan(document!.changeCount, previousChangeCount)
+        XCTAssertNotEqual(document!.changeCount, previousChangeCount)
     }
 
     func test_PMDoc_ReadGoodDoc_UpdateHousehold() throws {
@@ -117,7 +117,7 @@ class GoodDocumentUnitTests: XCTestCase {
         XCTAssertEqual(document?.householdsById.count, 1)
         XCTAssertEqual(document?.household(byId: "1").address?.address, addressField)
         XCTAssertEqual(document?.household(byId: "1").address?.city, city)
-        XCTAssertGreaterThan(document!.changeCount, previousChangeCount)
+        XCTAssertNotEqual(document!.changeCount, previousChangeCount)
     }
 
 //    func testPerformanceExample() throws {
