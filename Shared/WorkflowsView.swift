@@ -25,7 +25,7 @@ struct WorkflowsView: View {
     @State private var linkSelection: WorkflowLink? = nil
     
     var body: some View {
-        Section(header: Text("Families").font(.headline)) {
+        DisclosureGroup(content: {
             VStack(alignment: .leading) {
                 NavigationLink(destination: FamilyJoinView(linkSelection: $linkSelection),
                                tag: .familyJoins,
@@ -51,8 +51,10 @@ struct WorkflowsView: View {
                         + "Enter date and comment "
                         + "and all members of the family are changed.")
             }.padding(.top, 20)
-        }
-        Section(header: Text("Members").font(.headline)) {
+        }, label: {
+            Text("Families")
+        })
+        DisclosureGroup(content: {
             VStack(alignment: .leading) {
                 NavigationLink(destination: NewAddition(linkSelection: $linkSelection),
                                tag: .newAddition,
@@ -78,8 +80,10 @@ struct WorkflowsView: View {
                 Caption(text: "Member of one household moves to establish their "
                             + "own household.")
             }.padding(.top, 20)
-        }
-        Section(header: Text("Miscellaneous").font(.headline)) {
+        }, label: {
+            Text("Members")
+        })
+        DisclosureGroup(content: {
             VStack(alignment: .leading) {
                 NavigationLink(destination: dataCheckerView,
                                tag: .dataChecker,
@@ -97,7 +101,7 @@ struct WorkflowsView: View {
                     
                 }
                 Caption(text: "Statistics on the data; app build information.")
-            }
+            }.padding(.top, 20)
             VStack(alignment: .leading) {
                 NavigationLink(destination: RemoveMemberView(),
                                tag: .removeMember,
@@ -107,7 +111,9 @@ struct WorkflowsView: View {
                 }
                 Caption(text: "Remove member from data. This is ONLY for maintence, and never for normal use.")
             }.padding(.top, 20)
-        }
+        }, label: {
+            Text("Miscellaneous")
+        })
     }
 
     fileprivate struct LinkButton: View {

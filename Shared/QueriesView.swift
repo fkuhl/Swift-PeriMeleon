@@ -12,7 +12,7 @@ struct QueriesView: View {
     @EnvironmentObject var document: PeriMeleonDocument
     
     var body: some View {
-        Section(header: Text("Phone list").font(.headline)) {
+        DisclosureGroup(content: {
             VStack(alignment: .leading) {
                 NavigationLink(destination: PhonelistView()) {
                     LinkText(label: "Phone list")
@@ -21,8 +21,10 @@ struct QueriesView: View {
                             + "in comma-separated values format, "
                             + "suitable for importing into contacts app.")
             }
-        }
-        Section(header: Text("Members").font(.headline)) {
+        }, label: {
+            Text("Phone list")
+        })
+        DisclosureGroup(content: {
             VStack(alignment: .leading) {
                 NavigationLink(destination: MembersByStatusView()) {
                     LinkText(label: "Members by status")
@@ -54,7 +56,9 @@ struct QueriesView: View {
                 Caption(text: "For annual statistical report: list all transactions that "
                             + "occurred in a given range of dates.")
             }.padding(.top, 20)
-        }
+        }, label: {
+            Text("Members")
+        })
     }
 
     fileprivate struct LinkText: View {
