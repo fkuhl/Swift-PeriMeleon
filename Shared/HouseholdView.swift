@@ -113,11 +113,11 @@ https://www.avanderlee.com/swiftui/previews-different-states/
 */
 struct HouseholdView_Previews: PreviewProvider {
     static var previews: some View {
-        HouseholdView(householdId: mockHousehold.id,
+        HouseholdView(householdId: mockHousehold1.id,
                       spouseFactory: PreviewHouseholdMemberFactoryDelegate(
-                        householdId: mockHousehold.id),
+                        householdId: mockHousehold1.id),
                       otherFactory: PreviewHouseholdMemberFactoryDelegate(
-                        householdId: mockHousehold.id))
+                        householdId: mockHousehold1.id))
             .previewLayout(PreviewLayout.sizeThatFits)
             .padding()
             .background(Color(.systemBackground))

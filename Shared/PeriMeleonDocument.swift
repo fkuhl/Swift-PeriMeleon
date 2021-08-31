@@ -433,6 +433,27 @@ class PeriMeleonDocument: ReferenceFileDocument {
         }
     }
     
+    func findInHouseholds(member: ID) -> [HouseholdMembership] {
+        householdsById.values.compactMap { household in
+            if household.head == member {
+                return HouseholdMembership(household: household.id, relationship: .head)
+            }
+            if household.spouse == member {
+                return HouseholdMembership(household: household.id, relationship: .spouse)
+            }
+            if household.others.firstIndex(of: member) != nil {
+                return HouseholdMembership(household: household.id, relationship: .other)
+            }
+            return nil
+        }
+    }
+    
+    func containsOnlyHead(household: ID) -> Bool {
+        //If no household for this id, will return true
+        let nh = self.household(byId: household)
+        return nh.spouse == nil && nh.others.count == 0
+    }
+    
 
     //MARK: - Update data
     
@@ -458,8 +479,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
         }
     }
     
-    ///At present this is included only to give (a possibly unneeded) symmetry to the undo
-    private func remove(household: NormalizedHousehold) {
+    func remove(household: NormalizedHousehold) {
         householdsById.removeValue(forKey: household.id)
         households.remove(household)
         changeCount += 1
@@ -499,8 +519,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
         }
     }
     
-    ///At present this is included only to give (a possibly unneeded) symmetry to the undo
-    private func remove(member: Member) {
+    func remove(member: Member) {
         membersById.removeValue(forKey: member.id)
         members.remove(member)
         changeCount += 1

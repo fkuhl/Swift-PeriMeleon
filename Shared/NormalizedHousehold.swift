@@ -34,7 +34,7 @@ struct NormalizedHousehold: Identifiable {
     init(
         id: ID,
         head: ID,
-        spouse: ID,
+        spouse: ID?,
         others: [ID],
         address: Address?)
     {

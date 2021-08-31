@@ -54,6 +54,24 @@ fileprivate func makeMv2() -> Member {
 
 let mockMember2 = makeMv2()
 
+fileprivate func makeMv3() -> Member {
+    var mockMember3 = Member(
+        familyName: "Farkle",
+        givenName: "Fred",
+        middleName: "",
+        previousFamilyName: "",
+        nickname: "",
+        sex: Sex.FEMALE,
+        household: "0",
+        eMail: "farkle@nonsense.com",
+        mobilePhone: "888-555-1213",
+        baptism: "Somewhere: 1970-01-01")
+    mockMember3.dateOfBirth = dateFormatter.date(from: "2000-06-09")
+    return mockMember3
+}
+
+let mockMember3 = makeMv3()
+
 let mockAddress = Address(
     address: "123 Plesant Avenue",
     city: "Pleasantown",
@@ -61,10 +79,18 @@ let mockAddress = Address(
     postalCode: "54321"
 )
 
-var mockHousehold = NormalizedHousehold(
+var mockHousehold1 = NormalizedHousehold(
     id: "abc",
     head: mockMember1.id,
     spouse: mockMember2.id,
+    others: [ID](),
+    address: mockAddress
+)
+
+var mockHousehold2 = NormalizedHousehold(
+    id: "pqr",
+    head: mockMember3.id,
+    spouse: nil,
     others: [ID](),
     address: mockAddress
 )
@@ -73,7 +99,9 @@ fileprivate func makeModel() -> Model {
     var model = Model()
     model.m[mockMember1.id] = mockMember1
     model.m[mockMember2.id] = mockMember2
-    model.h[mockHousehold.id] = mockHousehold
+    model.m[mockMember3.id] = mockMember3
+    model.h[mockHousehold1.id] = mockHousehold1
+    model.h[mockHousehold2.id] = mockHousehold2
     return model
 }
 

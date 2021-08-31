@@ -67,6 +67,14 @@
 		279B6FB2255F619B0009D2BF /* MembersByAgeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FAF255F619B0009D2BF /* MembersByAgeEntryView.swift */; };
 		279B6FB3255F619B0009D2BF /* MembersByAgeResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FB0255F619B0009D2BF /* MembersByAgeResultsView.swift */; };
 		279B6FB4255F619B0009D2BF /* MembersByAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FB1255F619B0009D2BF /* MembersByAgeView.swift */; };
+		27ABB0A826DD5DA000AA0288 /* FamilyRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0A726DD5DA000AA0288 /* FamilyRelationship.swift */; };
+		27ABB0A926DD5DA000AA0288 /* FamilyRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0A726DD5DA000AA0288 /* FamilyRelationship.swift */; };
+		27ABB0AC26DD64CB00AA0288 /* RemoveMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0AB26DD64CB00AA0288 /* RemoveMemberView.swift */; };
+		27ABB0AD26DD64CB00AA0288 /* RemoveMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0AB26DD64CB00AA0288 /* RemoveMemberView.swift */; };
+		27ABB0AF26DD6DC900AA0288 /* RemoveMemberState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0AE26DD6DC900AA0288 /* RemoveMemberState.swift */; };
+		27ABB0B026DD6DC900AA0288 /* RemoveMemberState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0AE26DD6DC900AA0288 /* RemoveMemberState.swift */; };
+		27ABB0B226DD71F600AA0288 /* RemoveMemberSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0B126DD71F600AA0288 /* RemoveMemberSheet.swift */; };
+		27ABB0B326DD71F600AA0288 /* RemoveMemberSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0B126DD71F600AA0288 /* RemoveMemberSheet.swift */; };
 		27B20D812529106500C80696 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7E2529106500C80696 /* HouseholdRowView.swift */; };
 		27B20D822529106500C80696 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7E2529106500C80696 /* HouseholdRowView.swift */; };
 		27B20D832529106500C80696 /* HouseholdsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7F2529106500C80696 /* HouseholdsView.swift */; };
@@ -260,6 +268,10 @@
 		279B6FAF255F619B0009D2BF /* MembersByAgeEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByAgeEntryView.swift; sourceTree = "<group>"; };
 		279B6FB0255F619B0009D2BF /* MembersByAgeResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByAgeResultsView.swift; sourceTree = "<group>"; };
 		279B6FB1255F619B0009D2BF /* MembersByAgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByAgeView.swift; sourceTree = "<group>"; };
+		27ABB0A726DD5DA000AA0288 /* FamilyRelationship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyRelationship.swift; sourceTree = "<group>"; };
+		27ABB0AB26DD64CB00AA0288 /* RemoveMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveMemberView.swift; sourceTree = "<group>"; };
+		27ABB0AE26DD6DC900AA0288 /* RemoveMemberState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveMemberState.swift; sourceTree = "<group>"; };
+		27ABB0B126DD71F600AA0288 /* RemoveMemberSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveMemberSheet.swift; sourceTree = "<group>"; };
 		27B20D7E2529106500C80696 /* HouseholdRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdRowView.swift; sourceTree = "<group>"; };
 		27B20D7F2529106500C80696 /* HouseholdsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdsView.swift; sourceTree = "<group>"; };
 		27B20D802529106500C80696 /* HouseholdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdView.swift; sourceTree = "<group>"; };
@@ -516,6 +528,7 @@
 				2724846226934B4B008709B4 /* Model.swift */,
 				27C72EE826B996A000468A67 /* LICENSE.txt */,
 				27C72EE926B996A000468A67 /* SortedArray.swift */,
+				27ABB0A726DD5DA000AA0288 /* FamilyRelationship.swift */,
 			);
 			name = Document;
 			sourceTree = "<group>";
@@ -547,6 +560,16 @@
 				27BF579A268CBD0F00BEE938 /* Sidebar.swift */,
 			);
 			name = App;
+			sourceTree = "<group>";
+		};
+		27ABB0AA26DD648000AA0288 /* Remove Member */ = {
+			isa = PBXGroup;
+			children = (
+				27ABB0AB26DD64CB00AA0288 /* RemoveMemberView.swift */,
+				27ABB0AE26DD6DC900AA0288 /* RemoveMemberState.swift */,
+				27ABB0B126DD71F600AA0288 /* RemoveMemberSheet.swift */,
+			);
+			name = "Remove Member";
 			sourceTree = "<group>";
 		};
 		27B20D8B2529107200C80696 /* Households */ = {
@@ -616,6 +639,7 @@
 		27C55E382538E67D00923EE8 /* Workflows */ = {
 			isa = PBXGroup;
 			children = (
+				27ABB0AA26DD648000AA0288 /* Remove Member */,
 				27C72EB126B1E55E00468A67 /* ProfessionOfFaith */,
 				27C72EA826B1A55C00468A67 /* NewAddition */,
 				274E143F26B04336008BBED7 /* Family dismissed */,
@@ -972,6 +996,7 @@
 				279B6FB2255F619B0009D2BF /* MembersByAgeEntryView.swift in Sources */,
 				27B20D982529113B00C80696 /* TextAttributeView.swift in Sources */,
 				27C55E192538CE0100923EE8 /* MembersByStatusView.swift in Sources */,
+				27ABB0AF26DD6DC900AA0288 /* RemoveMemberState.swift in Sources */,
 				27C72EAE26B1A7F600468A67 /* NewAdditionEntryView.swift in Sources */,
 				27BC8CBF253B6B7700520F54 /* NormalizedHousehold.swift in Sources */,
 				27B20DA42529113B00C80696 /* MembersView.swift in Sources */,
@@ -980,6 +1005,8 @@
 				27C72EB326B1E61800468A67 /* ProfessionView.swift in Sources */,
 				274E143926AF1161008BBED7 /* TransactionsQuery.swift in Sources */,
 				27B20D832529106500C80696 /* HouseholdsView.swift in Sources */,
+				27ABB0A826DD5DA000AA0288 /* FamilyRelationship.swift in Sources */,
+				27ABB0AC26DD64CB00AA0288 /* RemoveMemberView.swift in Sources */,
 				277C9530254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAE2529113B00C80696 /* MemberRowView.swift in Sources */,
 				27C55E302538E67700923EE8 /* WorkflowsView.swift in Sources */,
@@ -995,6 +1022,7 @@
 				27C55E322538E67700923EE8 /* MoveToHouseholdView.swift in Sources */,
 				27D7D80D25570D1000A983AA /* BirthdaysEntryView.swift in Sources */,
 				27C55E552538E7A000923EE8 /* DataChecker.swift in Sources */,
+				27ABB0B226DD71F600AA0288 /* RemoveMemberSheet.swift in Sources */,
 				27B20D9C2529113B00C80696 /* CoreMemberView.swift in Sources */,
 				27B20DCF2529123400C80696 /* EditBoolView.swift in Sources */,
 				27C55E402538E74300923EE8 /* FamilyJoinAccumulator.swift in Sources */,
@@ -1033,6 +1061,7 @@
 				27C72EE726B9879F00468A67 /* SomeMembersView.swift in Sources */,
 				27C55E472538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9529254223C20032638A /* Member+Age.swift in Sources */,
+				27ABB0B026DD6DC900AA0288 /* RemoveMemberState.swift in Sources */,
 				27B20DC22529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */,
 				27B20DA92529113B00C80696 /* Services.swift in Sources */,
@@ -1042,6 +1071,7 @@
 				27C55E432538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */,
 				275A1181255F320C0055E77F /* SolidButton.swift in Sources */,
 				27FD5AE9254DE2CD0086F120 /* PhonelistMaker.swift in Sources */,
+				27ABB0AD26DD64CB00AA0288 /* RemoveMemberView.swift in Sources */,
 				27C55E522538E7A000923EE8 /* DataCheckerView.swift in Sources */,
 				27B20DA12529113B00C80696 /* Transactions.swift in Sources */,
 				27C55E262538CE9400923EE8 /* MockedData.swift in Sources */,
@@ -1050,6 +1080,7 @@
 				27B20DCA2529123400C80696 /* EditTextView.swift in Sources */,
 				27B20DC62529123400C80696 /* EditOptionalTextView.swift in Sources */,
 				27C55E542538E7A000923EE8 /* DataCheckReport.swift in Sources */,
+				27ABB0A926DD5DA000AA0288 /* FamilyRelationship.swift in Sources */,
 				27C55E142538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */,
 				27B20DA32529113B00C80696 /* MemberView.swift in Sources */,
 				276B9756250008DB003E19BA /* PeriMeleonDocument.swift in Sources */,
@@ -1082,6 +1113,7 @@
 				27C55E582538E7A000923EE8 /* DataCheckReportView.swift in Sources */,
 				27B20DAB2529113B00C80696 /* ServiceEditView.swift in Sources */,
 				27BF579C268CBD0F00BEE938 /* Sidebar.swift in Sources */,
+				27ABB0B326DD71F600AA0288 /* RemoveMemberSheet.swift in Sources */,
 				27B20DC42529123400C80696 /* EditOptionalDateView.swift in Sources */,
 				27C55E2F2538E67700923EE8 /* MoveToHouseholdAccumulator.swift in Sources */,
 				27B20DCC2529123400C80696 /* EditOptionalParentView.swift in Sources */,
@@ -1264,7 +1296,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "PeriMeleonUnitTests/test-doc.pmrolls PeriMeleonUnitTests/test-bad-doc.pmrolls";
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
@@ -1274,6 +1306,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;
@@ -1292,7 +1325,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "PeriMeleonUnitTests/test-doc.pmrolls PeriMeleonUnitTests/test-bad-doc.pmrolls";
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
@@ -1302,6 +1335,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;
