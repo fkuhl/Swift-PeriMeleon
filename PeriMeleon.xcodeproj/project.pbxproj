@@ -75,6 +75,14 @@
 		27ABB0B026DD6DC900AA0288 /* RemoveMemberState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0AE26DD6DC900AA0288 /* RemoveMemberState.swift */; };
 		27ABB0B226DD71F600AA0288 /* RemoveMemberSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0B126DD71F600AA0288 /* RemoveMemberSheet.swift */; };
 		27ABB0B326DD71F600AA0288 /* RemoveMemberSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0B126DD71F600AA0288 /* RemoveMemberSheet.swift */; };
+		27ABB0B626DECA7C00AA0288 /* MemberMarriesMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0B526DECA7C00AA0288 /* MemberMarriesMember.swift */; };
+		27ABB0B726DECA7C00AA0288 /* MemberMarriesMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0B526DECA7C00AA0288 /* MemberMarriesMember.swift */; };
+		27ABB0B926DECAE500AA0288 /* MemberMarriesMemberAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0B826DECAE500AA0288 /* MemberMarriesMemberAccumulator.swift */; };
+		27ABB0BA26DECAE500AA0288 /* MemberMarriesMemberAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0B826DECAE500AA0288 /* MemberMarriesMemberAccumulator.swift */; };
+		27ABB0BC26DECBA300AA0288 /* MemberMarriesEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0BB26DECBA300AA0288 /* MemberMarriesEntryView.swift */; };
+		27ABB0BD26DECBA300AA0288 /* MemberMarriesEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0BB26DECBA300AA0288 /* MemberMarriesEntryView.swift */; };
+		27ABB0BF26DECC5700AA0288 /* MemberMarriesVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0BE26DECC5700AA0288 /* MemberMarriesVerificationView.swift */; };
+		27ABB0C026DECC5700AA0288 /* MemberMarriesVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ABB0BE26DECC5700AA0288 /* MemberMarriesVerificationView.swift */; };
 		27B20D812529106500C80696 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7E2529106500C80696 /* HouseholdRowView.swift */; };
 		27B20D822529106500C80696 /* HouseholdRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7E2529106500C80696 /* HouseholdRowView.swift */; };
 		27B20D832529106500C80696 /* HouseholdsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20D7F2529106500C80696 /* HouseholdsView.swift */; };
@@ -272,6 +280,10 @@
 		27ABB0AB26DD64CB00AA0288 /* RemoveMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveMemberView.swift; sourceTree = "<group>"; };
 		27ABB0AE26DD6DC900AA0288 /* RemoveMemberState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveMemberState.swift; sourceTree = "<group>"; };
 		27ABB0B126DD71F600AA0288 /* RemoveMemberSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveMemberSheet.swift; sourceTree = "<group>"; };
+		27ABB0B526DECA7C00AA0288 /* MemberMarriesMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberMarriesMember.swift; sourceTree = "<group>"; };
+		27ABB0B826DECAE500AA0288 /* MemberMarriesMemberAccumulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberMarriesMemberAccumulator.swift; sourceTree = "<group>"; };
+		27ABB0BB26DECBA300AA0288 /* MemberMarriesEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberMarriesEntryView.swift; sourceTree = "<group>"; };
+		27ABB0BE26DECC5700AA0288 /* MemberMarriesVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberMarriesVerificationView.swift; sourceTree = "<group>"; };
 		27B20D7E2529106500C80696 /* HouseholdRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdRowView.swift; sourceTree = "<group>"; };
 		27B20D7F2529106500C80696 /* HouseholdsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdsView.swift; sourceTree = "<group>"; };
 		27B20D802529106500C80696 /* HouseholdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseholdView.swift; sourceTree = "<group>"; };
@@ -572,6 +584,17 @@
 			name = "Remove Member";
 			sourceTree = "<group>";
 		};
+		27ABB0B426DEC9D900AA0288 /* Member Marries Member */ = {
+			isa = PBXGroup;
+			children = (
+				27ABB0B526DECA7C00AA0288 /* MemberMarriesMember.swift */,
+				27ABB0B826DECAE500AA0288 /* MemberMarriesMemberAccumulator.swift */,
+				27ABB0BB26DECBA300AA0288 /* MemberMarriesEntryView.swift */,
+				27ABB0BE26DECC5700AA0288 /* MemberMarriesVerificationView.swift */,
+			);
+			name = "Member Marries Member";
+			sourceTree = "<group>";
+		};
 		27B20D8B2529107200C80696 /* Households */ = {
 			isa = PBXGroup;
 			children = (
@@ -639,6 +662,7 @@
 		27C55E382538E67D00923EE8 /* Workflows */ = {
 			isa = PBXGroup;
 			children = (
+				27ABB0B426DEC9D900AA0288 /* Member Marries Member */,
 				27ABB0AA26DD648000AA0288 /* Remove Member */,
 				27C72EB126B1E55E00468A67 /* ProfessionOfFaith */,
 				27C72EA826B1A55C00468A67 /* NewAddition */,
@@ -963,6 +987,7 @@
 				27C55E422538E74300923EE8 /* FamilyJoinHouseholdPhaseView.swift in Sources */,
 				27C55E512538E7A000923EE8 /* DataCheckerView.swift in Sources */,
 				27B20DA02529113B00C80696 /* Transactions.swift in Sources */,
+				27ABB0B626DECA7C00AA0288 /* MemberMarriesMember.swift in Sources */,
 				27C72EBB26B1ECFB00468A67 /* ProfessionVerificationView.swift in Sources */,
 				27C55E252538CE9400923EE8 /* MockedData.swift in Sources */,
 				27C55E152538CE0100923EE8 /* QueriesView.swift in Sources */,
@@ -971,6 +996,7 @@
 				27B20DC52529123400C80696 /* EditOptionalTextView.swift in Sources */,
 				274E144726B04DB6008BBED7 /* FamilyDismissedVerificationView.swift in Sources */,
 				274E144326B0440E008BBED7 /* FamilyDismissedAccumulator.swift in Sources */,
+				27ABB0BF26DECC5700AA0288 /* MemberMarriesVerificationView.swift in Sources */,
 				27C55E532538E7A000923EE8 /* DataCheckReport.swift in Sources */,
 				270BE17C26680489005B710B /* InformationView.swift in Sources */,
 				27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
@@ -989,9 +1015,11 @@
 				27C72EE626B9879F00468A67 /* SomeMembersView.swift in Sources */,
 				277C95182540DD6A0032638A /* PreviewShowoffView.swift in Sources */,
 				274E144526B0473C008BBED7 /* FamilyDismissedTransactionView.swift in Sources */,
+				27ABB0BC26DECBA300AA0288 /* MemberMarriesEntryView.swift in Sources */,
 				27B20DCD2529123400C80696 /* EditSexView.swift in Sources */,
 				27C55E3E2538E74300923EE8 /* FamilyJoinView.swift in Sources */,
 				273FDC96257C462F0019F2DD /* Member+isActive.swift in Sources */,
+				27ABB0B926DECAE500AA0288 /* MemberMarriesMemberAccumulator.swift in Sources */,
 				279B6FB4255F619B0009D2BF /* MembersByAgeView.swift in Sources */,
 				279B6FB2255F619B0009D2BF /* MembersByAgeEntryView.swift in Sources */,
 				27B20D982529113B00C80696 /* TextAttributeView.swift in Sources */,
@@ -1062,6 +1090,7 @@
 				27C55E472538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9529254223C20032638A /* Member+Age.swift in Sources */,
 				27ABB0B026DD6DC900AA0288 /* RemoveMemberState.swift in Sources */,
+				27ABB0B726DECA7C00AA0288 /* MemberMarriesMember.swift in Sources */,
 				27B20DC22529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */,
 				27B20DA92529113B00C80696 /* Services.swift in Sources */,
@@ -1090,9 +1119,12 @@
 				27B20D992529113B00C80696 /* TextAttributeView.swift in Sources */,
 				27C55E1A2538CE0100923EE8 /* MembersByStatusView.swift in Sources */,
 				27BC8CC0253B6B7700520F54 /* NormalizedHousehold.swift in Sources */,
+				27ABB0C026DECC5700AA0288 /* MemberMarriesVerificationView.swift in Sources */,
 				27B20DA52529113B00C80696 /* MembersView.swift in Sources */,
 				27B20DAD2529113B00C80696 /* MemberEditView.swift in Sources */,
+				27ABB0BD26DECBA300AA0288 /* MemberMarriesEntryView.swift in Sources */,
 				27B20D842529106500C80696 /* HouseholdsView.swift in Sources */,
+				27ABB0BA26DECAE500AA0288 /* MemberMarriesMemberAccumulator.swift in Sources */,
 				277C9531254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAF2529113B00C80696 /* MemberRowView.swift in Sources */,
 				27C72EED26B996A000468A67 /* SortedArray.swift in Sources */,
