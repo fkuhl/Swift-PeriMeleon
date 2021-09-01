@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PMDataTypes
 
 struct MemberMarriesMember: View {
     @Environment(\.presentationMode) var presentationMode
@@ -17,11 +18,12 @@ struct MemberMarriesMember: View {
             switch accumulator.phase {
             case .entry:
                 MemberMarriesEntryView(accumulator: $accumulator,
-                                               linkSelection: $linkSelection)
+                                       linkSelection: $linkSelection)
                     .transition(.move(edge: .trailing))
             case .verification:
                 MemberMarriesVerificationView(accumulator: $accumulator,
-                                                linkSelection: $linkSelection)
+                                              linkSelection: $linkSelection,
+                                              combined: [ID]())
                     .transition(.move(edge: .trailing))
             case .reset:
                 Text("")

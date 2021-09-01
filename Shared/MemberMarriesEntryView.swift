@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PMDataTypes
 
 struct MemberMarriesEntryView: View {
     @EnvironmentObject var document: PeriMeleonDocument
@@ -16,7 +17,27 @@ struct MemberMarriesEntryView: View {
     var body: some View {
         Form {
             Section {
-                // TODO
+                ChooseMemberView(caption: "Groom:",
+                                    memberId: $accumulator.groomId,
+                                    filter: { member in
+                                        member.isActive() && member.sex == .MALE && member.maritalStatus == .SINGLE
+                                    })
+                ChooseMemberView(caption: "Bride:",
+                                    memberId: $accumulator.brideId,
+                                    filter: { member in
+                                        member.isActive() && member.sex == .FEMALE && member.maritalStatus == .SINGLE
+                                    })
+                DateSelectionView(caption: "Date of wedding:", date: $accumulator.date)
+                HStack {
+                    Text("New household uses address:")
+                    Picker(selection: $accumulator.useGroomsAddress,
+                           label: Text("huih?")) {
+                        Text("Groom's").tag(true)
+                        Text("Bride's").tag(false)
+                    }.pickerStyle(SegmentedPickerStyle())
+                    Spacer()
+                }
+                Text("All dependents of either groom or bride are merged into the new household.")
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -37,11 +58,18 @@ struct MemberMarriesEntryView: View {
     private var saveButton: some View {
         Button(action: {
             withAnimation(.easeInOut(duration: editAnimationDuration)) {
-                NSLog("MMEV save")
-                // TODO
+                NSLog("MMEV continue")
+                let groom = document.member(byId: accumulator.groomId)
+                let groomsHousehold = document.household(byId: groom.household)
+                let groomsDependents = groomsHousehold.others
+                let bride = document.member(byId: accumulator.brideId)
+                let bridesHousehold = document.household(byId: bride.household)
+                let bridesDependents = bridesHousehold.others
+                accumulator.combinedDependents = groomsDependents + bridesDependents
+                accumulator.phase = .verification
             }
         }) {
-            Text("Save + Continue").font(.body)
+            Text("Continue").font(.body)
         }
     }
     
@@ -62,5 +90,6 @@ struct MemberMarriesEntryView_Previews: PreviewProvider {
         MemberMarriesEntryView(
             accumulator: Binding.constant(MemberMarriesMemberAccumulator()),
             linkSelection: Binding.constant(nil))
+            .environmentObject(mockDocument)
     }
 }

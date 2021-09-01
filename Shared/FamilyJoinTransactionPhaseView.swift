@@ -61,7 +61,7 @@ struct FamilyJoinTransactionPhaseView: View {
                 accumulator.phase = .head
             }
         }) {
-            Text("Save + Continue").font(.body)
+            Text("Continue").font(.body)
         }
     }
     
@@ -85,23 +85,23 @@ struct FamilyJoinWorkflowPhaseView_Previews: PreviewProvider {
 }
 
 
-struct DateSelectionView: View {
-    var captionWidth: CGFloat = defaultCaptionWidth
-    var caption: String
-    @Binding var date: Date
-
-    var body: some View {
-        HStack(alignment: .lastTextBaseline) {
-            Text(caption)
-                .frame(width: captionWidth, alignment: .trailing)
-                .font(.caption)
-            DatePicker("",
-                       selection: $date,
-                       in: ...Date(),
-                       displayedComponents: .date).font(.body)
-        }
-    }
-}
+//struct DateSelectionView: View {
+//    var captionWidth: CGFloat = defaultCaptionWidth
+//    var caption: String
+//    @Binding var date: Date
+//
+//    var body: some View {
+//        HStack(alignment: .lastTextBaseline) {
+//            Text(caption)
+//                .frame(width: captionWidth, alignment: .trailing)
+//                .font(.caption)
+//            DatePicker("",
+//                       selection: $date,
+//                       in: ...Date(),
+//                       displayedComponents: .date).font(.body)
+//        }
+//    }
+//}
 
 struct ReceptionTypeView: View {
     var captionWidth: CGFloat = defaultCaptionWidth

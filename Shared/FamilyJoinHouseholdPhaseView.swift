@@ -19,12 +19,12 @@ struct FamilyJoinHouseholdPhaseView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    NSLog("FJTPV Finish")
+                    NSLog("FJTPV Apply")
                     accumulator.phase = .reset
                     linkSelection = nil //ensure WorkflowsView can go again
                     
                 }) {
-                    Text("Finish").font(.body)
+                    Text("Save + Finish").font(.body)
                 }
             }.padding()
             HouseholdView(householdId: accumulator.addedHousehold.id,

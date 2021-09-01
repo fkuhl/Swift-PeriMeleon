@@ -17,6 +17,7 @@ enum WorkflowLink {
     case dataChecker
     case information
     case removeMember
+    case memberMarriesMember
 }
 
 struct WorkflowsView: View {
@@ -50,7 +51,17 @@ struct WorkflowsView: View {
                 Caption(text: "Family is dismissed or dismissal is pending. "
                         + "Enter date and comment "
                         + "and all members of the family are changed.")
-            }.padding(.top, 20)
+            }
+            VStack(alignment: .leading) {
+                NavigationLink(destination: MemberMarriesMember(linkSelection: $linkSelection),
+                               tag: .memberMarriesMember,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection,
+                               link: .memberMarriesMember,
+                               label: "Two members marry")
+                }
+                Caption(text: "Two members marry, creating new household.")
+            }
         }, label: {
             Text("Families")
         })

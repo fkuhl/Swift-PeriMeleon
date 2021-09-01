@@ -423,14 +423,10 @@ class PeriMeleonDocument: ReferenceFileDocument {
         return matches
     }
     
-    func filterMembers(_ isIncluded: (Member) throws -> Bool) -> [Member] {
-        do {
-            var results = try membersById.values.filter(isIncluded)
-            results.sort { $0.fullName() < $1.fullName() }
-            return results
-        } catch {
-            return [Member]()
-        }
+    func filterMembers(_ isIncluded: MemberFilter) -> [Member] {
+        var results = membersById.values.filter(isIncluded)
+        results.sort { $0.fullName() < $1.fullName() }
+        return results
     }
     
     func findInHouseholds(member: ID) -> [HouseholdMembership] {
@@ -551,7 +547,7 @@ fileprivate func makeKey(password: String) -> SymmetricKey? {
 }
 
 
-//MARK: - Comparators
+//MARK: - Comparators & typealias
 
 func compareMembers(a: Member, b: Member) -> Bool {
     a.displayName() < b.displayName()
@@ -561,4 +557,4 @@ func compareHouseholds(a: NormalizedHousehold, b: NormalizedHousehold) -> Bool {
     a.name ?? "" < b.name ?? ""
 }
 
-//This is just a git test.
+typealias MemberFilter = (Member) -> Bool

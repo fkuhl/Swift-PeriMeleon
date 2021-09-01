@@ -14,9 +14,11 @@ struct ChooseMemberView: View {
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
     @Binding var memberId: ID
+    var filter: MemberFilter = { member in true } //default includes everything
     
     var body: some View {
-        NavigationLink(destination: ChooseMemberListView(memberId: $memberId)) {
+        NavigationLink(destination: ChooseMemberListView(memberId: $memberId,
+                                                         filter: filter)) {
             HStack(alignment: .lastTextBaseline) {
                 Text(caption)
                     .frame(width: captionWidth, alignment: .trailing)
@@ -35,6 +37,7 @@ struct ChooseMemberListView: View, FilterUpdater {
     @Binding var memberId: ID
     @State private var members = SortedArray<Member>(areInIncreasingOrder: compareMembers)
     @State private var filterText: String = ""
+    var filter: MemberFilter
 
     var body: some View {
         VStack {
@@ -69,12 +72,13 @@ struct ChooseMemberListView: View, FilterUpdater {
             ? document.activeMembers
             : document.members
         if filterText.isEmpty {
-            members = candidates
+            members = candidates.filter(filter)
             return
         }
         members = candidates.filter { member in
             document.nameOf(member: member.id).localizedCaseInsensitiveContains(filterText)
         }
+        members = members.filter(filter)
     }
 }
 

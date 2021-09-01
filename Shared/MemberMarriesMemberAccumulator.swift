@@ -9,6 +9,11 @@ import SwiftUI
 import PMDataTypes
 
 struct MemberMarriesMemberAccumulator {
+    var groomId: ID = ""
+    var brideId: ID = ""
+    var date = Date()
+    var useGroomsAddress = true
+    var combinedDependents = [ID]()
     var phase: MemberMarriesMemberPhase = .entry
 }
 

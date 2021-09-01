@@ -17,7 +17,7 @@ struct ProfessionView: View {
             switch accumulator.phase {
             case .entry:
                 ProfessionEntryView(accumulator: $accumulator,
-                                               linkSelection: $linkSelection)
+                                    linkSelection: $linkSelection)
                     .transition(.move(edge: .trailing))
             case .verification:
                 ProfessionVerificationView(accumulator: $accumulator,

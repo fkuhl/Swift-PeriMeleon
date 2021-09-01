@@ -57,7 +57,7 @@ struct NewAdditionEntryView: View {
                 accumulator.phase = .verification
             }
         }) {
-            Text("Save + Continue").font(.body)
+            Text("Continue").font(.body)
         }
     }
     

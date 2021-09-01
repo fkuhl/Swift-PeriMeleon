@@ -40,11 +40,11 @@ struct ProfessionEntryView: View {
     private var saveButton: some View {
         Button(action: {
             withAnimation(.easeInOut(duration: editAnimationDuration)) {
-                NSLog("PEV save")
+                NSLog("PEV continue")
                 accumulator.phase = .verification
             }
         }) {
-            Text("Save + Continue").font(.body)
+            Text("Continue").font(.body)
         }
     }
     
