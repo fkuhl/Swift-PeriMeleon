@@ -59,18 +59,38 @@ struct MemberMarriesEntryView: View {
         Button(action: {
             withAnimation(.easeInOut(duration: editAnimationDuration)) {
                 NSLog("MMEV continue")
-                let groom = document.member(byId: accumulator.groomId)
-                let groomsHousehold = document.household(byId: groom.household)
-                let groomsDependents = groomsHousehold.others
-                let bride = document.member(byId: accumulator.brideId)
-                let bridesHousehold = document.household(byId: bride.household)
-                let bridesDependents = bridesHousehold.others
-                accumulator.combinedDependents = groomsDependents + bridesDependents
-                accumulator.phase = .verification
+                publishTheBanns()
             }
         }) {
             Text("Continue").font(.body)
         }
+    }
+    
+    private func publishTheBanns() {
+        var groomProblem = false
+        var brideProblem = false
+        let groom = document.member(byId: accumulator.groomId)
+        let groomsHousehold = document.household(byId: groom.household)
+        ///Groom must be single. If head of household, household cannot have spouse. (Check inconsistent marital status.)
+        groomProblem = groom.maritalStatus != .SINGLE || (accumulator.groomId == groomsHousehold.head && groomsHousehold.spouse != nil)
+        let bride = document.member(byId: accumulator.brideId)
+        let bridesHousehold = document.household(byId: bride.household)
+        /// Bride must be single, and cannot be spouse. (Not covered: is she someone else's spouse?)
+        brideProblem = bride.maritalStatus != .SINGLE || accumulator.brideId == bridesHousehold.spouse
+        if groomProblem || brideProblem {
+            accumulator.phase = .problem(groom: groomProblem, bride: brideProblem)
+            return
+        }
+        var groomsDependents = [ID]()
+        if accumulator.groomId == groomsHousehold.head {
+            groomsDependents = groomsHousehold.others
+        }
+        var bridesDependents = [ID]()
+        if accumulator.brideId == bridesHousehold.head {
+            bridesDependents = bridesHousehold.others
+        }
+        accumulator.combinedDependents = groomsDependents + bridesDependents
+        accumulator.phase = .verification
     }
     
     private var cancelButton: some View {

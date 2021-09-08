@@ -20,6 +20,10 @@ struct MemberMarriesMember: View {
                 MemberMarriesEntryView(accumulator: $accumulator,
                                        linkSelection: $linkSelection)
                     .transition(.move(edge: .trailing))
+            case .problem:
+                MemberMarriesProblemView(accumulator: $accumulator,
+                                       linkSelection: $linkSelection)
+                    .transition(.move(edge: .trailing))
             case .verification:
                 MemberMarriesVerificationView(accumulator: $accumulator,
                                               linkSelection: $linkSelection,

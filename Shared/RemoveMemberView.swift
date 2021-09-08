@@ -11,7 +11,8 @@ import PMDataTypes
 struct RemoveMemberView: View {
     @EnvironmentObject var document: PeriMeleonDocument
     @State private var memberId: ID = ""
-    @State private var relationships = [HouseholdMembership]()
+    @State private var readyForRemovals = [ID]()
+    @State private var suspects = [ID]()
     @State private var removalState: RemoveMemberState = .enteringData
     @State private var showingSheet = false
 
@@ -28,7 +29,8 @@ struct RemoveMemberView: View {
         }
         .sheet(isPresented: $showingSheet) {
             RemoveMemberSheet(memberId: $memberId,
-                              relationships: $relationships,
+                              readyForRemovals: $readyForRemovals,
+                              suspects: $suspects,
                               removalState: $removalState,
                               showingSheet: $showingSheet)
         }
@@ -36,13 +38,16 @@ struct RemoveMemberView: View {
     
     func checkRemoval() {
         removalState = .enteringData
-        relationships = document.findInHouseholds(member: memberId)
-        NSLog("findInHouseholds returned \(relationships.count) entries")
-        if relationships.count == 0 { removalState = .memberInNoHousehold }
-        else if relationships.count > 1 { removalState = .memberInMultipleHouseholds }
-        else {
-            if relationships[0].relationship == .head { removalState = .memberIsHead }
-            else { removalState = .memberIsNotHead }
+        let checkReturn = document.checkForRemovals(member: memberId)
+        readyForRemovals = checkReturn.ready
+        suspects = checkReturn.suspect
+        NSLog("checkForRemovals returned \(readyForRemovals.count) ready, \(suspects.count) suspects")
+        if suspects.count == 0 {
+            if readyForRemovals.count == 0 { removalState = .memberInNoHousehold }
+            else { removalState = .readyToBeRemoved }
+        } else {
+            if readyForRemovals.count == 0 { removalState = .potentialOrphansOnly }
+            else { removalState = .orphansAndReadies }
         }
         NSLog("removalState: \(removalState)")
         showingSheet = removalState != .enteringData

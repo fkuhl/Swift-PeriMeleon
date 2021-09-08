@@ -10,7 +10,7 @@ import Foundation
 enum RemoveMemberState {
     case enteringData
     case memberInNoHousehold
-    case memberInMultipleHouseholds
-    case memberIsHead
-    case memberIsNotHead
+    case readyToBeRemoved
+    case potentialOrphansOnly
+    case orphansAndReadies
 }

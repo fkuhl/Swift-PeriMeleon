@@ -12,7 +12,8 @@ struct RemoveMemberSheet: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var document: PeriMeleonDocument
     @Binding var memberId: ID
-    @Binding var relationships: [HouseholdMembership]
+    @Binding var readyForRemovals: [ID]
+    @Binding var suspects: [ID]
     @Binding var removalState: RemoveMemberState
     @Binding var showingSheet: Bool
     
@@ -25,78 +26,143 @@ struct RemoveMemberSheet: View {
             }
         case .memberInNoHousehold:
             memberInNoHousehold
-        case .memberInMultipleHouseholds:
-            memberInMultipleHouseholds
-        case .memberIsHead:
-            memberIsHead
-        case .memberIsNotHead:
-            memberIsNotHead
+        case .readyToBeRemoved:
+            readyToBeRemoved
+        case .potentialOrphansOnly:
+            potentialOrphans
+        case .orphansAndReadies:
+            orphansAndReadies
         }
     }
     
-    private var memberIsNotHead: some View {
+    /// Member is in no household.
+    private var memberInNoHousehold: some View {
         Form {
-            Text("Remove member '\(document.nameOf(member: memberId))' ?")
+            Text("Member '\(document.nameOf(member: memberId))' appears in no households. Remove member entry anyway?")
             Text("There is no undo!").font(.headline)
             HStack {
                 Spacer()
                 SolidButton(text: "Cancel", action: {
                                 presentationMode.wrappedValue.dismiss() }).padding()
-                SolidButton(text: "Remove", action: removeMember).padding()
+                SolidButton(text: "Remove Member Entry", action: removeMemberEntryAndDismiss).padding()
                 Spacer()
             }
         }
     }
     
-    //member is sole member of household, i.e., its head.
-    private func removeMemberAndHousehold() {
-        let member = document.member(byId: memberId)
-        let household = document.household(byId: member.household)
-        document.remove(member: member)
-        document.remove(household: household)
+    private func removeMemberEntryAndDismiss() {
+        removeMemberEntry()
         presentationMode.wrappedValue.dismiss()
     }
     
-    private var memberIsHead: some View {
+    ///Remove just the entry for the member
+    private func removeMemberEntry () {
+        let member = document.member(byId: memberId)
+        NSLog("Removing entry for member\(document.nameOf(member: memberId))")
+        document.remove(member: member)
+    }
+
+    /// Member appears  in one or more households, but never as head where household has other members.
+    private var readyToBeRemoved: some View {
         Form {
-            if document.containsOnlyHead(household: relationships[0].household) {
-                Text("Removing member '\(document.nameOf(member: memberId))' will also remove the household.")
-                Text("There is no undo!").font(.headline)
-                HStack {
-                    Spacer()
-                    SolidButton(text: "Cancel", action: {
-                                    presentationMode.wrappedValue.dismiss() }).padding()
-                    SolidButton(text: "Remove", action: removeMemberAndHousehold).padding()
-                    Spacer()
+            Text("Member '\(document.nameOf(member: memberId))' appears in these households:").font(.headline)
+            List {
+                ForEach(readyForRemovals, id: \.self) { suspect in
+                    Text(document.nameOf(household: suspect)).font(.subheadline)
                 }
-            } else {
-                Text("Removing member '\(document.nameOf(member: memberId))' will leave other household members orphans. This must be resolved.").font(.headline)
-                merelyDismiss
+            }
+            Text("1. Where member is head of otherwise empty household, the household will be removed.")
+            Text("2. Where member is not the head, member will be removed from household; household otherwise unaffected.")
+            Text("3. Member entry will be removed.")
+            Text("There is no undo!").font(.headline)
+            HStack {
+                Spacer()
+                SolidButton(text: "Cancel", action: {
+                                presentationMode.wrappedValue.dismiss() }).padding()
+                SolidButton(text: "Remove Member", action: removeMemberAndHouseholds).padding()
+                Spacer()
             }
         }
     }
     
-    //member is not head of this household
-    private func removeMember() {
-        let member = document.member(byId: memberId)
-        var household = document.household(byId: member.household)
-        document.remove(member: member)
-        if household.spouse == member.id {
-            household.spouse = nil
-            document.update(household: household)
-        } else {
-            var others = household.others
-            if let index = others.firstIndex(of: memberId) {
-                others.remove(at: index)
-                household.others = others
+    private func removeMemberAndHouseholds() {
+        removeMemberFromReadies()
+        removeMemberEntry()
+        presentationMode.wrappedValue.dismiss()
+    }
+    
+    ///Remove member from all households where it appears. If household is thus emptied, remove it.
+    private func removeMemberFromReadies() {
+        for householdId in readyForRemovals {
+            var household = document.household(byId: householdId)
+            if household.head == memberId {
+                NSLog("removing household\(document.nameOf(household: household)) because will be empty")
+                document.remove(household: household)
+            } else if household.spouse == memberId {
+                household.spouse = nil
+                NSLog("Updating household\(document.nameOf(household: household)) because spouse removed")
                 document.update(household: household)
             } else {
-                NSLog("member '\(document.nameOf(member: memberId))' was neither spouse nor other")
+                var others = household.others
+                if let index = others.firstIndex(of: memberId) {
+                    others.remove(at: index)
+                    household.others = others
+                    NSLog("Updating household\(document.nameOf(household: household)) because dependent removed")
+                    document.update(household: household)
+                } else {
+                    NSLog("member '\(document.nameOf(member: memberId))' was neither spouse nor other")
+                }
             }
         }
-        presentationMode.wrappedValue.dismiss()
     }
     
+    /// Removing member will create orphans
+    private var potentialOrphans: some View {
+        Form {
+            Text("Removing member '\(document.nameOf(member: memberId))' would leave other household members orphans in the following households. These households must be resolved before member can be removed.").font(.headline)
+            List {
+                ForEach(suspects, id: \.self) { suspect in
+                    Text(document.nameOf(household: suspect)).font(.subheadline)
+                }
+            }
+            merelyDismiss
+        }
+    }
+    
+    /// Potential orphans, and some readies
+    private var orphansAndReadies: some View {
+        Form {
+            Text("Removing member '\(document.nameOf(member: memberId))' would leave other household members orphans in the following households. Member entry will not be removed, nor these households changed.").font(.headline)
+            List {
+                ForEach(suspects, id: \.self) { suspect in
+                    Text(document.nameOf(household: suspect)).font(.subheadline)
+                }
+            }
+            Text("Member appears '\(document.nameOf(member: memberId))' in these households:").font(.headline)
+            List {
+                ForEach(readyForRemovals, id: \.self) { suspect in
+                    Text(document.nameOf(household: suspect)).font(.subheadline)
+                }
+            }
+            Text("1. Where member is head of otherwise empty household, the household will be removed.")
+            Text("2. Where member is not the head, member will be removed from household; household otherwise unaffected.")
+            Text("3. Member entry will NOT be removed.")
+            Text("There is no undo!").font(.headline)
+            HStack {
+                Spacer()
+                SolidButton(text: "Cancel", action: {
+                                presentationMode.wrappedValue.dismiss() }).padding()
+                SolidButton(text: "Remove Member from Households", action: removeFromReadies).padding()
+                Spacer()
+            }
+        }
+    }
+    
+    private func removeFromReadies() {
+        removeMemberFromReadies()
+        presentationMode.wrappedValue.dismiss()
+    }
+
     private var merelyDismiss: some View {
         HStack {
             Spacer()
@@ -105,63 +171,53 @@ struct RemoveMemberSheet: View {
             Spacer()
         }.padding()
     }
-    
-    private var memberInNoHousehold: some View {
-        Form {
-            Text("Member '\(document.nameOf(member: memberId))' appears in no households. This is suspect and should be investigated before attempting to remove the member.").font(.headline)
-            merelyDismiss
-        }
-    }
-    
-    private var memberInMultipleHouseholds: some View {
-        Form {
-            Text("Member '\(document.nameOf(member: memberId))' appears in several households:")
-            List {
-                ForEach(relationships, id: \.self) { relationship in
-                    Text(document.nameOf(household: relationship.household))
-                }
-            }
-            Text("This is suspect and should be resolved before the member is removed.").font(.headline)
-            merelyDismiss
-        }
-    }
 }
 
 struct RemoveMemberSheet_Previews: PreviewProvider {
     static var previews: some View {
         //entering data
         RemoveMemberSheet(memberId: .constant(""),
-                          relationships: .constant([HouseholdMembership]()),
+                          readyForRemovals: .constant([ID]()),
+                          suspects: .constant([ID]()),
                           removalState: .constant(.enteringData),
                           showingSheet: .constant(true))
-        .environmentObject(mockDocument)
+            .environmentObject(mockDocument)
+            .previewDisplayName(".enteringData")
         
-        //member in mult households
-        RemoveMemberSheet(memberId: .constant("123"),
-                          relationships: .constant([HouseholdMembership(household: "abc", relationship: .head),HouseholdMembership(household: "abc", relationship: .spouse)]),
-                          removalState: .constant(.memberInMultipleHouseholds),
-                          showingSheet: .constant(true))
-        .environmentObject(mockDocument)
-        
-        //member is head, and there are other members
-        RemoveMemberSheet(memberId: .constant("123"),
-                          relationships: .constant([HouseholdMembership(household: "abc", relationship: .head)]),
-                          removalState: .constant(.memberIsHead),
-                          showingSheet: .constant(true))
-        .environmentObject(mockDocument)
-        
-        //member is head and no other members
+        //member is in no household
         RemoveMemberSheet(memberId: .constant(mockMember3.id),
-                          relationships: .constant([HouseholdMembership(household: "pqr", relationship: .head)]),
-                          removalState: .constant(.memberIsHead),
+                          readyForRemovals: .constant([]),
+                          suspects: .constant([]),
+                          removalState: .constant(.memberInNoHousehold),
                           showingSheet: .constant(true))
-        .environmentObject(mockDocument)
+            .environmentObject(mockDocument)
+            .previewDisplayName(".memberInNoHousehold")
+
+        //member in mult households: both readys and suspects
+        RemoveMemberSheet(memberId: .constant("123"),
+                          readyForRemovals: .constant(["abc", "pqr"]),
+                          suspects: .constant(["abc", "pqr"]),
+                          removalState: .constant(.readyToBeRemoved),
+                          showingSheet: .constant(true))
+            .environmentObject(mockDocument)
+            .previewDisplayName(".readyToBeRemoved")
         
-        //member is not head
-        RemoveMemberSheet(memberId: .constant(mockMember2.id),
-                          relationships: .constant([HouseholdMembership(household: "abc", relationship: .spouse)]),
-                          removalState: .constant(.memberIsNotHead),
+        //Only suspects
+        RemoveMemberSheet(memberId: .constant("123"),
+                          readyForRemovals: .constant([]),
+                          suspects: .constant(["abc", "pqr"]),
+                          removalState: .constant(.potentialOrphansOnly),
                           showingSheet: .constant(true))
-        .environmentObject(mockDocument)
+            .environmentObject(mockDocument)
+            .previewDisplayName(".potentialOrphans")
+        
+        //suspects and readies
+        RemoveMemberSheet(memberId: .constant("123"),
+                          readyForRemovals: .constant(["abc", "pqr"]),
+                          suspects: .constant(["abc", "pqr"]),
+                          removalState: .constant(.orphansAndReadies),
+                          showingSheet: .constant(true))
+            .environmentObject(mockDocument)
+            .previewDisplayName(".orphansAndReadies")
     }
 }

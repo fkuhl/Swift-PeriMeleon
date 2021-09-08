@@ -24,7 +24,7 @@ struct HouseholdView: View {
             Section {
                 NavigationLink(destination: headDestination) { headLink }
                 if document.household(byId: householdId).spouse == nil {
-                    Button(action: addSpouse) { Text("Add spouse").font(.body) }
+                    Button(action: addSpouse) { Text("Add new member as spouse").font(.body) }
                 } else {
                     NavigationLink(destination: spouseDestination) { spouseLink }
                 }
@@ -194,7 +194,7 @@ fileprivate struct OtherAddView: View {
             document.update(household: household)
             NSLog("OAV hh \(document.nameOf(household: household.id)) has \(household.others.count) others")
         }) {
-            Image(systemName: "plus").font(.body)
+            Label("Add new member as dependent", systemImage: "plus").font(.body)
         }
     }
 }

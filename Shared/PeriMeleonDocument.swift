@@ -429,19 +429,24 @@ class PeriMeleonDocument: ReferenceFileDocument {
         return results
     }
     
-    func findInHouseholds(member: ID) -> [HouseholdMembership] {
-        householdsById.values.compactMap { household in
-            if household.head == member {
-                return HouseholdMembership(household: household.id, relationship: .head)
+    func checkForRemovals(member: ID) -> (ready: [ID], suspect: [ID]) {
+        var suspect = [ID]()
+        var ready = [ID]()
+        for household in households {
+            if member == household.head {
+                if containsOnlyHead(household: household.id) {
+                    //member ready for removal if no other household members
+                    ready.append(household.id)
+                } else {
+                    //member is head of non-empty household: suspect
+                    suspect.append(household.id)
+                }
+            } else if member == household.spouse || household.others.contains(member) {
+                //member belongs to housegold, but not as head
+                ready.append(household.id)
             }
-            if household.spouse == member {
-                return HouseholdMembership(household: household.id, relationship: .spouse)
-            }
-            if household.others.firstIndex(of: member) != nil {
-                return HouseholdMembership(household: household.id, relationship: .other)
-            }
-            return nil
         }
+        return (ready: ready, suspect: suspect)
     }
     
     func containsOnlyHead(household: ID) -> Bool {

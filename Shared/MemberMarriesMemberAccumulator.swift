@@ -19,6 +19,7 @@ struct MemberMarriesMemberAccumulator {
 
 enum MemberMarriesMemberPhase {
     case entry
+    case problem(groom: Bool, bride: Bool)
     case verification
     case reset
 }

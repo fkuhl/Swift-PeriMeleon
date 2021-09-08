@@ -27,6 +27,7 @@ struct MemberMarriesVerificationView: View {
                         Text(document.nameOf(member: id))
                     }
                 }
+                Text("Note: any changes to bride's name must be applied later.").italic()
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -47,7 +48,7 @@ struct MemberMarriesVerificationView: View {
     private var applyButton: some View {
         Button(action: {
             NSLog("MMVV Apply")
-            // TODO
+            applyChanges()
             accumulator.phase = .reset
         }) {
             Text("Apply").font(.body)
@@ -62,6 +63,50 @@ struct MemberMarriesVerificationView: View {
             
         }) {
             Text("Cancel").font(.body)
+        }
+    }
+    
+    private func applyChanges() {
+        var groom = document.member(byId: accumulator.groomId)
+        var groomsOldHousehold = document.household(byId: groom.household)
+        var bride = document.member(byId: accumulator.brideId)
+        var bridesOldHousehold = document.household(byId: bride.household)
+        var newHousehold = NormalizedHousehold()
+        newHousehold.head = accumulator.groomId
+        newHousehold.spouse = accumulator.brideId
+        newHousehold.others = accumulator.combinedDependents
+        let groomsAddress = document.household(byId: groom.household).address
+        let bridesAddress = document.household(byId: bride.household).address
+        newHousehold.address = accumulator.useGroomsAddress ? groomsAddress : bridesAddress
+        document.add(household: newHousehold)
+        groom.household = newHousehold.id
+        groom.maritalStatus = .MARRIED
+        groom.spouse = bride.fullName()
+        groom.dateOfMarriage = accumulator.date
+        document.update(member: groom)
+        bride.household = newHousehold.id
+        bride.maritalStatus = .MARRIED
+        bride.spouse = groom.fullName()
+        bride.dateOfMarriage = accumulator.date
+        document.update(member: bride)
+        accumulator.combinedDependents.forEach { otherId in
+            var other = document.member(byId: otherId)
+            other.household = newHousehold.id
+            document.update(member: other)
+        }
+        if accumulator.groomId == groomsOldHousehold.head {
+            document.remove(household: groomsOldHousehold)
+        } else {
+            let others = groomsOldHousehold.others
+            groomsOldHousehold.others = others.filter { $0 != accumulator.groomId }
+            document.update(household: groomsOldHousehold)
+        }
+        if accumulator.brideId == bridesOldHousehold.head {
+            document.remove(household: bridesOldHousehold)
+        } else {
+            let others = bridesOldHousehold.others
+            bridesOldHousehold.others = others.filter { $0 != accumulator.brideId }
+            document.update(household: bridesOldHousehold)
         }
     }
 }

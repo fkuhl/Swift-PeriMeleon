@@ -198,6 +198,8 @@
 		27D7D80D25570D1000A983AA /* BirthdaysEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */; };
 		27D7D80E25570D1000A983AA /* BirthdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80B25570D1000A983AA /* BirthdaysView.swift */; };
 		27D9767425940EAF00E12893 /* PMDataTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 27D9767325940EAF00E12893 /* PMDataTypes */; };
+		27DB6A4526E14FCF00EC227F /* MemberMarriesProblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DB6A4426E14FCF00EC227F /* MemberMarriesProblemView.swift */; };
+		27DB6A4626E14FCF00EC227F /* MemberMarriesProblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DB6A4426E14FCF00EC227F /* MemberMarriesProblemView.swift */; };
 		27EB130A254A0769008E8A8B /* PhonelistEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1309254A0769008E8A8B /* PhonelistEntryView.swift */; };
 		27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1319254A3B9C008E8A8B /* PhonelistResultsView.swift */; };
 		27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD5AE0254DDC4F0086F120 /* IntegerTextField.swift */; };
@@ -354,6 +356,7 @@
 		27D7D80925570D1000A983AA /* BirthdaysResultsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdaysResultsView.swift; sourceTree = "<group>"; };
 		27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdaysEntryView.swift; sourceTree = "<group>"; };
 		27D7D80B25570D1000A983AA /* BirthdaysView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthdaysView.swift; sourceTree = "<group>"; };
+		27DB6A4426E14FCF00EC227F /* MemberMarriesProblemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberMarriesProblemView.swift; sourceTree = "<group>"; };
 		27EB1309254A0769008E8A8B /* PhonelistEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonelistEntryView.swift; sourceTree = "<group>"; };
 		27EB1319254A3B9C008E8A8B /* PhonelistResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonelistResultsView.swift; sourceTree = "<group>"; };
 		27FD5AE0254DDC4F0086F120 /* IntegerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerTextField.swift; sourceTree = "<group>"; };
@@ -594,6 +597,7 @@
 				27ABB0B826DECAE500AA0288 /* MemberMarriesMemberAccumulator.swift */,
 				27ABB0BB26DECBA300AA0288 /* MemberMarriesEntryView.swift */,
 				27ABB0BE26DECC5700AA0288 /* MemberMarriesVerificationView.swift */,
+				27DB6A4426E14FCF00EC227F /* MemberMarriesProblemView.swift */,
 			);
 			name = "Member Marries Member";
 			sourceTree = "<group>";
@@ -1063,6 +1067,7 @@
 				277C953F2544B4870032638A /* ShareSheet.swift in Sources */,
 				27C72EAC26B1A5B200468A67 /* NewAdditionAccumulator.swift in Sources */,
 				27B20D852529106500C80696 /* HouseholdView.swift in Sources */,
+				27DB6A4526E14FCF00EC227F /* MemberMarriesProblemView.swift in Sources */,
 				27C55E572538E7A000923EE8 /* DataCheckReportView.swift in Sources */,
 				27D7D7F32555D2B200A983AA /* PhonelistView.swift in Sources */,
 				27B20DAA2529113B00C80696 /* ServiceEditView.swift in Sources */,
@@ -1125,6 +1130,7 @@
 				27C55E1A2538CE0100923EE8 /* MembersByStatusView.swift in Sources */,
 				27BC8CC0253B6B7700520F54 /* NormalizedHousehold.swift in Sources */,
 				27ABB0C026DECC5700AA0288 /* MemberMarriesVerificationView.swift in Sources */,
+				27DB6A4626E14FCF00EC227F /* MemberMarriesProblemView.swift in Sources */,
 				27B20DA52529113B00C80696 /* MembersView.swift in Sources */,
 				27B20DAD2529113B00C80696 /* MemberEditView.swift in Sources */,
 				27ABB0BD26DECBA300AA0288 /* MemberMarriesEntryView.swift in Sources */,
