@@ -12,7 +12,7 @@ import PMDataTypes
 
 struct HouseholdsView: View, FilterUpdater {
     @EnvironmentObject var document: PeriMeleonDocument
-    @State private var allOrActive = 0
+    @State private var showingActive = true
     @State private var households =
         SortedArray<NormalizedHousehold>(areInIncreasingOrder: compareHouseholds)
     @State private var filterText: String = ""
@@ -21,14 +21,14 @@ struct HouseholdsView: View, FilterUpdater {
         NavigationView {
             VStack {
                 VStack {
-                    Picker(selection: $allOrActive,
+                    Picker(selection: $showingActive,
                            label: Text("What's in a name?"),
                            content: {
-                            Text("Active Households").tag(0)
-                            Text("All Households").tag(1)
+                            Text("Active Households").tag(true)
+                            Text("All Households").tag(false)
                            })
                         .pickerStyle(SegmentedPickerStyle())
-                        .onChange(of: allOrActive) { _ in updateUI(filterText: filterText) }
+                        .onChange(of: showingActive) { _ in updateUI(filterText: filterText) }
                     SearchField(filterText: $filterText,
                                 uiUpdater: self,
                                 sortMessage: "filter by name")
@@ -42,7 +42,7 @@ struct HouseholdsView: View, FilterUpdater {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar(content: {
                         ToolbarItem(placement: .principal, content: {
-                            Text(allOrActive == 0 ? "Active Households" : "All Households")
+                            Text(showingActive ? "Active Households" : "All Households")
                         })})
         }
         .environmentObject(document)
@@ -53,9 +53,7 @@ struct HouseholdsView: View, FilterUpdater {
     // MARK: - FilterUpdater
 
     func updateUI(filterText: String) {
-        print("households:")
-        for h in document.households { print(document.nameOf(household: h))}
-        let candidates = allOrActive == 0
+        let candidates = showingActive
             ? document.activeHouseholds
             : document.households
         if filterText.isEmpty {
