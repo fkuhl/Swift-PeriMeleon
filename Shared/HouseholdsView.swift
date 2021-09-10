@@ -47,11 +47,14 @@ struct HouseholdsView: View, FilterUpdater {
         }
         .environmentObject(document)
         .onAppear() { updateUI(filterText: "") }
+        .onChange(of: document.changeCount) { _ in updateUI(filterText: "") }
     }
     
     // MARK: - FilterUpdater
 
     func updateUI(filterText: String) {
+        print("households:")
+        for h in document.households { print(document.nameOf(household: h))}
         let candidates = allOrActive == 0
             ? document.activeHouseholds
             : document.households

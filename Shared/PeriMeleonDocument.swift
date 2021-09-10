@@ -400,7 +400,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     }
     
     func nameOf(household: NormalizedHousehold) -> String {
-        member(byId: household.head).fullName()
+        nameOf(member: household.head)
     }
     
     func nameOf(household: ID) -> String {
@@ -490,12 +490,15 @@ class PeriMeleonDocument: ReferenceFileDocument {
     }
 
     func add(household: NormalizedHousehold) {
-        householdsById[household.id] = household
-        households.insert(household)
+        //ensure name is stored to keep households sorted (this is fragile!)
+        var toBeInserted = household
+        toBeInserted.name = nameOf(household: toBeInserted)
+        householdsById[toBeInserted.id] = toBeInserted
+        households.insert(toBeInserted)
         NSLog("households added to, undo is \(String(describing: undoManager))")
         changeCount += 1
         undoManager?.registerUndo(withTarget: self) { doc in
-            doc.remove(household: household)
+            doc.remove(household: toBeInserted)
         }
     }
     

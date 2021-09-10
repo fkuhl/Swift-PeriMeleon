@@ -19,7 +19,7 @@ struct NormalizedHousehold: Identifiable {
     /** This field supports storing NormalizedHouseholds in SortedArray.
      It is assumed that this field will be filled in anytime a NormalizedHousehold is created,
      and thereafter not changed.
-     I suppose there is a potential bug if the head of a household every changes his name
+     I suppose there is a potential bug if the head of a household ever changes his name
  */
     var name: String? = nil
     var spouse: ID? = nil
@@ -43,5 +43,6 @@ struct NormalizedHousehold: Identifiable {
         self.spouse = spouse
         self.others = others
         self.address = address
+        self.name = id
     }
 }
