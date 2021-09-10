@@ -20,12 +20,12 @@ struct MemberMarriesEntryView: View {
                 ChooseMemberView(caption: "Groom:",
                                     memberId: $accumulator.groomId,
                                     filter: { member in
-                                        member.isActive() && member.sex == .MALE && member.maritalStatus == .SINGLE
+                                        member.isActive() && member.sex == .MALE && member.maritalStatus != .MARRIED
                                     })
                 ChooseMemberView(caption: "Bride:",
                                     memberId: $accumulator.brideId,
                                     filter: { member in
-                                        member.isActive() && member.sex == .FEMALE && member.maritalStatus == .SINGLE
+                                        member.isActive() && member.sex == .FEMALE && member.maritalStatus != .MARRIED
                                     })
                 DateSelectionView(caption: "Date of wedding:", date: $accumulator.date)
                 HStack {
@@ -72,11 +72,11 @@ struct MemberMarriesEntryView: View {
         let groom = document.member(byId: accumulator.groomId)
         let groomsHousehold = document.household(byId: groom.household)
         ///Groom must be single. If head of household, household cannot have spouse. (Check inconsistent marital status.)
-        groomProblem = groom.maritalStatus != .SINGLE || (accumulator.groomId == groomsHousehold.head && groomsHousehold.spouse != nil)
+        groomProblem = groom.maritalStatus == .MARRIED || (accumulator.groomId == groomsHousehold.head && groomsHousehold.spouse != nil)
         let bride = document.member(byId: accumulator.brideId)
         let bridesHousehold = document.household(byId: bride.household)
         /// Bride must be single, and cannot be spouse. (Not covered: is she someone else's spouse?)
-        brideProblem = bride.maritalStatus != .SINGLE || accumulator.brideId == bridesHousehold.spouse
+        brideProblem = bride.maritalStatus == .MARRIED || accumulator.brideId == bridesHousehold.spouse
         if groomProblem || brideProblem {
             accumulator.phase = .problem(groom: groomProblem, bride: brideProblem)
             return
