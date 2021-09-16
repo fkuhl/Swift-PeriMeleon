@@ -30,7 +30,9 @@ struct AddressEditView: View {
                 }
             }
         }
+        #if targetEnvironment(macCatalyst)
         .navigationBarBackButtonHidden(true)
+        #endif
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 saveButton

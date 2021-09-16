@@ -127,9 +127,14 @@ struct CoreMemberView: View {
                         TextAttributeView(caption: "date last changed:", text: dateForDisplay(document.member(byId: memberId).dateLastChanged))
                     }
                 }
-            }.listStyle(GroupedListStyle())
+            }
+            #if targetEnvironment(macCatalyst)
+            .listStyle(GroupedListStyle())
+            #endif
         }
+        #if targetEnvironment(macCatalyst)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(document.member(byId: memberId).fullName())

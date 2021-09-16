@@ -11,11 +11,28 @@ import PMDataTypes
 
 struct TransactionsEditView: View {
     @Binding var member: Member
+    @State private var showingDeleteAlert = false
+    @State private var rowToDelete: Int = 0
     
     var body: some View {
         ForEach(0..<member.transactions.count, id: \.self) {
-            TransactionEditRowView(member: self.$member, index: $0)
+            TransactionEditRowView(member: self.$member,
+                                   index: $0,
+                                   showingDeleteAlert: $showingDeleteAlert,
+                                   rowToDelete: $rowToDelete)
         }
+        .alert(isPresented: $showingDeleteAlert) {
+            Alert(title: Text("Delete this transaction?"),
+                  message: Text("There is no undo."),
+                  primaryButton: .default(Text("Cancel")),
+                  secondaryButton: .destructive(Text("Delete Transaction"), action: deleteTransaction))
+        }
+    }
+    
+    private func deleteTransaction() {
+        var transactions = member.transactions
+        transactions.remove(at: rowToDelete)
+        //member.transactions = transactions
     }
 }
 
@@ -38,9 +55,17 @@ fileprivate func appendEmptyTransaction(to member: Binding<Member>) {
 struct TransactionEditRowView: View {
     @Binding var member: Member
     var index: Int
+    @Binding var showingDeleteAlert: Bool
+    @Binding var rowToDelete: Int
+    @State private var showingEdit = false
 
     var body: some View {
-        NavigationLink(destination: TransactionEditView(member: $member, index: index)) {
+        NavigationLink(destination: TransactionEditView(member: $member,
+                                                        index: index,
+                                                        showingDeleteAlert: $showingDeleteAlert,
+                                                        rowToDelete: $rowToDelete,
+                                                       showingEdit: $showingEdit),
+                       isActive: $showingEdit) {
             Text("\(dateForDisplay(member.transactions[index].date))  \(member.transactions[index].type.rawValue)")
                 .font(.body)
         }
@@ -50,6 +75,9 @@ struct TransactionEditRowView: View {
 struct TransactionEditView: View {
     @Binding var member: Member
     var index: Int
+    @Binding var showingDeleteAlert: Bool
+    @Binding var rowToDelete: Int
+    @Binding var showingEdit: Bool
 
     var body: some View {
         Form {
@@ -61,11 +89,30 @@ struct TransactionEditView: View {
                 EditOptionalTextView(caption: "comment:", text: $member.transactions[index].comment)
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(member.fullName())
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: {
+                    rowToDelete = index
+                    showingDeleteAlert = true
+                    showingEdit = false
+                }) {
+                    Image(systemName: "trash")
+                }.padding(.leading)
+            }
+        }
     }
 }
 
-//struct TransactionEditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TransactionEditView()
-//    }
-//}
+struct TransactionEditView_Previews: PreviewProvider {
+    static var previews: some View {
+        TransactionEditView(member: .constant(mockMember1),
+                            index: 0,
+                            showingDeleteAlert: .constant(false),
+                            rowToDelete: .constant(0),
+                            showingEdit: .constant(false))
+            .previewDevice(PreviewDevice(rawValue: "iPad Pro (9.7-inch)"))
+    }
+}

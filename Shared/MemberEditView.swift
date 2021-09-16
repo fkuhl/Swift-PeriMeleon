@@ -80,7 +80,9 @@ struct MemberEditView: View {
                 EditOptionalDateView(caption: "date last changed:", date: $member.dateLastChanged)
             }
         }
+        #if targetEnvironment(macCatalyst)
         .navigationBarTitleDisplayMode(.inline)
+        #endif
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text(member.fullName())
