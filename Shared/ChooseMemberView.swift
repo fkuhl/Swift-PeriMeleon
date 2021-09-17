@@ -18,7 +18,8 @@ struct ChooseMemberView: View {
     
     var body: some View {
         NavigationLink(destination: ChooseMemberListView(memberId: $memberId,
-                                                         filter: filter)) {
+                                                         filter: filter)
+                        .environmentObject(document)) {
             HStack(alignment: .lastTextBaseline) {
                 Text(caption)
                     .frame(width: captionWidth, alignment: .trailing)

@@ -20,7 +20,8 @@ struct HouseholdRowView: View {
                                                     householdId: householdId),
                                                   otherFactory: OtherFactory(
                                                     document: document,
-                                                    householdId: householdId))) {
+                                                    householdId: householdId))
+                        .environmentObject(document)) {
             Text(document.nameOf(household: householdId)).font(.body)
         }
     }

@@ -67,6 +67,9 @@ class PeriMeleonDocument: ReferenceFileDocument {
     @Published var state: State = .normal
     ///A non-private published var to ensure all Views see that the data changed.
     @Published var changeCount: UInt64 = 0
+    
+    ///Set in roundabout way in ContentView, because on Mac the URL isn't set properly.
+    @Published var fileName = "xxxxxxxxxxxxxxxxxxxxxxxx"
 
     /**Holds data initially read from file, till it can be decrypted. Otherwise the document's data are in
      householdsById and membersById, with snapshots as copies of them (as Model structs).
@@ -89,10 +92,12 @@ class PeriMeleonDocument: ReferenceFileDocument {
         //We have a new document.
         NSLog("PeriMeleonDocument init no data")
         state = .newFile
+        fileName = "[new]"
     }
     
     ///For mocking only
     init(model: Model) {
+        fileName = "[mocked]"
         householdsById = model.h
         membersById = model.m
         members = SortedArray<Member>(unsorted: membersById.values,
@@ -108,14 +113,15 @@ class PeriMeleonDocument: ReferenceFileDocument {
         }
         if data.count == 0 {
             //We have a new document.
-            NSLog("PeriMeleonDocument init data empty")
+            NSLog("PeriMeleonDocument init data empty, file: \(fileName)")
             state = .newFile
+            //fileName = configuration.fileURL?.lastPathComponent
             self.householdsById = [ID : NormalizedHousehold]()
             self.membersById = [ID : Member]()
             //Initializing the DB is deferred: see addPasswordToNewFile
             return
         }
-        NSLog("PeriMeleonDocument init \(data.count) bytes")
+        NSLog("PeriMeleonDocument init \(data.count) bytes from file \(fileName)")
         initialData = data
         do {
             if let decryptionKey: SymmetricKey = try GenericPasswordStore().readKey(account: passwordAccount) {
@@ -135,6 +141,7 @@ class PeriMeleonDocument: ReferenceFileDocument {
     init(data: Data,
          normalCompletion: @escaping (Model) -> Void,
          cannotDecodeCompletion: @escaping ((String,String,String)) -> Void) {
+        fileName = ""
         decode(data,
                normalCompletion: normalCompletion,
                cannotDecodeCompletion: cannotDecodeCompletion)

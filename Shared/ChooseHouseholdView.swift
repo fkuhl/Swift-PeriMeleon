@@ -16,7 +16,7 @@ struct ChooseHouseholdView: View {
     @Binding var householdId: ID
     
     var body: some View {
-        NavigationLink(destination: ChooseHouseholdListView(householdId: $householdId)) {
+        NavigationLink(destination: ChooseHouseholdListView(householdId: $householdId).environmentObject(document)) {
             HStack(alignment: .lastTextBaseline) {
                 Text(caption)
                     .frame(width: captionWidth, alignment: .trailing)

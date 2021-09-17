@@ -14,10 +14,10 @@ struct MemberRowView: View {
     var memberId: ID
 
     var body: some View {
-        NavigationLink(destination: MemberView(memberId: memberId)) {
+        NavigationLink(destination: MemberView(memberId: memberId)
+                        .environmentObject(document)) {
             Text(document.nameOf(member: memberId))
                 .font(.body)
         }
-        //.debugPrint("MRV \(member.fullName())")
     }
 }

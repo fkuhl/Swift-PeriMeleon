@@ -41,7 +41,7 @@ struct MemberMarriesEntryView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
+        //.navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("Member Marries Member - Enter Data")

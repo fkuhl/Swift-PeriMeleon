@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var document: PeriMeleonDocument
     @Environment(\.undoManager) var undoManager
+    var fileName: String
 
     var body: some View {
         switch (document.state) {
@@ -17,7 +18,9 @@ struct ContentView: View {
             MainView()
                 .onAppear() {
                     document.setUndoManager(undoManager: undoManager)
+                    document.fileName = fileName
                 }
+                .environmentObject(document)
         case .newFile:
             PasswordView(label: "Please provide password for new document:",
                          buttonText: "Open New Document")

@@ -30,7 +30,7 @@ struct ProfessionView: View {
                     }
             }
         }
-        .debugPrint("FDV phase \(accumulator.phase)")
+        .debugPrint("PrV phase \(accumulator.phase)")
         //We're not using navigation in subsequent views, so no nav buttons
         //Not altogether clear I need to be doing this
         .navigationBarBackButtonHidden(true)    }

@@ -14,7 +14,7 @@ struct QueriesView: View {
     var body: some View {
         DisclosureGroup(content: {
             VStack(alignment: .leading) {
-                NavigationLink(destination: PhonelistView()) {
+                NavigationLink(destination: PhonelistView().environmentObject(document)) {
                     LinkText(label: "Phone list")
                 }
                 Caption(text: "List of contact info for active members, "
@@ -26,36 +26,36 @@ struct QueriesView: View {
         })
         DisclosureGroup(content: {
             VStack(alignment: .leading) {
-                NavigationLink(destination: MembersByStatusView()) {
+                NavigationLink(destination: MembersByStatusView().environmentObject(document)) {
                     LinkText(label: "Members by status")
                 }
                 Caption(text: "Query members by status and residency.")
             }
             VStack(alignment: .leading) {
-                NavigationLink(destination: MembersByAgeView()) {
+                NavigationLink(destination: MembersByAgeView().environmentObject(document)) {
                     LinkText(label: "Members by age")
                 }
                 Caption(text: "Query members by age as of a given date.")
-            }.padding(.top, 20)
+            }//.padding(.top, 20)
             VStack(alignment: .leading) {
-                NavigationLink(destination: BirthdaysView()) {
+                NavigationLink(destination: BirthdaysView().environmentObject(document)) {
                     LinkText(label: "Birthdays")
                 }
                 Caption(text: "Generate list of active embers with birthdays in a given month.")
-            }.padding(.top, 20)
+            }//.padding(.top, 20)
             VStack(alignment: .leading) {
-                NavigationLink(destination: BaptismsView()) {
+                NavigationLink(destination: BaptismsView().environmentObject(document)) {
                     LinkText(label: "Baptisms")
                 }
                 Caption(text: "List all baptisms recorded within a given range of dates.")
-            }.padding(.top, 20)
+            }//.padding(.top, 20)
             VStack(alignment: .leading) {
-                NavigationLink(destination: TransactionsQuery()) {
+                NavigationLink(destination: TransactionsQuery().environmentObject(document)) {
                     LinkText(label: "Transactions in date range")
                 }
                 Caption(text: "For annual statistical report: list all transactions that "
                             + "occurred in a given range of dates.")
-            }.padding(.top, 20)
+            }//.padding(.top, 20)
         }, label: {
             Text("Members")
         })

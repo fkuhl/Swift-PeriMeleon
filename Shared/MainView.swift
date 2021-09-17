@@ -12,21 +12,12 @@ struct MainView: View {
     @State private var selection = 0
     
     var body: some View {
-        NavigationView {
-            Sidebar().frame(width: 320)
-                .toolbar(content: {
-                            ToolbarItem(placement: .principal, content: {
-                                Text("PeriMeleōn").font(.largeTitle)
-                            })})
-
-//            Color(.red)
-            Image("sinaiticus")
-                .resizable(resizingMode: .tile)
-                //.aspectRatio(contentMode: .fill)
-                .navigationBarTitle("")
-                .navigationBarHidden(true)
-                //.frame(maxWidth: 500)
-        }
-        .environmentObject(document)
+        Sidebar().frame(width: 320)
+            .toolbar(content: {
+                ToolbarItem(placement: .principal, content: {
+                    Text(document.fileName)//.font(.largeTitle)
+                })})
+        Image("sinaiticus")
+            .resizable(resizingMode: .tile)
     }
 }

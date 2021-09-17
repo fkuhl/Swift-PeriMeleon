@@ -24,7 +24,8 @@ struct EditOptionalParentView: View {
         
         return NavigationLink(destination: ChooseParentListView(parentId: proxyBinding,
                                                                 sex: sex,
-                                                                title: title)) {
+                                                                title: title)
+                                .environmentObject(document)) {
             HStack(alignment: .lastTextBaseline) {
                 Text(caption)
                     .frame(width: captionWidth, alignment: .trailing)

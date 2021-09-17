@@ -28,7 +28,7 @@ struct WorkflowsView: View {
     var body: some View {
         DisclosureGroup(content: {
             VStack(alignment: .leading) {
-                NavigationLink(destination: FamilyJoinView(linkSelection: $linkSelection),
+                NavigationLink(destination: FamilyJoinView(linkSelection: $linkSelection).environmentObject(document),
                                tag: .familyJoins,
                                selection: $linkSelection) {
                     LinkButton(linkSelection: $linkSelection,
@@ -41,7 +41,7 @@ struct WorkflowsView: View {
                         + "adding spouse and dependents.")
             }
             VStack(alignment: .leading) {
-                NavigationLink(destination: FamilyDismissedView(linkSelection: $linkSelection),
+                NavigationLink(destination: FamilyDismissedView(linkSelection: $linkSelection).environmentObject(document),
                                tag: .familyDismissed,
                                selection: $linkSelection) {
                     LinkButton(linkSelection: $linkSelection,
@@ -53,7 +53,7 @@ struct WorkflowsView: View {
                         + "and all members of the family are changed.")
             }
             VStack(alignment: .leading) {
-                NavigationLink(destination: MemberMarriesMember(linkSelection: $linkSelection),
+                NavigationLink(destination: MemberMarriesMember(linkSelection: $linkSelection).environmentObject(document),
                                tag: .memberMarriesMember,
                                selection: $linkSelection) {
                     LinkButton(linkSelection: $linkSelection,
@@ -67,7 +67,7 @@ struct WorkflowsView: View {
         })
         DisclosureGroup(content: {
             VStack(alignment: .leading) {
-                NavigationLink(destination: NewAddition(linkSelection: $linkSelection),
+                NavigationLink(destination: NewAddition(linkSelection: $linkSelection).environmentObject(document),
                                tag: .newAddition,
                                selection: $linkSelection) {
                     LinkButton(linkSelection: $linkSelection, link: .newAddition, label: "New addition to household")
@@ -75,7 +75,7 @@ struct WorkflowsView: View {
                 Caption(text: "Household welcomes new member.")
             }
             VStack(alignment: .leading) {
-                NavigationLink(destination: ProfessionView(linkSelection: $linkSelection),
+                NavigationLink(destination: ProfessionView(linkSelection: $linkSelection).environmentObject(document),
                                tag: .profession,
                                selection: $linkSelection) {
                     LinkButton(linkSelection: $linkSelection, link: .profession, label: "Profession of faith")
@@ -83,7 +83,7 @@ struct WorkflowsView: View {
                 Caption(text: "Non-communing member makes profession and becomes communing.")
             }.padding(.top, 20)
             VStack(alignment: .leading) {
-                NavigationLink(destination: MoveToHouseholdView(),
+                NavigationLink(destination: MoveToHouseholdView().environmentObject(document),
                                tag: .moveToHousehold,
                                selection: $linkSelection) {
                     LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Member moves to different household")
@@ -105,23 +105,23 @@ struct WorkflowsView: View {
                             + "and last transaction are consistent.")
             }
             VStack(alignment: .leading) {
-                NavigationLink(destination: InformationView(),
+                NavigationLink(destination: InformationView().environmentObject(document),
                                tag: .information,
                                selection: $linkSelection) {
                     LinkButton(linkSelection: $linkSelection, link: .information, label: "Information")
                     
                 }
                 Caption(text: "Statistics on the data; app build information.")
-            }.padding(.top, 20)
+            }//.padding(.top, 20)
             VStack(alignment: .leading) {
-                NavigationLink(destination: RemoveMemberView(),
+                NavigationLink(destination: RemoveMemberView().environmentObject(document),
                                tag: .removeMember,
                                selection: $linkSelection) {
                     LinkButton(linkSelection: $linkSelection, link: .removeMember, label: "Remove member")
                     
                 }
                 Caption(text: "Remove member from data. This is ONLY for maintence, and never for normal use.")
-            }.padding(.top, 20)
+            }//.padding(.top, 20)
         }, label: {
             Text("Miscellaneous")
         })

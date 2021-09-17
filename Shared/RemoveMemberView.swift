@@ -32,7 +32,7 @@ struct RemoveMemberView: View {
                               readyForRemovals: $readyForRemovals,
                               suspects: $suspects,
                               removalState: $removalState,
-                              showingSheet: $showingSheet)
+                              showingSheet: $showingSheet).environmentObject(document)
         }
     }
     

@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct Sidebar: View {
+    @EnvironmentObject var document: PeriMeleonDocument
     @State private var linkSelection: WorkflowLink? = nil
 
     var body: some View {
         List {
-            NavigationLink(destination: MembersView()) {
+            NavigationLink(destination: MembersView().environmentObject(document)) {
                 Label("Members", systemImage: "person.2")
             }
-            NavigationLink(destination: HouseholdsView()) {
+            NavigationLink(destination: HouseholdsView().environmentObject(document)) {
                 Label("Households", systemImage: "house")
             }
             DisclosureGroup(content: {

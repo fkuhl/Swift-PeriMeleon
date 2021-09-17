@@ -12,8 +12,9 @@ struct PeriMeleonApp: App {
     var body: some Scene {
         DocumentGroup(newDocument: PeriMeleonDocument.init) { file in
             NavigationView {
-                ContentView(document: file.document)
-            }
+                ContentView(document: file.document,
+                            fileName: file.fileURL?.lastPathComponent ?? "[none]")
+            }.environmentObject(file.document)
         }
     }
 }

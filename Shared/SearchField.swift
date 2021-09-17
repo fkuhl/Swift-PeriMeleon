@@ -15,7 +15,8 @@ struct SearchField: View {
     
     var body: some View {
         HStack {
-            TextField("\(Image(systemName: "magnifyingglass")) \(sortMessage)",
+            Image(systemName: "magnifyingglass")
+            TextField(" \(sortMessage)",
                       text: $filterText,
                       onCommit: {
                         uiUpdater.updateUI(filterText: filterText)
@@ -29,7 +30,7 @@ struct SearchField: View {
                     Label("", systemImage: "xmark.circle")
                 }
             }
-        }
+        }.padding(.init(top: 0.0, leading: 20.0, bottom: 0.0, trailing: 20.0))
     }
     
     private func clearFilter() {
@@ -46,7 +47,6 @@ struct SearchField_Previews: PreviewProvider {
                     uiUpdater: PreviewUpdater(),
                     sortMessage: "some sort")
             .padding()
-            .background(Color(.systemBackground))
             .makeForPreviewProvider()
             .previewLayout(.sizeThatFits)
     }

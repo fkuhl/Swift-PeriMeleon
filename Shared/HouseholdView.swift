@@ -43,7 +43,7 @@ struct HouseholdView: View {
                     }
                 } else {
                     NavigationLink(destination: addressDestination) {
-                        AddressLinkView(householdId: householdId)
+                        AddressLinkView(householdId: householdId).environmentObject(document)
                     }
                 }
             }
@@ -57,7 +57,7 @@ struct HouseholdView: View {
     
     private var headDestination: some View {
         MemberView(
-            memberId: document.household(byId: householdId).head)
+            memberId: document.household(byId: householdId).head).environmentObject(document)
     }
     
     private var headLink: some View {
@@ -66,7 +66,7 @@ struct HouseholdView: View {
     }
     
     private var spouseDestination: some View {
-        MemberView(memberId: document.household(byId: householdId).spouse!)
+        MemberView(memberId: document.household(byId: householdId).spouse!).environmentObject(document)
     }
     
     private var spouseLink: some View {
@@ -84,12 +84,12 @@ struct HouseholdView: View {
     
     private var newAddressDestination: some View {
         AddressEditView(householdId: householdId,
-                        address: Address())
+                        address: Address()).environmentObject(document)
     }
     
     private var addressDestination: some View {
         AddressEditView(householdId: householdId,
-                        address: document.household(byId: householdId).address!)
+                        address: document.household(byId: householdId).address!).environmentObject(document)
     }
 }
 
@@ -167,11 +167,11 @@ fileprivate struct OtherRowView: View {
     
     var body: some View {
         NavigationLink(destination: MemberView(
-                        memberId: memberId)) {
+                        memberId: memberId).environmentObject(document)) {
             MemberLinkView(captionWidth: defaultCaptionWidth,
                            caption: "",
                            name: document.nameOf(member: memberId))
-        }//.debugPrint("ORV for \(document.nameOf(member: memberId))")
+        }
     }
 }
 

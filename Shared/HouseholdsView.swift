@@ -18,34 +18,31 @@ struct HouseholdsView: View, FilterUpdater {
     @State private var filterText: String = ""
 
     var body: some View {
-        NavigationView {
+        VStack {
             VStack {
-                VStack {
-                    Picker(selection: $showingActive,
-                           label: Text("What's in a name?"),
-                           content: {
-                            Text("Active Households").tag(true)
-                            Text("All Households").tag(false)
-                           })
-                        .pickerStyle(SegmentedPickerStyle())
-                        .onChange(of: showingActive) { _ in updateUI(filterText: filterText) }
-                    SearchField(filterText: $filterText,
-                                uiUpdater: self,
-                                sortMessage: "filter by name")
-                }.padding()
-                List {
-                    ForEach(households) {
-                        HouseholdRowView(householdId: $0.id)
-                    }
+                Picker(selection: $showingActive,
+                       label: Text("What's in a name?"),
+                       content: {
+                    Text("Active Households").tag(true)
+                    Text("All Households").tag(false)
+                })
+                    .pickerStyle(SegmentedPickerStyle())
+                    .onChange(of: showingActive) { _ in updateUI(filterText: filterText) }
+                SearchField(filterText: $filterText,
+                            uiUpdater: self,
+                            sortMessage: "filter by name")
+            }.padding()
+            List {
+                ForEach(households) {
+                    HouseholdRowView(householdId: $0.id)
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar(content: {
-                        ToolbarItem(placement: .principal, content: {
-                            Text(showingActive ? "Active Households" : "All Households")
-                        })})
         }
-        .environmentObject(document)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(content: {
+            ToolbarItem(placement: .principal, content: {
+                Text(showingActive ? "Active Households" : "All Households")
+            })})
         .onAppear() { updateUI(filterText: "") }
         .onChange(of: document.changeCount) { _ in updateUI(filterText: "") }
     }
