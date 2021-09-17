@@ -11,28 +11,23 @@ import PMDataTypes
 
 struct TransactionsEditView: View {
     @Binding var member: Member
-    @State private var showingDeleteAlert = false
-    @State private var rowToDelete: Int = 0
     
     var body: some View {
-        ForEach(0..<member.transactions.count, id: \.self) {
-            TransactionEditRowView(member: self.$member,
-                                   index: $0,
-                                   showingDeleteAlert: $showingDeleteAlert,
-                                   rowToDelete: $rowToDelete)
+        ForEach(0..<member.transactions.count, id: \.self) { index in
+            ///NB:For delete not to cause a crash, you don't want to define a view for each row!
+            NavigationLink(destination: TransactionEditView(member: $member,
+                                                            index: index)) {
+                Text("\(dateForDisplay(member.transactions[index].date))  \(member.transactions[index].type.rawValue)")
+                    .font(.body)
+            }
         }
-        .alert(isPresented: $showingDeleteAlert) {
-            Alert(title: Text("Delete this transaction?"),
-                  message: Text("There is no undo."),
-                  primaryButton: .default(Text("Cancel")),
-                  secondaryButton: .destructive(Text("Delete Transaction"), action: deleteTransaction))
-        }
+        .onDelete(perform: delete)
     }
     
-    private func deleteTransaction() {
+    private func delete(at offsets: IndexSet) {
         var transactions = member.transactions
-        transactions.remove(at: rowToDelete)
-        //member.transactions = transactions
+        transactions.remove(atOffsets: offsets)
+        member.transactions = transactions
     }
 }
 
@@ -52,32 +47,9 @@ fileprivate func appendEmptyTransaction(to member: Binding<Member>) {
     member.transactions.wrappedValue.append(PMDataTypes.Transaction())
 }
 
-struct TransactionEditRowView: View {
-    @Binding var member: Member
-    var index: Int
-    @Binding var showingDeleteAlert: Bool
-    @Binding var rowToDelete: Int
-    @State private var showingEdit = false
-
-    var body: some View {
-        NavigationLink(destination: TransactionEditView(member: $member,
-                                                        index: index,
-                                                        showingDeleteAlert: $showingDeleteAlert,
-                                                        rowToDelete: $rowToDelete,
-                                                       showingEdit: $showingEdit),
-                       isActive: $showingEdit) {
-            Text("\(dateForDisplay(member.transactions[index].date))  \(member.transactions[index].type.rawValue)")
-                .font(.body)
-        }
-    }
-}
-
 struct TransactionEditView: View {
     @Binding var member: Member
     var index: Int
-    @Binding var showingDeleteAlert: Bool
-    @Binding var rowToDelete: Int
-    @Binding var showingEdit: Bool
 
     var body: some View {
         Form {
@@ -93,15 +65,6 @@ struct TransactionEditView: View {
             ToolbarItem(placement: .principal) {
                 Text(member.fullName())
             }
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: {
-                    rowToDelete = index
-                    showingDeleteAlert = true
-                    showingEdit = false
-                }) {
-                    Image(systemName: "trash")
-                }.padding(.leading)
-            }
         }
     }
 }
@@ -109,10 +72,7 @@ struct TransactionEditView: View {
 struct TransactionEditView_Previews: PreviewProvider {
     static var previews: some View {
         TransactionEditView(member: .constant(mockMember1),
-                            index: 0,
-                            showingDeleteAlert: .constant(false),
-                            rowToDelete: .constant(0),
-                            showingEdit: .constant(false))
+                            index: 0)
             .previewDevice(PreviewDevice(rawValue: "iPad Pro (9.7-inch)"))
     }
 }

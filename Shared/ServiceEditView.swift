@@ -13,9 +13,19 @@ struct ServicesEditView: View {
     @Binding var member: Member
     
     var body: some View {
-        ForEach(0..<member.services.count, id: \.self) {
-            ServiceEditRowView(member: self.$member, index: $0)
+        ForEach(0..<member.services.count, id: \.self) { index in
+            NavigationLink(destination: ServiceEditView(member: $member, index: index)) {
+                Text("\(dateForDisplay(member.services[index].date))  \(member.services[index].type.rawValue)")
+                    .font(.body)
+            }
         }
+        .onDelete(perform: delete)
+    }
+    
+    private func delete(at offsets: IndexSet) {
+        var services = member.services
+        services.remove(atOffsets: offsets)
+        member.services = services
     }
 }
 
@@ -33,18 +43,6 @@ struct ServicesEditAddView: View {
 
 fileprivate func appendEmptyService(to member: Binding<Member>) {
     member.services.wrappedValue.append(PMDataTypes.Service())
-}
-
-struct ServiceEditRowView: View {
-    @Binding var member: Member
-    var index: Int
-
-    var body: some View {
-        NavigationLink(destination: ServiceEditView(member: $member, index: index)) {
-            Text("\(dateForDisplay(member.services[index].date))  \(member.services[index].type.rawValue)")
-                .font(.body)
-        }
-    }
 }
 
 struct ServiceEditView: View {
