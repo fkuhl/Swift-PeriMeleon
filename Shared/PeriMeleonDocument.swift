@@ -152,10 +152,13 @@ class PeriMeleonDocument: ReferenceFileDocument {
 
     func snapshot(contentType: UTType) throws -> Model {
         NSLog("snapshot \(householdsById.count) households, \(membersById.count) members")
-        return Model(h: householdsById, m: membersById, sh: households, sm: members)
+        let model = Model(h: householdsById, m: membersById, sh: households, sm: members)
+        NSLog("returning model")
+        return model
     }
     
     func fileWrapper(snapshot: Model, configuration: WriteConfiguration) throws -> FileWrapper {
+        NSLog("encrypting")
         let encrypted = encodeAndEncrypt(model: snapshot)
         NSLog("writing \(encrypted.count) bytes")
         return FileWrapper(regularFileWithContents: encrypted)
