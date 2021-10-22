@@ -13,25 +13,26 @@
 import UIKit
 import SwiftUI
 
-struct DocumentPicker: UIViewControllerRepresentable {
+struct DocumentExportPicker: UIViewControllerRepresentable {
     ///Why a Binding? because when SwiftUI creates this struct, the URL isn't known.
     ///Must be computed later.
     @Binding var fileURL: URL
     
-    func makeCoordinator() -> DocumentPickerCoordinator {
-        return DocumentPickerCoordinator(fileURL: fileURL)
+    func makeCoordinator() -> DocumentExportPickerCoordinator {
+        return DocumentExportPickerCoordinator(fileURL: fileURL)
     }
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentPicker>)
+    func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentExportPicker>)
         -> UIDocumentPickerViewController {
         let controller = UIDocumentPickerViewController(forExporting: [fileURL])
         return controller
     }
     
-    func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: UIViewControllerRepresentableContext<DocumentPicker>) {}
+    func updateUIViewController(_ uiViewController: UIDocumentPickerViewController,
+                context: UIViewControllerRepresentableContext<DocumentExportPicker>) {}
 }
 
-class DocumentPickerCoordinator: NSObject, UIDocumentPickerDelegate, UINavigationControllerDelegate {
+class DocumentExportPickerCoordinator: NSObject, UIDocumentPickerDelegate, UINavigationControllerDelegate {
     let fileURL: URL
     
     init(fileURL: URL) {

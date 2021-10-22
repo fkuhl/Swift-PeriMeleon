@@ -55,7 +55,7 @@ struct PhonelistResultsView: View {
             ShareSheet(activityItems: queryResults.toBeShared)
         }
         .sheet(isPresented: $showingDocumentPicker) {
-            DocumentPicker(fileURL: $temporaryURL)
+            DocumentExportPicker(fileURL: $temporaryURL)
         }
     }
     
