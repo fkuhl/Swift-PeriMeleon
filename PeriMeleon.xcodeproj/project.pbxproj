@@ -62,8 +62,6 @@
 		277C954B2544BED40032638A /* QueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95492544BED40032638A /* QueryResults.swift */; };
 		2789EA3E2722267100CF654C /* DocumentExportPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2789EA3D2722267100CF654C /* DocumentExportPicker.swift */; };
 		2789EA3F2722267100CF654C /* DocumentExportPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2789EA3D2722267100CF654C /* DocumentExportPicker.swift */; };
-		2789EA412722FA7900CF654C /* YearString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2789EA402722FA7900CF654C /* YearString.swift */; };
-		2789EA422722FA7900CF654C /* YearString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2789EA402722FA7900CF654C /* YearString.swift */; };
 		278C1666265955DF003CEC13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C1665265955DF003CEC13 /* MainView.swift */; };
 		278C1667265955DF003CEC13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C1665265955DF003CEC13 /* MainView.swift */; };
 		278C16692659563E003CEC13 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C16682659563E003CEC13 /* PasswordView.swift */; };
@@ -279,7 +277,6 @@
 		277C953E2544B4860032638A /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		277C95492544BED40032638A /* QueryResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResults.swift; sourceTree = "<group>"; };
 		2789EA3D2722267100CF654C /* DocumentExportPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentExportPicker.swift; sourceTree = "<group>"; };
-		2789EA402722FA7900CF654C /* YearString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearString.swift; sourceTree = "<group>"; };
 		278C1665265955DF003CEC13 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		278C16682659563E003CEC13 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		279B6FAF255F619B0009D2BF /* MembersByAgeEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByAgeEntryView.swift; sourceTree = "<group>"; };
@@ -570,7 +567,6 @@
 				275AF2A4258D09540007CF0C /* View+debug.swift */,
 				273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */,
 				27BF5797268BAE0700BEE938 /* SearchField.swift */,
-				2789EA402722FA7900CF654C /* YearString.swift */,
 			);
 			name = Styling;
 			sourceTree = "<group>";
@@ -1014,7 +1010,6 @@
 				27C55E532538E7A000923EE8 /* DataCheckReport.swift in Sources */,
 				270BE17C26680489005B710B /* InformationView.swift in Sources */,
 				27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
-				2789EA412722FA7900CF654C /* YearString.swift in Sources */,
 				27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */,
 				27415C0526699DBC00C1FB6E /* BaptismsEntryView.swift in Sources */,
 				277B0A9D25783A3900AB2F86 /* Keychain.swift in Sources */,
@@ -1137,7 +1132,6 @@
 				27C55E3F2538E74300923EE8 /* FamilyJoinView.swift in Sources */,
 				27B20D992529113B00C80696 /* TextAttributeView.swift in Sources */,
 				27C55E1A2538CE0100923EE8 /* MembersByStatusView.swift in Sources */,
-				2789EA422722FA7900CF654C /* YearString.swift in Sources */,
 				27BC8CC0253B6B7700520F54 /* NormalizedHousehold.swift in Sources */,
 				27ABB0C026DECC5700AA0288 /* MemberMarriesVerificationView.swift in Sources */,
 				27DB6A4626E14FCF00EC227F /* MemberMarriesProblemView.swift in Sources */,

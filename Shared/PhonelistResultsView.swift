@@ -90,7 +90,7 @@ struct PhonelistResultsView: View {
                     let maker = PhonelistMaker(document: document)
                     resultsAsData = maker.make(from: members).data(using: .utf8)!
                     let fileManager = FileManager.default
-                    let suggestedFileName = "\(yearStringISO())-phone-list.csv"
+                    let suggestedFileName = "\(dateFormatter.string(from: Date()))-phone-list.csv"
                     temporaryURL = fileManager.temporaryDirectory.appendingPathComponent(suggestedFileName)
                     NSLog("temp URL: \(temporaryURL)")
                     try resultsAsData.write(to: temporaryURL)
