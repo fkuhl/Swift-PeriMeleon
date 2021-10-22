@@ -14,6 +14,8 @@ struct PhonelistResultsView: View {
     @Binding var members: [Member]
     @Binding var showingResults: Bool
     @State private var showingShareSheet = false
+    @State private var showingDocumentPicker = false
+    @State private var temporaryURL = URL(fileURLWithPath: "") //placeholder
     @ObservedObject private var queryResults = QueryResults.sharedInstance
     @State private var resultsAsData = Data()
 
@@ -52,6 +54,9 @@ struct PhonelistResultsView: View {
         .sheet(isPresented: $showingShareSheet) {
             ShareSheet(activityItems: queryResults.toBeShared)
         }
+        .sheet(isPresented: $showingDocumentPicker) {
+            DocumentPicker(fileURL: $temporaryURL)
+        }
     }
     
     private var clearButton: some View {
@@ -81,13 +86,23 @@ struct PhonelistResultsView: View {
     private var macShare: some View {
         VStack(alignment: .trailing) {
             Button(action: {
-                let maker = PhonelistMaker(document: document)
-                let pasteboard = UIPasteboard.general
-                pasteboard.string = maker.make(from: members)
+                do {
+                    let maker = PhonelistMaker(document: document)
+                    resultsAsData = maker.make(from: members).data(using: .utf8)!
+                    let fileManager = FileManager.default
+                    let suggestedFileName = "\(yearStringISO())-phone-list.csv"
+                    temporaryURL = fileManager.temporaryDirectory.appendingPathComponent(suggestedFileName)
+                    NSLog("temp URL: \(temporaryURL)")
+                    try resultsAsData.write(to: temporaryURL)
+                    showingDocumentPicker = true
+                } catch let error {
+                    NSLog("error writing temp: \(error.localizedDescription)")
+                    return
+                }
             }) {
-                Image(systemName: "arrow.up.doc.on.clipboard").font(.body)
+                Image(systemName: "square.and.arrow.down").font(.headline)
             }.padding(.top, 20).padding(.bottom, 5).padding(.trailing, 20)
-            Text("Copy to paste buffer. Paste into file.").font(.body).italic()
+            Text("Save to file.").font(.body).italic()
                 .padding(.trailing, 20)
         }
     }
@@ -116,7 +131,6 @@ struct PhonelistResultsView: View {
         }
     }
 }
-
 
 struct PhonelistResultsView_Previews: PreviewProvider {
     static var previews: some View {
