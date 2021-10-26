@@ -32,11 +32,11 @@ struct PhonelistResultsView: View {
                 Spacer()
                 Text(title).font(.title)
                 Spacer()
-                #if targetEnvironment(macCatalyst)
+#if targetEnvironment(macCatalyst)
                 macShare
-                #else
+#else
                 iosShare
-                #endif
+#endif
             }
             ScrollView {
                 LazyVGrid(columns: columns, alignment: .leading, spacing: 20) {
@@ -51,12 +51,15 @@ struct PhonelistResultsView: View {
                 }
             }.padding()
         }
-        .sheet(isPresented: $showingShareSheet) {
-            ShareSheet(activityItems: queryResults.toBeShared)
-        }
+#if targetEnvironment(macCatalyst)
         .sheet(isPresented: $showingDocumentPicker) {
             DocumentExportPicker(fileURL: $temporaryURL)
         }
+#else
+        .sheet(isPresented: $showingShareSheet) {
+            ShareSheet(activityItems: queryResults.toBeShared)
+        }
+#endif
     }
     
     private var clearButton: some View {
@@ -82,7 +85,7 @@ struct PhonelistResultsView: View {
         }.padding(20)
     }
     
-    ///Copy to pasteboard
+    ///Export to file
     private var macShare: some View {
         VStack(alignment: .trailing) {
             Button(action: {

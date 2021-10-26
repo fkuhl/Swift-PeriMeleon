@@ -62,6 +62,10 @@
 		277C954B2544BED40032638A /* QueryResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95492544BED40032638A /* QueryResults.swift */; };
 		2789EA3E2722267100CF654C /* DocumentExportPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2789EA3D2722267100CF654C /* DocumentExportPicker.swift */; };
 		2789EA3F2722267100CF654C /* DocumentExportPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2789EA3D2722267100CF654C /* DocumentExportPicker.swift */; };
+		2789EA452723148E00CF654C /* DirectoryMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2789EA442723148E00CF654C /* DirectoryMaker.swift */; };
+		2789EA462723148E00CF654C /* DirectoryMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2789EA442723148E00CF654C /* DirectoryMaker.swift */; };
+		2789EA482723327500CF654C /* DirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2789EA472723327500CF654C /* DirectoryView.swift */; };
+		2789EA492723327500CF654C /* DirectoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2789EA472723327500CF654C /* DirectoryView.swift */; };
 		278C1666265955DF003CEC13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C1665265955DF003CEC13 /* MainView.swift */; };
 		278C1667265955DF003CEC13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C1665265955DF003CEC13 /* MainView.swift */; };
 		278C16692659563E003CEC13 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C16682659563E003CEC13 /* PasswordView.swift */; };
@@ -277,6 +281,8 @@
 		277C953E2544B4860032638A /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		277C95492544BED40032638A /* QueryResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryResults.swift; sourceTree = "<group>"; };
 		2789EA3D2722267100CF654C /* DocumentExportPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentExportPicker.swift; sourceTree = "<group>"; };
+		2789EA442723148E00CF654C /* DirectoryMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryMaker.swift; sourceTree = "<group>"; };
+		2789EA472723327500CF654C /* DirectoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryView.swift; sourceTree = "<group>"; };
 		278C1665265955DF003CEC13 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		278C16682659563E003CEC13 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		279B6FAF255F619B0009D2BF /* MembersByAgeEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByAgeEntryView.swift; sourceTree = "<group>"; };
@@ -571,6 +577,15 @@
 			name = Styling;
 			sourceTree = "<group>";
 		};
+		2789EA432723146400CF654C /* Directory */ = {
+			isa = PBXGroup;
+			children = (
+				2789EA442723148E00CF654C /* DirectoryMaker.swift */,
+				2789EA472723327500CF654C /* DirectoryView.swift */,
+			);
+			name = Directory;
+			sourceTree = "<group>";
+		};
 		278C1664265955A2003CEC13 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +672,7 @@
 		27C55E1F2538CE0700923EE8 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
+				2789EA432723146400CF654C /* Directory */,
 				274E143726AF1138008BBED7 /* Transactions */,
 				27415C0326699D8200C1FB6E /* Baptisms */,
 				27D7D8002557097600A983AA /* Birthdays */,
@@ -984,6 +1000,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */,
+				2789EA482723327500CF654C /* DirectoryView.swift in Sources */,
 				27415C07266BB66900C1FB6E /* BaptismsView.swift in Sources */,
 				274E144126B04368008BBED7 /* FamilyDismissedView.swift in Sources */,
 				27C55E462538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
@@ -1039,6 +1056,7 @@
 				27BC8CBF253B6B7700520F54 /* NormalizedHousehold.swift in Sources */,
 				27B20DA42529113B00C80696 /* MembersView.swift in Sources */,
 				27B20DAC2529113B00C80696 /* MemberEditView.swift in Sources */,
+				2789EA452723148E00CF654C /* DirectoryMaker.swift in Sources */,
 				279B6FB3255F619B0009D2BF /* MembersByAgeResultsView.swift in Sources */,
 				27C72EB326B1E61800468A67 /* ProfessionView.swift in Sources */,
 				274E143926AF1161008BBED7 /* TransactionsQuery.swift in Sources */,
@@ -1142,6 +1160,7 @@
 				27ABB0BA26DECAE500AA0288 /* MemberMarriesMemberAccumulator.swift in Sources */,
 				277C9531254333A50032638A /* CheckboxToggleStyle.swift in Sources */,
 				27B20DAF2529113B00C80696 /* MemberRowView.swift in Sources */,
+				2789EA492723327500CF654C /* DirectoryView.swift in Sources */,
 				27C72EED26B996A000468A67 /* SortedArray.swift in Sources */,
 				27C55E312538E67700923EE8 /* WorkflowsView.swift in Sources */,
 				27BF5799268BAE0700BEE938 /* SearchField.swift in Sources */,
@@ -1165,6 +1184,7 @@
 				27B20DC42529123400C80696 /* EditOptionalDateView.swift in Sources */,
 				27C55E2F2538E67700923EE8 /* MoveToHouseholdAccumulator.swift in Sources */,
 				27B20DCC2529123400C80696 /* EditOptionalParentView.swift in Sources */,
+				2789EA462723148E00CF654C /* DirectoryMaker.swift in Sources */,
 				277B0A9E25783A3900AB2F86 /* Keychain.swift in Sources */,
 				277C954B2544BED40032638A /* QueryResults.swift in Sources */,
 				27B20DE12529142900C80696 /* AddressEditView.swift in Sources */,

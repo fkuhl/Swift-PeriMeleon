@@ -21,8 +21,14 @@ struct QueriesView: View {
                             + "in comma-separated values format, "
                             + "suitable for importing into contacts app.")
             }
+            VStack(alignment: .leading) {
+                NavigationLink(destination: DirectoryView().environmentObject(document)) {
+                    LinkText(label: "Directory")
+                }
+                Caption(text: "Directory of active members")
+            }
         }, label: {
-            Text("Phone list")
+            Text("Phone list & directory")
         })
         DisclosureGroup(content: {
             VStack(alignment: .leading) {
