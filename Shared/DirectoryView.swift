@@ -13,7 +13,7 @@ struct DirectoryView: View {
     @State private var showingShareSheet = false
     @State private var showingDocumentPicker = false
     @State private var temporaryURL = URL(fileURLWithPath: "") //placeholder
-    @State private var resultsAsData = Data()
+    @State private var results = ""
     @ObservedObject private var queryResults = QueryResults.sharedInstance
 
     var body: some View {
@@ -28,7 +28,13 @@ struct DirectoryView: View {
                 iosShare
 #endif
             }
-            Spacer()
+            ScrollView {
+                Text(results).padding()
+            }
+        }
+        .onAppear() {
+            let maker = DirectoryMaker(document: document)
+            results = maker.make()
         }
 #if targetEnvironment(macCatalyst)
         .sheet(isPresented: $showingDocumentPicker) {
@@ -44,9 +50,7 @@ struct DirectoryView: View {
     ///Bring up share sheet
     private var iosShare: some View {
         Button(action: {
-            let maker = DirectoryMaker(document: document)
-            //resultsAsData = maker.make().data(using: .utf8)!
-            queryResults.setText(results: maker.make())
+            queryResults.setText(results: results)
             showingShareSheet = true
         }) {
             Image(systemName: "square.and.arrow.up").font(.body)
@@ -58,8 +62,7 @@ struct DirectoryView: View {
         VStack(alignment: .trailing) {
             Button(action: {
                 do {
-                    let maker = DirectoryMaker(document: document)
-                    resultsAsData = maker.make().data(using: .utf8)!
+                    let resultsAsData = results.data(using: .utf8)!
                     let fileManager = FileManager.default
                     let suggestedFileName = "\(dateFormatter.string(from: Date()))-directory.txt"
                     temporaryURL = fileManager.temporaryDirectory.appendingPathComponent(suggestedFileName)

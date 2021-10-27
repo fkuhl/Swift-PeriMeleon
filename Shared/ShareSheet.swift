@@ -10,6 +10,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct ShareSheet: UIViewControllerRepresentable {
     typealias Callback = (_ activityType: UIActivity.ActivityType?, _ completed: Bool, _ returnedItems: [Any]?, _ error: Error?) -> Void
     
@@ -79,3 +80,4 @@ class PMActivityItemSource: NSObject, UIActivityItemSource {
         }
     }
 }
+#endif

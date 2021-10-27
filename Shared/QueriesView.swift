@@ -12,7 +12,7 @@ struct QueriesView: View {
     @EnvironmentObject var document: PeriMeleonDocument
     
     var body: some View {
-        DisclosureGroup(content: {
+        DisclosureGroup("Phone list & directory") {
             VStack(alignment: .leading) {
                 NavigationLink(destination: PhonelistView().environmentObject(document)) {
                     LinkText(label: "Phone list")
@@ -20,53 +20,48 @@ struct QueriesView: View {
                 Caption(text: "List of contact info for active members, "
                             + "in comma-separated values format, "
                             + "suitable for importing into contacts app.")
-            }
+            }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: DirectoryView().environmentObject(document)) {
                     LinkText(label: "Directory")
                 }
                 Caption(text: "Directory of active members")
             }
-        }, label: {
-            Text("Phone list & directory")
-        })
-        DisclosureGroup(content: {
+        }
+        DisclosureGroup("Members") {
             VStack(alignment: .leading) {
                 NavigationLink(destination: MembersByStatusView().environmentObject(document)) {
                     LinkText(label: "Members by status")
                 }
                 Caption(text: "Query members by status and residency.")
-            }
+            }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: MembersByAgeView().environmentObject(document)) {
                     LinkText(label: "Members by age")
                 }
                 Caption(text: "Query members by age as of a given date.")
-            }//.padding(.top, 20)
+            }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: BirthdaysView().environmentObject(document)) {
                     LinkText(label: "Birthdays")
                 }
                 Caption(text: "Generate list of active embers with birthdays in a given month.")
-            }//.padding(.top, 20)
+            }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: BaptismsView().environmentObject(document)) {
                     LinkText(label: "Baptisms")
                 }
                 Caption(text: "List all baptisms recorded within a given range of dates.")
-            }//.padding(.top, 20)
+            }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: TransactionsQuery().environmentObject(document)) {
                     LinkText(label: "Transactions in date range")
                 }
                 Caption(text: "For annual statistical report: list all transactions that "
                             + "occurred in a given range of dates.")
-            }//.padding(.top, 20)
-        }, label: {
-            Text("Members")
-        })
+            }
+        }
     }
-
     fileprivate struct LinkText: View {
         var label: String
         
@@ -87,7 +82,6 @@ struct QueriesView: View {
             Text(text)
                 .font(.caption)
                 .lineLimit(nil)
-                .frame(width: 150)
         }
     }
 }

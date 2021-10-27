@@ -14,6 +14,8 @@ struct MembersByStatusResultsView: View {
     @Binding var members: [Member]
     @Binding var showingResults: Bool
     @State private var showingShareSheet = false
+    @State private var showingDocumentPicker = false
+    @State private var temporaryURL = URL(fileURLWithPath: "") //placeholder
     @ObservedObject private var queryResults = QueryResults.sharedInstance
     @State private var resultsAsData = Data()
 
@@ -58,9 +60,16 @@ struct MembersByStatusResultsView: View {
                 }
             }.padding()
         }
+#if targetEnvironment(macCatalyst)
+        .sheet(isPresented: $showingDocumentPicker) {
+            DocumentExportPicker(fileURL: $temporaryURL)
+        }
+#else
         .sheet(isPresented: $showingShareSheet) {
             ShareSheet(activityItems: queryResults.toBeShared)
         }
+#endif
+
     }
     
     private var clearButton: some View {
@@ -90,14 +99,34 @@ struct MembersByStatusResultsView: View {
     private var macShare: some View {
         VStack(alignment: .trailing) {
             Button(action: {
-                let pasteboard = UIPasteboard.general
-                pasteboard.string = makeMembersByStatusResult(members: self.members)
+                do {
+                    let resultsAsData = makeMembersByStatusResult(members: self.members).data(using: .utf8)!
+                    let fileManager = FileManager.default
+                    let suggestedFileName = "\(dateFormatter.string(from: Date()))-members-by-status.csv"
+                    temporaryURL = fileManager.temporaryDirectory.appendingPathComponent(suggestedFileName)
+                    NSLog("temp URL: \(temporaryURL)")
+                    try resultsAsData.write(to: temporaryURL)
+                    showingDocumentPicker = true
+                } catch let error {
+                    NSLog("error writing temp: \(error.localizedDescription)")
+                    return
+                }
             }) {
-                Image(systemName: "arrow.up.doc.on.clipboard").font(.body)
+                Image(systemName: "square.and.arrow.down").font(.headline)
             }.padding(.top, 20).padding(.bottom, 5).padding(.trailing, 20)
-            Text("Copy to paste buffer. Paste into file.").font(.body).italic()
+            Text("Save to file.").font(.body).italic()
                 .padding(.trailing, 20)
         }
+//        VStack(alignment: .trailing) {
+//            Button(action: {
+//                let pasteboard = UIPasteboard.general
+//                pasteboard.string = makeMembersByStatusResult(members: self.members)
+//            }) {
+//                Image(systemName: "arrow.up.doc.on.clipboard").font(.body)
+//            }.padding(.top, 20).padding(.bottom, 5).padding(.trailing, 20)
+//            Text("Copy to paste buffer. Paste into file.").font(.body).italic()
+//                .padding(.trailing, 20)
+//        }
     }
 }
 

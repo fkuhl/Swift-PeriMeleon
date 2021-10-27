@@ -26,7 +26,7 @@ struct WorkflowsView: View {
     @State private var linkSelection: WorkflowLink? = nil
     
     var body: some View {
-        DisclosureGroup(content: {
+        DisclosureGroup("Families") {
             VStack(alignment: .leading) {
                 NavigationLink(destination: FamilyJoinView(linkSelection: $linkSelection).environmentObject(document),
                                tag: .familyJoins,
@@ -39,7 +39,7 @@ struct WorkflowsView: View {
                         + "Enter the reception data once for the entire family. "
                         + "Enter the head of the household, then edit the new household, "
                         + "adding spouse and dependents.")
-            }
+            }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: FamilyDismissedView(linkSelection: $linkSelection).environmentObject(document),
                                tag: .familyDismissed,
@@ -51,7 +51,7 @@ struct WorkflowsView: View {
                 Caption(text: "Family is dismissed or dismissal is pending. "
                         + "Enter date and comment "
                         + "and all members of the family are changed.")
-            }
+            }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: MemberMarriesMember(linkSelection: $linkSelection).environmentObject(document),
                                tag: .memberMarriesMember,
@@ -62,10 +62,8 @@ struct WorkflowsView: View {
                 }
                 Caption(text: "Two members marry, creating new household.")
             }
-        }, label: {
-            Text("Families")
-        })
-        DisclosureGroup(content: {
+        }
+        DisclosureGroup("Members") {
             VStack(alignment: .leading) {
                 NavigationLink(destination: NewAddition(linkSelection: $linkSelection).environmentObject(document),
                                tag: .newAddition,
@@ -73,7 +71,7 @@ struct WorkflowsView: View {
                     LinkButton(linkSelection: $linkSelection, link: .newAddition, label: "New addition to household")
                 }
                 Caption(text: "Household welcomes new member.")
-            }
+            }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: ProfessionView(linkSelection: $linkSelection).environmentObject(document),
                                tag: .profession,
@@ -81,20 +79,17 @@ struct WorkflowsView: View {
                     LinkButton(linkSelection: $linkSelection, link: .profession, label: "Profession of faith")
                 }
                 Caption(text: "Non-communing member makes profession and becomes communing.")
-            }.padding(.top, 20)
+            }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: MoveToHouseholdView().environmentObject(document),
                                tag: .moveToHousehold,
                                selection: $linkSelection) {
-                    LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Member moves to different household")
+                    LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Member makes new household")
                 }
-                Caption(text: "Member of one household moves to establish their "
-                            + "own household.")
-            }.padding(.top, 20)
-        }, label: {
-            Text("Members")
-        })
-        DisclosureGroup(content: {
+                Caption(text: "Member establishes their own household.")
+            }
+        }
+        DisclosureGroup("Miscellaneous") {
             VStack(alignment: .leading) {
                 NavigationLink(destination: dataCheckerView,
                                tag: .dataChecker,
@@ -103,7 +98,7 @@ struct WorkflowsView: View {
                 }
                 Caption(text: "For each member, check that member's status "
                             + "and last transaction are consistent.")
-            }
+            }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: InformationView().environmentObject(document),
                                tag: .information,
@@ -112,7 +107,7 @@ struct WorkflowsView: View {
                     
                 }
                 Caption(text: "Statistics on the data; app build information.")
-            }//.padding(.top, 20)
+            }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: RemoveMemberView().environmentObject(document),
                                tag: .removeMember,
@@ -120,11 +115,9 @@ struct WorkflowsView: View {
                     LinkButton(linkSelection: $linkSelection, link: .removeMember, label: "Remove member")
                     
                 }
-                Caption(text: "Remove member from data. This is ONLY for maintence, and never for normal use.")
-            }//.padding(.top, 20)
-        }, label: {
-            Text("Miscellaneous")
-        })
+                Caption(text: "Remove member from data. This is ONLY for maintenance, and never for normal use.")
+            }
+        }
     }
 
     fileprivate struct LinkButton: View {
@@ -149,7 +142,7 @@ struct WorkflowsView: View {
             Text(text)
                 .font(.caption)
                 .lineLimit(nil)
-                .frame(width: 150)
+                //.frame(width: 150)
         }
     }
 
