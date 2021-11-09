@@ -47,7 +47,6 @@ struct TransactionView: View {
                 TextAttributeView(caption: "comment", text: transaction.comment)
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
                     ToolbarItem(placement: .principal, content: {
                         Text("Transaction")

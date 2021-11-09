@@ -44,7 +44,6 @@ struct ServiceView: View {
                 TextAttributeView(caption: "comment", text: service.comment)
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
         .toolbar(content: {
                     ToolbarItem(placement: .principal, content: {
                         Text("Service")
