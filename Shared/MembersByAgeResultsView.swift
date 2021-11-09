@@ -110,16 +110,6 @@ struct MembersByAgeResultsView: View {
             Text("Save to file.").font(.body).italic()
                 .padding(.trailing, 20)
         }
-//        VStack(alignment: .trailing) {
-//            Button(action: {
-//                let pasteboard = UIPasteboard.general
-//                pasteboard.string = makeMembersByAgeResult(members: self.members)
-//            }) {
-//                Image(systemName: "arrow.up.doc.on.clipboard").font(.body)
-//            }.padding(.top, 20).padding(.bottom, 5).padding(.trailing, 20)
-//            Text("Copy to paste buffer. Paste into file.").font(.body).italic()
-//                .padding(.trailing, 20)
-//        }
     }
 }
 

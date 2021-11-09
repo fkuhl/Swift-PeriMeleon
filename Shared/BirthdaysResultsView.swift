@@ -95,12 +95,6 @@ struct BirthdaysResultsView: View {
             Text("Save to file.").font(.body).italic()
                 .padding(.trailing, 20)
         }
-//        Button(action: {
-//            let pasteboard = UIPasteboard.general
-//            pasteboard.string = makeBirthdaysResult(members: self.members)
-//        }) {
-//            Image(systemName: "arrow.up.doc.on.clipboard").font(.body)
-//        }.padding(20)
     }
 }
 

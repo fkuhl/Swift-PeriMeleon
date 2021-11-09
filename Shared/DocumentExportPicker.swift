@@ -48,17 +48,4 @@ class DocumentExportPickerCoordinator: NSObject, UIDocumentPickerDelegate, UINav
         }
     }
 }
-
-//#else
-////Keep the compiler happy
-//import SwiftUI
-//
-//struct DocumentExportPicker: UIViewControllerRepresentable {
-//    @Binding var fileURL: URL
-//    
-//    var body: some View {
-//        Text("this is stupid" )
-//        
-//    }
-//}
 #endif
