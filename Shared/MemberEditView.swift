@@ -71,10 +71,24 @@ struct MemberEditView: View {
             Section(header: Text("Transactions").font(.callout).italic()) {
                 TransactionsEditView(member: $member)
                 TransactionsEditAddView(member: $member)
+                if member.transactions.count > 0 {
+#if targetEnvironment(macCatalyst)
+                    Text("To delete a transaction, swipe its row. (Swipe, rather than click and drag.)").font(.caption).italic()
+#else
+                    Text("To delete a transaction, swipe its row.").font(.caption).italic()
+#endif
+                }
             }
             Section(header: Text("Officer Service").font(.callout).italic()) {
                 ServicesEditView(member: $member)
                 ServicesEditAddView(member: $member)
+                if member.services.count > 0 {
+#if targetEnvironment(macCatalyst)
+                    Text("To delete a service record, swipe its row. (Swipe, rather than click and drag.)").font(.caption).italic()
+#else
+                    Text("To delete a service record, swipe its row.").font(.caption).italic()
+#endif
+                }
             }
             Section {
                 EditOptionalDateView(caption: "date last changed:", date: $member.dateLastChanged)
