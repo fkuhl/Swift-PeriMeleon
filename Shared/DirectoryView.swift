@@ -13,7 +13,7 @@ struct DirectoryView: View {
     @State private var showingShareSheet = false
     @State private var showingDocumentPicker = false
     @State private var temporaryURL = URL(fileURLWithPath: "") //placeholder
-    @State private var results = ""
+    @State private var results = [""]
     @ObservedObject private var queryResults = QueryResults.sharedInstance
 
     var body: some View {
@@ -29,7 +29,12 @@ struct DirectoryView: View {
 #endif
             }
             ScrollView {
-                Text(results).padding()
+                ForEach(results, id: \.self) { line in
+                    HStack {
+                        Text(line)
+                        Spacer()
+                    }
+                }.padding()
             }
         }
         .onAppear() {
@@ -50,7 +55,7 @@ struct DirectoryView: View {
     ///Bring up share sheet
     private var iosShare: some View {
         Button(action: {
-            queryResults.setText(results: results)
+            queryResults.setText(results: results.joined(separator: "\n"))
             showingShareSheet = true
         }) {
             Image(systemName: "square.and.arrow.up").font(.body)
@@ -62,7 +67,7 @@ struct DirectoryView: View {
         VStack(alignment: .trailing) {
             Button(action: {
                 do {
-                    let resultsAsData = results.data(using: .utf8)!
+                    let resultsAsData = results.joined(separator: "\n").data(using: .utf8)!
                     let fileManager = FileManager.default
                     let suggestedFileName = "\(dateFormatter.string(from: Date()))-directory.txt"
                     temporaryURL = fileManager.temporaryDirectory.appendingPathComponent(suggestedFileName)
