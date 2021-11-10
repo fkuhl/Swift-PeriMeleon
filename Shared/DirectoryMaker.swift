@@ -10,6 +10,12 @@ import PMDataTypes
 
 struct DirectoryMaker {
     @ObservedObject var document: PeriMeleonDocument
+    
+    /**
+     Why does this produce an array of String, rather than one String?
+        The array can be presented as a list of lines, which (apparently) is far more efficient
+     for SwiftUI to handle, rather than one long String in a Text.
+     **/
 
     func make() -> [String] {
         NSLog("begin dir")
