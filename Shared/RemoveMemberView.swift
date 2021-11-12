@@ -24,6 +24,7 @@ struct RemoveMemberView: View {
             HStack {
                 Spacer()
                 SolidButton(text: "Check removal", action: checkRemoval)
+                    .disabled(memberId.count <= 0)
                 Spacer()
             }.padding()
         }

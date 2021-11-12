@@ -133,6 +133,9 @@
 		27B20DD02529123400C80696 /* EditBoolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DC02529123400C80696 /* EditBoolView.swift */; };
 		27B20DE02529142900C80696 /* AddressEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DDE2529142900C80696 /* AddressEditView.swift */; };
 		27B20DE12529142900C80696 /* AddressEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B20DDE2529142900C80696 /* AddressEditView.swift */; };
+		27B2BAD9273DA5610024C40D /* RemoveHouseholdState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B2BAD8273DA5610024C40D /* RemoveHouseholdState.swift */; };
+		27B2BADB273DA6330024C40D /* RemoveHouseholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B2BADA273DA6330024C40D /* RemoveHouseholdView.swift */; };
+		27B2BADD273DB9750024C40D /* RemoveHouseholdSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B2BADC273DB9750024C40D /* RemoveHouseholdSheet.swift */; };
 		27BC8CBF253B6B7700520F54 /* NormalizedHousehold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC8CBE253B6B7700520F54 /* NormalizedHousehold.swift */; };
 		27BC8CC0253B6B7700520F54 /* NormalizedHousehold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC8CBE253B6B7700520F54 /* NormalizedHousehold.swift */; };
 		27BC9304265D885C00C39B0B /* ExplainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BC9303265D885C00C39B0B /* ExplainError.swift */; };
@@ -318,6 +321,9 @@
 		27B20DBF2529123400C80696 /* EditSexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSexView.swift; sourceTree = "<group>"; };
 		27B20DC02529123400C80696 /* EditBoolView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBoolView.swift; sourceTree = "<group>"; };
 		27B20DDE2529142900C80696 /* AddressEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressEditView.swift; sourceTree = "<group>"; };
+		27B2BAD8273DA5610024C40D /* RemoveHouseholdState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveHouseholdState.swift; sourceTree = "<group>"; };
+		27B2BADA273DA6330024C40D /* RemoveHouseholdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveHouseholdView.swift; sourceTree = "<group>"; };
+		27B2BADC273DB9750024C40D /* RemoveHouseholdSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveHouseholdSheet.swift; sourceTree = "<group>"; };
 		27BC8CBE253B6B7700520F54 /* NormalizedHousehold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalizedHousehold.swift; sourceTree = "<group>"; };
 		27BC9303265D885C00C39B0B /* ExplainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainError.swift; sourceTree = "<group>"; };
 		27BF5797268BAE0700BEE938 /* SearchField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
@@ -669,6 +675,16 @@
 			name = EditFields;
 			sourceTree = "<group>";
 		};
+		27B2BAD7273DA51F0024C40D /* Remove household */ = {
+			isa = PBXGroup;
+			children = (
+				27B2BAD8273DA5610024C40D /* RemoveHouseholdState.swift */,
+				27B2BADA273DA6330024C40D /* RemoveHouseholdView.swift */,
+				27B2BADC273DB9750024C40D /* RemoveHouseholdSheet.swift */,
+			);
+			name = "Remove household";
+			sourceTree = "<group>";
+		};
 		27C55E1F2538CE0700923EE8 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
@@ -689,6 +705,7 @@
 		27C55E382538E67D00923EE8 /* Workflows */ = {
 			isa = PBXGroup;
 			children = (
+				27B2BAD7273DA51F0024C40D /* Remove household */,
 				27ABB0B426DEC9D900AA0288 /* Member Marries Member */,
 				27ABB0AA26DD648000AA0288 /* Remove Member */,
 				27C72EB126B1E55E00468A67 /* ProfessionOfFaith */,
@@ -1006,6 +1023,7 @@
 				27C55E462538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9528254223C20032638A /* Member+Age.swift in Sources */,
 				27BF5798268BAE0700BEE938 /* SearchField.swift in Sources */,
+				27B2BAD9273DA5610024C40D /* RemoveHouseholdState.swift in Sources */,
 				27B20DC12529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */,
 				278C1666265955DF003CEC13 /* MainView.swift in Sources */,
@@ -1015,6 +1033,7 @@
 				27C55E512538E7A000923EE8 /* DataCheckerView.swift in Sources */,
 				27B20DA02529113B00C80696 /* Transactions.swift in Sources */,
 				27ABB0B626DECA7C00AA0288 /* MemberMarriesMember.swift in Sources */,
+				27B2BADB273DA6330024C40D /* RemoveHouseholdView.swift in Sources */,
 				27C72EBB26B1ECFB00468A67 /* ProfessionVerificationView.swift in Sources */,
 				27C55E252538CE9400923EE8 /* MockedData.swift in Sources */,
 				27C55E152538CE0100923EE8 /* QueriesView.swift in Sources */,
@@ -1052,6 +1071,7 @@
 				27B20D982529113B00C80696 /* TextAttributeView.swift in Sources */,
 				27C55E192538CE0100923EE8 /* MembersByStatusView.swift in Sources */,
 				27ABB0AF26DD6DC900AA0288 /* RemoveMemberState.swift in Sources */,
+				27B2BADD273DB9750024C40D /* RemoveHouseholdSheet.swift in Sources */,
 				27C72EAE26B1A7F600468A67 /* NewAdditionEntryView.swift in Sources */,
 				27BC8CBF253B6B7700520F54 /* NormalizedHousehold.swift in Sources */,
 				27B20DA42529113B00C80696 /* MembersView.swift in Sources */,
@@ -1364,7 +1384,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_ASSET_PATHS = "PeriMeleonUnitTests/test-doc.pmrolls PeriMeleonUnitTests/test-bad-doc.pmrolls";
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
@@ -1375,7 +1395,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;
@@ -1394,7 +1414,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_ASSET_PATHS = "PeriMeleonUnitTests/test-doc.pmrolls PeriMeleonUnitTests/test-bad-doc.pmrolls";
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
@@ -1405,7 +1425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;

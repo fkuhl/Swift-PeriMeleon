@@ -167,7 +167,7 @@ struct RemoveMemberSheet: View {
         HStack {
             Spacer()
             SolidButton(text: "Dismiss", action: {
-                            presentationMode.wrappedValue.dismiss() })
+                presentationMode.wrappedValue.dismiss() })
             Spacer()
         }.padding()
     }

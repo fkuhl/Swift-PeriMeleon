@@ -17,6 +17,7 @@ enum WorkflowLink {
     case dataChecker
     case information
     case removeMember
+    case removeHousehold
     case memberMarriesMember
 }
 
@@ -116,6 +117,15 @@ struct WorkflowsView: View {
                     
                 }
                 Caption(text: "Remove member from data. This is ONLY for maintenance, and never for normal use.")
+            }.padding(.bottom, 10)
+            VStack(alignment: .leading) {
+                NavigationLink(destination: RemoveHouseholdView().environmentObject(document),
+                               tag: .removeHousehold,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection, link: .removeHousehold, label: "Remove household")
+                    
+                }
+                Caption(text: "Remove household from data. This is ONLY for maintenance, and never for normal use.")
             }
         }
     }

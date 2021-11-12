@@ -18,8 +18,9 @@ struct SolidButton: View {
             Text(text).font(.body).bold()
                 .foregroundColor(Color(UIColor.secondarySystemBackground))
                 .padding(7)
-        }
-        .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.accentColor))
+                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.accentColor))
+            ///The buttonStyle works around a bug where two buttons in a form both respond to each other's taps.
+        }.buttonStyle(BorderlessButtonStyle())
     }
 }
 
