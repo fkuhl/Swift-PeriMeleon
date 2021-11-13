@@ -1,26 +1,27 @@
 //
-//  DirectoryView.swift
-//  PeriMeleon
+//  MemberHouseholdCheckerView.swift
+//  PeriMeleon (iOS)
 //
-//  Created by Frederick Kuhl on 10/22/21.
+//  Created by Frederick Kuhl on 11/13/21.
 //
 
 import SwiftUI
 import PMDataTypes
 
-struct DirectoryView: View {
+struct MemberHouseholdCheckerView: View {
     @EnvironmentObject var document: PeriMeleonDocument
     @State private var showingShareSheet = false
     @State private var showingDocumentPicker = false
     @State private var temporaryURL = URL(fileURLWithPath: "") //placeholder
     @State private var results = [""]
+    @State private var showingProgress = false
     @ObservedObject private var queryResults = QueryResults.sharedInstance
 
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top) {
                 Spacer()
-                Text("Directory").font(.title)
+                Text("Member-Household Consistency Check").font(.title)
                 Spacer()
 #if targetEnvironment(macCatalyst)
                 macShare
@@ -28,21 +29,27 @@ struct DirectoryView: View {
                 iosShare
 #endif
             }
-            ScrollView {
-                ///Don't just use the lines of results, because they aren't unique.
-                ForEach(0..<results.count, id: \.self) { index in
-                    HStack {
-                        Text(results[index])
-                        Spacer()
-                    }
-                }.padding()
+            ZStack {
+                ScrollView {
+                    ForEach(0..<results.count, id: \.self) { index in
+                        HStack {
+                            Text(results[index])
+                            Spacer()
+                        }
+                    }.padding()
+                }
+                if showingProgress {
+                    ProgressView().scaleEffect(3.0, anchor: .center)
+                }
             }
         }
         .onAppear() {
+            showingProgress = true
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                let maker = DirectoryMaker(document: document)
-                let tentativeResults = maker.make()
+                let checker = MemberHouseholdChecker(document: document)
+                let tentativeResults = checker.check()
                 DispatchQueue.main.async {
+                    showingProgress = false
                     results = tentativeResults
                 }
             }
@@ -75,7 +82,7 @@ struct DirectoryView: View {
                 do {
                     let resultsAsData = results.joined(separator: "\n").data(using: .utf8)!
                     let fileManager = FileManager.default
-                    let suggestedFileName = "\(dateFormatter.string(from: Date()))-directory.txt"
+                    let suggestedFileName = "\(dateFormatter.string(from: Date()))-member-household-consistency.txt"
                     temporaryURL = fileManager.temporaryDirectory.appendingPathComponent(suggestedFileName)
                     NSLog("temp URL: \(temporaryURL)")
                     try resultsAsData.write(to: temporaryURL)
@@ -93,8 +100,8 @@ struct DirectoryView: View {
     }
 }
 
-struct DirectoryView_Previews: PreviewProvider {
+struct MemberHouseholdCheckerView_Previews: PreviewProvider {
     static var previews: some View {
-        DirectoryView()
+        MemberHouseholdCheckerView()
     }
 }

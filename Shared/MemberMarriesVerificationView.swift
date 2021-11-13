@@ -30,7 +30,6 @@ struct MemberMarriesVerificationView: View {
                 Text("Note: any changes to bride's name must be applied later.").italic()
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("Member Marries Member - Verify")

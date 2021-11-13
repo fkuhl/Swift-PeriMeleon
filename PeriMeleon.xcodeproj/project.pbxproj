@@ -10,6 +10,8 @@
 		2703A95525001B2C00BB0061 /* PMDataTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 2703A95425001B2C00BB0061 /* PMDataTypes */; };
 		270BE17C26680489005B710B /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270BE17B26680489005B710B /* InformationView.swift */; };
 		270BE17D26680489005B710B /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270BE17B26680489005B710B /* InformationView.swift */; };
+		271011CE274000C6006AD584 /* MemberHouseholdCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011CD274000C6006AD584 /* MemberHouseholdCheckerView.swift */; };
+		271011D0274005E4006AD584 /* MemberHouseholdChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011CF274005E4006AD584 /* MemberHouseholdChecker.swift */; };
 		27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		27235931254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		2724846326934B4B008709B4 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724846226934B4B008709B4 /* Model.swift */; };
@@ -242,6 +244,8 @@
 
 /* Begin PBXFileReference section */
 		270BE17B26680489005B710B /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
+		271011CD274000C6006AD584 /* MemberHouseholdCheckerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberHouseholdCheckerView.swift; sourceTree = "<group>"; };
+		271011CF274005E4006AD584 /* MemberHouseholdChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberHouseholdChecker.swift; sourceTree = "<group>"; };
 		2723592F254B51AE00137925 /* RoundedOutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedOutlineButton.swift; sourceTree = "<group>"; };
 		2724846226934B4B008709B4 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
@@ -442,11 +446,42 @@
 			isa = PBXGroup;
 			children = (
 				270BE17B26680489005B710B /* InformationView.swift */,
-				27C55E5D2538E7A400923EE8 /* DataChecker */,
+				271011CC2740006E006AD584 /* Member-household check */,
+				27C55E5D2538E7A400923EE8 /* status-transaction checker */,
 				27ABB0AA26DD648000AA0288 /* Remove Member */,
 				27B2BAD7273DA51F0024C40D /* Remove household */,
 			);
 			name = Miscellaneous;
+			sourceTree = "<group>";
+		};
+		271011CA273FFEA2006AD584 /* Phone list & directory */ = {
+			isa = PBXGroup;
+			children = (
+				27EB1308254A071A008E8A8B /* Phonelist */,
+				2789EA432723146400CF654C /* Directory */,
+			);
+			name = "Phone list & directory";
+			sourceTree = "<group>";
+		};
+		271011CB273FFED1006AD584 /* Members */ = {
+			isa = PBXGroup;
+			children = (
+				27EB1307254A06F7008E8A8B /* MembersByStatus */,
+				271D1585255F60EA00BC9F3B /* MembersByAge */,
+				27D7D8002557097600A983AA /* Birthdays */,
+				27415C0326699D8200C1FB6E /* Baptisms */,
+				274E143726AF1138008BBED7 /* Transactions */,
+			);
+			name = Members;
+			sourceTree = "<group>";
+		};
+		271011CC2740006E006AD584 /* Member-household check */ = {
+			isa = PBXGroup;
+			children = (
+				271011CD274000C6006AD584 /* MemberHouseholdCheckerView.swift */,
+				271011CF274005E4006AD584 /* MemberHouseholdChecker.swift */,
+			);
+			name = "Member-household check";
 			sourceTree = "<group>";
 		};
 		271D1585255F60EA00BC9F3B /* MembersByAge */ = {
@@ -718,13 +753,8 @@
 		27C55E1F2538CE0700923EE8 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
-				2789EA432723146400CF654C /* Directory */,
-				274E143726AF1138008BBED7 /* Transactions */,
-				27415C0326699D8200C1FB6E /* Baptisms */,
-				27D7D8002557097600A983AA /* Birthdays */,
-				27EB1308254A071A008E8A8B /* Phonelist */,
-				271D1585255F60EA00BC9F3B /* MembersByAge */,
-				27EB1307254A06F7008E8A8B /* MembersByStatus */,
+				271011CA273FFEA2006AD584 /* Phone list & directory */,
+				271011CB273FFED1006AD584 /* Members */,
 				27C55E0E2538CE0100923EE8 /* QueriesView.swift */,
 				277C95492544BED40032638A /* QueryResults.swift */,
 				277C953E2544B4860032638A /* ShareSheet.swift */,
@@ -755,7 +785,7 @@
 			name = "Family Join";
 			sourceTree = "<group>";
 		};
-		27C55E5D2538E7A400923EE8 /* DataChecker */ = {
+		27C55E5D2538E7A400923EE8 /* status-transaction checker */ = {
 			isa = PBXGroup;
 			children = (
 				27C55E4F2538E7A000923EE8 /* DataChecker.swift */,
@@ -763,7 +793,7 @@
 				27C55E4E2538E7A000923EE8 /* DataCheckReport.swift */,
 				27C55E502538E7A000923EE8 /* DataCheckReportView.swift */,
 			);
-			name = DataChecker;
+			name = "status-transaction checker";
 			sourceTree = "<group>";
 		};
 		27C72EA826B1A55C00468A67 /* NewAddition */ = {
@@ -1064,6 +1094,7 @@
 				27B20DC92529123400C80696 /* EditTextView.swift in Sources */,
 				27C72EB526B1E62F00468A67 /* ProfessionAccumulator.swift in Sources */,
 				27B20DC52529123400C80696 /* EditOptionalTextView.swift in Sources */,
+				271011CE274000C6006AD584 /* MemberHouseholdCheckerView.swift in Sources */,
 				274E144726B04DB6008BBED7 /* FamilyDismissedVerificationView.swift in Sources */,
 				274E144326B0440E008BBED7 /* FamilyDismissedAccumulator.swift in Sources */,
 				27ABB0BF26DECC5700AA0288 /* MemberMarriesVerificationView.swift in Sources */,
@@ -1074,6 +1105,7 @@
 				27415C0526699DBC00C1FB6E /* BaptismsEntryView.swift in Sources */,
 				277B0A9D25783A3900AB2F86 /* Keychain.swift in Sources */,
 				27C72EEC26B996A000468A67 /* SortedArray.swift in Sources */,
+				271011D0274005E4006AD584 /* MemberHouseholdChecker.swift in Sources */,
 				278C16692659563E003CEC13 /* PasswordView.swift in Sources */,
 				27C55E132538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */,
 				27C72EB726B1E74300468A67 /* ProfessionEntryView.swift in Sources */,

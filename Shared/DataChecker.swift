@@ -9,6 +9,12 @@
 import SwiftUI
 import Combine
 
+/**
+ This has a lot of Combine rigmarole to report the conclusion of the check. This DataChecker was written as an'experiment
+ without thought of integrating it into a SwiftUI program. In later checkers and reporters, such as Member-household or the Directory maker, they simply report their results when they are finished, and the View that incporates them puts the result in a state
+ variable, which causes the View to be updated.
+ */
+
 class DataChecker: ObservableObject {
     @ObservedObject var document: PeriMeleonDocument
     private let checkingQueue = DispatchQueue(label: "com.tamelea.PMClient.dataChecker", qos: .background)
