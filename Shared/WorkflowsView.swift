@@ -92,15 +92,6 @@ struct WorkflowsView: View {
         }
         DisclosureGroup("Miscellaneous") {
             VStack(alignment: .leading) {
-                NavigationLink(destination: dataCheckerView,
-                               tag: .dataChecker,
-                               selection: $linkSelection) {
-                    LinkButton(linkSelection: $linkSelection, link: .dataChecker, label: "Data checker")
-                }
-                Caption(text: "For each member, check that member's status "
-                            + "and last transaction are consistent.")
-            }.padding(.bottom, 10)
-            VStack(alignment: .leading) {
                 NavigationLink(destination: InformationView().environmentObject(document),
                                tag: .information,
                                selection: $linkSelection) {
@@ -108,6 +99,15 @@ struct WorkflowsView: View {
                     
                 }
                 Caption(text: "Statistics on the data; app build information.")
+            }.padding(.bottom, 10)
+            VStack(alignment: .leading) {
+                NavigationLink(destination: dataCheckerView,
+                               tag: .dataChecker,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection, link: .dataChecker, label: "Status / last transaction")
+                }
+                Caption(text: "For each active member, check that member's status "
+                            + "and last transaction are consistent.")
             }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: RemoveMemberView().environmentObject(document),

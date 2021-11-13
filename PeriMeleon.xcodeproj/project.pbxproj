@@ -418,6 +418,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		271011C7273EEAEE006AD584 /* Families */ = {
+			isa = PBXGroup;
+			children = (
+				27C55E4C2538E74900923EE8 /* Family Join */,
+				274E143F26B04336008BBED7 /* Family dismissed */,
+				27ABB0B426DEC9D900AA0288 /* Member Marries Member */,
+			);
+			name = Families;
+			sourceTree = "<group>";
+		};
+		271011C8273EEB5A006AD584 /* Members */ = {
+			isa = PBXGroup;
+			children = (
+				27C72EA826B1A55C00468A67 /* NewAddition */,
+				27C72EB126B1E55E00468A67 /* ProfessionOfFaith */,
+				274E143E26AF451A008BBED7 /* MoveToHousehold */,
+			);
+			name = Members;
+			sourceTree = "<group>";
+		};
+		271011C9273EEBBF006AD584 /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				270BE17B26680489005B710B /* InformationView.swift */,
+				27C55E5D2538E7A400923EE8 /* DataChecker */,
+				27ABB0AA26DD648000AA0288 /* Remove Member */,
+				27B2BAD7273DA51F0024C40D /* Remove household */,
+			);
+			name = Miscellaneous;
+			sourceTree = "<group>";
+		};
 		271D1585255F60EA00BC9F3B /* MembersByAge */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,7 +519,6 @@
 			children = (
 				278C1664265955A2003CEC13 /* App */,
 				277C9526254223110032638A /* Document */,
-				27C55E5D2538E7A400923EE8 /* DataChecker */,
 				27C55E382538E67D00923EE8 /* Workflows */,
 				27C55E1F2538CE0700923EE8 /* Queries */,
 				27B20DD52529123C00C80696 /* EditFields */,
@@ -705,16 +735,10 @@
 		27C55E382538E67D00923EE8 /* Workflows */ = {
 			isa = PBXGroup;
 			children = (
-				27B2BAD7273DA51F0024C40D /* Remove household */,
-				27ABB0B426DEC9D900AA0288 /* Member Marries Member */,
-				27ABB0AA26DD648000AA0288 /* Remove Member */,
-				27C72EB126B1E55E00468A67 /* ProfessionOfFaith */,
-				27C72EA826B1A55C00468A67 /* NewAddition */,
-				274E143F26B04336008BBED7 /* Family dismissed */,
-				274E143E26AF451A008BBED7 /* MoveToHousehold */,
-				27C55E4C2538E74900923EE8 /* Family Join */,
+				271011C8273EEB5A006AD584 /* Members */,
+				271011C7273EEAEE006AD584 /* Families */,
+				271011C9273EEBBF006AD584 /* Miscellaneous */,
 				27C55E2C2538E67700923EE8 /* WorkflowsView.swift */,
-				270BE17B26680489005B710B /* InformationView.swift */,
 			);
 			name = Workflows;
 			sourceTree = "<group>";

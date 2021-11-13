@@ -17,7 +17,7 @@ struct DataCheckerView: View {
                 Button(action: {
                     dataChecker.check()
                 }) {
-                    Text("Check data").font(.body)
+                    Text("Check status against last transaction").font(.body)
                 }
             }.padding()
             List {

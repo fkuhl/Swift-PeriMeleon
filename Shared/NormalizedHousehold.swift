@@ -45,4 +45,22 @@ struct NormalizedHousehold: Identifiable {
         self.address = address
         self.name = id
     }
+    
+    func contains(member: ID) -> HouseholdStatus {
+        if head == member { return .head }
+        if let spouseId = spouse {
+            if spouseId == member { return .spouse }
+        }
+        for other in others {
+            if other == member { return .other }
+        }
+        return .notMember
+    }
+}
+
+enum HouseholdStatus {
+    case notMember
+    case head
+    case spouse
+    case other
 }
