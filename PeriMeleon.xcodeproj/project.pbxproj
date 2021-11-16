@@ -12,6 +12,8 @@
 		270BE17D26680489005B710B /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270BE17B26680489005B710B /* InformationView.swift */; };
 		271011CE274000C6006AD584 /* MemberHouseholdCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011CD274000C6006AD584 /* MemberHouseholdCheckerView.swift */; };
 		271011D0274005E4006AD584 /* MemberHouseholdChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011CF274005E4006AD584 /* MemberHouseholdChecker.swift */; };
+		271011D527440B13006AD584 /* RepairMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011D427440B13006AD584 /* RepairMemberView.swift */; };
+		271011D727440E26006AD584 /* RepairMemberEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011D627440E26006AD584 /* RepairMemberEditView.swift */; };
 		27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		27235931254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		2724846326934B4B008709B4 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724846226934B4B008709B4 /* Model.swift */; };
@@ -246,6 +248,8 @@
 		270BE17B26680489005B710B /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		271011CD274000C6006AD584 /* MemberHouseholdCheckerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberHouseholdCheckerView.swift; sourceTree = "<group>"; };
 		271011CF274005E4006AD584 /* MemberHouseholdChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberHouseholdChecker.swift; sourceTree = "<group>"; };
+		271011D427440B13006AD584 /* RepairMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairMemberView.swift; sourceTree = "<group>"; };
+		271011D627440E26006AD584 /* RepairMemberEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairMemberEditView.swift; sourceTree = "<group>"; };
 		2723592F254B51AE00137925 /* RoundedOutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedOutlineButton.swift; sourceTree = "<group>"; };
 		2724846226934B4B008709B4 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
@@ -450,6 +454,7 @@
 				27C55E5D2538E7A400923EE8 /* status-transaction checker */,
 				27ABB0AA26DD648000AA0288 /* Remove Member */,
 				27B2BAD7273DA51F0024C40D /* Remove household */,
+				271011D127440AB4006AD584 /* Repair member */,
 			);
 			name = Miscellaneous;
 			sourceTree = "<group>";
@@ -482,6 +487,15 @@
 				271011CF274005E4006AD584 /* MemberHouseholdChecker.swift */,
 			);
 			name = "Member-household check";
+			sourceTree = "<group>";
+		};
+		271011D127440AB4006AD584 /* Repair member */ = {
+			isa = PBXGroup;
+			children = (
+				271011D427440B13006AD584 /* RepairMemberView.swift */,
+				271011D627440E26006AD584 /* RepairMemberEditView.swift */,
+			);
+			name = "Repair member";
 			sourceTree = "<group>";
 		};
 		271D1585255F60EA00BC9F3B /* MembersByAge */ = {
@@ -1092,6 +1106,7 @@
 				27C55E252538CE9400923EE8 /* MockedData.swift in Sources */,
 				27C55E152538CE0100923EE8 /* QueriesView.swift in Sources */,
 				27B20DC92529123400C80696 /* EditTextView.swift in Sources */,
+				271011D527440B13006AD584 /* RepairMemberView.swift in Sources */,
 				27C72EB526B1E62F00468A67 /* ProfessionAccumulator.swift in Sources */,
 				27B20DC52529123400C80696 /* EditOptionalTextView.swift in Sources */,
 				271011CE274000C6006AD584 /* MemberHouseholdCheckerView.swift in Sources */,
@@ -1126,6 +1141,7 @@
 				279B6FB2255F619B0009D2BF /* MembersByAgeEntryView.swift in Sources */,
 				27B20D982529113B00C80696 /* TextAttributeView.swift in Sources */,
 				27C55E192538CE0100923EE8 /* MembersByStatusView.swift in Sources */,
+				271011D727440E26006AD584 /* RepairMemberEditView.swift in Sources */,
 				27ABB0AF26DD6DC900AA0288 /* RemoveMemberState.swift in Sources */,
 				27B2BADD273DB9750024C40D /* RemoveHouseholdSheet.swift in Sources */,
 				27C72EAE26B1A7F600468A67 /* NewAdditionEntryView.swift in Sources */,

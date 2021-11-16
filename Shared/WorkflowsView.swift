@@ -19,6 +19,7 @@ enum WorkflowLink {
     case information
     case removeMember
     case removeHousehold
+    case repairMember
     case memberMarriesMember
 }
 
@@ -135,6 +136,15 @@ struct WorkflowsView: View {
                     
                 }
                 Caption(text: "Remove household from data. This is ONLY for maintenance, and never for normal use.")
+            }.padding(.bottom, 10)
+            VStack(alignment: .leading) {
+                NavigationLink(destination: RepairMemberView().environmentObject(document),
+                               tag: .repairMember,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection, link: .repairMember, label: "Repair member")
+                    
+                }
+                Caption(text: "Repair member's household link. This is ONLY for maintenance, and never for normal use.")
             }
         }
     }
