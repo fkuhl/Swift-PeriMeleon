@@ -30,11 +30,20 @@ struct HouseholdView: View {
                 }
             }
             Section(header: Text("Dependents").font(.callout).italic()) {
-                ForEach(document.household(byId: householdId).others, id: \.self) {
-                    OtherRowView(memberId: $0)
+                ForEach(0..<document.household(byId: householdId).others.count, id: \.self) {index in
+                    OtherRowView(memberId: document.household(byId: householdId).others[index])
                 }
+                .onDelete(perform: delete)
                 OtherAddView(otherFactory: otherFactory,
                              householdId: householdId)
+                if document.household(byId: householdId).others.count > 0 {
+#if targetEnvironment(macCatalyst)
+                    Text("To delete a dependent, swipe the row. (Swipe, rather than click and drag.)").font(.caption).italic()
+#else
+                    Text("To delete a dependent, swipe its row.").font(.caption).italic()
+#endif
+                    Text("Note that you must then repair the dependent's household link.").font(.caption).italic()
+                }
             }
             Section(header: Text("Address").font(.callout).italic()) {
                 if nugatory(document.household(byId: householdId).address) {
@@ -55,6 +64,15 @@ struct HouseholdView: View {
                     })})
     }
     
+    private func delete(at offsets: IndexSet) {
+        var household = document.household(byId: householdId)
+        var others = household.others
+        others.remove(atOffsets: offsets)
+        household.others = others
+        document.update(household: household)
+        NSLog("HV delete \(document.nameOf(household: householdId)) has \(household.others.count) others")
+    }
+
     private var headDestination: some View {
         MemberView(
             memberId: document.household(byId: householdId).head).environmentObject(document)

@@ -14,6 +14,8 @@
 		271011D0274005E4006AD584 /* MemberHouseholdChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011CF274005E4006AD584 /* MemberHouseholdChecker.swift */; };
 		271011D527440B13006AD584 /* RepairMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011D427440B13006AD584 /* RepairMemberView.swift */; };
 		271011D727440E26006AD584 /* RepairMemberEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011D627440E26006AD584 /* RepairMemberEditView.swift */; };
+		271011DA27445496006AD584 /* RepairHouseholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011D927445496006AD584 /* RepairHouseholdView.swift */; };
+		271011DC27445794006AD584 /* RepairHouseholdEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011DB27445794006AD584 /* RepairHouseholdEditView.swift */; };
 		27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		27235931254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		2724846326934B4B008709B4 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724846226934B4B008709B4 /* Model.swift */; };
@@ -250,6 +252,8 @@
 		271011CF274005E4006AD584 /* MemberHouseholdChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberHouseholdChecker.swift; sourceTree = "<group>"; };
 		271011D427440B13006AD584 /* RepairMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairMemberView.swift; sourceTree = "<group>"; };
 		271011D627440E26006AD584 /* RepairMemberEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairMemberEditView.swift; sourceTree = "<group>"; };
+		271011D927445496006AD584 /* RepairHouseholdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairHouseholdView.swift; sourceTree = "<group>"; };
+		271011DB27445794006AD584 /* RepairHouseholdEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairHouseholdEditView.swift; sourceTree = "<group>"; };
 		2723592F254B51AE00137925 /* RoundedOutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedOutlineButton.swift; sourceTree = "<group>"; };
 		2724846226934B4B008709B4 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
@@ -455,6 +459,7 @@
 				27ABB0AA26DD648000AA0288 /* Remove Member */,
 				27B2BAD7273DA51F0024C40D /* Remove household */,
 				271011D127440AB4006AD584 /* Repair member */,
+				271011D827445462006AD584 /* Repair household */,
 			);
 			name = Miscellaneous;
 			sourceTree = "<group>";
@@ -496,6 +501,15 @@
 				271011D627440E26006AD584 /* RepairMemberEditView.swift */,
 			);
 			name = "Repair member";
+			sourceTree = "<group>";
+		};
+		271011D827445462006AD584 /* Repair household */ = {
+			isa = PBXGroup;
+			children = (
+				271011D927445496006AD584 /* RepairHouseholdView.swift */,
+				271011DB27445794006AD584 /* RepairHouseholdEditView.swift */,
+			);
+			name = "Repair household";
 			sourceTree = "<group>";
 		};
 		271D1585255F60EA00BC9F3B /* MembersByAge */ = {
@@ -1091,6 +1105,7 @@
 				27C55E462538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				277C9528254223C20032638A /* Member+Age.swift in Sources */,
 				27BF5798268BAE0700BEE938 /* SearchField.swift in Sources */,
+				271011DA27445496006AD584 /* RepairHouseholdView.swift in Sources */,
 				27B2BAD9273DA5610024C40D /* RemoveHouseholdState.swift in Sources */,
 				27B20DC12529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */,
@@ -1118,6 +1133,7 @@
 				27FD5AE1254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
 				27EB131A254A3B9C008E8A8B /* PhonelistResultsView.swift in Sources */,
 				27415C0526699DBC00C1FB6E /* BaptismsEntryView.swift in Sources */,
+				271011DC27445794006AD584 /* RepairHouseholdEditView.swift in Sources */,
 				277B0A9D25783A3900AB2F86 /* Keychain.swift in Sources */,
 				27C72EEC26B996A000468A67 /* SortedArray.swift in Sources */,
 				271011D0274005E4006AD584 /* MemberHouseholdChecker.swift in Sources */,
