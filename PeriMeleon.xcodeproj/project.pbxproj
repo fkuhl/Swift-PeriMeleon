@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2703A95525001B2C00BB0061 /* PMDataTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 2703A95425001B2C00BB0061 /* PMDataTypes */; };
 		270BE17C26680489005B710B /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270BE17B26680489005B710B /* InformationView.swift */; };
 		270BE17D26680489005B710B /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270BE17B26680489005B710B /* InformationView.swift */; };
 		271011CE274000C6006AD584 /* MemberHouseholdCheckerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011CD274000C6006AD584 /* MemberHouseholdCheckerView.swift */; };
@@ -76,6 +75,7 @@
 		278C1667265955DF003CEC13 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C1665265955DF003CEC13 /* MainView.swift */; };
 		278C16692659563E003CEC13 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C16682659563E003CEC13 /* PasswordView.swift */; };
 		278C166A2659563E003CEC13 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C16682659563E003CEC13 /* PasswordView.swift */; };
+		278D880F274D6E5700CB7D20 /* PMDataTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 278D880E274D6E5700CB7D20 /* PMDataTypes */; };
 		279B6FB2255F619B0009D2BF /* MembersByAgeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FAF255F619B0009D2BF /* MembersByAgeEntryView.swift */; };
 		279B6FB3255F619B0009D2BF /* MembersByAgeResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FB0255F619B0009D2BF /* MembersByAgeResultsView.swift */; };
 		279B6FB4255F619B0009D2BF /* MembersByAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B6FB1255F619B0009D2BF /* MembersByAgeView.swift */; };
@@ -211,7 +211,6 @@
 		27D7D80C25570D1000A983AA /* BirthdaysResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80925570D1000A983AA /* BirthdaysResultsView.swift */; };
 		27D7D80D25570D1000A983AA /* BirthdaysEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80A25570D1000A983AA /* BirthdaysEntryView.swift */; };
 		27D7D80E25570D1000A983AA /* BirthdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D7D80B25570D1000A983AA /* BirthdaysView.swift */; };
-		27D9767425940EAF00E12893 /* PMDataTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 27D9767325940EAF00E12893 /* PMDataTypes */; };
 		27DB6A4526E14FCF00EC227F /* MemberMarriesProblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DB6A4426E14FCF00EC227F /* MemberMarriesProblemView.swift */; };
 		27DB6A4626E14FCF00EC227F /* MemberMarriesProblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DB6A4426E14FCF00EC227F /* MemberMarriesProblemView.swift */; };
 		27EB130A254A0769008E8A8B /* PhonelistEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB1309254A0769008E8A8B /* PhonelistEntryView.swift */; };
@@ -394,7 +393,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2703A95525001B2C00BB0061 /* PMDataTypes in Frameworks */,
+				278D880F274D6E5700CB7D20 /* PMDataTypes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,7 +401,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27D9767425940EAF00E12893 /* PMDataTypes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -913,7 +911,7 @@
 			);
 			name = "PeriMeleon (iOS)";
 			packageProductDependencies = (
-				2703A95425001B2C00BB0061 /* PMDataTypes */,
+				278D880E274D6E5700CB7D20 /* PMDataTypes */,
 			);
 			productName = "PeriMeleon (iOS)";
 			productReference = 276B9731250008DB003E19BA /* PeriMeleon.app */;
@@ -933,7 +931,6 @@
 			);
 			name = "PeriMeleon (macOS)";
 			packageProductDependencies = (
-				27D9767325940EAF00E12893 /* PMDataTypes */,
 			);
 			productName = "PeriMeleon (macOS)";
 			productReference = 276B9739250008DB003E19BA /* PeriMeleon.app */;
@@ -1032,7 +1029,7 @@
 			);
 			mainGroup = 276B9723250008DA003E19BA;
 			packageReferences = (
-				2703A95325001B2C00BB0061 /* XCRemoteSwiftPackageReference "PMDataTypes" */,
+				278D880D274D6E5700CB7D20 /* XCRemoteSwiftPackageReference "PMDataTypes" */,
 			);
 			productRefGroup = 276B9732250008DB003E19BA /* Products */;
 			projectDirPath = "";
@@ -1769,25 +1766,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2703A95325001B2C00BB0061 /* XCRemoteSwiftPackageReference "PMDataTypes" */ = {
+		278D880D274D6E5700CB7D20 /* XCRemoteSwiftPackageReference "PMDataTypes" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:fkuhl/PMDataTypes.git";
+			repositoryURL = "https://github.com/fkuhl/PMDataTypes";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2703A95425001B2C00BB0061 /* PMDataTypes */ = {
+		278D880E274D6E5700CB7D20 /* PMDataTypes */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2703A95325001B2C00BB0061 /* XCRemoteSwiftPackageReference "PMDataTypes" */;
-			productName = PMDataTypes;
-		};
-		27D9767325940EAF00E12893 /* PMDataTypes */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2703A95325001B2C00BB0061 /* XCRemoteSwiftPackageReference "PMDataTypes" */;
+			package = 278D880D274D6E5700CB7D20 /* XCRemoteSwiftPackageReference "PMDataTypes" */;
 			productName = PMDataTypes;
 		};
 /* End XCSwiftPackageProductDependency section */
