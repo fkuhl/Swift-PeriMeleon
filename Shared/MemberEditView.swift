@@ -73,7 +73,7 @@ struct MemberEditView: View {
                 TransactionsEditAddView(member: $member)
                 if member.transactions.count > 0 {
 #if targetEnvironment(macCatalyst)
-                    Text("To delete a transaction, swipe its row. (Swipe, rather than click and drag.)").font(.caption).italic()
+                    Text("To delete a transaction, swipe its row. (Swipe with 2 fingers, rather than click and drag.)").font(.caption).italic()
 #else
                     Text("To delete a transaction, swipe its row.").font(.caption).italic()
 #endif
@@ -84,7 +84,7 @@ struct MemberEditView: View {
                 ServicesEditAddView(member: $member)
                 if member.services.count > 0 {
 #if targetEnvironment(macCatalyst)
-                    Text("To delete a service record, swipe its row. (Swipe, rather than click and drag.)").font(.caption).italic()
+                    Text("To delete a service record, swipe its row. (Swipe with 2 fingers, rather than click and drag.)").font(.caption).italic()
 #else
                     Text("To delete a service record, swipe its row.").font(.caption).italic()
 #endif

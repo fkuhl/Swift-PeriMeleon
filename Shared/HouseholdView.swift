@@ -38,7 +38,7 @@ struct HouseholdView: View {
                              householdId: householdId)
                 if document.household(byId: householdId).others.count > 0 {
 #if targetEnvironment(macCatalyst)
-                    Text("To delete a dependent, swipe the row. (Swipe, rather than click and drag.)").font(.caption).italic()
+                    Text("To delete a dependent, swipe the row. (Swipe with 2 fingers, rather than click and drag.)").font(.caption).italic()
 #else
                     Text("To delete a dependent, swipe its row.").font(.caption).italic()
 #endif
