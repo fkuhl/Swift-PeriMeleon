@@ -39,7 +39,7 @@ struct MemberHouseholdCheckerView: View {
                     }.padding()
                 }
                 if showingProgress {
-                    ProgressView().scaleEffect(3.0, anchor: .center)
+                    ProgressView("Checking").scaleEffect(3.0, anchor: .center)
                 }
             }
         }
