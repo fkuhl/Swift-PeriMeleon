@@ -46,7 +46,7 @@ struct NormalizedHousehold: Identifiable {
         self.name = id
     }
     
-    func contains(member: ID) -> HouseholdStatus {
+    func statusOf(member: ID) -> HouseholdStatus {
         if head == member { return .head }
         if let spouseId = spouse {
             if spouseId == member { return .spouse }

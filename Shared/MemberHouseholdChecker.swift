@@ -17,15 +17,13 @@ struct MemberHouseholdChecker {
         ///For each member, does the listed household contain the member?
         for member in document.activeMembers {
             let householdOfRecord = document.household(byId: member.household)
-            let status = householdOfRecord.contains(member: member.id)
-            if status == .notMember {
+            if householdOfRecord.statusOf(member: member.id) == .notMember {
                 report.append("\(member.fullName()) not in household of record, id '\(member.household)'")
             }
             ///Is there any other household that purports to contain the member?
             for household in document.households {
                 if household.id == member.household { continue }
-                let status = household.contains(member: member.id)
-                if status != .notMember {
+                if household.statusOf(member: member.id) != .notMember {
                     report.append("\(member.fullName()) in additional household '\(household.name ?? "[no name]")', id '\(household.id)'")
                 }
             }
