@@ -13,19 +13,18 @@ struct DataCheckerView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            HStack {
-                Button(action: {
-                    dataChecker.check()
-                }) {
-                    Text("Check status against last transaction").font(.body)
+            if dataChecker.reports.count > 0 {
+                List {
+                    ForEach(dataChecker.reports, id: \.name) {
+                        DataCheckReportView(report: $0)
+                    }
                 }
-            }.padding()
-            List {
-                ForEach(dataChecker.reports, id: \.name) {
-                    DataCheckReportView(report: $0)
-                }
+            } else {
+                Text("Status-transaction consistency: no problems among active members.")
             }
+            Spacer()
         }
+        .onAppear { dataChecker.check() }
     }
 }
 
