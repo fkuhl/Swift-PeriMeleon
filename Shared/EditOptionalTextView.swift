@@ -11,7 +11,8 @@ struct EditOptionalTextView: View {
     var captionWidth: CGFloat = defaultCaptionWidth
     var caption: String
     @Binding var text: String?
-    
+    var keyboardType: UIKeyboardType = .default
+
     var body: some View {
         let proxyBinding = Binding<String> (
             get: { self.text ?? ""  },
@@ -22,6 +23,7 @@ struct EditOptionalTextView: View {
                 .frame(width: captionWidth, alignment: .trailing)
                 .font(.caption)
             TextField(caption, text: proxyBinding)
+                .keyboardType(keyboardType)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .disableAutocorrection(true)
             .frame(alignment: .leading)

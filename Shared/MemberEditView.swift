@@ -63,10 +63,10 @@ struct MemberEditView: View {
             }
             
             Section {
-                EditOptionalTextView(caption: "mobile phone:", text: $member.mobilePhone)
-                EditOptionalTextView(caption: "email:", text: $member.eMail)
-                EditOptionalTextView(caption: "work phone:", text: $member.workPhone)
-                EditOptionalTextView(caption: "work email:", text: $member.workEmail)
+                EditOptionalTextView(caption: "mobile phone:", text: $member.mobilePhone, keyboardType: .phonePad)
+                EditOptionalTextView(caption: "email:", text: $member.eMail, keyboardType: .emailAddress)
+                EditOptionalTextView(caption: "work phone:", text: $member.workPhone, keyboardType: .phonePad)
+                EditOptionalTextView(caption: "work email:", text: $member.workEmail, keyboardType: .emailAddress)
             }
             Section(header: Text("Transactions").font(.callout).italic()) {
                 TransactionsEditView(member: $member)

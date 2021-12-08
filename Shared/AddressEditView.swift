@@ -25,8 +25,8 @@ struct AddressEditView: View {
                     EditOptionalTextView(caption: "state:", text: $address.state)
                     EditOptionalTextView(caption: "postal code:", text: $address.postalCode)
                     EditOptionalTextView(caption: "country:", text: $address.country)
-                    EditOptionalTextView(caption: "email:", text: $address.email)
-                    EditOptionalTextView(caption: "home phone:", text: $address.homePhone)
+                    EditOptionalTextView(caption: "email:", text: $address.email, keyboardType: .emailAddress)
+                    EditOptionalTextView(caption: "home phone:", text: $address.homePhone, keyboardType: .phonePad)
                 }
             }
         }
