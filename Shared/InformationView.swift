@@ -60,7 +60,7 @@ struct InformationView: View {
             Text("PeriMeleōn")
                 .font(.headline)
                 .padding(.bottom)
-            Text("Copyright © 2021")
+            Text("Copyright © 2021–22")
                 .font(.caption)
             Text("TyndaleSoft LLC")
                 .font(.caption)
