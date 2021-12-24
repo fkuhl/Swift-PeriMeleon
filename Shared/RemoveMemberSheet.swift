@@ -29,7 +29,7 @@ struct RemoveMemberSheet: View {
         case .readyToBeRemoved:
             readyToBeRemoved
         case .potentialOrphansOnly:
-            potentialOrphans
+            prospectiveOrphans
         case .orphansAndReadies:
             orphansAndReadies
         }
@@ -117,9 +117,10 @@ struct RemoveMemberSheet: View {
     }
     
     /// Removing member will create orphans
-    private var potentialOrphans: some View {
+    private var prospectiveOrphans: some View {
         Form {
             Text("Removing member '\(document.nameOf(member: memberId))' would leave other household members orphans in the following households. These households must be resolved before member can be removed.").font(.headline)
+            Text("Households with prospective orphans:")
             List {
                 ForEach(suspects, id: \.self) { suspect in
                     Text(document.nameOf(household: suspect)).font(.subheadline)

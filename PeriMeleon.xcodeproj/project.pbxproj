@@ -41,6 +41,9 @@
 		275AF2A6258D09540007CF0C /* View+debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AF2A4258D09540007CF0C /* View+debug.swift */; };
 		275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D3CA22532029100D65992 /* EditDisplayView.swift */; };
 		275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D3CA22532029100D65992 /* EditDisplayView.swift */; };
+		27624F482774D68900CD3D5B /* MemberDiesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27624F472774D68900CD3D5B /* MemberDiesState.swift */; };
+		27624F4A2774D6EC00CD3D5B /* MemberDiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27624F492774D6EC00CD3D5B /* MemberDiesView.swift */; };
+		27624F4C2774F78900CD3D5B /* MemberDiesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27624F4B2774F78900CD3D5B /* MemberDiesSheet.swift */; };
 		276B9746250008DB003E19BA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9745250008DB003E19BA /* Tests_iOS.swift */; };
 		276B9751250008DB003E19BA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9750250008DB003E19BA /* Tests_macOS.swift */; };
 		276B9753250008DB003E19BA /* PeriMeleonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9729250008DA003E19BA /* PeriMeleonApp.swift */; };
@@ -272,6 +275,9 @@
 		275A117F255F320C0055E77F /* SolidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidButton.swift; sourceTree = "<group>"; };
 		275AF2A4258D09540007CF0C /* View+debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+debug.swift"; sourceTree = "<group>"; };
 		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
+		27624F472774D68900CD3D5B /* MemberDiesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberDiesState.swift; sourceTree = "<group>"; };
+		27624F492774D6EC00CD3D5B /* MemberDiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberDiesView.swift; sourceTree = "<group>"; };
+		27624F4B2774F78900CD3D5B /* MemberDiesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberDiesSheet.swift; sourceTree = "<group>"; };
 		276B9729250008DA003E19BA /* PeriMeleonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonApp.swift; sourceTree = "<group>"; };
 		276B972A250008DA003E19BA /* PeriMeleonDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonDocument.swift; sourceTree = "<group>"; };
 		276B972B250008DA003E19BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -443,6 +449,7 @@
 			children = (
 				27C72EA826B1A55C00468A67 /* NewAddition */,
 				27C72EB126B1E55E00468A67 /* ProfessionOfFaith */,
+				27624F462774D62200CD3D5B /* MemberDies */,
 				274E143E26AF451A008BBED7 /* MoveToHousehold */,
 			);
 			name = Members;
@@ -558,6 +565,16 @@
 				274E144626B04DB6008BBED7 /* FamilyDismissedVerificationView.swift */,
 			);
 			name = "Family dismissed";
+			sourceTree = "<group>";
+		};
+		27624F462774D62200CD3D5B /* MemberDies */ = {
+			isa = PBXGroup;
+			children = (
+				27624F472774D68900CD3D5B /* MemberDiesState.swift */,
+				27624F492774D6EC00CD3D5B /* MemberDiesView.swift */,
+				27624F4B2774F78900CD3D5B /* MemberDiesSheet.swift */,
+			);
+			name = MemberDies;
 			sourceTree = "<group>";
 		};
 		276B9723250008DA003E19BA = {
@@ -1140,6 +1157,7 @@
 				27C72EB926B1E9AD00468A67 /* ChooseMemberView.swift in Sources */,
 				27B20DA22529113B00C80696 /* MemberView.swift in Sources */,
 				27C72EB026B1A84B00468A67 /* NewAdditionVerificationView.swift in Sources */,
+				27624F4C2774F78900CD3D5B /* MemberDiesSheet.swift in Sources */,
 				272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */,
 				27D7D80E25570D1000A983AA /* BirthdaysView.swift in Sources */,
 				27C72EE626B9879F00468A67 /* SomeMembersView.swift in Sources */,
@@ -1212,7 +1230,9 @@
 				274E143D26AF2667008BBED7 /* TransactionsQueryResults.swift in Sources */,
 				27C55E172538CE0100923EE8 /* MembersByStatusEntryView.swift in Sources */,
 				27BF579B268CBD0F00BEE938 /* Sidebar.swift in Sources */,
+				27624F482774D68900CD3D5B /* MemberDiesState.swift in Sources */,
 				27B20D9E2529113B00C80696 /* TransactionEditView.swift in Sources */,
+				27624F4A2774D6EC00CD3D5B /* MemberDiesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1469,7 +1489,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "PeriMeleonUnitTests/test-doc.pmrolls PeriMeleonUnitTests/test-bad-doc.pmrolls";
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
@@ -1480,7 +1500,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;
@@ -1499,7 +1519,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "PeriMeleonUnitTests/test-doc.pmrolls PeriMeleonUnitTests/test-bad-doc.pmrolls";
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
@@ -1510,7 +1530,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;

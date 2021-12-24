@@ -21,6 +21,7 @@ enum WorkflowLink {
     case removeHousehold
     case repairMember
     case memberMarriesMember
+    case memberDies
 }
 
 struct WorkflowsView: View {
@@ -90,6 +91,14 @@ struct WorkflowsView: View {
                     LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Member makes new household")
                 }
                 Caption(text: "Member establishes their own household.")
+            }.padding(.bottom, 10)
+            VStack(alignment: .leading) {
+                NavigationLink(destination: MemberDiesView().environmentObject(document),
+                               tag: .memberDies,
+                               selection: $linkSelection) {
+                    LinkButton(linkSelection: $linkSelection, link: .memberDies, label: "Member dies")
+                }
+                Caption(text: "Member dies.")
             }
         }
         DisclosureGroup("Miscellaneous") {
