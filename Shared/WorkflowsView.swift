@@ -88,9 +88,9 @@ struct WorkflowsView: View {
                 NavigationLink(destination: MoveToHouseholdView().environmentObject(document),
                                tag: .moveToHousehold,
                                selection: $linkSelection) {
-                    LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Member makes new household")
+                    LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Moves to another household")
                 }
-                Caption(text: "Member establishes their own household.")
+                Caption(text: "Member moves to another household, or establishes their own household.")
             }.padding(.bottom, 10)
             VStack(alignment: .leading) {
                 NavigationLink(destination: MemberDiesView().environmentObject(document),
