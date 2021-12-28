@@ -40,19 +40,19 @@ struct MoveToHouseholdView: View {
     private var householdList: some View {
         VStack {
             Text("To new or existing household:").font(.caption).italic()
-        Form {
+            Form {
                 Text("New household").bold().italic()
-                .onDrop(of: ["public.text"],
-                        isTargeted: $droppedOnNew,
-                        perform: dropOnNew)
-            Text("") //trying to isolate "new" drop target
-            List {
-                ForEach(document.activeHouseholds) { household in
-                    Text(household.name ?? "[none]")
+                    .onDrop(of: ["public.text"],
+                            isTargeted: $droppedOnNew,
+                            perform: dropOnNew)
+                Text("") //trying to isolate "new" drop target
+                List {
+                    ForEach(document.activeHouseholds) { household in
+                        Text(household.name ?? "[none]")
+                    }
+                    .onInsert(of: ["public.text"], perform: dropOnExisting)
                 }
-                .onInsert(of: ["public.text"], perform: dropOnExisting)
             }
-        }
         }
     }
     
