@@ -439,6 +439,12 @@ class PeriMeleonDocument: ReferenceFileDocument {
         return results
     }
     
+    /**
+     Check that a member is ready to be removed. A member ought to be in but one household, but this function doesn't assume that's so.
+     - Returns: tuple of two arrays of household IDs
+     ready - any households containing member that can be removed.
+     suspect - any households containing member that are not ready for removeal.
+     */
     func checkForRemovals(member: ID) -> (ready: [ID], suspect: [ID]) {
         var suspect = [ID]()
         var ready = [ID]()
@@ -459,10 +465,24 @@ class PeriMeleonDocument: ReferenceFileDocument {
         return (ready: ready, suspect: suspect)
     }
     
+    /**
+     Check that head is only member of household.
+     - Returns: true if (1) household has no spouse of others; or (2) no household for this id.
+     */
     func containsOnlyHead(household: ID) -> Bool {
         //If no household for this id, will return true
         let nh = self.household(byId: household)
         return nh.spouse == nil && nh.others.count == 0
+    }
+    
+    /**
+     Checks that moving this member from their household would not leave orphan.
+     */
+    func eligibleToMove(member: Member) -> Bool {
+        let household = self.household(byId: member.household)
+        if member.id != household.head { return true }
+        if household.others.count == 0 { return true }
+        return household.spouse != nil
     }
     
 

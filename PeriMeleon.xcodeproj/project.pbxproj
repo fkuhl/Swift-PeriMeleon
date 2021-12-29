@@ -17,6 +17,10 @@
 		271011DC27445794006AD584 /* RepairHouseholdEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271011DB27445794006AD584 /* RepairHouseholdEditView.swift */; };
 		27235930254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
 		27235931254B51AE00137925 /* RoundedOutlineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2723592F254B51AE00137925 /* RoundedOutlineButton.swift */; };
+		27241D75277B685900E86800 /* MoveToHouseholdState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27241D74277B685900E86800 /* MoveToHouseholdState.swift */; };
+		27241D76277B685900E86800 /* MoveToHouseholdState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27241D74277B685900E86800 /* MoveToHouseholdState.swift */; };
+		27241D78277B6BA900E86800 /* MoveToHouseholdTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27241D77277B6BA900E86800 /* MoveToHouseholdTarget.swift */; };
+		27241D79277B6BA900E86800 /* MoveToHouseholdTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27241D77277B6BA900E86800 /* MoveToHouseholdTarget.swift */; };
 		2724846326934B4B008709B4 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724846226934B4B008709B4 /* Model.swift */; };
 		2724846426934B4B008709B4 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724846226934B4B008709B4 /* Model.swift */; };
 		272F722E251533BD009E4CF3 /* CryptoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F722D251533BD009E4CF3 /* CryptoKey.swift */; };
@@ -257,6 +261,8 @@
 		271011D927445496006AD584 /* RepairHouseholdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairHouseholdView.swift; sourceTree = "<group>"; };
 		271011DB27445794006AD584 /* RepairHouseholdEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepairHouseholdEditView.swift; sourceTree = "<group>"; };
 		2723592F254B51AE00137925 /* RoundedOutlineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedOutlineButton.swift; sourceTree = "<group>"; };
+		27241D74277B685900E86800 /* MoveToHouseholdState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToHouseholdState.swift; sourceTree = "<group>"; };
+		27241D77277B6BA900E86800 /* MoveToHouseholdTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToHouseholdTarget.swift; sourceTree = "<group>"; };
 		2724846226934B4B008709B4 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		272F722D251533BD009E4CF3 /* CryptoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoKey.swift; sourceTree = "<group>"; };
 		273A79EA2662CA0100CC55A0 /* NavigationStylingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStylingModifier.swift; sourceTree = "<group>"; };
@@ -552,6 +558,8 @@
 			children = (
 				27C55E2B2538E67700923EE8 /* MoveToHouseholdAccumulator.swift */,
 				27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */,
+				27241D74277B685900E86800 /* MoveToHouseholdState.swift */,
+				27241D77277B6BA900E86800 /* MoveToHouseholdTarget.swift */,
 			);
 			name = MoveToHousehold;
 			sourceTree = "<group>";
@@ -1130,6 +1138,7 @@
 				27C55E512538E7A000923EE8 /* DataCheckerView.swift in Sources */,
 				27B20DA02529113B00C80696 /* Transactions.swift in Sources */,
 				27ABB0B626DECA7C00AA0288 /* MemberMarriesMember.swift in Sources */,
+				27241D78277B6BA900E86800 /* MoveToHouseholdTarget.swift in Sources */,
 				27B2BADB273DA6330024C40D /* RemoveHouseholdView.swift in Sources */,
 				27C72EBB26B1ECFB00468A67 /* ProfessionVerificationView.swift in Sources */,
 				27C55E252538CE9400923EE8 /* MockedData.swift in Sources */,
@@ -1191,6 +1200,7 @@
 				27C55E302538E67700923EE8 /* WorkflowsView.swift in Sources */,
 				27FD5AE8254DE2CD0086F120 /* PhonelistMaker.swift in Sources */,
 				27C72EAA26B1A57F00468A67 /* NewAddition.swift in Sources */,
+				27241D75277B685900E86800 /* MoveToHouseholdState.swift in Sources */,
 				276B9755250008DB003E19BA /* PeriMeleonDocument.swift in Sources */,
 				2724846326934B4B008709B4 /* Model.swift in Sources */,
 				275A1180255F320C0055E77F /* SolidButton.swift in Sources */,
@@ -1291,6 +1301,7 @@
 				27BF5799268BAE0700BEE938 /* SearchField.swift in Sources */,
 				273A79EC2662CA0100CC55A0 /* NavigationStylingModifier.swift in Sources */,
 				277C95122540DC230032638A /* PreviewProviderModifier.swift in Sources */,
+				27241D76277B685900E86800 /* MoveToHouseholdState.swift in Sources */,
 				27C55E122538CE0100923EE8 /* CompactToggleView.swift in Sources */,
 				275AF2A6258D09540007CF0C /* View+debug.swift in Sources */,
 				27C55E332538E67700923EE8 /* MoveToHouseholdView.swift in Sources */,
@@ -1317,6 +1328,7 @@
 				273FDC97257C462F0019F2DD /* Member+isActive.swift in Sources */,
 				276B9758250008DB003E19BA /* ContentView.swift in Sources */,
 				27B20D822529106500C80696 /* HouseholdRowView.swift in Sources */,
+				27241D79277B6BA900E86800 /* MoveToHouseholdTarget.swift in Sources */,
 				278C1667265955DF003CEC13 /* MainView.swift in Sources */,
 				2724846426934B4B008709B4 /* Model.swift in Sources */,
 				27C55E182538CE0100923EE8 /* MembersByStatusEntryView.swift in Sources */,

@@ -30,8 +30,13 @@ struct MoveToHouseholdView: View {
             Text("Drag member to move:").font(.caption).italic()
             Form {
                 ForEach(document.activeMembers) { member in
-                    Text(member.fullName())
-                        .onDrag { NSItemProvider(object: member.id as NSString) }
+                    if document.eligibleToMove(member: member) {
+                        Text(member.fullName())
+                            .onDrag { NSItemProvider(object: member.id as NSString) }
+                    } else {
+                        // TODO: Need a way to tell user "nope"
+                        Text(member.fullName()).foregroundColor(Color.gray)
+                    }
                 }
             }
         }
@@ -48,10 +53,15 @@ struct MoveToHouseholdView: View {
                 Text("") //trying to isolate "new" drop target
                 List {
                     ForEach(document.activeHouseholds) { household in
-                        Text(household.name ?? "[none]")
+                        DisclosureGroup(content: {
+                            MoveToHouseholdTarget(household: household)
+                        }, label: {
+                            Text(household.name ?? "[none]")
+//                            Label(household.name ?? "[none]", systemImage: "gearshape.2")
+                        })
                     }
-                    .onInsert(of: ["public.text"], perform: dropOnExisting)
                 }
+                //.onInsert(of: ["public.text"], perform: dropOnExisting)
             }
         }
     }
