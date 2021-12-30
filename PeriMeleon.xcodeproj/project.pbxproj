@@ -58,6 +58,8 @@
 		276B9758250008DB003E19BA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B972B250008DA003E19BA /* ContentView.swift */; };
 		276B9759250008DB003E19BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276B972C250008DB003E19BA /* Assets.xcassets */; };
 		276B975A250008DB003E19BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276B972C250008DB003E19BA /* Assets.xcassets */; };
+		2776025C277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776025B277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift */; };
+		2776025D277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776025B277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift */; };
 		277B0A9D25783A3900AB2F86 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B0A9C25783A3900AB2F86 /* Keychain.swift */; };
 		277B0A9E25783A3900AB2F86 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277B0A9C25783A3900AB2F86 /* Keychain.swift */; };
 		277C95112540DC230032638A /* PreviewProviderModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C95102540DC230032638A /* PreviewProviderModifier.swift */; };
@@ -299,6 +301,7 @@
 		276B974C250008DB003E19BA /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		276B9750250008DB003E19BA /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		276B9752250008DB003E19BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2776025B277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToHouseholdNewSheet.swift; sourceTree = "<group>"; };
 		277B0A9C25783A3900AB2F86 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		277C95102540DC230032638A /* PreviewProviderModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProviderModifier.swift; sourceTree = "<group>"; };
 		277C95172540DD6A0032638A /* PreviewShowoffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewShowoffView.swift; sourceTree = "<group>"; };
@@ -560,6 +563,7 @@
 				27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */,
 				27241D74277B685900E86800 /* MoveToHouseholdState.swift */,
 				27241D77277B6BA900E86800 /* MoveToHouseholdTarget.swift */,
+				2776025B277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift */,
 			);
 			name = MoveToHousehold;
 			sourceTree = "<group>";
@@ -1192,6 +1196,7 @@
 				279B6FB3255F619B0009D2BF /* MembersByAgeResultsView.swift in Sources */,
 				27C72EB326B1E61800468A67 /* ProfessionView.swift in Sources */,
 				274E143926AF1161008BBED7 /* TransactionsQuery.swift in Sources */,
+				2776025C277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift in Sources */,
 				27B20D832529106500C80696 /* HouseholdsView.swift in Sources */,
 				27ABB0A826DD5DA000AA0288 /* FamilyRelationship.swift in Sources */,
 				27ABB0AC26DD64CB00AA0288 /* RemoveMemberView.swift in Sources */,
@@ -1254,6 +1259,7 @@
 				278C166A2659563E003CEC13 /* PasswordView.swift in Sources */,
 				27C72EE726B9879F00468A67 /* SomeMembersView.swift in Sources */,
 				27C55E472538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
+				2776025D277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift in Sources */,
 				277C9529254223C20032638A /* Member+Age.swift in Sources */,
 				27ABB0B026DD6DC900AA0288 /* RemoveMemberState.swift in Sources */,
 				2789EA3F2722267100CF654C /* DocumentExportPicker.swift in Sources */,

@@ -81,15 +81,18 @@ struct MemberMarriesVerificationView: View {
         groom.maritalStatus = .MARRIED
         groom.spouse = bride.fullName()
         groom.dateOfMarriage = accumulator.date
+        groom.dateLastChanged = Date()
         document.update(member: groom)
         bride.household = newHousehold.id
         bride.maritalStatus = .MARRIED
         bride.spouse = groom.fullName()
         bride.dateOfMarriage = accumulator.date
+        bride.dateLastChanged = Date()
         document.update(member: bride)
         accumulator.combinedDependents.forEach { otherId in
             var other = document.member(byId: otherId)
             other.household = newHousehold.id
+            other.dateLastChanged = Date()
             document.update(member: other)
         }
         if accumulator.groomId == groomsOldHousehold.head {

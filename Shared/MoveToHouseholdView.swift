@@ -7,11 +7,14 @@
 //
 
 import SwiftUI
+import PMDataTypes
 
 struct MoveToHouseholdView: View {
     @EnvironmentObject var document: PeriMeleonDocument
+    @State private var memberId: ID = ""
     @State private var droppedOnNew = false
-    
+    @State private var showingSheet = false
+
     var body: some View {
         HStack {
             memberList
@@ -23,11 +26,16 @@ struct MoveToHouseholdView: View {
                 Text("Member Moves To Another Household")
             }
         }
+        .sheet(isPresented: $showingSheet) {
+            MoveToHouseholdNewSheet(memberId: $memberId,
+                                    showingSheet: $showingSheet)
+                .environmentObject(document)
+        }
     }
     
     private var memberList: some View {
         VStack {
-            Text("Drag member to move:").font(.caption).italic()
+            Text("Open a household, then drag member to move:").font(.caption).italic()
             Form {
                 ForEach(document.activeMembers) { member in
                     if document.eligibleToMove(member: member) {
@@ -53,12 +61,7 @@ struct MoveToHouseholdView: View {
                 Text("") //trying to isolate "new" drop target
                 List {
                     ForEach(document.activeHouseholds) { household in
-                        DisclosureGroup(content: {
-                            MoveToHouseholdTarget(household: household)
-                        }, label: {
-                            Text(household.name ?? "[none]")
-//                            Label(household.name ?? "[none]", systemImage: "gearshape.2")
-                        })
+                        MoveToHouseholdTarget(household: household)
                     }
                 }
                 //.onInsert(of: ["public.text"], perform: dropOnExisting)
@@ -68,25 +71,18 @@ struct MoveToHouseholdView: View {
     
     private func dropOnNew(_ items: [NSItemProvider], _ at: CGPoint) -> Bool {
         if let item = items.first {
-            _ = item.loadObject(ofClass: String.self) { memberId, _ in
+            _ = item.loadObject(ofClass: String.self) { draggedId, _ in
                 DispatchQueue.main.async {
-                    NSLog("Dropped \(memberId ?? "[nil]") on new")
+                    NSLog("Dropped \(draggedId ?? "[nil]") on new")
+                    if let actualId = draggedId {
+                        memberId = actualId
+                        showingSheet = true
+                    }
                 }
             }
         }
         return true
     }
-    
-    private func dropOnExisting(at index: Int, _ items: [NSItemProvider]) {
-        for item in items {
-            _ = item.loadObject(ofClass: String.self) { memberId, _ in
-                DispatchQueue.main.async {
-                    NSLog("member\(memberId ?? "[nil]") dropped on \(document.activeHouseholds[index].name ?? "[none]")")
-                }
-            }
-        }
-    }
-
 }
 
 struct MoveToHouseholdView_Previews: PreviewProvider {

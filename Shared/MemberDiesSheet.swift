@@ -58,8 +58,7 @@ struct MemberDiesSheet: View {
         if removalState == .removeSpouse {
             oldHousehold.spouse = nil
         } else if removalState == .removeDependent {
-            let depleted = oldHousehold.others.filter { $0 != memberId }
-            oldHousehold.others = depleted
+            oldHousehold.remove(other: memberId)
         }
         document.update(household: oldHousehold)
         recordMemberDead(id: memberId)
@@ -98,6 +97,7 @@ struct MemberDiesSheet: View {
         var trans = member.transactions
         trans.append(transaction)
         member.transactions = trans
+        member.dateLastChanged = Date()
         document.update(member: member)
     }
     
@@ -130,6 +130,7 @@ struct MemberDiesSheet: View {
         oldHousehold.spouse = nil
         document.update(household: oldHousehold)
         spouse.maritalStatus = .SINGLE
+        member.dateLastChanged = Date()
         document.update(member: spouse)
         recordMemberDead(id: memberId)
         presentationMode.wrappedValue.dismiss()

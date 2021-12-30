@@ -46,6 +46,11 @@ struct NormalizedHousehold: Identifiable {
         self.name = id
     }
     
+    mutating func remove(other: ID) {
+        let depleted = others.filter { $0 != other }
+        others = depleted
+    }
+    
     func statusOf(member: ID) -> HouseholdStatus {
         if head == member { return .head }
         if let spouseId = spouse {

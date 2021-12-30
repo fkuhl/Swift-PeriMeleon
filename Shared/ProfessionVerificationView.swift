@@ -47,6 +47,7 @@ struct ProfessionVerificationView: View {
             transaction.type = .PROFESSION
             transaction.comment = accumulator.comment
             member.transactions.append(transaction)
+            member.dateLastChanged = Date()
             document.update(member: member)
             accumulator.phase = .reset
             linkSelection = nil //ensure WorkflowsView can go again

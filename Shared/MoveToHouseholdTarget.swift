@@ -12,8 +12,14 @@ struct MoveToHouseholdTarget: View {
     var household: NormalizedHousehold
     @State private var droppedOnSpouse = false
     @State private var droppedOnOther = false
+    @State private var isExpanded = false
 
     var body: some View {
+        DisclosureGroup(household.name ?? "[none]",
+                        isExpanded: $isExpanded) { form }
+    }
+    
+    private var form: some View {
         Form {
             EditDisplayView(caption: "Head:", message: document.nameOf(member: household.head))
             if let spouse = household.spouse {
@@ -28,9 +34,9 @@ struct MoveToHouseholdTarget: View {
                 .onDrop(of: ["public.text"],
                         isTargeted: $droppedOnOther,
                         perform: dropOnOther)
-        }.frame(height: 150)
+        }.frame(height: 200)
     }
-    
+
     private func dropOnSpouse(_ items: [NSItemProvider], _ at: CGPoint) -> Bool {
         if let item = items.first {
             _ = item.loadObject(ofClass: String.self) { memberId, _ in

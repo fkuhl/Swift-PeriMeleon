@@ -52,6 +52,7 @@ struct RepairMemberEditView: View {
     private func apply() {
         var member = document.member(byId: memberId)
         member.household = householdId
+        member.dateLastChanged = Date()
         document.update(member: member)
         withAnimation(.easeInOut(duration: editAnimationDuration)) {
             self.editing = false

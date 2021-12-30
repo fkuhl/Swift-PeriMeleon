@@ -402,13 +402,19 @@ class PeriMeleonDocument: ReferenceFileDocument {
     //MARK: - Get data
     
     func household(byId: ID) -> NormalizedHousehold {
-        householdsById[byId] ?? NormalizedHousehold()
+        let stored = householdsById[byId]
+        assert(stored != nil, "household(byId:) no entry for \(byId)")
+        //Thread.callStackSymbols.forEach{print($0)}
+        return stored ?? NormalizedHousehold()
     }
     
     func member(byId: ID) -> Member {
-        membersById[byId] ?? Member()
+        let stored = membersById[byId]
+        assert(stored != nil, "member(byId:) no entry for \(byId)")
+        return stored ?? Member()
     }
     
+    // TODO: This predates addition of member name to NormalizedHousehold.
     func nameOf(household: NormalizedHousehold) -> String {
         nameOf(member: household.head)
     }
