@@ -171,8 +171,6 @@
 		27C55E1A2538CE0100923EE8 /* MembersByStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E102538CE0100923EE8 /* MembersByStatusView.swift */; };
 		27C55E252538CE9400923EE8 /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E242538CE9400923EE8 /* MockedData.swift */; };
 		27C55E262538CE9400923EE8 /* MockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E242538CE9400923EE8 /* MockedData.swift */; };
-		27C55E2E2538E67700923EE8 /* MoveToHouseholdAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E2B2538E67700923EE8 /* MoveToHouseholdAccumulator.swift */; };
-		27C55E2F2538E67700923EE8 /* MoveToHouseholdAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E2B2538E67700923EE8 /* MoveToHouseholdAccumulator.swift */; };
 		27C55E302538E67700923EE8 /* WorkflowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E2C2538E67700923EE8 /* WorkflowsView.swift */; };
 		27C55E312538E67700923EE8 /* WorkflowsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E2C2538E67700923EE8 /* WorkflowsView.swift */; };
 		27C55E322538E67700923EE8 /* MoveToHouseholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */; };
@@ -360,7 +358,6 @@
 		27C55E0F2538CE0100923EE8 /* MembersByStatusEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByStatusEntryView.swift; sourceTree = "<group>"; };
 		27C55E102538CE0100923EE8 /* MembersByStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MembersByStatusView.swift; sourceTree = "<group>"; };
 		27C55E242538CE9400923EE8 /* MockedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockedData.swift; sourceTree = "<group>"; };
-		27C55E2B2538E67700923EE8 /* MoveToHouseholdAccumulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToHouseholdAccumulator.swift; sourceTree = "<group>"; };
 		27C55E2C2538E67700923EE8 /* WorkflowsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkflowsView.swift; sourceTree = "<group>"; };
 		27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToHouseholdView.swift; sourceTree = "<group>"; };
 		27C55E392538E74300923EE8 /* FamilyJoinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyJoinView.swift; sourceTree = "<group>"; };
@@ -559,7 +556,6 @@
 		274E143E26AF451A008BBED7 /* MoveToHousehold */ = {
 			isa = PBXGroup;
 			children = (
-				27C55E2B2538E67700923EE8 /* MoveToHouseholdAccumulator.swift */,
 				27C55E2D2538E67700923EE8 /* MoveToHouseholdView.swift */,
 				27241D74277B685900E86800 /* MoveToHouseholdState.swift */,
 				27241D77277B6BA900E86800 /* MoveToHouseholdTarget.swift */,
@@ -1233,7 +1229,6 @@
 				27EB130A254A0769008E8A8B /* PhonelistEntryView.swift in Sources */,
 				27D7D80C25570D1000A983AA /* BirthdaysResultsView.swift in Sources */,
 				275AF2A5258D09540007CF0C /* View+debug.swift in Sources */,
-				27C55E2E2538E67700923EE8 /* MoveToHouseholdAccumulator.swift in Sources */,
 				27B20DCB2529123400C80696 /* EditOptionalParentView.swift in Sources */,
 				2789EA3E2722267100CF654C /* DocumentExportPicker.swift in Sources */,
 				27BC9304265D885C00C39B0B /* ExplainError.swift in Sources */,
@@ -1324,7 +1319,6 @@
 				27BF579C268CBD0F00BEE938 /* Sidebar.swift in Sources */,
 				27ABB0B326DD71F600AA0288 /* RemoveMemberSheet.swift in Sources */,
 				27B20DC42529123400C80696 /* EditOptionalDateView.swift in Sources */,
-				27C55E2F2538E67700923EE8 /* MoveToHouseholdAccumulator.swift in Sources */,
 				27B20DCC2529123400C80696 /* EditOptionalParentView.swift in Sources */,
 				2789EA462723148E00CF654C /* DirectoryMaker.swift in Sources */,
 				277B0A9E25783A3900AB2F86 /* Keychain.swift in Sources */,

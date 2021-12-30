@@ -104,7 +104,7 @@ struct MemberDiesSheet: View {
     private var removeHead: some View {
         Form {
             Text("Record member '\(document.nameOf(member: memberId))' as deceased?")
-            Text("The member's spouse will become the head of the household.")
+            Text("The member's spouse (if any) will become the head of the household.")
             Text("There is no undo!").font(.headline)
             HStack {
                 Spacer()
@@ -119,19 +119,25 @@ struct MemberDiesSheet: View {
     /**
      Remove deceased to new household; make spouse the head of the old household.
      - Precondition: Member is head of old household.
-     - Precondition: There is spouse in old household.
+     - Postcondition: If there is spouse in old household, becomes head.
      */
     private func removeMemberPromoteSpouseAndDismiss() {
         let oldHouseholdId = document.member(byId: memberId).household
         var oldHousehold = document.household(byId: oldHouseholdId)
-        precondition(oldHousehold.spouse != nil, "removeMemberPromoteSpouseAndDismiss called with no spouse")
-        var spouse = document.member(byId: oldHousehold.spouse!)
-        oldHousehold.head = oldHousehold.spouse!
-        oldHousehold.spouse = nil
-        document.update(household: oldHousehold)
-        spouse.maritalStatus = .SINGLE
-        member.dateLastChanged = Date()
-        document.update(member: spouse)
+        if let spouseId = oldHousehold.spouse {
+            var spouse = document.member(byId: spouseId)
+            oldHousehold.head = spouseId
+            oldHousehold.spouse = nil
+            document.update(household: oldHousehold)
+            spouse.maritalStatus = .SINGLE
+            spouse.dateLastChanged = Date()
+            document.update(member: spouse)
+        } else {
+            if oldHousehold.others.count == 0 {
+                //remove empty household
+                document.remove(household: oldHousehold)
+            }
+        }
         recordMemberDead(id: memberId)
         presentationMode.wrappedValue.dismiss()
     }

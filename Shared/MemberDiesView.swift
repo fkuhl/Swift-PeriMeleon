@@ -65,7 +65,8 @@ struct MemberDiesView: View {
         }
         //no spouse, so dependents would become orphans
         orphans = household.others
-        removalState = .prospectiveOrphans
+        removalState = orphans.count > 0 ? .prospectiveOrphans
+                                        : .removeHead
         showingSheet = true
         return
     }
