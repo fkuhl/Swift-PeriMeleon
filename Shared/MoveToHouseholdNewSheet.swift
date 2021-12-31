@@ -13,7 +13,6 @@ struct MoveToHouseholdNewSheet: View {
     @EnvironmentObject var document: PeriMeleonDocument
     @Binding var memberId: ID
     @State var address: Address = Address()
-    @Binding var showingSheet: Bool
 
     var body: some View {
         Form {
@@ -42,9 +41,6 @@ struct MoveToHouseholdNewSheet: View {
     private func moveToNew() {
         let member = document.member(byId: memberId)
         var oldHousehold = document.household(byId: member.household)
-        //Retrieve old before changing as side-effect of making new!
-        _ = makeNewHousehold(memberId: memberId,
-                             address: address)
         switch oldHousehold.statusOf(member: memberId) {
         case .head:
             if let spouseId = oldHousehold.spouse {
@@ -59,22 +55,27 @@ struct MoveToHouseholdNewSheet: View {
                 }
                 ///NB: case of prospective orphans prevented by limiting drag source.
             }
+            //Order matters here: change old before adding new
+            makeNewHousehold(memberId: memberId, address: address)
         case .spouse:
             oldHousehold.spouse = nil
             document.update(household: oldHousehold)
+            makeNewHousehold(memberId: memberId, address: address)
         case .other:
             oldHousehold.remove(other: memberId)
             document.update(household: oldHousehold)
+            makeNewHousehold(memberId: memberId, address: address)
         case .notMember:
             NSLog("Attempt to move member\(document.nameOf(member: memberId)) from household \(oldHousehold.name ?? "[none]") to which it did not belong")
         }
         presentationMode.wrappedValue.dismiss()
     }
     
+    @discardableResult
     private func makeNewHousehold(memberId: ID, address: Address) -> NormalizedHousehold {
         var newHousehold = NormalizedHousehold()
         newHousehold.head = memberId
-        newHousehold.name = document.nameOf(member: memberId)
+        //name is set during document.add
         newHousehold.address = address
         document.add(household: newHousehold)
         var member = document.member(byId: memberId)
@@ -87,8 +88,7 @@ struct MoveToHouseholdNewSheet: View {
 
 struct MoveToHouseholdNewSheet_Previews: PreviewProvider {
     static var previews: some View {
-        MoveToHouseholdNewSheet(memberId: .constant(mockMember1.id),
-                                showingSheet: .constant(true))
+        MoveToHouseholdNewSheet(memberId: .constant(mockMember1.id))
             .environmentObject(mockDocument)
     }
 }

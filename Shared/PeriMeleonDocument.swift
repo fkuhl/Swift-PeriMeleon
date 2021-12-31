@@ -497,18 +497,16 @@ class PeriMeleonDocument: ReferenceFileDocument {
     func update(household: NormalizedHousehold) {
         guard let oldValue = householdsById[household.id],
               let oldIndex = households.firstIndex(of: oldValue) else {
-            householdsById[household.id] = household
-            households.insert(household)
-            NSLog("households changed (really, added to), undo is \(String(describing: undoManager))")
-            changeCount += 1
-            undoManager?.registerUndo(withTarget: self) { doc in
-                doc.remove(household: household)
-            }
-            return
-        }
-        householdsById[household.id] = household
+                  NSLog("households changed (really, added to), undo is \(String(describing: undoManager))")
+                  add(household: household)
+                  return
+              }
+        //Ensure consistency of name before inserting!
+        var toBeInserted = household
+        toBeInserted.name = nameOf(household: toBeInserted)
+        householdsById[toBeInserted.id] = toBeInserted
         households.remove(at: oldIndex)
-        households.insert(household)
+        households.insert(toBeInserted)
         NSLog("households changed, undo is \(String(describing: undoManager))")
         changeCount += 1
         undoManager?.registerUndo(withTarget: self) { doc in

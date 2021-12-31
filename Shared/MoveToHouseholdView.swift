@@ -13,7 +13,8 @@ struct MoveToHouseholdView: View {
     @EnvironmentObject var document: PeriMeleonDocument
     @State private var memberId: ID = ""
     @State private var droppedOnNew = false
-    @State private var showingSheet = false
+    @State private var showingNewSheet = false
+    @State private var showingExistingSheet = false
 
     var body: some View {
         HStack {
@@ -26,9 +27,12 @@ struct MoveToHouseholdView: View {
                 Text("Member Moves To Another Household")
             }
         }
-        .sheet(isPresented: $showingSheet) {
-            MoveToHouseholdNewSheet(memberId: $memberId,
-                                    showingSheet: $showingSheet)
+        .sheet(isPresented: $showingNewSheet) {
+            MoveToHouseholdNewSheet(memberId: $memberId)
+                .environmentObject(document)
+        }
+        .sheet(isPresented: $showingExistingSheet) {
+            MoveToHouseholdExistingSheet(memberId: $memberId)
                 .environmentObject(document)
         }
     }
@@ -76,7 +80,7 @@ struct MoveToHouseholdView: View {
                     NSLog("Dropped \(draggedId ?? "[nil]") on new")
                     if let actualId = draggedId {
                         memberId = actualId
-                        showingSheet = true
+                        showingNewSheet = true
                     }
                 }
             }

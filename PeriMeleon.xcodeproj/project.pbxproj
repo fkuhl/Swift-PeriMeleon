@@ -39,6 +39,8 @@
 		274E144326B0440E008BBED7 /* FamilyDismissedAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E144226B0440E008BBED7 /* FamilyDismissedAccumulator.swift */; };
 		274E144526B0473C008BBED7 /* FamilyDismissedTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E144426B0473C008BBED7 /* FamilyDismissedTransactionView.swift */; };
 		274E144726B04DB6008BBED7 /* FamilyDismissedVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E144626B04DB6008BBED7 /* FamilyDismissedVerificationView.swift */; };
+		275990E4277F502400A25C28 /* MoveToHouseholdExistingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275990E3277F502400A25C28 /* MoveToHouseholdExistingSheet.swift */; };
+		275990E5277F502400A25C28 /* MoveToHouseholdExistingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275990E3277F502400A25C28 /* MoveToHouseholdExistingSheet.swift */; };
 		275A1180255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275A1181255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275AF2A5258D09540007CF0C /* View+debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AF2A4258D09540007CF0C /* View+debug.swift */; };
@@ -278,6 +280,7 @@
 		274E144226B0440E008BBED7 /* FamilyDismissedAccumulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyDismissedAccumulator.swift; sourceTree = "<group>"; };
 		274E144426B0473C008BBED7 /* FamilyDismissedTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyDismissedTransactionView.swift; sourceTree = "<group>"; };
 		274E144626B04DB6008BBED7 /* FamilyDismissedVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyDismissedVerificationView.swift; sourceTree = "<group>"; };
+		275990E3277F502400A25C28 /* MoveToHouseholdExistingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToHouseholdExistingSheet.swift; sourceTree = "<group>"; };
 		275A117F255F320C0055E77F /* SolidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidButton.swift; sourceTree = "<group>"; };
 		275AF2A4258D09540007CF0C /* View+debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+debug.swift"; sourceTree = "<group>"; };
 		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
@@ -560,6 +563,7 @@
 				27241D74277B685900E86800 /* MoveToHouseholdState.swift */,
 				27241D77277B6BA900E86800 /* MoveToHouseholdTarget.swift */,
 				2776025B277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift */,
+				275990E3277F502400A25C28 /* MoveToHouseholdExistingSheet.swift */,
 			);
 			name = MoveToHousehold;
 			sourceTree = "<group>";
@@ -1142,6 +1146,7 @@
 				27B2BADB273DA6330024C40D /* RemoveHouseholdView.swift in Sources */,
 				27C72EBB26B1ECFB00468A67 /* ProfessionVerificationView.swift in Sources */,
 				27C55E252538CE9400923EE8 /* MockedData.swift in Sources */,
+				275990E4277F502400A25C28 /* MoveToHouseholdExistingSheet.swift in Sources */,
 				27C55E152538CE0100923EE8 /* QueriesView.swift in Sources */,
 				27B20DC92529123400C80696 /* EditTextView.swift in Sources */,
 				271011D527440B13006AD584 /* RepairMemberView.swift in Sources */,
@@ -1260,6 +1265,7 @@
 				2789EA3F2722267100CF654C /* DocumentExportPicker.swift in Sources */,
 				27ABB0B726DECA7C00AA0288 /* MemberMarriesMember.swift in Sources */,
 				27B20DC22529123400C80696 /* ChooseHouseholdView.swift in Sources */,
+				275990E5277F502400A25C28 /* MoveToHouseholdExistingSheet.swift in Sources */,
 				275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */,
 				27B20DA92529113B00C80696 /* Services.swift in Sources */,
 				272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */,
