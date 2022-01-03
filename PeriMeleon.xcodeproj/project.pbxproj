@@ -39,8 +39,8 @@
 		274E144326B0440E008BBED7 /* FamilyDismissedAccumulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E144226B0440E008BBED7 /* FamilyDismissedAccumulator.swift */; };
 		274E144526B0473C008BBED7 /* FamilyDismissedTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E144426B0473C008BBED7 /* FamilyDismissedTransactionView.swift */; };
 		274E144726B04DB6008BBED7 /* FamilyDismissedVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274E144626B04DB6008BBED7 /* FamilyDismissedVerificationView.swift */; };
-		275990E4277F502400A25C28 /* MoveToHouseholdExistingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275990E3277F502400A25C28 /* MoveToHouseholdExistingSheet.swift */; };
-		275990E5277F502400A25C28 /* MoveToHouseholdExistingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275990E3277F502400A25C28 /* MoveToHouseholdExistingSheet.swift */; };
+		275990EA277F793900A25C28 /* MoveToHouseholdOtherSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275990E9277F793900A25C28 /* MoveToHouseholdOtherSheet.swift */; };
+		275990EB277F793900A25C28 /* MoveToHouseholdOtherSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275990E9277F793900A25C28 /* MoveToHouseholdOtherSheet.swift */; };
 		275A1180255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275A1181255F320C0055E77F /* SolidButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A117F255F320C0055E77F /* SolidButton.swift */; };
 		275AF2A5258D09540007CF0C /* View+debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275AF2A4258D09540007CF0C /* View+debug.swift */; };
@@ -50,6 +50,10 @@
 		27624F482774D68900CD3D5B /* MemberDiesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27624F472774D68900CD3D5B /* MemberDiesState.swift */; };
 		27624F4A2774D6EC00CD3D5B /* MemberDiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27624F492774D6EC00CD3D5B /* MemberDiesView.swift */; };
 		27624F4C2774F78900CD3D5B /* MemberDiesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27624F4B2774F78900CD3D5B /* MemberDiesSheet.swift */; };
+		27654E2027834623000C0F7D /* MoveToHouseholdSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27654E1F27834623000C0F7D /* MoveToHouseholdSheet.swift */; };
+		27654E2127834623000C0F7D /* MoveToHouseholdSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27654E1F27834623000C0F7D /* MoveToHouseholdSheet.swift */; };
+		27654E29278359E8000C0F7D /* MoveToHouseholdDubiousSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27654E28278359E8000C0F7D /* MoveToHouseholdDubiousSheet.swift */; };
+		27654E2A278359E8000C0F7D /* MoveToHouseholdDubiousSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27654E28278359E8000C0F7D /* MoveToHouseholdDubiousSheet.swift */; };
 		276B9746250008DB003E19BA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9745250008DB003E19BA /* Tests_iOS.swift */; };
 		276B9751250008DB003E19BA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9750250008DB003E19BA /* Tests_macOS.swift */; };
 		276B9753250008DB003E19BA /* PeriMeleonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276B9729250008DA003E19BA /* PeriMeleonApp.swift */; };
@@ -280,13 +284,15 @@
 		274E144226B0440E008BBED7 /* FamilyDismissedAccumulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyDismissedAccumulator.swift; sourceTree = "<group>"; };
 		274E144426B0473C008BBED7 /* FamilyDismissedTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyDismissedTransactionView.swift; sourceTree = "<group>"; };
 		274E144626B04DB6008BBED7 /* FamilyDismissedVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyDismissedVerificationView.swift; sourceTree = "<group>"; };
-		275990E3277F502400A25C28 /* MoveToHouseholdExistingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToHouseholdExistingSheet.swift; sourceTree = "<group>"; };
+		275990E9277F793900A25C28 /* MoveToHouseholdOtherSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToHouseholdOtherSheet.swift; sourceTree = "<group>"; };
 		275A117F255F320C0055E77F /* SolidButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolidButton.swift; sourceTree = "<group>"; };
 		275AF2A4258D09540007CF0C /* View+debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+debug.swift"; sourceTree = "<group>"; };
 		275D3CA22532029100D65992 /* EditDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDisplayView.swift; sourceTree = "<group>"; };
 		27624F472774D68900CD3D5B /* MemberDiesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberDiesState.swift; sourceTree = "<group>"; };
 		27624F492774D6EC00CD3D5B /* MemberDiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberDiesView.swift; sourceTree = "<group>"; };
 		27624F4B2774F78900CD3D5B /* MemberDiesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberDiesSheet.swift; sourceTree = "<group>"; };
+		27654E1F27834623000C0F7D /* MoveToHouseholdSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToHouseholdSheet.swift; sourceTree = "<group>"; };
+		27654E28278359E8000C0F7D /* MoveToHouseholdDubiousSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToHouseholdDubiousSheet.swift; sourceTree = "<group>"; };
 		276B9729250008DA003E19BA /* PeriMeleonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonApp.swift; sourceTree = "<group>"; };
 		276B972A250008DA003E19BA /* PeriMeleonDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriMeleonDocument.swift; sourceTree = "<group>"; };
 		276B972B250008DA003E19BA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -563,7 +569,9 @@
 				27241D74277B685900E86800 /* MoveToHouseholdState.swift */,
 				27241D77277B6BA900E86800 /* MoveToHouseholdTarget.swift */,
 				2776025B277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift */,
-				275990E3277F502400A25C28 /* MoveToHouseholdExistingSheet.swift */,
+				275990E9277F793900A25C28 /* MoveToHouseholdOtherSheet.swift */,
+				27654E1F27834623000C0F7D /* MoveToHouseholdSheet.swift */,
+				27654E28278359E8000C0F7D /* MoveToHouseholdDubiousSheet.swift */,
 			);
 			name = MoveToHousehold;
 			sourceTree = "<group>";
@@ -1133,6 +1141,7 @@
 				27BF5798268BAE0700BEE938 /* SearchField.swift in Sources */,
 				271011DA27445496006AD584 /* RepairHouseholdView.swift in Sources */,
 				27B2BAD9273DA5610024C40D /* RemoveHouseholdState.swift in Sources */,
+				27654E2027834623000C0F7D /* MoveToHouseholdSheet.swift in Sources */,
 				27B20DC12529123400C80696 /* ChooseHouseholdView.swift in Sources */,
 				275D3CA32532029100D65992 /* EditDisplayView.swift in Sources */,
 				278C1666265955DF003CEC13 /* MainView.swift in Sources */,
@@ -1146,7 +1155,6 @@
 				27B2BADB273DA6330024C40D /* RemoveHouseholdView.swift in Sources */,
 				27C72EBB26B1ECFB00468A67 /* ProfessionVerificationView.swift in Sources */,
 				27C55E252538CE9400923EE8 /* MockedData.swift in Sources */,
-				275990E4277F502400A25C28 /* MoveToHouseholdExistingSheet.swift in Sources */,
 				27C55E152538CE0100923EE8 /* QueriesView.swift in Sources */,
 				27B20DC92529123400C80696 /* EditTextView.swift in Sources */,
 				271011D527440B13006AD584 /* RepairMemberView.swift in Sources */,
@@ -1195,6 +1203,7 @@
 				27B20DAC2529113B00C80696 /* MemberEditView.swift in Sources */,
 				2789EA452723148E00CF654C /* DirectoryMaker.swift in Sources */,
 				279B6FB3255F619B0009D2BF /* MembersByAgeResultsView.swift in Sources */,
+				27654E29278359E8000C0F7D /* MoveToHouseholdDubiousSheet.swift in Sources */,
 				27C72EB326B1E61800468A67 /* ProfessionView.swift in Sources */,
 				274E143926AF1161008BBED7 /* TransactionsQuery.swift in Sources */,
 				2776025C277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift in Sources */,
@@ -1245,6 +1254,7 @@
 				274E143D26AF2667008BBED7 /* TransactionsQueryResults.swift in Sources */,
 				27C55E172538CE0100923EE8 /* MembersByStatusEntryView.swift in Sources */,
 				27BF579B268CBD0F00BEE938 /* Sidebar.swift in Sources */,
+				275990EA277F793900A25C28 /* MoveToHouseholdOtherSheet.swift in Sources */,
 				27624F482774D68900CD3D5B /* MemberDiesState.swift in Sources */,
 				27B20D9E2529113B00C80696 /* TransactionEditView.swift in Sources */,
 				27624F4A2774D6EC00CD3D5B /* MemberDiesView.swift in Sources */,
@@ -1258,6 +1268,7 @@
 				27FD5AE2254DDC4F0086F120 /* IntegerTextField.swift in Sources */,
 				278C166A2659563E003CEC13 /* PasswordView.swift in Sources */,
 				27C72EE726B9879F00468A67 /* SomeMembersView.swift in Sources */,
+				27654E2A278359E8000C0F7D /* MoveToHouseholdDubiousSheet.swift in Sources */,
 				27C55E472538E74300923EE8 /* FamilyJoinTransactionPhaseView.swift in Sources */,
 				2776025D277E01DD0080A3C7 /* MoveToHouseholdNewSheet.swift in Sources */,
 				277C9529254223C20032638A /* Member+Age.swift in Sources */,
@@ -1265,7 +1276,6 @@
 				2789EA3F2722267100CF654C /* DocumentExportPicker.swift in Sources */,
 				27ABB0B726DECA7C00AA0288 /* MemberMarriesMember.swift in Sources */,
 				27B20DC22529123400C80696 /* ChooseHouseholdView.swift in Sources */,
-				275990E5277F502400A25C28 /* MoveToHouseholdExistingSheet.swift in Sources */,
 				275D3CA42532029100D65992 /* EditDisplayView.swift in Sources */,
 				27B20DA92529113B00C80696 /* Services.swift in Sources */,
 				272F722F251533BD009E4CF3 /* CryptoKey.swift in Sources */,
@@ -1312,11 +1322,13 @@
 				27C55E122538CE0100923EE8 /* CompactToggleView.swift in Sources */,
 				275AF2A6258D09540007CF0C /* View+debug.swift in Sources */,
 				27C55E332538E67700923EE8 /* MoveToHouseholdView.swift in Sources */,
+				275990EB277F793900A25C28 /* MoveToHouseholdOtherSheet.swift in Sources */,
 				27C55E562538E7A000923EE8 /* DataChecker.swift in Sources */,
 				27B20D9D2529113B00C80696 /* CoreMemberView.swift in Sources */,
 				27B20DD02529123400C80696 /* EditBoolView.swift in Sources */,
 				27C55E412538E74300923EE8 /* FamilyJoinAccumulator.swift in Sources */,
 				27C55E452538E74300923EE8 /* FamilyJoinHeadPhaseView.swift in Sources */,
+				27654E2127834623000C0F7D /* MoveToHouseholdSheet.swift in Sources */,
 				277C95402544B4870032638A /* ShareSheet.swift in Sources */,
 				27B20D862529106500C80696 /* HouseholdView.swift in Sources */,
 				27C55E582538E7A000923EE8 /* DataCheckReportView.swift in Sources */,

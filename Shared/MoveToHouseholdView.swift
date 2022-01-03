@@ -11,10 +11,13 @@ import PMDataTypes
 
 struct MoveToHouseholdView: View {
     @EnvironmentObject var document: PeriMeleonDocument
+    ///following 4 are the state to be conveyed to the sheets
     @State private var memberId: ID = ""
-    @State private var droppedOnNew = false
-    @State private var showingNewSheet = false
-    @State private var showingExistingSheet = false
+    @State private var targetHousehold = NormalizedHousehold()
+    @State private var moveToHouseholdState = MoveToHouseholdState.enteringData
+    @State private var showingSheet = false
+    @State private var droppedOnNew = false ///drop mechanism uses; I don't
+    @State private var droppedOnOther = false ///drop mechanism uses; I don't
 
     var body: some View {
         HStack {
@@ -27,12 +30,10 @@ struct MoveToHouseholdView: View {
                 Text("Member Moves To Another Household")
             }
         }
-        .sheet(isPresented: $showingNewSheet) {
-            MoveToHouseholdNewSheet(memberId: $memberId)
-                .environmentObject(document)
-        }
-        .sheet(isPresented: $showingExistingSheet) {
-            MoveToHouseholdExistingSheet(memberId: $memberId)
+        .sheet(isPresented: $showingSheet) {
+            MoveToHouseholdSheet(memberId: $memberId,
+                                 targetHousehold: $targetHousehold,
+                                 moveToHouseholdState: $moveToHouseholdState)
                 .environmentObject(document)
         }
     }
@@ -65,10 +66,14 @@ struct MoveToHouseholdView: View {
                 Text("") //trying to isolate "new" drop target
                 List {
                     ForEach(document.activeHouseholds) { household in
-                        MoveToHouseholdTarget(household: household)
+                        MoveToHouseholdTarget(
+                            household: household,
+                            memberId: $memberId,
+                            targetHousehold: $targetHousehold,
+                            moveToHouseholdState: $moveToHouseholdState,
+                            showingSheet: $showingSheet)
                     }
                 }
-                //.onInsert(of: ["public.text"], perform: dropOnExisting)
             }
         }
     }
@@ -80,7 +85,7 @@ struct MoveToHouseholdView: View {
                     NSLog("Dropped \(draggedId ?? "[nil]") on new")
                     if let actualId = draggedId {
                         memberId = actualId
-                        showingNewSheet = true
+                        showingSheet = true
                     }
                 }
             }

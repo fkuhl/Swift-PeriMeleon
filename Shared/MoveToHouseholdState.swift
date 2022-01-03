@@ -9,12 +9,7 @@ import Foundation
 
 enum MoveToHouseholdState {
     case enteringData
-    case moveHeadToNew
-    case prospectiveOrphans
-    case moveEmpties
-    case moveSpouseToNew
-    case moveOtherToNew
-    case moveToExistingSpouse
-    case moveSpouseToExisting
-    case moveOtherToExisting
+    case moveToNew
+    case moveToExistingOther
+    case moveToExistingDubious
 }
