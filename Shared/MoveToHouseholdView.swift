@@ -40,7 +40,7 @@ struct MoveToHouseholdView: View {
     
     private var memberList: some View {
         VStack {
-            Text("Open a household, then drag member to move:").font(.caption).italic()
+            Text("Drag member to move:").font(.caption).italic()
             Form {
                 ForEach(document.activeMembers) { member in
                     if document.eligibleToMove(member: member) {
@@ -85,6 +85,7 @@ struct MoveToHouseholdView: View {
                     NSLog("Dropped \(draggedId ?? "[nil]") on new")
                     if let actualId = draggedId {
                         memberId = actualId
+                        moveToHouseholdState = .moveToNew
                         showingSheet = true
                     }
                 }

@@ -34,25 +34,37 @@ struct QueriesView: View {
                     LinkText(label: "Members by status")
                 }
                 Caption(text: "Query members by status and residency.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: MembersByAgeView().environmentObject(document)) {
                     LinkText(label: "Members by age")
                 }
                 Caption(text: "Query members by age as of a given date.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: BirthdaysView().environmentObject(document)) {
                     LinkText(label: "Birthdays")
                 }
                 Caption(text: "Generate list of active embers with birthdays in a given month.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: BaptismsView().environmentObject(document)) {
                     LinkText(label: "Baptisms")
                 }
                 Caption(text: "List all baptisms recorded within a given range of dates.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: TransactionsQuery().environmentObject(document)) {
                     LinkText(label: "Transactions in date range")
@@ -62,13 +74,18 @@ struct QueriesView: View {
             }
         }
     }
+    
     fileprivate struct LinkText: View {
         var label: String
         
         var body: some View {
             HStack {
                 Button(action: {} ) {
-                    Text("\(label) \(Image(systemName: "chevron.forward"))").font(.body)
+                    Text("\(label) \(Image(systemName: "chevron.forward"))")
+                        .font(.body)
+                    ///https://stackoverflow.com/questions/56593120/how-do-you-create-a-multi-line-text-inside-a-scrollview-in-swiftui/56604599#56604599
+                        .fixedSize(horizontal: false, vertical: true)
+                        .lineLimit(10)
                 }
                 Spacer()
             }
@@ -81,6 +98,7 @@ struct QueriesView: View {
         var body: some View {
             Text(text)
                 .font(.caption)
+                .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(nil)
         }
     }

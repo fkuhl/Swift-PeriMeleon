@@ -42,7 +42,10 @@ struct WorkflowsView: View {
                         + "Enter the reception data once for the entire family. "
                         + "Enter the head of the household, then edit the new household, "
                         + "adding spouse and dependents.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: FamilyDismissedView(linkSelection: $linkSelection).environmentObject(document),
                                tag: .familyDismissed,
@@ -54,7 +57,10 @@ struct WorkflowsView: View {
                 Caption(text: "Family is dismissed or dismissal is pending. "
                         + "Enter date and comment "
                         + "and all members of the family are changed.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: MemberMarriesMember(linkSelection: $linkSelection).environmentObject(document),
                                tag: .memberMarriesMember,
@@ -71,18 +77,28 @@ struct WorkflowsView: View {
                 NavigationLink(destination: NewAddition(linkSelection: $linkSelection).environmentObject(document),
                                tag: .newAddition,
                                selection: $linkSelection) {
-                    LinkButton(linkSelection: $linkSelection, link: .newAddition, label: "New addition to household")
+                    LinkButton(linkSelection: $linkSelection,
+                               link: .newAddition,
+                               label: "New addition to household")
                 }
                 Caption(text: "Household welcomes new member.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: ProfessionView(linkSelection: $linkSelection).environmentObject(document),
                                tag: .profession,
                                selection: $linkSelection) {
-                    LinkButton(linkSelection: $linkSelection, link: .profession, label: "Profession of faith")
+                    LinkButton(linkSelection: $linkSelection,
+                               link: .profession,
+                               label: "Profession of faith")
                 }
                 Caption(text: "Non-communing member makes profession and becomes communing.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: MoveToHouseholdView().environmentObject(document),
                                tag: .moveToHousehold,
@@ -90,7 +106,10 @@ struct WorkflowsView: View {
                     LinkButton(linkSelection: $linkSelection, link: .moveToHousehold, label: "Moves to another household")
                 }
                 Caption(text: "Member moves to another household, or establishes their own household.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: MemberDiesView().environmentObject(document),
                                tag: .memberDies,
@@ -109,7 +128,10 @@ struct WorkflowsView: View {
                     
                 }
                 Caption(text: "Statistics on the data; app build information.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: MemberHouseholdCheckerView().environmentObject(document),
                                tag: .memberHouseholdChecker,
@@ -117,7 +139,10 @@ struct WorkflowsView: View {
                     LinkButton(linkSelection: $linkSelection, link: .memberHouseholdChecker, label: "Member-household consistency")
                 }
                 Caption(text: "For each active member, check that they are a member of that household and that household only.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: dataCheckerView,
                                tag: .dataChecker,
@@ -126,7 +151,10 @@ struct WorkflowsView: View {
                 }
                 Caption(text: "For each active member, check that member's status "
                             + "and last transaction are consistent.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: RemoveMemberView().environmentObject(document),
                                tag: .removeMember,
@@ -135,7 +163,10 @@ struct WorkflowsView: View {
                     
                 }
                 Caption(text: "Remove member from data. This is ONLY for maintenance, and never for normal use.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: RemoveHouseholdView().environmentObject(document),
                                tag: .removeHousehold,
@@ -144,7 +175,10 @@ struct WorkflowsView: View {
                     
                 }
                 Caption(text: "Remove household from data. This is ONLY for maintenance, and never for normal use.")
-            }.padding(.bottom, 10)
+            }
+#if targetEnvironment(macCatalyst)
+            .padding(.bottom, 10)
+#endif
             VStack(alignment: .leading) {
                 NavigationLink(destination: RepairMemberView().environmentObject(document),
                                tag: .repairMember,
@@ -165,7 +199,11 @@ struct WorkflowsView: View {
         var body: some View {
             HStack {
                 Button(action: { linkSelection = link }) {
-                    Text("\(label) \(Image(systemName: "chevron.forward"))").font(.body)
+                    Text("\(label) \(Image(systemName: "chevron.forward"))")
+                        .font(.body)
+                    ///https://stackoverflow.com/questions/56593120/how-do-you-create-a-multi-line-text-inside-a-scrollview-in-swiftui/56604599#56604599
+                        .fixedSize(horizontal: false, vertical: true)
+                        .lineLimit(10)
                 }
                 Spacer()
             }
@@ -178,8 +216,8 @@ struct WorkflowsView: View {
         var body: some View {
             Text(text)
                 .font(.caption)
-                .lineLimit(nil)
-                //.frame(width: 150)
+                .fixedSize(horizontal: false, vertical: true)
+                .lineLimit(10)
         }
     }
 
