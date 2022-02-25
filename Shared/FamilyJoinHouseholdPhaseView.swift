@@ -51,7 +51,7 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
     func make() -> Member {
         var newval = Member()
         NSLog("made spouse \(newval.id)")
-        var household = document.household(byId: householdId)
+        let household = document.household(byId: householdId)
         let head = document.member(byId: household.head)
         newval.household = household.id
         newval.givenName = "Spouse"
@@ -63,9 +63,7 @@ fileprivate class SpouseFactory: HouseholdMemberFactoryDelegate {
         if let trans = document.member(byId: household.head).transactions.first {
             newval.transactions.append(trans)
         }
-        document.add(member: newval)
-        household.spouse = newval.id
-        document.update(household: household)
+        ///HouseholdView addSpouse adds new member and updates household
         return newval
     }
 }
@@ -94,7 +92,7 @@ fileprivate class OtherFactory: HouseholdMemberFactoryDelegate {
         if let mom = household.spouse {
             newval.mother = document.member(byId: mom).id
         }
-        document.add(member: newval)
+        ///OtherAddView (in HouseholdView) adds member and updates household
         return newval
     }
 }

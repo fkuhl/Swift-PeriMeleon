@@ -158,6 +158,9 @@ fileprivate struct AddressLinkView: View {
 
 //MARK: - Members
 
+/**
+  Factories only return a new member. They do not add the member, nor update the member's household.
+ */
 protocol HouseholdMemberFactoryDelegate {
     var householdId: ID { get }
     func make() -> Member

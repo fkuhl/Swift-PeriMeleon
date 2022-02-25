@@ -40,7 +40,7 @@ struct FamilyJoinTransactionPhaseView: View {
     
     private var saveButton: some View {
         Button(action: {
-            accumulator.receptionTransaction.date = self.accumulator.dateReceived
+            accumulator.receptionTransaction.date = accumulator.dateReceived
             switch accumulator.receptionType {
             case .PROFESSION:
                 accumulator.receptionTransaction.type = .PROFESSION
