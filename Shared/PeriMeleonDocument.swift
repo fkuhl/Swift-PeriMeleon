@@ -185,9 +185,9 @@ class PeriMeleonDocument: ReferenceFileDocument {
         }
         DispatchQueue.global(qos: .userInitiated).async { [self] in
             decode(decryptedContent) { model in
-                setModel(model: model)
+                self.setModel(model: model)
             } cannotDecodeCompletion: { explanation in
-                setCannotDecode(explanation: explanation)
+                self.setCannotDecode(explanation: explanation)
             }
         }
     }

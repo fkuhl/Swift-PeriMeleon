@@ -24,7 +24,7 @@ struct BirthdaysEntryView: View {
                     Spacer()
                     Picker(selection: $selectedMonth,
                            label: Text("Choose month:").font(.body)) {
-                        ForEach(0 ..< months.count) {
+                        ForEach(0 ..< months.count, id: \.self) {
                             Text(months[$0]).font(.body)
                         }
                     }
