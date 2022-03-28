@@ -44,6 +44,10 @@ struct ContentView: View {
         case .passwordEntriesDoNotMatch:
             PasswordView(label: "Passwords didn't match. Please enter again:",
                          buttonText: "Open")
+        case .newPassword:
+            NewPasswordView(label: "Provide new password for current file:", buttonText: "Apply new password to current file")
+        case .newPasswordEntriesDoNotMatch:
+            NewPasswordView(label: "new passwprd entries do not match.", buttonText: "Apply new password to current file")
         }
     }
     

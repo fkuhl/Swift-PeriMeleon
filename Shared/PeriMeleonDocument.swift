@@ -35,6 +35,8 @@ class PeriMeleonDocument: ReferenceFileDocument {
         case passwordEntriesDoNotMatch
         case newFile
         case saveError(basicError: String, codingPath: String, underlyingError: String)
+        case newPassword
+        case newPasswordEntriesDoNotMatch
         case normal
     }
 
@@ -573,6 +575,32 @@ class PeriMeleonDocument: ReferenceFileDocument {
         NSLog("members added to, undo is \(String(describing: undoManager))")
         undoManager?.registerUndo(withTarget: self) { doc in
             doc.remove(member: member)
+        }
+    }
+    
+    func changePassword(firstAttempt: String, secondAttempt: String) {
+        guard firstAttempt == secondAttempt else {
+            self.state = .newPasswordEntriesDoNotMatch
+            return
+        }
+        key = makeKey(password: firstAttempt)
+        if let encryptionKey = key {
+            do {
+                try GenericPasswordStore().deleteKey(account: passwordAccount)
+                try GenericPasswordStore().storeKey(encryptionKey, account: passwordAccount)
+                state = .normal
+                changeCount += 1
+                NSLog("key changed, undo is \(String(describing: undoManager))")
+                undoManager?.registerUndo(withTarget: self) { doc in
+                    // TODO
+                }
+            } catch {
+                state = .saveError(basicError: "Error on encrypting with new password",
+                                   codingPath: "",
+                                   underlyingError: error.localizedDescription)
+            }
+        } else {
+            state = .noKey
         }
     }
 }

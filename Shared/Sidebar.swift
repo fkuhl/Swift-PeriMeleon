@@ -29,6 +29,11 @@ struct Sidebar: View {
             }, label: {
                 Label("Queries", systemImage: "magnifyingglass")
             })
+            DisclosureGroup(content: {
+                FileView()
+            }, label: {
+                Label("Document", systemImage: "doc")
+            })
         }
         .listStyle(SidebarListStyle())
     }

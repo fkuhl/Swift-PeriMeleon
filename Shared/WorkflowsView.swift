@@ -14,9 +14,6 @@ enum WorkflowLink {
     case newAddition
     case profession
     case moveToHousehold
-    case memberHouseholdChecker
-    case dataChecker
-    case information
     case removeMember
     case removeHousehold
     case repairMember
@@ -119,42 +116,7 @@ struct WorkflowsView: View {
                 Caption(text: "Member dies.")
             }
         }
-        DisclosureGroup("Miscellaneous") {
-            VStack(alignment: .leading) {
-                NavigationLink(destination: InformationView().environmentObject(document),
-                               tag: .information,
-                               selection: $linkSelection) {
-                    LinkButton(linkSelection: $linkSelection, link: .information, label: "Information")
-                    
-                }
-                Caption(text: "Statistics on the data; app build information.")
-            }
-#if targetEnvironment(macCatalyst)
-            .padding(.bottom, 10)
-#endif
-            VStack(alignment: .leading) {
-                NavigationLink(destination: MemberHouseholdCheckerView().environmentObject(document),
-                               tag: .memberHouseholdChecker,
-                               selection: $linkSelection) {
-                    LinkButton(linkSelection: $linkSelection, link: .memberHouseholdChecker, label: "Member-household consistency")
-                }
-                Caption(text: "For each active member, check that they are a member of that household and that household only.")
-            }
-#if targetEnvironment(macCatalyst)
-            .padding(.bottom, 10)
-#endif
-            VStack(alignment: .leading) {
-                NavigationLink(destination: dataCheckerView,
-                               tag: .dataChecker,
-                               selection: $linkSelection) {
-                    LinkButton(linkSelection: $linkSelection, link: .dataChecker, label: "Status-transaction consistency")
-                }
-                Caption(text: "For each active member, check that member's status "
-                            + "and last transaction are consistent.")
-            }
-#if targetEnvironment(macCatalyst)
-            .padding(.bottom, 10)
-#endif
+        DisclosureGroup("Repairs") {
             VStack(alignment: .leading) {
                 NavigationLink(destination: RemoveMemberView().environmentObject(document),
                                tag: .removeMember,
@@ -219,10 +181,6 @@ struct WorkflowsView: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(10)
         }
-    }
-
-    private var dataCheckerView: some View {
-        return DataCheckerView(dataChecker: DataChecker(document: document))
     }
 }
 
