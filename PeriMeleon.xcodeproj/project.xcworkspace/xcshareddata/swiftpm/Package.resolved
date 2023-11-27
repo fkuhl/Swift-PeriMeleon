@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "pmdatatypes",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fkuhl/PMDataTypes",
+      "state" : {
+        "branch" : "master",
+        "revision" : "aaf55dbced334f4bce503ff5e226bd07f83f12c2"
+      }
+    }
+  ],
+  "version" : 2
+}
