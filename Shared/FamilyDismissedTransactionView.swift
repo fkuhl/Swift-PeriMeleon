@@ -21,7 +21,7 @@ struct FamilyDismissedTransactionView: View {
                              choice: $accumulator.dismissalIsPending)
                 DateSelectionView(caption: "Date dismissed", date: $accumulator.dateDismissed)
                 EditTextView(caption: "authority", text: $accumulator.authority)
-                EditTextView(caption: "church from", text: $accumulator.churchFrom)
+                EditTextView(caption: "church to", text: $accumulator.churchTo)
                 EditTextView(caption: "comment", text: $accumulator.comment)
             }
         }
@@ -45,7 +45,7 @@ struct FamilyDismissedTransactionView: View {
             accumulator.dismissalTransaction.date = self.accumulator.dateDismissed
             accumulator.dismissalTransaction.type = accumulator.dismissalIsPending ?
                 .DISMISSAL_PENDING : .DISMISSED
-            accumulator.dismissalTransaction.church = accumulator.churchFrom
+            accumulator.dismissalTransaction.church = accumulator.churchTo
             accumulator.dismissalTransaction.authority = accumulator.authority
             accumulator.dismissalTransaction.comment = accumulator.comment
             withAnimation(.easeInOut(duration: editAnimationDuration)) {

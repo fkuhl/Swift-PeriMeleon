@@ -13,7 +13,7 @@ struct FamilyDismissedAccumulator {
     var phase: FamilyDismissedPhase = .transaction
     var dateDismissed = Date()
     var dismissalIsPending = true
-    var churchFrom = ""
+    var churchTo = ""
     var authority = ""
     var comment = ""
     var dismissalTransaction = PMDataTypes.Transaction()

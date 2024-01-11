@@ -19,8 +19,8 @@ struct FamilyDismissedVerificationView: View {
                         "\(accumulator.dismissalIsPending ? "Dismissal Pending" : "Dismissal") "
                         + "on \(dateFormatter.string(from: accumulator.dateDismissed))")
                         .font(.headline)) {
-                if !accumulator.churchFrom.isEmpty {
-                    EditDisplayView(caption: "Church to:", message: accumulator.churchFrom)
+                if !accumulator.churchTo.isEmpty {
+                    EditDisplayView(caption: "Church to:", message: accumulator.churchTo)
                 }
                 if !accumulator.authority.isEmpty {
                     EditDisplayView(caption: "Authority:", message: accumulator.authority)
