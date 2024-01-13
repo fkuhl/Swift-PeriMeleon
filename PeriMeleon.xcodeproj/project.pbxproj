@@ -164,6 +164,7 @@
 		27BF5799268BAE0700BEE938 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BF5797268BAE0700BEE938 /* SearchField.swift */; };
 		27BF579B268CBD0F00BEE938 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BF579A268CBD0F00BEE938 /* Sidebar.swift */; };
 		27BF579C268CBD0F00BEE938 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BF579A268CBD0F00BEE938 /* Sidebar.swift */; };
+		27C1A7032B50CACA00DAAF23 /* PMDataTypes in Frameworks */ = {isa = PBXBuildFile; productRef = 27C1A7022B50CACA00DAAF23 /* PMDataTypes */; };
 		27C55E112538CE0100923EE8 /* CompactToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E0C2538CE0100923EE8 /* CompactToggleView.swift */; };
 		27C55E122538CE0100923EE8 /* CompactToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E0C2538CE0100923EE8 /* CompactToggleView.swift */; };
 		27C55E132538CE0100923EE8 /* MembersByStatusResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C55E0D2538CE0100923EE8 /* MembersByStatusResultsView.swift */; };
@@ -428,6 +429,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27C1A7032B50CACA00DAAF23 /* PMDataTypes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -984,6 +986,7 @@
 			);
 			name = "PeriMeleon (macOS)";
 			packageProductDependencies = (
+				27C1A7022B50CACA00DAAF23 /* PMDataTypes */,
 			);
 			productName = "PeriMeleon (macOS)";
 			productReference = 276B9739250008DB003E19BA /* PeriMeleon.app */;
@@ -1539,7 +1542,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_ASSET_PATHS = "PeriMeleonUnitTests/test-doc.pmrolls PeriMeleonUnitTests/test-bad-doc.pmrolls";
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
@@ -1554,7 +1557,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ENABLE_BATCH_MODE = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "2,6";
@@ -1569,7 +1573,7 @@
 				CODE_SIGN_ENTITLEMENTS = PeriMeleon.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_ASSET_PATHS = "PeriMeleonUnitTests/test-doc.pmrolls PeriMeleonUnitTests/test-bad-doc.pmrolls";
 				DEVELOPMENT_TEAM = KRGB7TX9DU;
 				ENABLE_PREVIEWS = YES;
@@ -1584,7 +1588,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tyndalesoft.PeriMeleon;
 				PRODUCT_NAME = PeriMeleon;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ENABLE_BATCH_MODE = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "2,6";
@@ -1848,6 +1853,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		278D880E274D6E5700CB7D20 /* PMDataTypes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 278D880D274D6E5700CB7D20 /* XCRemoteSwiftPackageReference "PMDataTypes" */;
+			productName = PMDataTypes;
+		};
+		27C1A7022B50CACA00DAAF23 /* PMDataTypes */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 278D880D274D6E5700CB7D20 /* XCRemoteSwiftPackageReference "PMDataTypes" */;
 			productName = PMDataTypes;
