@@ -13,12 +13,11 @@ struct PeriMeleonApp: App {
     
     var body: some Scene {
         DocumentGroup(newDocument: PeriMeleonDocument.init) { file in
-            NavigationView {
-                ContentView(document: file.document,
-                            fileName: file.fileURL?.lastPathComponent ?? "[none]")
-            }.environmentObject(file.document)
+            ContentView(document: file.document,
+                        fileName: file.fileURL?.lastPathComponent ?? "[none]")
+            .environmentObject(file.document)
         }
-        .onChange(of: scenePhase) { newScenePhase in
+        .onChange(of: scenePhase, initial: true) { _, newScenePhase in
             switch newScenePhase {
             case .active:
                 print("App is active")

@@ -22,7 +22,7 @@ struct IntegerTextField: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .border(ageBorderColor, width: 1)
             .onAppear() { fieldText = "\(value)" }
-            .onChange(of: fieldText) { newValue in
+            .onChange(of: fieldText, initial: false) { _, newValue in
                 if let age = Int(fieldText), age >= min, age <= max {
                     value = age
                     ageBorderColor = Color.accentColor

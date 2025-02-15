@@ -8,7 +8,6 @@
 import Foundation
 import CryptoKit
 import Security
-import CommonCrypto
 
 // MARK - From Apple sample code
 
@@ -102,6 +101,7 @@ extension GenericPasswordConvertible {
 
 
 /// Ensure that SymmetricKey is generic password convertible.
+extension SymmetricKey: @retroactive CustomStringConvertible {}
 extension SymmetricKey: GenericPasswordConvertible {
     init<D>(rawRepresentation data: D) throws where D: ContiguousBytes {
         self.init(data: data)

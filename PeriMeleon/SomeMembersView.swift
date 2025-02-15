@@ -26,7 +26,7 @@ struct SomeMembersView: View, FilterUpdater {
                 }
             }
         }
-        .onChange(of: document.changeCount) { _ in
+        .onChange(of: document.changeCount) { _, _ in
             NSLog("SomeMembersView.onChange \(members.count) members")
             updateUI(filterText: "")
         }

@@ -27,7 +27,7 @@ struct HouseholdsView: View, FilterUpdater {
                     Text("All Households").tag(false)
                 })
                     .pickerStyle(SegmentedPickerStyle())
-                    .onChange(of: showingActive) { _ in updateUI(filterText: filterText) }
+                    .onChange(of: showingActive, initial: false) { _, _ in updateUI(filterText: filterText) }
                 SearchField(filterText: $filterText,
                             uiUpdater: self,
                             sortMessage: "filter by name")
@@ -44,7 +44,7 @@ struct HouseholdsView: View, FilterUpdater {
                 Text(showingActive ? "Active Households" : "All Households")
             })})
         .onAppear() { updateUI(filterText: "") }
-        .onChange(of: document.changeCount) { _ in updateUI(filterText: "") }
+        .onChange(of: document.changeCount, initial: false) { _, _ in updateUI(filterText: "") }
     }
     
     // MARK: - FilterUpdater
